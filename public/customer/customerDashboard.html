@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+
+    <link rel="stylesheet" href="../test-current-wrking/styles/customerDashboard.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../test-current-wrking/scripts/header.js" defer></script>
+    <script src="../test-current-wrking/scripts/calenderScript.js" defer></script>
+    <script src="../test-current-wrking/scripts/sidebar.js" defer></script>
+    
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content">
+
+            <div id="header"></div>
+
+            <section class="content">
+                <div class="main">
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Total Orders</h3>
+                            <p>02</p>
+                            <button class="button outline" >View Orders</button>
+                        </div>
+                        <div class="card">
+                            <h3>Current Order Items</h3>
+                            <p>02</p>
+                            <button class="button outline">View Items</button>
+                        </div>
+                        <div class="card">
+                            <h3>Current Order Progress</h3>
+                            <p>02 Items Delivered</p>
+                            <p>04 Items on process</p>
+                        </div>
+                        <div class="card">
+                            <h3>Current Order Payment</h3>
+                            <p>Total: Rs. 65,000</p>
+                            <p>Paid: Rs. 25,000</p>
+                            <p>Balance: Rs. 40,000</p>
+                        </div>
+                    </div>
+                    <h2>Upcoming Events</h2>
+                        <div class="card-grid">
+                            <div class="card">
+                                <h3>Appointment</h3>
+                                <h4>Measurement Person</h4>
+                                <p>Name : Mr. Perera</p>
+                                <p>Date : 21.10.2024</p>
+                                <p>Time : 10.00 am to 12.00 pm</p>
+                                <p>Contact : 0723455566</p>
+                            </div>
+                            <div class="card">
+                                <h4>Delivery Person</h4>
+                                <p>Name : Mr. Perera</p>
+                                <p>Date : 21.10.2024</p>
+                                <p>Time : 10.00 am to 12.00 pm</p>
+                                <p>Contact : 0723455566</p>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="right">
+                    <!-- <h1>Calender</h1> -->
+                    <div class="right-top">
+                        <div class="wrapper">
+                            <header>
+                                <p class="current-date"></p>
+                                <div class="icons">
+                                <span id="prev" class="material-symbols-rounded"><i class="fa-solid fa-chevron-left"></i></span>
+                                <span id="next" class="material-symbols-rounded"><i class="fa-solid fa-chevron-right"></i></span>
+                                </div>
+                            </header>
+                            <div class="calendar">
+                                <ul class="weeks">
+                                  <li>Sun</li>
+                                  <li>Mon</li>
+                                  <li>Tue</li>
+                                  <li>Wed</li>
+                                  <li>Thu</li>
+                                  <li>Fri</li>
+                                  <li>Sat</li>
+                                </ul>
+                                <ul class="days"></ul>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="right-bottom">
+                        <div class="heading">
+                            <span ><i class="fa-regular fa-heart"></i></span>
+                            <h2>Wishlist</h2>
+                        </div>
+                        
+                        <p>No.of Products in list : 04</p>
+                        <div class="product">
+                            <h6>Chair</h6>
+                            <p>Type: Mahogany</p>
+                        </div>
+                        <div class="product">
+                            <h6>Chair</h6>
+                            <p>Type: Mahogany</p>
+                        </div>
+                        <button class="button outline">View more</button>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>

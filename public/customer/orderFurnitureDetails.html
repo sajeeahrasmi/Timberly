@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture Order Details</title>
+
+    <link rel="stylesheet" href="/styles/orderDoorDetails.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="/scripts/sidebar.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
+    <script src="/scripts/pendingDoorOrder.js" defer></script>
+
+
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">
+                
+                <div class="top">
+                    <h2>Order #4545</h2>
+                    <div class="right-section">
+                        <p data-status="Pending" id="status">Processing</p>
+                        <button id="action-button" class="button outline">Cancel Order</button>
+                    </div>
+                </div>
+                
+
+                <div class="middle">
+                    <div class="card">
+                        <h4>Payment Detail</h4>
+                        <p>Total: Rs. 65,000</p>
+                        <p>Paid: Rs. 25,000</p>
+                        <p>Balance: Rs. 40,000</p>
+                        <button class="button outline">Pay</button>
+                    </div>
+                    <div class="card">
+                        <h4>Measurement Person</h4>
+                        <p>Name : Mr. Perera</p>
+                        <p>Date : <input type="date" /></p>
+                        <p>Time : 10.00 am to 12.00 pm</p>
+                        <p>Contact : 0723455566</p>
+                        
+                    </div>
+                    <div class="card">
+                        <h4>Delivery Person</h4>
+                        <p>Name : Mr. Perera</p>
+                        <p>Date : <input type="date" /></p>
+                        <p>Time : 10.00 am to 12.00 pm</p>
+                        <p>Contact : 0723455566</p>
+                    </div>
+                </div>
+                
+
+                <div class="bottom">
+
+                    <!-- Topic section with heading and item count on the right -->
+                    <div class="topic">
+                        <h2>Order Details</h2>
+                        <p>No. of Items: 4</p>
+                    </div>
+    
+                    <!-- Scrollable table section -->
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>Length(m)</th>
+                                    <th>width(mm)</th>
+                                    <th>thickness(mm)</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Chair</td>
+                                    <td>Mahogany Wood</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>$50</td>
+                                    <td>
+                                        <span ><i class="fa-solid fa-eye"></i></span>
+                                        <span ><i class="fa-solid fa-pen"></i></span>
+                                        <span ><i class="fa-solid fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Table</td>
+                                    <td>Oak Wood</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>$150</td>
+                                    <td>
+                                        <span ><i class="fa-solid fa-eye"></i></span>
+                                        <span ><i class="fa-solid fa-pen"></i></span>
+                                        <span ><i class="fa-solid fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Table</td>
+                                    <td>Oak Wood</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>$150</td>
+                                    <td>
+                                        <span ><i class="fa-solid fa-eye"></i></span>
+                                        <span ><i class="fa-solid fa-pen"></i></span>
+                                        <span ><i class="fa-solid fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Table</td>
+                                    <td>Oak Wood</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>$150</td>
+                                    <td>
+                                        <span ><i class="fa-solid fa-eye"></i></span>
+                                        <span ><i class="fa-solid fa-pen"></i></span>
+                                        <span ><i class="fa-solid fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Table</td>
+                                    <td>Oak Wood</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>$150</td>
+                                    <td>
+                                        <span ><i class="fa-solid fa-eye"></i></span>
+                                        <span ><i class="fa-solid fa-pen"></i></span>
+                                        <span ><i class="fa-solid fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+    
+                    <!-- Footer button -->
+                    <div class="footer-button">
+                        <button id="add-button">Add</button>
+                        <button id="update-button">Update</button>
+                    </div>
+    
+                </div>
+
+            </div>
+        </div>
+   
+    </div>
+
+</body>
+</html>

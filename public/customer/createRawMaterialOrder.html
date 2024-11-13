@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Raw Material Order</title>
+
+    <link rel="stylesheet" href="/styles/createRawMaterialOrder.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="/scripts/sidebar.js" defer></script>
+    <script src="/scripts/header.js" defer></script>
+    <script src="/scripts/createDoorOrderScript.js" defer></script>
+
+    <style>
+        .image-dropdown {
+            position: relative;
+        }
+    
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+    
+        .dropdown-toggle {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            white-space: nowrap;
+        }
+    
+        .dropdown-menu img {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+    
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    
+        .dropdown img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">
+            
+                <div class="left">  
+                    <div class="buttons">
+                        <button>Door/Window</button>
+                        <button>Other furnitures</button>
+                        <button style="background-color: #B18068;">Raw Materials</button>
+                    </div>
+                    <div class="form-content">
+                        <h4>Item Details</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="category">Select Type: </label>
+                                <select id="category">
+                                    <option>Jak</option>
+                                    <option>Jak</option>
+                                    <option>Jak</option>
+                                    <option>Jak</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <h5>Size</h5>
+                                <label>Length</label>
+                                <input type="number">
+                                <label>Width</label>
+                                <input type="number">
+                                <label>Height</label>
+                                <input type="number">
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Unit Price : Rs. 450</label>
+                                
+                            </div>
+
+                        </form>
+                        <div class="add-button">
+                            <button type="submit" class="button outline">Add Item</button>
+                        </div>
+                        
+                    </div>               
+                </div>
+
+               
+                <div class="right">
+                    <!-- <div class="right-top">
+                        <h2>Order #5656</h2>
+                        <h3>No.of Items : 4</h3>
+                    </div>
+
+                    <div class="right-middle">
+                        <div class="product">
+                            <h6>Chair</h6>
+                            <p>Type: Mahogany</p>
+                        </div>
+                        <div class="product">
+                            <h6>Chair</h6>
+                            <p>Type: Mahogany</p>
+                        </div>
+                        <div class="product">
+                            <h6>Chair</h6>
+                            <p>Type: Mahogany</p>
+                        </div>
+                       
+                    </div>
+                    <div class="right-bottom">
+                        <button class="button outline" >Checkout Order</button>              
+                    </div>       -->
+
+                    <div class="right-top">
+                        <div class="heading">
+                            <h2>Order #5656</h2>
+                            <h4>No.of Items : 4</h4>
+                        </div>
+                        <div class="order-list">
+                            <div class="product">
+                                <h6>Chair</h6>
+                                <p>Type: Mahogany</p>
+                            </div>
+                            <div class="product">
+                                <h6>Chair</h6>
+                                <p>Type: Mahogany</p>
+                            </div>
+                            <div class="product">
+                                <h6>Chair</h6>
+                                <p>Type: Mahogany</p>
+                            </div>
+                            <div class="product">
+                                <h6>Chair</h6>
+                                <p>Type: Mahogany</p>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <hr>
+                        <p>No.of items: 02</p>
+                        <p>Total: <span class="total-amount">Rs. 24000</span></p>
+                    </div>
+
+                    <button class="button outline" >Checkout Order</button>   
+                   
+                </div>
+
+            </div>
+        </div>
+            
+    </div>
+
+</body>
+</html>

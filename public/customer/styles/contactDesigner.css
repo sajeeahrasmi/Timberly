@@ -1,0 +1,171 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+  
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+  
+    --card-padding: 20px;
+    --padding: 10px;
+  
+    --box-shadow: 0 4px 8px var(--color-secondary);
+  }
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    /* background-color:  #895D47; ; */
+  }
+  
+  
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  
+  .dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2px 2px 2px 5px;
+    margin: 0px;
+    background-color: #895D47;
+    gap: 2px;
+  }
+  
+  
+  .dashboard-container .main-content .content {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    background-color: var(--color-white);
+    max-height: 89vh;
+    overflow-y: auto;
+  }
+
+  .dashboard-container .main-content .content .product-list {
+    width: 35%;
+    padding: 20px;
+    color: black;
+    overflow-y: auto;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+}
+
+.dashboard-container .main-content .content .product-list h2 {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.dashboard-container .main-content .content .product-list .product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 10px;
+    border-radius: var(--border-radius-2);
+    border: 2px solid var(--color-secondary);
+}
+
+.dashboard-container .main-content .content .product-list .product:hover {
+    background-color: var(--color-secondary);
+}
+
+.dashboard-container .main-content .content .product-list .product img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.dashboard-container .main-content .content .product-list .product p {
+    margin: 0;
+}
+
+.dashboard-container .main-content .content .chat-box {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius-1);
+    border: 2px solid var(--color-primary);
+}
+
+.dashboard-container .main-content .content .chat-box h2 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+#chat-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: var(--border-radius-2);
+    border: 2px solid var(--color-secondary);
+}
+
+.dashboard-container .main-content .content .chat-input {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-container .main-content .content .chat-input input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 0.8rem 0 0 0.8rem;
+    border: 2px solid var(--color-secondary);
+    outline: none;
+}
+
+.dashboard-container .main-content .content .chat-input button {
+    padding: 10px 20px;
+    border: 2px solid var(--color-secondary);
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    border-radius: 0 0.8rem 0.8rem 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.dashboard-container .main-content .content .chat-input button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.dashboard-container .main-content .content .chat-input .upload-button {
+    padding: 8.8px 20px;
+    border-left: 0;
+    border-right: 0;
+    border-top: 2px solid var(--color-secondary);
+    border-bottom: 2px solid var(--color-secondary);
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    border-radius: 0 ;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+}
+
+.dashboard-container .main-content .content .chat-input .upload-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
