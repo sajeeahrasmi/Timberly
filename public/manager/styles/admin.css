@@ -1,0 +1,496 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  
+  color: #333;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color:  #895D47; ;
+}
+
+/* Admin container */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+@media (min-width: 769px) {
+  .admin-container {
+    flex-direction: row;
+  }
+}
+
+/* Top Bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;;
+  padding: 10px;
+  box-shadow: 0 4px 8px   #895D47; 
+  margin: 0px;
+  z-index: 1000;
+}
+.top-bar h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #895D47;;
+}
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: #f7efef;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* User actions */
+.user-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  
+  
+  
+  
+}
+
+.user-actions button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 15px;
+}
+
+/* Sidebar */
+/* Sidebar */
+/* Admin container */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+@media (min-width: 769px) {
+  .admin-container {
+    flex-direction: row;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #FFFFFF; /* White background for the sidebar */
+  padding: 0px 20px;
+  color: #895D47; /* Brown color for text to match theme */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;  
+  height: 100vh;     
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds slight shadow for depth */
+  position: fixed; /* Make sure the sidebar stays on the left */
+  left: 0; /* Ensure it sticks to the left */
+}
+
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 20px 0;
+  color: #895D47; /* Brown color for logo text */
+}
+
+.sidebar h2 {
+  margin-top: 80px;
+  
+
+}
+
+.sidebar hr {
+  border: none;
+  height: 2px;
+  background-color: #895D47; /* Light grey for the divider */
+  margin: -20px 0 0px;
+  width: 100%;
+}
+
+.sidebar nav {
+  flex-grow: 1; 
+  display: flex;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0; 
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #895D47; /* Brown color for link text */
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 500;
+}
+
+.sidebar ul li a i.icon {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+/* Hover and active styles */
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background-color: #B18068; /* Light brown for active and hover state */
+  color: #FFFFFF; /* White text on active and hover */
+}
+
+.sidebar ul li a:hover i.icon,
+.sidebar ul li a.active i.icon {
+  color: #FFFFFF; /* White icon on hover and active state */
+}
+
+/* Log Out Button at the bottom */
+/* Styling for the logout section */
+/* Ensure the logout button is positioned right after the last link */
+/* Ensure the logout button is positioned right after the last link */
+/* Ensure the logout button is positioned right after the "Supplier" link */
+/* Ensure the logout button is positioned right after the "Supplier" link */
+ .logout {
+  margin-bottom: 100px; /* Adjust margin as needed for spacing */
+
+}
+
+.logout button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #dc3545;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%; /* Button will take full width */
+   /* Optional: Set a maximum width if needed */
+  /* Optional: Add vertical spacing */
+  margin-left: 0px; /* Adjust this value to move the button left */
+}
+
+
+
+
+.logout button:hover {
+  background-color: #c82333;
+}
+
+
+
+/* Main Content Area */
+.content {
+  flex-grow: 1;
+  padding: 80px 20px 20px;
+  transition: margin-left 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .content {
+    margin-left: 0;
+  }
+}
+
+/* Metric Cards Styling */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px 895D47(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  
+}
+.section h1{
+  color : #ffff
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  
+}
+
+.metric-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.metric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.metric-content i {
+  font-size: 36px;
+  color: #895D47;
+}
+
+.metric-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #895D47;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-card button i {
+  margin-right: 8px;
+}
+
+
+
+/* Orders Table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid #fffcfc;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius-2);
+  overflow: hidden;
+  margin-top:50px;
+}
+
+.styled-table thead th {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+  border: 2px solid #ffffff;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.styled-table tbody td {
+  padding: 10px;
+  color: #333;
+  border: 1px solid #0d0d0d;
+}
+
+
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .orders-table thead {
+    display: none;
+  }
+
+  .orders-table tbody, .orders-table tr, .orders-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .orders-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+  }
+
+  .orders-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .orders-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: left;
+    flex-basis: 50%;
+  }
+}
+
+/* Button Styles */
+.button-container {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+.accept-btn, .reject-btn {
+  padding: 10px 20px;
+    border-radius: 20px; 
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+    font-weight: 600;
+
+  margin: 5px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  
+  width: calc(50% - 10px);
+}
+
+.accept-btn {
+  background-color: #28a745;
+}
+
+.reject-btn {
+  background-color: #dc3545;
+}
+
+.accept-btn:hover {
+  background-color: #218838;
+}
+
+.reject-btn:hover {
+  background-color: #c82333;
+}
+
+/* Section visibility */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Responsive font sizes */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .metric-card h3 {
+    font-size: 16px;
+  }
+
+  .metric-value {
+    font-size: 24px;
+  }
+
+  .metric-content i {
+    font-size: 30px;
+  }
+}
+
+/* Ensure sidebar is visible on larger screens */
+@media (min-width: 769px) {
+  body {
+    padding-left: 250px;
+  }
+
+  .sidebar {
+    left: 0;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}
+
+/* Adjustments for top bar icons */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  border-radius: 50%;
+  background-color: #895D47;
+}
+
+.user-actions button:hover {
+  background-color: #895D47;
+}
+
+/* Logout Button */
+.logoutButton form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.logoutButton button {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logoutButton button:hover {
+  background-color: #c82333;
+}
+.textt h2{
+  color: #fff;
+  margin-top: 20px;
+}
