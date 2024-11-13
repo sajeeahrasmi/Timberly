@@ -1,17 +1,18 @@
+                            
 document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById('action-button');
     const statusElement = document.getElementById('status');
     const buttonAddElement = document.getElementById('add-button');
     const buttonUpdateElement = document.getElementById('update-button');
-    
+    const popupMessage = document.getElementById('popup-message');
+    const overlay = document.getElementById('popup-overlay');
+    const closePopupButton = document.getElementById('close-popup');
 
    
     function updateButton() {
         if (statusElement.textContent === 'Confirmed') {
-            buttonElement.textContent = 'Contact';
-            buttonElement.onclick = function() {
-                window.location.href = "http://localhost/Timberly/public/customer/contactDesigner.html";
-            };
+            buttonElement.style.display = 'none';
+            
 
             buttonAddElement.style.display = 'none';
             buttonUpdateElement.textContent = 'Proceed to Pay';
@@ -20,9 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // statusElement.textContent = 'Processing';
                 // updateButton();
             };
+            
 
         } else if (statusElement.textContent === 'Processing') {
             buttonElement.textContent = 'Track';
+            buttonElement.style.display = 'inline-block';
             buttonElement.onclick = function() {
                 window.location.href = "http://localhost/Timberly/public/customer/trackOrder.html";
             };
@@ -39,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
             buttonAddElement.onclick = function(){
                 showPopup();
             }
-
-           
         }
     }
 
@@ -95,11 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         
-      }   
-
+      } 
+    
     updateButton();
-});
 
+    
+});
 
 
 const popupMessage = document.getElementById('popup-message');
@@ -114,6 +116,3 @@ closePopupButton.onclick = function(){
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popup").style.display = "none";
   }
-
-
-

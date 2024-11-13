@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Door/Window Order</title>
 
-    <link rel="stylesheet" href="/styles/createDoorOrder.css">
+    <link rel="stylesheet" href="http://localhost/Timberly/public/customer/styles/createDoorOrder.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <!-- <script src="script.js" defer></script> -->
-    <script src="/scripts/sidebar.js" defer></script>
-    <script src="/scripts/header.js" defer></script>
-    <script src="/scripts/createDoorOrderScript.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
 
     <style>
         .image-dropdown {
@@ -71,9 +71,9 @@
             
                 <div class="left">  
                     <div class="buttons">
-                        <button style="background-color: #B18068;">Door/Window</button>
-                        <button>Other furnitures</button>
-                        <button>Raw Materials</button>
+                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.html`">Door/Window</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.html`">Other furnitures</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
                     </div>
                     <div class="form-content">
                         <h4>Item Details</h4>
@@ -102,15 +102,15 @@
                                     <!-- <label>Select a Design: </label> -->
                                     <div class="dropdown">
                                         <div class="dropdown-toggle">
-                                            <img id="selected-design" src="/images/design1.jpg" alt="Select Design" width="100">
+                                            <img id="selected-design" src="../images/pic1.jpg" alt="Select Design" width="100">
                                         </div>
                                         <div class="dropdown-menu">
-                                            <img class="design-option" src="/images/design1.jpg" alt="Design 1" width="100">
-                                            <img class="design-option" src="/images/design2.jpg" alt="Design 2" width="100">
-                                            <img class="design-option" src="/images/design3.jpg" alt="Design 3" width="100">
-                                            <img class="design-option" src="/images/design4.jpg" alt="Design 1" width="100">
-                                            <img class="design-option" src="/images/design5.jpg" alt="Design 2" width="100">
-                                            <img class="design-option" src="/images/design6.jpg" alt="Design 3" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 1" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 2" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 3" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 1" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 2" width="100">
+                                            <img class="design-option" src="../images/pic1.jpg" alt="Design 3" width="100">
                                         </div>
                                     </div>
                                 </div>
@@ -208,25 +208,10 @@
                             <h6>Chair</h6>
                             <p>Type: Mahogany</p>
                         </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
+                        
                     </div>
                     <div class="right-bottom">
-                        <button class="button outline" >Checkout Order</button>              
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderDoorDetails.html`">Checkout Order</button>              
                     </div>      
                    
                 </div>
@@ -234,6 +219,8 @@
         </div>
         </div>
         
+       
+
         
         
         

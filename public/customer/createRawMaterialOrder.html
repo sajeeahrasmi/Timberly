@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Raw Material Order</title>
 
-    <link rel="stylesheet" href="/styles/createRawMaterialOrder.css">
+    <link rel="stylesheet" href="../customer/styles/createRawMaterialOrder.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="/scripts/sidebar.js" defer></script>
-    <script src="/scripts/header.js" defer></script>
-    <script src="/scripts/createDoorOrderScript.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
 
     <style>
         .image-dropdown {
@@ -66,13 +66,13 @@
         <div class="main-content">
             <div id="header"></div>
 
-            <div class="content">
+            <div class="content"> 
             
                 <div class="left">  
                     <div class="buttons">
-                        <button>Door/Window</button>
-                        <button>Other furnitures</button>
-                        <button style="background-color: #B18068;">Raw Materials</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.html`" >Door/Window</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.html`">Other furnitures</button>
+                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
                     </div>
                     <div class="form-content">
                         <h4>Item Details</h4>
@@ -118,29 +118,6 @@
 
                
                 <div class="right">
-                    <!-- <div class="right-top">
-                        <h2>Order #5656</h2>
-                        <h3>No.of Items : 4</h3>
-                    </div>
-
-                    <div class="right-middle">
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                        <div class="product">
-                            <h6>Chair</h6>
-                            <p>Type: Mahogany</p>
-                        </div>
-                       
-                    </div>
-                    <div class="right-bottom">
-                        <button class="button outline" >Checkout Order</button>              
-                    </div>       -->
 
                     <div class="right-top">
                         <div class="heading">
@@ -175,7 +152,7 @@
                         <p>Total: <span class="total-amount">Rs. 24000</span></p>
                     </div>
 
-                    <button class="button outline" >Checkout Order</button>   
+                    <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`">Checkout Order</button>   
                    
                 </div>
 
