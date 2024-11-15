@@ -21,32 +21,32 @@ $orders = [
     </head>
     <body>
     <div class="main-content">
-            <div class="orders-display-box">
-                <h2>Customer Orders</h2>
-                <table class="product-table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Product</th>
-                            <th>Customer name</th>
-                            <th>Payment type</th>
-                            <th>Order status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($orders as $order): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($order['id']); ?></td>
-                            <td><?php echo htmlspecialchars($order['date']); ?></td>
-                            <td><?php echo htmlspecialchars($order['product']); ?></td>
-                            <td><?php echo htmlspecialchars($order['customer']); ?></td>
-                            <td><?php echo htmlspecialchars($order['payType']); ?></td>
-                            <td><?php echo htmlspecialchars($order['orderStatus']); ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+        <div class="orders-display-box">
+            <h2>Customer Orders</h2>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Customer name</th>
+                        <th>Payment type</th>
+                        <th>Order status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($orders as $order): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($order['id']); ?></td>
+                        <td><?php echo htmlspecialchars($order['date']); ?></td>
+                        <td><?php echo htmlspecialchars($order['product']); ?></td>
+                        <td><?php echo htmlspecialchars($order['customer']); ?></td>
+                        <td><?php echo htmlspecialchars($order['payType']); ?></td>
+                        <td class="order-status"><?php echo htmlspecialchars($order['orderStatus']); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>
