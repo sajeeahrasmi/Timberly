@@ -268,6 +268,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
+    width: 100%; /* Ensure inputs fill the available space */
 }
 
 .create-order-form input[type="file"] {
@@ -325,23 +326,40 @@
     overflow: auto; /* Enable scroll if needed */
 }
 
-/* Style the content inside the popup */
-#confirmation-popup .modal-content {
-    background-color: #fff;
-    margin: 15% auto; /* Center the popup */
+.popup-content {
+    background-color: white;
     padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    width: 60%;
+    margin: 10% auto;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%; /* Allow it to scale on smaller screens */
 }
 
-/* Close button */
-.close-popup {
-    float: right;
+.popup-content h2 {
     font-size: 24px;
-    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    background-color: #895D47;
+    color: white;
+    border: none;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.popup-content button:hover {
+    background-color: #5D4037;
+}
+
+/* Apply popup visibility */
+#confirmation-popup.show {
+    display: block; /* Show popup when active */
 }
 }
+
 
 #confirm-submit {
     padding: 12px 20px;
