@@ -27,7 +27,7 @@ $productData = [
                     <p>posts</p>
                     <div class="content-header">
                         <h2>Products</h2>
-                        <a href="/Admin/createPost.php">Create a post</a>
+                        <a href="./createPost.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Create a post</a>
                     </div>
                     <table class="product-table">
                         <thead>
