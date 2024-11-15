@@ -15,11 +15,13 @@
         <h1>Available Products</h1>
 
         <!-- Tabs for Furniture, Raw Materials, and Doors and Windows -->
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('raw-materials')">Raw Materials</button>
-            <button class="tab" onclick="showTab('furniture')">Furniture</button>
-            <button class="tab" onclick="showTab('doors-and-windows')">Doors and Windows</button>
-        </div>
+        <!-- Modify tab buttons to use data-tab attributes -->
+<div class="tabs">
+    <button class="tab active" data-tab="raw-materials" onclick="showTab('raw-materials')">Raw Materials</button>
+    <button class="tab" data-tab="furniture" onclick="showTab('furniture')">Furniture</button>
+    <button class="tab" data-tab="doors-and-windows" onclick="showTab('doors-and-windows')">Doors and Windows</button>
+</div>
+
 
         <!-- Content for Raw Materials -->
     <!-- Raw Materials Content -->
@@ -30,14 +32,16 @@
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
                 <?php foreach ($timberData as $item): ?>
-                    <div class="product-card" data-name="<?php echo htmlspecialchars($item['type']); ?>">
+                    <div class="product-card" data-name="<?php echo htmlspecialchars($item['timberId']); ?>" id ="rtimber">
                         <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
                         <h3><?php echo htmlspecialchars($item['type']); ?></h3>
                         <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> cm</p>
                         <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                         <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
                         <div class="card-actions">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button> <!-- Icon for Edit -->
+                        <button class="edit-btn" >
+        <i class="fas fa-edit"></i>
+    </button>
                     <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
                 </div>
                     </div>
@@ -50,7 +54,7 @@
             <h2 class="supplier-title">Lumber </h2>
             <div class="products">
                 <?php foreach ($lumberData as $item): ?>
-                    <div class="product-card" data-name="<?php echo htmlspecialchars($item['type']); ?>">
+                    <div class="product-card" data-name="<?php echo htmlspecialchars($item['lumberId']); ?>" id ="rlumber">
                         <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
                         <h3><?php echo htmlspecialchars($item['type']); ?></h3>
                         <p>Length: <?php echo htmlspecialchars($item['length']); ?> cm</p>
@@ -59,7 +63,9 @@
                         <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
                         <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
                         <div class="card-actions">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button> <!-- Icon for Edit -->
+                        <button class="edit-btn" >
+        <i class="fas fa-edit"></i>
+    </button><!-- Icon for Edit -->
                     <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
                 </div>
                     </div>
@@ -75,7 +81,7 @@
 <div id="furniture" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($furnitureData as $item): ?>
-            <div class="f-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>">
+            <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ffurniture">
                 <img src="./images/chair.jpg" alt="<?php echo htmlspecialchars($item['productId']); ?>">
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
@@ -83,7 +89,9 @@
                 <p>Unit Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                 <p>Review: <?php echo htmlspecialchars($item['review']); ?></p>
                 <div class="card-actions">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button> <!-- Icon for Edit -->
+                <button class="edit-btn">
+        <i class="fas fa-edit"></i>
+    </button>
                     <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
                 </div>
             </div>
@@ -96,7 +104,7 @@
 <div id="doors-and-windows" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($doorsAndwindowsData as $item): ?>
-            <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>">
+            <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ddoorsandwindows">
                 <img src="./images/decorated-front-door-with-plant_23-2150562176.avif" alt="<?php echo htmlspecialchars($item['productId']); ?>">
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
@@ -104,23 +112,27 @@
                 <p>Unit Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                 <p>Review: <?php echo htmlspecialchars($item['review']); ?></p>
                 <div class="card-actions">
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button> <!-- Icon for Edit -->
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
+                <button class="edit-btn" >
+        <i class="fas fa-edit"></i>
+    </button> <!-- Icon for Edit -->
+                    <button class="delete-btn" onclick = "deletee()"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
 </div>
 
+<!-- Add this code just before the closing </body> tag in your products.php file -->
+<!-- Edit Product Modal -->
 
-        <!-- Modal for Creating New Products -->
+        
         <div id="create-order-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Product Post</h1>
         <form id="create-order-form" class="create-order-form" action="createorder.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             
-            <!-- Material Type Selection -->
+           
             <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" required onchange="checkCustomMaterial(this)">
                 <option value="">Select Material Type</option>
@@ -133,7 +145,7 @@
             <label for="custom_material_type" id="custom_material_label" style="display:none;">Custom Material:</label>
             <input type="text" id="custom_material_type" name="custom_material_type" style="display:none;">
 
-            <!-- Product Category Selection (Furniture or Door/Window) -->
+           
             <label for="product_category">Product Category:</label>
             <select id="product_category" name="product_category" required>
                 <option value="">Select Category</option>
@@ -141,11 +153,11 @@
                 <option value="door-window">Doors and Windows</option>
             </select>
 
-            <!-- Unit Price -->
+            
             <label for="unit_price">Unit Price:</label>
             <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
 
-            <!-- Product Image -->
+            
             <label for="product_image">Product Image:</label>
             <input type="file" id="product_image" name="product_image" accept="image/*" required>
 
@@ -155,7 +167,7 @@
 </div>
 
 
-        <!-- Confirmation Popup -->
+        
         <div id="confirmation-popup" class="modal">
             <div class="modal-content">
                 <h2>Are you sure you want to submit the product?</h2>
@@ -164,9 +176,23 @@
             </div>
         </div>
 
-        <!-- Popup for Detailed Product View -->
+        
         
     </div>
+    <div id="edit-product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h1>Edit Product</h1>
+        <form id="edit-product-form" class="create-order-form" action="../../api/editProducts.php" method="post" enctype="multipart/form-data">
+            
+            <!-- Dynamic fields will be populated here -->
+            <div id="dynamic-fields"></div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
 
     <script src="./scripts/products.js"></script>
 </body>
