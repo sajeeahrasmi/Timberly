@@ -1,6 +1,6 @@
 <?php
 session_start();
-include './includes/db.php'; // include your database connection
+include '../../api/db.php'; // include your database connection
 
 // Check if the user is already logged in
 if (isset($_SESSION['user_id'])) {
@@ -44,27 +44,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Timberly</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./styles/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h2>Login to Timberly</h2>
-        <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
-        <form action="login.php" method="POST">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+        <div class="form-container">
+            <h2>Login to Timberly</h2>
+            <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
+            <form action="login.php" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-            <button type="submit">Sign in</button>
-        </form>
-        <p class="register">Don't have an account? <a href="registration.php">Sign up</a></p>
+                <button type="submit">Sign in</button>
+            </form>
+            <p class="register">Don't have an account? <a href="registration.php">Sign up</a></p>
+        </div>
     </div>
 </body>
 </html>

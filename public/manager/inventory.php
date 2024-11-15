@@ -8,105 +8,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management</title>
-</head>
-<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Unique styling for the inventory section */
+        /* General reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* Container for inventory */
         #inventory-section {
-            width: 100%;
+            width: 98%; /* Increased width to fill more screen space */
+            max-width: 1600px; /* Further widened max-width */
             background-color: #e9ecef;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
+            margin: 50px auto; /* Keeps the centering but increased width */
+            padding: 40px; /* Increased padding for better spacing */
+            border: 2px solid #8B4513; /* Brown border around the entire inventory section */
         }
+
+        /* Title styling */
         h1 {
-            margin-bottom: 20px;
-        }
-        h2 {
-            margin-left: 20px;
-        }
-        #inventory-section h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 30px; /* More spacing for title */
+            font-size: 30px; /* Larger font size */
             color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
+
         /* Filter styles */
         .inventory-filter {
-            margin-bottom: 20px;
+            margin-bottom: 30px; /* Increased bottom margin */
+            text-align: left;
         }
+
         .inventory-filter label {
             margin-right: 10px;
             margin-left: 20px;
         }
+
         /* Tab styles */
         .inventory-tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px; /* More spacing below tabs */
         }
+
         .inventory-tab {
-            padding: 10px 20px;
+            padding: 15px 30px; /* Larger tab size */
             background-color: #fff;
             border: 1px solid #ddd;
             cursor: pointer;
-            margin-right: 10px;
+            margin-right: 20px; /* More space between tabs */
             transition: background-color 0.3s;
         }
+
         .inventory-tab.active {
             background-color: #895D47;
             color: white;
         }
-        /* Inventory table styles */
+
+        /* Table styles */
         .inventory-table {
             width: 100%;
             border-collapse: collapse;
-            margin-left: 20px;
-            margin-right: 10px;
+            margin-top: 30px; /* More space above table */
+            border: 2px solid #8B4513; /* Add brown border to the table */
         }
+
         .inventory-table th,
         .inventory-table td {
             border: 1px solid #ddd;
-            padding: 8px;
-            margin-right: 10px;
-            
-        }
-        .inventory-table th {
-            background-color: #895D47;;
+            padding: 20px; /* Larger padding for table cells */
             text-align: left;
-            color : #ffff;
+            font-size: 18px; /* Larger font for readability */
+            font-family: Arial, sans-serif;
         }
-        /* Action button styles */
+
+        .inventory-table th {
+            background-color: #895D47; /* Brown background for table headers */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Action buttons styles */
         .inventory-actions {
             display: flex;
-            gap: 10px;
+            gap: 20px;
         }
+
         .inventory-actions button {
-            padding: 8px 12px;
-            border: none;
+            padding: 12px;
+            border: 2px solid #8B4513; /* Brown border for the buttons */
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 5px;
+            font-size: 18px;
+            background-color: transparent;
+            color: #8B4513;
+            transition: background-color 0.3s;
         }
-        .inventory-actions .edit {
-            background-color:  #218838;
+
+        .inventory-actions button i {
+            font-size: 20px; /* Icon size */
+        }
+
+        .inventory-actions button:hover {
+            background-color: #8B4513;
             color: white;
         }
-        .inventory-actions .delete {
-            background-color: #ca1417;
-            color: white;
+
+        .inventory-actions .edit:hover {
+            background-color: #218838;
         }
-        .inventory-actions .edit:hover,
+
         .inventory-actions .delete:hover {
-            background-color: #895D47;
+            background-color: #ca1417;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            #inventory-section {
+                width: 100%;
+                padding: 25px; /* Adjusted padding for smaller screens */
+            }
+
+            .inventory-tabs {
+                flex-direction: column;
+            }
+
+            .inventory-tab {
+                margin-bottom: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .inventory-filter select {
+                width: 100%;
+            }
+
+            .inventory-table th,
+            .inventory-table td {
+                padding: 15px; /* Adjusted padding for smaller screens */
+                font-size: 16px; /* Adjust font size for smaller screens */
+            }
+
+            .inventory-actions button {
+                font-size: 16px; /* Adjust button font size for smaller screens */
+            }
         }
     </style>
-
+</head>
+<body>
     <div id="inventory-section">
         <h1>Inventory Management</h1>
 
@@ -140,11 +194,11 @@
                     <?php foreach ($timberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
-                            <td><?php echo $item['logs']; ?></td>
+                            <td><?php echo $item['logs_count']; ?></td>
                             <td><?php echo $item['bought_date']; ?></td>
                             <td class="inventory-actions">
-                                <button class="edit" onclick="editItem('timber', <?php echo $item['id']; ?>)">Edit</button>
-                                <button class="delete" onclick="deleteItem('timber', <?php echo $item['id']; ?>)">Delete</button>
+                                <button class="edit"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="delete"><i class="fas fa-trash-alt"></i> Delete</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -152,7 +206,7 @@
             </table>
         </div>
 
-        <div id="lumber" class="tab-content" style="display: none;">
+        <div id="lumber" class="tab-content" style="display:none;">
             <h2>Lumber Inventory</h2>
             <table class="inventory-table">
                 <thead>
@@ -167,11 +221,11 @@
                     <?php foreach ($lumberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
-                            <td><?php echo $item['logs']; ?></td>
+                            <td><?php echo $item['logs_count']; ?></td>
                             <td><?php echo $item['bought_date']; ?></td>
                             <td class="inventory-actions">
-                                <button class="edit" onclick="editItem('lumber', <?php echo $item['id']; ?>)">Edit</button>
-                                <button class="delete" onclick="deleteItem('lumber', <?php echo $item['id']; ?>)">Delete</button>
+                                <button class="edit"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="delete"><i class="fas fa-trash-alt"></i> Delete</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -241,22 +295,19 @@
                 tabButtons[i].classList.remove('active');
             }
             event.target.classList.add('active');
-
-            // Render data when switching tabs
-            renderData();
         }
 
         function editItem(type, id) {
-            // Implement edit functionality
-            alert(`Edit ${type} item with ID ${id}`);
+            console.log(`Editing ${type} item with ID: ${id}`);
+            
         }
 
         function deleteItem(type, id) {
-            // Implement delete functionality
-            alert(`Delete ${type} item with ID ${id}`);
+            console.log(`Deleting ${type} item with ID: ${id}`);
+        
         }
 
-        // Initial render
+    
         renderData();
     </script>
 </body>

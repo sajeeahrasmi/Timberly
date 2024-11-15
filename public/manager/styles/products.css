@@ -60,10 +60,15 @@
     gap: 20px;
 }
 
+/* General card border for all cards */
+.product-card, .f-card {
+    border: 1px solid #895D47; /* Given brown color for all cards */
+}
+
+/* Product card styling */
 .product-card {
     width: 200px;
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -95,54 +100,8 @@
     transform: scale(1.05);
 }
 
-/* Popup styles */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    max-width: 80%;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.popup-content h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-
-.popup-content p {
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: #34495e;
-}
-
-.close-popup {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #e74c3c;
-}
-
-
 /* Furniture product cards */
 .f-card {
-    border: 1px solid #ccc;
     padding: 16px;
     margin: 10px;
     text-align: center;
@@ -152,6 +111,7 @@
     max-width: 250px; /* Adjust the max-width if needed */
     display: inline-block; /* Ensure cards are side-by-side */
     vertical-align: top; /* Align cards to the top */
+    transition: transform 0.3s ease;
 }
 
 /* Product card image */
@@ -181,44 +141,38 @@
     overflow: hidden; /* Hide overflow */
     text-overflow: ellipsis; /* Show ellipsis for overflowed text */
 }
+.f-card:hover {
+    transform: scale(1.05);
+}
 
 /* Edit/Delete buttons */
 .card-actions {
     margin-top: 10px;
 }
 
-.edit-btn  {
+.edit-btn, .delete-btn {
     padding: 8px 12px;
     margin: 5px;
-    border: none;
+    border: 1px solid #895D47; /* Given brown color for the border */
+    background-color: white; /* Make the background white */
+    color: #895D47; /* Set text color to the given brown */
     cursor: pointer;
-    background-color: #218838;
-    color: white;
-    border-radius: 4px;
-    font-size: 14px; /* Adjust font size if needed */
-}
-.delete-btn
-{
-    padding: 8px 12px;
-    margin: 5px;
-    border: none;
-    cursor: pointer;
-    background-color: #ca1417;
-    color: white;
     border-radius: 4px;
     font-size: 14px;
 }
 
 .edit-btn:hover, .delete-btn:hover {
-    background-color: #895D47;
+    background-color: #895D47; /* Optional: Slight hover effect */
+    color: #f2f1f0; /* Maintain the text color */
 }
+
 
 /* Create new product button */
 .create-product-btn {
     display: block;
     margin: 20px auto;
     padding: 12px 20px;
-    background-color:  #218838;
+    background-color:  #895D47;
     color: white;
     border: none;
     cursor: pointer;
@@ -231,7 +185,8 @@
 .create-product-btn:hover {
     background-color:#895D47 ;
 }
-/* Hide the modal by default */
+
+/* Modal styling */
 .modal {
     display: none;
     position: fixed;
@@ -244,7 +199,7 @@
 }
 
 .modal-content {
-    background-color: white;
+    background-color: rgb(252, 242, 242);
     margin: 15% auto;
     padding: 20px;
     width: 80%;
@@ -262,15 +217,11 @@
 /* create-order-styles.css */
 
 /* Reset and base styles */
-/* create-order-styles.css */
-
-/* Container for the create order page to prevent overlap */
 .create-order-page {
     background-color: #f4f4f4;
     padding: 20px;
 }
 
-/* Reset and base styles */
 .create-order-page * {
     margin: 0;
     padding: 0;
@@ -336,7 +287,7 @@
 
 .create-order-form button {
     padding: 12px;
-    background-color: #0c62b8;
+    background-color: #895D47;
     color: white;
     border: none;
     border-radius: 4px;
@@ -346,7 +297,7 @@
 }
 
 .create-order-form button:hover {
-    background-color: #5e6060;
+    background-color: #895D47;
 }
 
 /* Responsive design */
@@ -359,8 +310,8 @@
     .create-order-form select,
     .create-order-form button {
         font-size: 14px;
-    }
 }
+
 /* Ensure that the popup does not overlap other elements */
 #confirmation-popup {
     display: none; /* Hidden by default */
@@ -380,50 +331,50 @@
     margin: 15% auto; /* Center the popup */
     padding: 20px;
     border-radius: 8px; /* Rounded corners */
-    width: 80%; /* Adjust width as needed */
-    max-width: 500px; /* Optional: limit the maximum width */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    width: 60%;
 }
 
-/* Style for the close button */
-#confirmation-popup .close-modal {
-    color: #aaa;
+/* Close button */
+.close-popup {
     float: right;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
 }
-
-#confirmation-popup .close-modal:hover,
-#confirmation-popup .close-modal:focus {
-    color: black;
-    text-decoration: none;
 }
 
-/* Button styles */
-#confirmation-popup button {
-    padding: 10px 20px;
+#confirm-submit {
+    padding: 12px 20px;
+    background-color: #895D47; /* Brown color */
+    color: white;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    margin: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add some space between buttons */
+    margin-top: 20px; /* Add space from the top */
 }
 
-#confirm-submit {
-    background-color:  #218838;
-    color: #fff;
-}
-
-#cancel-submit {
-    background-color: #dc3545;
-    color: #fff;
-}
-
+/* Hover effect for Yes, Submit button */
 #confirm-submit:hover {
-    background-color: #895D47;
+    background-color: #6f4f3d; /* Slightly darker brown on hover */
 }
 
+/* Style for No, Cancel button */
+#cancel-submit {
+    padding: 12px 20px;
+    background-color: #895D47; /* Brown color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Add space from the top */
+}
+
+/* Hover effect for No, Cancel button */
 #cancel-submit:hover {
-    background-color: #895D47;
+    background-color: #6f4f3d; /* Slightly darker brown on hover */
 }

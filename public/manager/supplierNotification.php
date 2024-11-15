@@ -12,39 +12,41 @@
     <style>
     /* General Styles */
    /* General Styles */
+ /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f2f5;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
+    padding: 30px;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 h1 {
-    color: #895D47; /* Change title color */
-    text-align: center;
-    border-bottom: 2px solid #895D47; /* Change border color */
-    padding-bottom: 10px;
-    margin-bottom: 30px;
+    color: #895D47;
+    text-align: center; /* Centered title */
+    border-bottom: 3px solid #895D47;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
 }
 
 /* Supplier and Product Lists */
 .list-container {
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 30px;
-    max-width: 800px;
-    margin: 0;
-    border: 2px solid #895D47; /* Add border color */
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 40px;
+    width: 100%; /* Set width to 100% */
+    border: 3px solid #895D47;
 }
 
 .list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
+    padding: 18px 12px;
     border-bottom: 1px solid #e0e0e0;
 }
 
@@ -54,54 +56,54 @@ h1 {
 
 .list-item span {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 /* Buttons */
 button {
-    background-color: #895D47; /* Set button color */
+    background-color: #895D47;
     color: white;
-    border: 2px solid #895D47; /* Set border color */
-    padding: 10px 20px;
-    border-radius: 30px; /* Make buttons oval */
+    border: 2px solid #895D47;
+    padding: 12px 24px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, border-color 0.3s, color 0.3s;
-    font-size: 14px;
-    margin: 5px;
+    font-size: 16px;
+    margin: 8px;
 }
 
 button:hover {
     background-color: white;
     color: #895D47;
-    border-color: #895D47; /* Change border color on hover */
+    border-color: #895D47;
     transform: translateY(-2px);
 }
 
 /* Button Styles for Modal */
 button[name="approve_supplier"], 
 button[name="approve_product"] {
-    background-color: #28a745; /* Green background for approve */
-    border-color: #28a745; /* Green border for approve */
+    background-color: #28a745;
+    border-color: #28a745;
 }
 
 button[name="approve_supplier"]:hover, 
 button[name="approve_product"]:hover {
-    background-color: #218838; /* Darker green on hover */
-    border-color: #218838; /* Darker green border on hover */
-    color : #ffff
+    background-color: #218838;
+    border-color: #218838;
+    color: #fff;
 }
 
 button[name="reject_supplier"], 
 button[name="reject_product"] {
-    background-color: #e74c3c; /* Red background for reject */
-    border-color: #e74c3c; /* Red border for reject */
+    background-color: #e74c3c;
+    border-color: #e74c3c;
 }
 
 button[name="reject_supplier"]:hover, 
 button[name="reject_product"]:hover {
-    background-color: #c0392b; /* Darker red on hover */
+    background-color: #c0392b;
     border-color: #c0392b;
-    color : #ffff /* Darker red border on hover */
+    color: #fff;
 }
 
 /* Modal Styles */
@@ -129,21 +131,21 @@ button[name="reject_product"]:hover {
 .modal-content {
     background-color: #ffffff;
     color: #333;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
     width: 80%;
-    max-width: 600px;
-    max-height: 400px;
+    max-width: 750px;
+    max-height: 450px;
     overflow-y: auto;
     position: relative;
-    border: 2px solid #895D47; /* Add border color */
+    border: 3px solid #895D47;
 }
 
 .modal h3 {
     margin-top: 0;
-    margin-bottom: 20px;
-    color: #895D47; /* Change modal title color */
+    margin-bottom: 25px;
+    color: #895D47;
 }
 
 /* Close Button */
@@ -152,7 +154,7 @@ button[name="reject_product"]:hover {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
@@ -168,32 +170,31 @@ form {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 18px;
 }
 
 .supplier-name {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: black;
-    margin: 15px 0;
-    text-decoration: underline;
+    margin: 18px 0;
+   
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .list-container {
+        padding: 20px;
+    }
+
     .list-item {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .list-item button {
-        margin-top: 10px;
-        width: 100%;
-    }
-
     .modal-content {
-        width: 95%;
-        padding: 20px;
+        width: 90%;
+        padding: 25px;
     }
 
     form {
@@ -202,7 +203,7 @@ form {
 
     form button {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 }
 
@@ -212,7 +213,7 @@ form {
 <body>
     <h1>Supplier Notification</h1>
     <button class = "view-btn" onclick = "window.location.href = 'admin.php'">Back</button>
-    <h2>Pending Suppliers</h2>
+    <h2 style="text-align: center;">Pending Suppliers</h2>
     <div class="list-container">
         <?php foreach ($suppliers as $supplier): ?>
             <?php if ($supplier['status'] === 'pending'): ?>
@@ -224,22 +225,27 @@ form {
         <?php endforeach; ?>
     </div>
 
-    <h2>Pending Products</h2>
-    <div class="list-container">
-        <?php foreach ($suppliers as $supplier): ?>
-            <?php if ($supplier['status'] === 'pending'): ?>
-                <h3 class="supplier-name"><?php echo $supplier['name']; ?></h3>
-                <?php foreach ($products as $product): ?>
-                    <?php if ($product['status'] === 'pending' && $product['supplier_id'] === $supplier['id']): ?>
-                        <div class="list-item">
-                            <span><?php echo $product['name']; ?></span>
-                            <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </div>
+   
+
+
+<h2 style="text-align: center;">Pending Products</h2>
+
+<div class="list-container">
+    <?php foreach ($suppliers as $supplier): ?>
+        <?php if ($supplier['status'] === 'pending'): ?>
+            <h3 class="supplier-name" style="border-top: 3px solid #895D47; padding-top: 15px;"><?php echo $supplier['name']; ?></h3>
+            <?php foreach ($products as $product): ?>
+                <?php if ($product['status'] === 'pending' && $product['supplier_id'] === $supplier['id']): ?>
+                    <div class="list-item">
+                        <span><?php echo $product['name']; ?></span>
+                        <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
+
 
     <!-- Supplier Details Modal -->
     <div id="supplierModal" class="modal">

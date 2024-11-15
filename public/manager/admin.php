@@ -13,7 +13,7 @@
   <div class="admin-container">
     <!-- Top Bar -->
     <div class="top-bar">
-    <h1>Welcome Admin!</h1>
+    <h1>Welcome Manager!</h1>
       <div class="user-actions">
       <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
         <button class="profile-btn"><i class="fas fa-user"></i></button>
@@ -33,8 +33,7 @@
 <li><a href="#" onclick="showSection('products-section')"><i class="fa-solid fa-tree icon"></i>Products</a></li>
 <li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Order</a></li>
 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-box icon"></i>Inventory</a></li>
-<li><a href="#" onclick="showSection('customer-section')"><i class="fa-solid fa-users icon"></i>Customer</a></li>
-<li><a href="#" onclick="showSection('supplier-section')"><i class="fa-solid fa-truck icon"></i>Supplier</a></li>
+
 
       
     </ul>
@@ -76,17 +75,7 @@
                     View Orders
                 </button>
             </div>
-            <div class="metric-card">
-                <h3>Total Suppliers</h3>
-                <div class="metric-content">
-                    <span class="metric-value">15</span>
-                    <i class="fas fa-user"></i>
-                </div>
-                <button  onclick="showSection('supplier-section')">
-                    <i class="fas fa-eye"></i>
-                    View Suppliers
-                </button>
-            </div>
+            
             
             <div class="metric-card">
                 <h3>Total Posts</h3>
@@ -111,6 +100,7 @@
                     <th>Customer Name</th>
                     <th>Order ID</th>
                     <th>Order Details</th>
+                    <th>Total Amount</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
