@@ -23,12 +23,12 @@ function updateStatus(status) {
         case 'Polishing': 
             progress = 75; 
             color = '#f39c12'; // Orange
-            hideElements = true;
+            hideElements = true; // Hide elements when polishing
             break;
         case 'Delivering': 
             progress = 100; 
             color = '#2ecc71'; // Green
-            hideElements = true;
+            hideElements = true; // Hide elements when delivering
             break;
     }
 
@@ -45,9 +45,17 @@ function updateStatus(status) {
     const elementsToHide = document.querySelectorAll('.quantity, #deliveryFee');
     elementsToHide.forEach(el => {
         if (hideElements) {
-            el.classList.add('hidden');
+            el.classList.add('hidden'); // Add hidden class when status is polishing or delivering
         } else {
-            el.classList.remove('hidden');
+            el.classList.remove('hidden'); // Remove hidden class for other statuses
+        }
+    });
+    const quantityInputs = document.querySelectorAll('.quantity');
+    quantityInputs.forEach(input => {
+        if (hideElements) {
+            input.setAttribute('disabled', 'true'); // Disable quantity field
+        } else {
+            input.removeAttribute('disabled'); // Enable quantity field
         }
     });
 }
@@ -124,7 +132,7 @@ function updateDetails(type) {
 
         if (isValid) {
             // Update Measurement Person Details on the frontend
-            document.querySelector('.card-container .card:first-child').innerHTML = `
+            document.querySelector('.card-container .card:first-child').innerHTML = ` 
                 <h3>Measurement Person Details</h3>
                 <p>Name: ${name}</p>
                 <p>Arrival Date: ${arrivalDate}</p>

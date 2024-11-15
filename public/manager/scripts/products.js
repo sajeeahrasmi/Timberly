@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Product card click handlers
-    const productCards = document.querySelectorAll('.product-card');
+   /* const productCards = document.querySelectorAll('.product-card');
     productCards.forEach(card => {
         card.addEventListener('click', () => showPopup(card.dataset.name));
-    });
+    });*/
 
     // Handle Create Product button
     const createProductBtn = document.querySelector('.create-product-btn');
@@ -73,44 +73,62 @@ document.addEventListener('DOMContentLoaded', () => {
 // Validate Form Function
 function validateForm() {
     const materialType = document.getElementById('material_type').value;
-    const unitPrice = document.getElementById('unit_price').value;
-    const productImage = document.getElementById('product_image').files.length;
+    const customMaterial = document.getElementById('custom_material_type').value;
+    const unitPrice = parseFloat(document.getElementById('unit_price').value);
+    const productImage = document.getElementById('product_image').value;
+    const productCategory = document.getElementById('product_category').value;
 
-    if (!materialType) {
+    if (materialType === '') {
         alert('Please select a material type.');
         return false;
     }
 
-    if (materialType === 'other') {
-        const customMaterial = document.getElementById('custom_material_type').value;
-        if (!customMaterial) {
-            alert('Please specify the custom material.');
-            return false;
-        }
-    }
-
-    if (!unitPrice || unitPrice <= 0) {
-        alert('Please enter a valid unit price.');
+    if (materialType === 'other' && customMaterial === '') {
+        alert('Please specify a custom material.');
         return false;
     }
 
-    if (productImage === 0) {
+    if (unitPrice <= 0) {
+        alert('Unit price must be greater than 0.');
+        return false;
+    }
+
+    if (!productImage) {
         alert('Please upload a product image.');
         return false;
     }
 
-    return true; // All checks passed, allow form submission
+    if (productCategory === '') {
+        alert('Please select a product category.');
+        return false;
+    }
+
+    return true;
 }
 
-// Check Custom Material Function
+
+// Check for custom material type
 function checkCustomMaterial(select) {
-    const customMaterialLabel = document.getElementById('custom_material_label');
     const customMaterialInput = document.getElementById('custom_material_type');
+    const customMaterialLabel = document.getElementById('custom_material_label');
     if (select.value === 'other') {
-        customMaterialLabel.style.display = 'block';
         customMaterialInput.style.display = 'block';
+        customMaterialLabel.style.display = 'block';
     } else {
-        customMaterialLabel.style.display = 'none';
         customMaterialInput.style.display = 'none';
+        customMaterialLabel.style.display = 'none';
     }
 }
+
+// Popup Function for Detailed View
+/*function showPopup(productName) {
+    // Logic to display the detailed product information in the popup
+    document.getElementById('popup-title').textContent = productName;
+    // Add any other details you want to display
+    document.getElementById('popup').style.display = 'block';
+}
+
+document.querySelector('.close-popup')?.addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'none';
+});
+*/

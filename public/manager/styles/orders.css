@@ -1,26 +1,42 @@
 /* General styles for the admin panel */
 .admin-container {
     display: flex;
-}
-.sub h3{
-    color:#ffff;
+   
 }
 
-/* Style for the table */
+.main-content {
+    width: 100%;
+}
+
+.page-title {
+    color: #090300;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #895D47;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Remove borders from other parts and keep the brown border */
 .orders-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    border: none; /* Ensures no extra borders around the table */
 }
 
 .orders-table th, .orders-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #895D47; /* Only adds a bottom border */
 }
 
 .orders-table th {
     background-color: #464545;
+    color: white;
 }
 
 .orders-table tr:hover {
@@ -48,4 +64,3 @@
     color: #895D47; /* Keep the text color white */
     border: 2px solid #895D47; /* Border color to #895D47 */
 }
-

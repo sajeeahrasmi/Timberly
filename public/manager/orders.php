@@ -8,25 +8,36 @@
 </head>
 <body>
     <div class="content">
-        <h1>Orders</h1>
-        <br><br><br>
-        <!-- Orders Table -->
-        <div class="sub"><h3>All Orders</h3></div>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Customer Name</th>
-                    <th>Order ID</th>
-                    <th>Order Details</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include '../../api/getOrders.php'; ?>
-            </tbody>
-        </table>
+        <h1 class="page-title">Orders</h1>
+
+        <!-- All Orders Section -->
+        <div class="orders-section">
+            <h3 class="section-title">All Orders</h3>
+
+            <!-- Orders Table -->
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Order ID</th>
+                        <th>Order Details</th>
+                        <th>Total Amount</th>
+                        <th>Total Payment</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    include '../../api/getOrders.php';  // Include the PHP file with the orders and details
+
+                    
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

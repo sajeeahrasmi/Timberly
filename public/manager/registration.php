@@ -1,7 +1,5 @@
-
 <?php
 include './includes/db.php';
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
@@ -26,28 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Timberly</title>
-    <link rel="stylesheet" href="./css/registration.css">
+    <link rel="stylesheet" href="./styles/registration.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h2>Create your account</h2>
-        <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
-        <form action="registration.php" method="POST">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+        <div class="form-container">
+            <h2>Create your account</h2>
+            <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
+            <form action="registration.php" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-                <span class="password-hint">Must be at least 8 characters</span>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="password-hint">Must be at least 8 characters</span>
+                </div>
 
-            <button type="submit">Create account</button>
-        </form>
-        <p class="login-link">Already have an account? <a href="login.php">Sign in</a></p>
+                <button type="submit">Create account</button>
+            </form>
+            <p class="login-link">Already have an account? <a href="login.php">Sign in</a></p>
+        </div>
     </div>
 </body>
 </html>

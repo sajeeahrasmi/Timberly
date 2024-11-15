@@ -1,27 +1,63 @@
 <?php
-//Mockdata
-$rawMaterialsData = [
-    [
-        'supplier' => 'Lumber Co.',
-        'items' => [
-            ['name' => 'Mahogany', 'type' => 'Lumber', 'price' => 15, 'quantity' => 100, 'thickness' => 2, 'length' => 96, 'width' => 48],
-            ['name' => 'Oak', 'type' => 'Lumber', 'price' => 10, 'quantity' => 150, 'thickness' => 1.5, 'length' => 120, 'width' => 24],
-        ]
-    ],
-    [
-        'supplier' => 'Timber Traders',
-        'items' => [
-            ['name' => 'Pine', 'type' => 'Timber', 'price' => 8, 'quantity' => 200, 'thickness' => 1, 'length' => 144, 'width' => 12],
-            ['name' => 'Cedar', 'type' => 'Timber', 'price' => 12, 'quantity' => 120, 'thickness' => 0.75, 'length' => 96, 'width' => 36],
-        ]
-    ]
-];
+        include 'db.php';
+
+// Fetch Timber Data
+$timberDataQuery = "SELECT timberId, type, diameter, price, supplierId FROM timber";
+$timberDataResult = mysqli_query($conn, $timberDataQuery);
+
+if (!$timberDataResult) {
+    die("Error fetching timber data: " . mysqli_error($conn));
+}
+
+$timberData = [];
+while ($row = mysqli_fetch_assoc($timberDataResult)) {
+    $timberData[] = $row;
+}
+
+// Fetch Lumber Data
+$lumberDataQuery = "SELECT lumberId, type, length, width, thickness, qty, unitPrice FROM lumber";
+$lumberDataResult = mysqli_query($conn, $lumberDataQuery);
+
+if (!$lumberDataResult) {
+    die("Error fetching lumber data: " . mysqli_error($conn));
+}
+
+$lumberData = [];
+while ($row = mysqli_fetch_assoc($lumberDataResult)) {
+    $lumberData[] = $row;
+}
 
 // Furniture Data
-$furnitureData = [
-    ['name' => 'Chair', 'material' => 'Mahogany', 'type' => 'Chair', 'price' => 25],
-    ['name' => 'Table', 'material' => 'Oak', 'type' => 'Table', 'price' => 75],
-    ['name' => 'Window', 'material' => 'Pine', 'type' => 'Window', 'price' => 40],
-    ['name' => 'Door', 'material' => 'Cedar', 'type' => 'Door', 'price' => 90],
-];
+
+   
+     
+ // Fetch Furniture Data
+ $furnitureDataQuery = "SELECT productId, description, type, price, review FROM products WHERE categories = 'furniture'";
+
+$furnitureDataResult = mysqli_query($conn, $furnitureDataQuery); // Correct variable used for query execution
+
+if (!$furnitureDataResult) {
+    die("Error fetching furniture data: " . mysqli_error($conn)); // Correct connection variable
+}
+
+$furnitureData = [];
+while ($row = mysqli_fetch_assoc($furnitureDataResult)) {
+    $furnitureData[] = $row;
+}
+
+// Fetch Doors and Windows Data
+// Fetch Doors and Windows Data
+
+
+
+$doorsAndwindowsDataQuery = "SELECT productId, description, type, price, review FROM products WHERE categories = 'doorsandwindows'";
+$doorsAndwindowsDataResult = mysqli_query($conn, $doorsAndwindowsDataQuery);
+
+if (!$doorsAndwindowsDataResult) {
+    die("Error fetching doors and windows data: " . mysqli_error($conn));
+}
+$doorsAndwindowsData = [];
+while ($row = mysqli_fetch_assoc($doorsAndwindowsDataResult)) {
+    $doorsAndwindowsData[] = $row;
+}
 ?>

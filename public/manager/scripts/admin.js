@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to fetch orders and populate the table
+// Function to fetch orders and populate the table
 function fetchOrders() {
   fetch('../../api/mockOrders.php')
     .then(response => response.json())
@@ -56,11 +57,15 @@ function fetchOrders() {
       // Loop through each pending order and create a row
       pendingOrders.forEach(order => {
         const row = document.createElement('tr');
+        const orderDetails = order.order_details.map(detail => 
+          `Product ID: ${detail.product_id}, Quantity: ${detail.quantity}, Price: $${detail.price}`).join('<br/>');
+
         row.innerHTML = `
           <td>${order.customer_id}</td>
           <td>${order.customer_name}</td>
           <td>${order.order_id}</td>
-          <td>${order.order_details}</td>
+          <td>${orderDetails}</td> <!-- Order Details -->
+          <td>${order.total}</td>
           <td>${order.status}</td>
           <td>
             <button class="accept-btn">Accept</button>
@@ -72,6 +77,9 @@ function fetchOrders() {
     })
     .catch(error => console.error('Error fetching orders:', error));
 }
+
+
+
 
 // Fetch orders on page load
 window.onload = fetchOrders;

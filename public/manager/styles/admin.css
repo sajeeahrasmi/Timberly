@@ -6,14 +6,13 @@
 }
 
 body {
-  
   color: #333;
   font-size: 16px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-  background-color:  #895D47; ;
+  background-color: #fff; /* Set background color to white */
 }
 
 /* Admin container */
@@ -41,17 +40,19 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #FFFFFF;;
+  background-color: #fff; /* Set background color to white */
   padding: 10px;
-  box-shadow: 0 4px 8px   #895D47; 
+  box-shadow: 0 4px 8px #895D47; 
   margin: 0px;
   z-index: 1000;
 }
+
 .top-bar h1 {
   margin: 0;
   font-size: 24px;
-  color: #895D47;;
+  color: #895D47;
 }
+
 .menu-toggle {
   display: block;
   background: none;
@@ -72,10 +73,6 @@ body {
   display: flex;
   align-items: center;
   margin-left: auto;
-  
-  
-  
-  
 }
 
 .user-actions button {
@@ -89,33 +86,18 @@ body {
 }
 
 /* Sidebar */
-/* Sidebar */
-/* Admin container */
-.admin-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-@media (min-width: 769px) {
-  .admin-container {
-    flex-direction: row;
-  }
-}
-
-/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #FFFFFF; /* White background for the sidebar */
+  background-color: #fff; /* Set background color to white */
   padding: 0px 20px;
-  color: #895D47; /* Brown color for text to match theme */
+  color: #895D47; 
   display: flex;
   flex-direction: column;
   gap: 20px;  
   height: 100vh;     
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds slight shadow for depth */
-  position: fixed; /* Make sure the sidebar stays on the left */
-  left: 0; /* Ensure it sticks to the left */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  position: fixed; 
+  left: 0; 
 }
 
 .sidebar .logo {
@@ -123,19 +105,17 @@ body {
   align-items: center;
   gap: 0.8rem;
   padding: 20px 0;
-  color: #895D47; /* Brown color for logo text */
+  color: #895D47;
 }
 
 .sidebar h2 {
   margin-top: 80px;
-  
-
 }
 
 .sidebar hr {
   border: none;
   height: 2px;
-  background-color: #895D47; /* Light grey for the divider */
+  background-color: #895D47; 
   margin: -20px 0 0px;
   width: 100%;
 }
@@ -155,7 +135,7 @@ body {
 
 .sidebar ul li a {
   text-decoration: none;
-  color: #895D47; /* Brown color for link text */
+  color: #895D47; 
   display: flex;
   align-items: center;
   padding: 12px 15px;
@@ -167,30 +147,24 @@ body {
 }
 
 .sidebar ul li a i.icon {
-  margin-right: 10px; /* Space between icon and text */
+  margin-right: 10px; 
 }
 
 /* Hover and active styles */
 .sidebar ul li a:hover,
 .sidebar ul li a.active {
-  background-color: #B18068; /* Light brown for active and hover state */
-  color: #FFFFFF; /* White text on active and hover */
+  background-color: #B18068; 
+  color: #fff;
 }
 
 .sidebar ul li a:hover i.icon,
 .sidebar ul li a.active i.icon {
-  color: #FFFFFF; /* White icon on hover and active state */
+  color: #fff;
 }
 
 /* Log Out Button at the bottom */
-/* Styling for the logout section */
-/* Ensure the logout button is positioned right after the last link */
-/* Ensure the logout button is positioned right after the last link */
-/* Ensure the logout button is positioned right after the "Supplier" link */
-/* Ensure the logout button is positioned right after the "Supplier" link */
- .logout {
-  margin-bottom: 100px; /* Adjust margin as needed for spacing */
-
+.logout {
+  margin-bottom: 100px; 
 }
 
 .logout button {
@@ -201,26 +175,21 @@ body {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  width: 100%; /* Button will take full width */
-   /* Optional: Set a maximum width if needed */
-  /* Optional: Add vertical spacing */
-  margin-left: 0px; /* Adjust this value to move the button left */
+  width: 100%; 
+  margin-left: 0px; 
 }
-
-
-
 
 .logout button:hover {
   background-color: #c82333;
 }
-
-
 
 /* Main Content Area */
 .content {
   flex-grow: 1;
   padding: 80px 20px 20px;
   transition: margin-left 0.3s ease;
+  border-left: 2px solid #895D47; /* Add vertical line */
+  padding-left: 20px; /* Add some spacing between the line and content */
 }
 
 @media (min-width: 769px) {
@@ -238,22 +207,18 @@ body {
 }
 
 .metric-card {
-  background-color: #ffffff;
+  background-color: #fff; /* Set background color to white */
+  border: 2px solid #895D47; /* Set border color to brown */
   border-radius: 10px;
-  box-shadow: 0 4px 6px 895D47(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px #895D47(0, 0, 0, 0.1);
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  
-}
-.section h1{
-  color : #ffff
 }
 
 .metric-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  
 }
 
 .metric-card h3 {
@@ -284,7 +249,7 @@ body {
   width: 100%;
   padding: 10px;
   background-color: #895D47;
-  color: rgb(255, 255, 255);
+  color: #fff;
   border: none;
   border-radius: 5px;
   font-size: 14px;
@@ -298,13 +263,11 @@ body {
   margin-right: 8px;
 }
 
-
-
 /* Orders Table */
 .styled-table {
   width: 100%;
   border-collapse: collapse;
-  border: 3px solid #fffcfc;
+  border: 3px solid #895D47; /* Set border color to brown */
   font-family: Arial, sans-serif;
   font-size: 16px;
   box-shadow: var(--box-shadow);
@@ -315,10 +278,10 @@ body {
 
 .styled-table thead th {
   background-color: var(--color-primary);
-  color: #fff;
+  color: #895D47;
   padding: 12px;
   text-align: left;
-  border: 2px solid #ffffff;
+  border: 2px solid #895D47; /* Set border color to brown */
 }
 
 .styled-table tbody tr:nth-child(even) {
@@ -326,16 +289,14 @@ body {
 }
 
 .styled-table tbody tr:nth-child(odd) {
-  background-color: #fff;
+  background-color: #fff; /* Set background color to white */
 }
 
 .styled-table tbody td {
   padding: 10px;
   color: #333;
-  border: 1px solid #0d0d0d;
+  border: 1px solid #895D47; /* Set border color to brown */
 }
-
-
 
 /* Responsive table */
 @media (max-width: 768px) {
@@ -375,36 +336,27 @@ body {
   gap: 10px;
   padding: 20px;
 }
+
+/* Accept and Reject Button Styles */
 .accept-btn, .reject-btn {
   padding: 10px 20px;
-    border-radius: 20px; 
+  border-radius: 20px; 
   cursor: pointer;
-  color: white;
+  color: #f5f2f0; /* Set text color to brown */
   font-size: 16px;
-    font-weight: 600;
-
+  font-weight: 600;
   margin: 5px;
-  border: 2px solid transparent;
+  border: 2px solid #895D47;
+  background-color: #895D47; 
   transition: all 0.3s ease;
-  
   width: calc(50% - 10px);
 }
 
-.accept-btn {
-  background-color: #28a745;
+.accept-btn:hover, .reject-btn:hover {
+  background-color: #f4efed; 
+  color: #895D47; 
 }
 
-.reject-btn {
-  background-color: #dc3545;
-}
-
-.accept-btn:hover {
-  background-color: #218838;
-}
-
-.reject-btn:hover {
-  background-color: #c82333;
-}
 
 /* Section visibility */
 .section {
@@ -490,7 +442,8 @@ body {
 .logoutButton button:hover {
   background-color: #c82333;
 }
-.textt h2{
+
+.textt h2 {
   color: #fff;
   margin-top: 20px;
 }
