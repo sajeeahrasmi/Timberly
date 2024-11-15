@@ -9,9 +9,3 @@ function showSection(sectionId) {
         selectedSection.classList.add('active');
     }
 }
-  
-// Placeholder for accept/reject buttons
-document.addEventListener('DOMContentLoaded', () => {
-    // Show the dashboard section by default
-    showSection('dashboard-section');
-})

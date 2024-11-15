@@ -7,6 +7,11 @@ body {
     height: 100vh;
 }
 
+.page-content {
+    display: flex;
+    margin-top: 45px;
+}
+
 .main-content {
     margin-top: 0px;
     margin-left: 30px;

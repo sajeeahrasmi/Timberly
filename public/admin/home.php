@@ -41,7 +41,7 @@
                     <div class="card-stats">
                         <h6>Total Posts</h6>
                         <p>100</p>
-                        <button onclick="showSection('createPost-section')"> <i class="fa-solid fa-circle-plus" style="margin: 7px;"></i>Create a Post</button>
+                        <button onclick="window.location.href='createPost.php'"> <i class="fa-solid fa-circle-plus" style="margin: 7px;"></i>Create a Post</button>
                     </div>
                     <i class="fa-regular fa-clipboard fa-2xl"></i>
                 </div>
