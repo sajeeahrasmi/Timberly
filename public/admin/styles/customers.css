@@ -1,0 +1,202 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.navbar {
+    background-color: #f0f4f3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+.navbar-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 50%;
+    margin-left: 40px;
+    font-size: 24px;
+    color: #2f4f4f;
+}
+
+.navbar .user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.navbar-content .notification-button {
+    background-color: white;
+    border-color: white;
+    width: 20px;
+    height: 20px;
+    padding: 10px 10px;
+    padding-left: 6px;
+    padding-top: 6px;
+    border-radius: 10px;
+    border-style: solid;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.adminPic {
+    cursor: pointer;
+}
+
+.navbar .user-info span {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.page-content {
+    display: flex;
+    margin-top: 45px;
+}
+
+.sidebar {
+    background-color: #f0f2f3;
+    width: 250px;
+    padding: 20px;
+    height: 108%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 60px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar nav ul .sidebar-select {
+    background-color: #cbcbcb;
+    border-radius: 5px;
+}
+
+.sidebar nav ul li .sidebar-select:hover {
+    background-color: #cbcbcb;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #ddddddaf;
+}
+
+.sidebar .logout a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    background-color: #ffffff;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.sidebar .logout a:hover {
+    background-color: #ddddddaf;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.orders-display-box {
+    margin-top: 50px;
+    width: 130%;
+    padding: 30px;
+    padding-bottom: 60px;
+    border-radius: 7px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+.orders-display-box h2 {
+    width: fit-content;
+    display: inline;
+}
+
+.orders-display-box a{
+    text-decoration: none;
+    color: inherit;
+    display: inline;
+    background-color: #e8e8e8;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.orders-display-box a:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.orders-display-box a:active {
+    box-shadow: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #F0F4F3;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+td {
+    font-size: 14px;
+    color: #555;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+tbody tr {
+    cursor: pointer;
+}

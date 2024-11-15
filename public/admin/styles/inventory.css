@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#inventory-section {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+h1 {
+    margin-bottom: 20px;
+}
+h2 {
+    margin-left: 20px;
+}
+#inventory-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+/* Filter styles */
+.inventory-filter {
+    margin-bottom: 20px;
+}
+.inventory-filter label {
+    margin-right: 10px;
+    margin-left: 20px;
+}
+/* Tab styles */
+.inventory-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.inventory-tab {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.inventory-tab.active {
+    background-color: #4f4f4f;
+    color: white;
+}
+/* Inventory table styles */
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.inventory-table th,
+.inventory-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin-right: 10px;
+}
+.inventory-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+/* Action button styles */
+.inventory-actions {
+    display: flex;
+    gap: 10px;
+}
+.inventory-actions button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.inventory-actions .edit {
+    background-color: #0bd067;
+    color: white;
+}
+.inventory-actions .delete {
+    background-color: #ca1417;
+    color: white;
+}
+.inventory-actions .edit:hover,
+.inventory-actions .delete:hover {
+    background-color: #4a4d4b;
+}

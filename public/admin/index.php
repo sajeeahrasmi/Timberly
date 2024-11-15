@@ -27,7 +27,7 @@
                     <?php include './orders.php';?>
                 </div>
                 <div id="inventory-section" class="section">
-                    <?php include './inventory.php'; ?>
+                    <?php include './inventory.php' ?>
                 </div>
                 <div id="customer-section" class="section">
                     <?php include './customers.php'; ?>
