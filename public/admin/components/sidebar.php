@@ -20,7 +20,8 @@
         <nav>
             <ul >
                 <li><a href="#" onclick="showSection('dashboard-section')"><i class="fa-solid fa-house icon"></i>Dashboard</a></li>
-                <li><a href="#" onclick="showSection('order-section')"><i class="fa-solid fa-rectangle-list icon"></i>Order</a></li>
+                <li><a href="#" onclick="showSection('postProducts-section')"><i class="fa-solid fa-rectangle-list icon"></i>Post</a></li>
+                <li><a href="#" onclick="showSection('order-section')"><i class="fa-solid fa-list-check"></i>Order</a></li>
                 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-boxes-stacked" style="margin-right: 12px"></i>Inventory</a></li>
                 <li><a href="#" onclick="showSection('customer-section')"><i class="fa-solid fa-users"></i>Customer</a></li>
                 <li><a href="#" onclick="showSection('supplier-section')"><i class="fa-solid fa-user-tie" style="margin-left: 2px; margin-right: 14px"></i>Supplier</a></li>

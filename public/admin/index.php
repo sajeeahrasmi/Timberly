@@ -23,6 +23,12 @@
                 <div id="dashboard-section" class="section">
                     <?php include './home.php'; ?>
                 </div>
+                <div id="postProducts-section" class="section">
+                    <?php include './postProducts.php'; ?>
+                </div>
+                <div id="postRaw-section" class="section">
+                    <?php include './postRaw.php'; ?>
+                </div>
                 <div id="order-section" class="section">
                     <?php include './orders.php';?>
                 </div>
