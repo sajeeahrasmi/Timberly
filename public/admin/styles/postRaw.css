@@ -66,10 +66,6 @@ body {
     background-color: #895D47;
 }
 
-.content-header a:active {
-    box-shadow: 0 2px 5px rgba(0,0,0,0);
-}
-
 .active-category {
     font-weight: bolder;
 }

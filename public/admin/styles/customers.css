@@ -13,9 +13,30 @@ body {
     padding: 20px;
 }
 
+.content-header a {
+    width: 135px;
+    height: 20px;
+    background-color: transparent;
+    color: #895D47;
+    border: 1px solid #895D47;
+    border-radius: 70px;
+    margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.content-header a:hover {
+    color: white;
+    background-color: #895D47;
+}
+
 .orders-display-box {
     margin-top: 50px;
-    width: 130%;
+    width: 95%;
     padding: 30px;
     padding-bottom: 60px;
     border-radius: 7px;
@@ -60,8 +81,8 @@ th, td {
 }
 
 th {
-    background-color: #F0F4F3;
-    color: #333;
+    background-color: #895D47;
+    color: white;
     font-size: 16px;
     font-weight: bold;
 }

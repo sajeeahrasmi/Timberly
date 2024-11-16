@@ -25,9 +25,10 @@ $driverData = [
                 <div class="orders-display-box">
                     <div style="display: flex;
                                 justify-content: space-between;
-                                align-items: center;">
+                                align-items: center;"
+                         class="content-header">
                         <h2>Drivers</h2>
-                        <a href="/admin/add-driver.php">Add Driver</a>
+                        <a href="./addDriver.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Driver</a>
                     </div>
                     <table class="product-table">
                         <thead>
