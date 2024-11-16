@@ -1,10 +1,10 @@
 <?php
 // Mock data for designers
 $designerData = [
-    ['dsgn_id' => '#QA15932456', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
-    ['dsgn_id' => '#WE15936541', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
-    ['dsgn_id' => '#ZA15937153', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
-    ['dsgn_id' => '#KQ15987512', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
+    ['dsgn_id' => '#QA153', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
+    ['dsgn_id' => '#WE117', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
+    ['dsgn_id' => '#ZA193', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
+    ['dsgn_id' => '#KQ131', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
 ];
 ?>
 
@@ -25,9 +25,10 @@ $designerData = [
                 <div class="orders-display-box">
                     <div style="display: flex;
                                 justify-content: space-between;
-                                align-items: center;">
+                                align-items: center;"
+                         class="content-header">
                         <h2>Designers</h2>
-                        <a href="/admin/add-designer.php">Add Designer</a>
+                        <a href="./addDesigner.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Designer</a>
                     </div>
                     <table class="product-table">
                         <thead>

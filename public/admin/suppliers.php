@@ -25,9 +25,10 @@ $supplierData = [
                 <div class="orders-display-box">
                     <div style="display: flex;
                                 justify-content: space-between;
-                                align-items: center;">
+                                align-items: center;"
+                         class="content-header">
                         <h2>Suppliers</h2>
-                        <a href="/admin/add-supplier.php">Add Supplier</a>
+                        <a href="./addSupplier.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Supplier</a>
                     </div>
                     <table class="product-table">
                         <thead>

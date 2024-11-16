@@ -17,7 +17,7 @@ $customerData = [
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="customers.css">
+        <link rel="stylesheet" href="./styles/customers.css">
     </head>
     <body>
         <div class="page-content">
@@ -25,9 +25,10 @@ $customerData = [
                 <div class="orders-display-box">
                     <div style="display: flex;
                                 justify-content: space-between;
-                                align-items: center;">
+                                align-items: center;"
+                         class="content-header">
                         <h2>Customers</h2>
-                        <a href="/admin/add-customer.php">Add Customer</a>
+                        <a href="./addCustomer.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Customer</a>
                     </div>
                     <table class="product-table">
                         <thead>
