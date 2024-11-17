@@ -41,52 +41,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const submitButton = document.querySelector('.create-order-form button[type="submit1"]');
-    const confirmationPopup = document.getElementById('confirmation-popup');
-    const confirmSubmitButton = document.getElementById('confirm-submit');
+    //const confirmationPopup = document.getElementById('confirmation-popup');
+    //const confirmSubmitButton = document.getElementById('confirm-submit');
     const cancelSubmitButton = document.getElementById('cancel-submit');
     const createOrderModal = document.getElementById('create-order-modal');
 
     //  open the confirmation popup
-    const openConfirmationPopup = (event) => {
+    /*const openConfirmationPopup = (event) => {
         event.preventDefault(); 
         if (validateForm()) { 
             confirmationPopup.style.display = 'block';
         }
     };
-
+*/
     //  handle confirmation
     function confirmSubmit() {
-        
-        const formData = {
-            materialType: document.getElementById('material_type').value,
-            productCategory: document.getElementById('product_category').value,
-            unitPrice: document.getElementById('unit_price').value,
-            description: document.getElementById('description').value
-        };
+        const form = document.getElementById('create-order-form');
+        const formData = new FormData(form); 
     
         fetch('../../api/createProduct.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(formData)
+            body: formData  
         })
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
                 alert('Product created successfully!');
                 
-                createOrderModal.style.display = 'none';
-                confirmationPopup.style.display = 'none';
+                document.getElementById('create-order-modal').style.display = 'none';
+                fetch(window.location.href)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const newDoc = parser.parseFromString(html, 'text/html');
+                    
+                    
+                    if (currentTab) {
+                        const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
+                        if (newTabContent) {
+                            currentTab.innerHTML = newTabContent.innerHTML;
+                        }
+                    }
+                    
+                    const productElement = document.getElementById("product-" + productId);
+                    if (productElement) {
+                        productElement.remove();
+                    }
+                });
             } else {
                 alert('Failed to create product: ' + data.message);
             }
         })
         .catch(error => {
-            console.error('Error submitting order:', error);
+            console.error('Error submitting product:', error);
             alert('An error occurred while submitting the product.');
         });
     }
+    
     
 
     
@@ -95,15 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
    
-    submitButton.addEventListener('click', openConfirmationPopup);
-    confirmSubmitButton.addEventListener('click', confirmSubmit);
-    cancelSubmitButton.addEventListener('click', closeConfirmationPopup);
+    submitButton.addEventListener('click', confirmSubmit);
+   // confirmSubmitButton.addEventListener('click', confirmSubmit);
+    //cancelSubmitButton.addEventListener('click', closeConfirmationPopup);
 });
 
 
 function validateForm() {
     const materialType = document.getElementById('material_type').value;
-    const customMaterial = document.getElementById('custom_material_type').value;
+   
     const unitPrice = parseFloat(document.getElementById('unit_price').value);
     //const productImage = document.getElementById('product_image').value;
     const productCategory = document.getElementById('product_category').value;
@@ -114,8 +125,8 @@ function validateForm() {
         return false;
     }
 
-    if (materialType === 'other' && customMaterial === '') {
-        alert('Please specify a custom material.');
+    if (materialType === 'other') {
+        alert('Please select a material type');
         return false;
     }
 

@@ -183,7 +183,47 @@
 }
 
 .create-product-btn:hover {
-    background-color:#895D47 ;
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
+}
+.create-Timber-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color:  #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Adjust font size if needed */
+    text-align: center; /* Center text */
+    margin-left: 0px;
+}
+
+.create-Timber-button:hover {
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
+}
+.create-Lumber-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color:  #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Adjust font size if needed */
+    text-align: center; /* Center text */
+    margin-left: 0px;
+}
+
+.create-Lumber-button:hover {
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
 }
 
 /* Modal styling */
