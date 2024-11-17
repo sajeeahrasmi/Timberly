@@ -12,7 +12,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <title>Stylish Product Page</title>
+    <title>Product Page</title>
     <link rel="stylesheet" href="./styles/products.css">
 </head>
 <body>
@@ -25,16 +25,17 @@
     <button class="tab" data-tab="furniture" onclick="showTab('furniture')">Furniture</button>
     <button class="tab" data-tab="doors-and-windows" onclick="showTab('doors-and-windows')">Doors and Windows</button>
 </div>
-
+<button class="create-product-btn">Create New Product</button>
 
         
     
 <div id="raw-materials" class="tab-content active">
     <div id="product-list">
-        
+    <button class ="create-Timber-button">Create Timber</button>
         <div class="supplier">
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
+            
                 <?php foreach ($timberData as $item): ?>
                     <div class="product-card" data-name="<?php echo htmlspecialchars($item['timberId']); ?>" id ="rtimber">
                         <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
@@ -53,10 +54,11 @@
             </div>
         </div>
 
-        
+        <button class ="create-Lumber-button">Create Lumber</button>
         <div class="supplier">
             <h2 class="supplier-title">Lumber </h2>
             <div class="products">
+            
                 <?php foreach ($lumberData as $item): ?>
                     <div class="product-card" data-name="<?php echo htmlspecialchars($item['lumberId']); ?>" id ="rlumber">
                         <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
@@ -101,7 +103,7 @@
             </div>
         <?php endforeach; ?>
     </div>
-    <button class="create-product-btn">Create New Product</button>
+    
 </div>
 
 
@@ -124,6 +126,7 @@
             </div>
         <?php endforeach; ?>
     </div>
+    
 </div>
 
 
@@ -133,27 +136,27 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Product Post</h1>
-        <form id="create-order-form" class="create-order-form" action="../../api/createProduct.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form id="create-order-form" class="create-order-form"  method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             
            
             <label for="material_type">Material Type:</label>
-            <select id="material_type" name="material_type" required onchange="checkCustomMaterial(this)">
+            <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
+                <option value="Sooriyam">Jak</option>
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
                 <option value="Sooriyam">Sooriyam </option>
             </select>
 
-            <label for="custom_material_type" id="custom_material_label" style="display:none;">Custom Material:</label>
-            <input type="text" id="custom_material_type" name="custom_material_type" style="display:none;">
+           
 
            
             <label for="product_category">Product Category:</label>
             <select id="product_category" name="product_category" required>
                 <option value="">Select Category</option>
                 <option value="furniture">Furniture</option>
-                <option value="door-window">Doors and Windows</option>
+                <option value="doorsandwindows">Doors and Windows</option>
             </select>
 
             
@@ -164,22 +167,16 @@
             <label for="description">Description:</label>
             <input type="text" id="description" name="description"  required>
 
-            <button type="submit1">Submit Order</button>
+            <button type="submit1" >Submit </button>
         </form>
     </div>
 </div>
 
 
-        
-        <div id="confirmation-popup" class="modal">
-            <div class="modal-content">
-                <h2>Are you sure you want to submit the product?</h2>
-                <button id="confirm-submit">Yes, Submit</button>
-                <button id="cancel-submit">No, Cancel</button>
-            </div>
-        </div>
+       
+      
 
-        
+    
         
     </div>
     <div id="edit-product-modal" class="modal">
