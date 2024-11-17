@@ -1,5 +1,7 @@
+let currentCategory = ''; 
+let currentProductName = '';
 document.addEventListener('DOMContentLoaded', () => {
-    // Tab switching functionality
+    // Tab switching 
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeModalBtn.addEventListener('click', () => {
-        console.log('Close button clicked'); // Debugging line
+        console.log('Close button clicked'); 
         modal.style.display = 'none';
     });
 
@@ -38,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const submitButton = document.querySelector('.create-order-form button[type="submit"]');
+    const submitButton = document.querySelector('.create-order-form button[type="submit1"]');
     const confirmationPopup = document.getElementById('confirmation-popup');
     const confirmSubmitButton = document.getElementById('confirm-submit');
     const cancelSubmitButton = document.getElementById('cancel-submit');
     const createOrderModal = document.getElementById('create-order-modal');
 
-    // Function to open the confirmation popup
+    //  open the confirmation popup
     const openConfirmationPopup = (event) => {
         event.preventDefault(); 
         if (validateForm()) { 
@@ -52,32 +54,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Function to handle confirmation
+    //  handle confirmation
     function confirmSubmit() {
-        // Proceed with form submission
-        alert("Success");
-        createOrderModal.style.display = 'none';
-        confirmationPopup.style.display = 'none';
+        
+        const formData = {
+            materialType: document.getElementById('material_type').value,
+            productCategory: document.getElementById('product_category').value,
+            unitPrice: document.getElementById('unit_price').value,
+            description: document.getElementById('description').value
+        };
+    
+        fetch('../../api/createProduct.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(formData)
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            if (data.success) {
+                alert('Product created successfully!');
+                
+                createOrderModal.style.display = 'none';
+                confirmationPopup.style.display = 'none';
+            } else {
+                alert('Failed to create product: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting order:', error);
+            alert('An error occurred while submitting the product.');
+        });
     }
+    
 
-    // Function to close the confirmation popup
+    
     const closeConfirmationPopup = () => {
         confirmationPopup.style.display = 'none';
     };
 
-    // Attach event listeners
+   
     submitButton.addEventListener('click', openConfirmationPopup);
     confirmSubmitButton.addEventListener('click', confirmSubmit);
     cancelSubmitButton.addEventListener('click', closeConfirmationPopup);
 });
 
-// Validate Form Function
+
 function validateForm() {
     const materialType = document.getElementById('material_type').value;
     const customMaterial = document.getElementById('custom_material_type').value;
     const unitPrice = parseFloat(document.getElementById('unit_price').value);
-    const productImage = document.getElementById('product_image').value;
+    //const productImage = document.getElementById('product_image').value;
     const productCategory = document.getElementById('product_category').value;
+    const productDescription = document.getElementById('description').value
 
     if (materialType === '') {
         alert('Please select a material type.');
@@ -94,13 +124,18 @@ function validateForm() {
         return false;
     }
 
-    if (!productImage) {
+    /*if (!productImage) {
         alert('Please upload a product image.');
         return false;
-    }
+    }*/
 
     if (productCategory === '') {
         alert('Please select a product category.');
+        return false;
+    }
+
+    if (productDescription === '') {
+        alert('Please Enter a description.');
         return false;
     }
 
@@ -108,7 +143,6 @@ function validateForm() {
 }
 
 
-// Check for custom material type
 function checkCustomMaterial(select) {
     const customMaterialInput = document.getElementById('custom_material_type');
     const customMaterialLabel = document.getElementById('custom_material_label');
@@ -136,6 +170,7 @@ document.querySelector('.close-popup')?.addEventListener('click', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    
     const editButtons = document.querySelectorAll('.edit-btn');
     const editModal = document.getElementById('edit-product-modal');
     const closeModalBtn = editModal.querySelector('.close-modal');
@@ -147,22 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const productCard = button.closest('.product-card');
             const productName = productCard.dataset.name;
             const productCategory = productCard.id; 
-            console.log(productName, " " , productCategory) // Assuming productCard has an 'id' attribute
-    
+            //console.log(productName, " " , productCategory) 
+            currentCategory = productCategory;
+            currentProductName = productName;
+            console.log(currentProductName, " " , currentCategory) 
             getProductDetails(productCategory, productName)
                 .then(productDetails => {
-                    // Dynamically populate the form based on product category
-                    dynamicFields.innerHTML = '';  // Clear previous content
-                    populateEditForm(productDetails, productCategory); // Function to populate the form
+                    
+                    dynamicFields.innerHTML = '';  
+                    populateEditForm(productDetails, productCategory); 
     
-                    // Display the modal
+                    
                     editModal.style.display = 'block';
                 });
         });
     });
     
 
-    // Close Modal
+    
     closeModalBtn.addEventListener('click', () => {
         editModal.style.display = 'none';
     });
@@ -173,32 +210,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to get product details (mocking it here, you would need to fetch actual data)
+   
     function getProductDetails(category, productName) {
         return fetch(`../../api/editProducts.php?category=${category}&productName=${productName}`)
             .then(response => response.json())
             .then(data => {
-                return data;  // Returning the product details from the database
+                return data;  
             })
             .catch(error => {
                 console.error('Error fetching product details:', error);
-                return {};  // Return empty object on error
+                return {};  
             });
     }
-    
+   
 
-    // Function to populate the edit form dynamically based on product category
+    
     function populateEditForm(details, category) {
         if (!details || Object.keys(details).length === 0) {
-            // If no product details were returned, show a message
+           
             dynamicFields.innerHTML = "<p>No product details found.</p>";
             return;
         }
 
-        // Dynamically create the form fields based on the category
+        
         let fieldsHtml = '';
 
-        // Common fields (for example, product name, description, etc.)
+        
         
         if (category === 'rtimber') {
             fieldsHtml += `
@@ -230,8 +267,16 @@ document.addEventListener('DOMContentLoaded', () => {
             fieldsHtml += `<label for="description">Description:</label>
                            <input type="text" id="description" name="description" value="${details.description || ''}" required>
                            
-                           <label for="type">Type:</label>
-                           <input type="text" id="type" name="type" value="${details.type || ''}" required>
+                                    Type:
+                    <select name="type">
+                        <option value="Jak">${details.type}</option>    
+                        <option value="Jak">Jak</option>
+                        <option value="Mahogany">Mahogany</option>
+                        <option value="Teak">Teak</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyam">Sooriyam</option>
+                    </select>
+                    
                            
                            
                            
@@ -242,8 +287,18 @@ document.addEventListener('DOMContentLoaded', () => {
             fieldsHtml += `<label for="description">Description:</label>
                            <input type="text" id="description" name="description" value="${details.description || ''}" required>
                            
-                           <label for="type">Type:</label>
-                           <input type="text" id="type" name="type" value="${details.type || ''}" required>
+                                 
+                           Type:
+                           <select name="type">
+                               
+                            <option value="Jak">${details.type}</option>
+                               <option value="Jak">Jak</option>
+                               <option value="Mahogany">Mahogany</option>
+                               <option value="Teak">Teak</option>
+                               <option value="Nedum">Nedum</option>
+                               <option value="Sooriyam">Sooriyam</option>
+                           </select>
+                           
                            
                           
                            
@@ -251,10 +306,91 @@ document.addEventListener('DOMContentLoaded', () => {
                            <input type="number" id="price" name="price" value="${details.price || ''}" required>`;
         }
 
-        // Add a submit button at the end
+        
         
 
-        // Insert the fields into the dynamic fields container
+        
         dynamicFields.innerHTML = fieldsHtml;
     }
+   
+
+    
+
+   
+    
+    const editForm = document.getElementById('edit-product-form');
+    editForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+       
+        const formData = new FormData(editForm);
+        
+       
+        formData.append('category', currentCategory);
+        formData.append('productName', currentProductName);
+        console.log(currentProductName, " " , currentCategory) 
+        try {
+            const response = await fetch('../../api/editUpdateProducts.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Product updated successfully!');
+                document.getElementById('edit-product-modal').style.display = 'none';
+                const currentTab = document.querySelector('.tab-content.active');
+                
+                
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        
+                       
+                        if (currentTab) {
+                            const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
+                            if (newTabContent) {
+                                currentTab.innerHTML = newTabContent.innerHTML;
+                            }
+                        }
+                        
+                        
+                        attachEventListeners();
+                    });
+            } else {
+                alert('Failed to update product: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error updating product:', error);
+            alert('An error occurred while updating the product');
+        }
+    });
+
+    
+    function attachEventListeners() {
+        
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const productCard = button.closest('.product-card');
+                const productName = productCard.dataset.name;
+                const productCategory = productCard.id;
+                currentCategory = productCategory;
+                currentProductName = productName;
+
+                getProductDetails(productCategory, productName)
+                    .then(productDetails => {
+                        dynamicFields.innerHTML = '';
+                        populateEditForm(productDetails, productCategory);
+                        document.getElementById('edit-product-modal').style.display = 'block';
+                    });
+            });
+        });
+
+        
+    }
+    
 });
+

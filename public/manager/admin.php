@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="./styles/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="./scripts/admin.js" defer></script> <!-- Use defer to ensure the script loads after HTML -->
+    <script src="./scripts/admin.js" defer></script> 
 </head>
 <body>
   <div class="admin-container">
-    <!-- Top Bar -->
+    
     <div class="top-bar">
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <!-- Sidebar -->
+   
     <aside class="sidebar">
     
   <div class="logo">
@@ -47,16 +47,16 @@
 </aside>
 
 
-    <!-- Main Content Area -->
+    
     <div class="content">
       <div id="dashboard-section" class="section">
         <h1>Dashboard Overview</h1>
         <div class="metric-grid">
-            <!-- Metric Cards (Placeholder Data) -->
+            
             <div class="metric-card">
     <h3>Total Revenue</h3>
     <div class="metric-content">
-        <span class="metric-value">$25,000</span> <!-- Placeholder value, update dynamically as needed -->
+        <span class="metric-value">$25,000</span> 
         <i class="fas fa-dollar-sign"></i>
     </div>
     <button>
@@ -91,7 +91,7 @@
             
         </div>
 
-        <!-- Orders Table -->
+       
         <div class="textt"><h2>Pending Orders</h2></div>
             <table class="styled-table">
             <thead>
@@ -110,7 +110,7 @@
             </tbody>
         </table>
       </div>
-      <!-- Additional Sections -->
+      
       <div id="products-section" class="section">
         <?php include 'products.php';?>
       </div>

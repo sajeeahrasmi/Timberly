@@ -1,43 +1,41 @@
 <?php
-// Assuming you have a database connection set up using mysqli
-include('db.php');  // Ensure db.php contains your database connection setup
+
+include('db.php');  
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Sanitize and get the category and productName from GET request
+    
     $category = $_GET['category'] ?? '';
     $productName = $_GET['productName'] ?? '';
 
-    // Create a switch case based on the category
     switch ($category) {
         case 'rtimber':
             $query = "SELECT * FROM timber WHERE timberId = '$productName'";
             break;
         case 'rlumber':
-            $query = "SELECT * FROM lumber WHERE lumberId = '$productName'"; // Fixed typo here
+            $query = "SELECT * FROM lumber WHERE lumberId = '$productName'"; 
             break;
         case 'ffurniture':
         case 'ddoorsandwindows':
             $query = "SELECT * FROM products WHERE productId = '$productName'";
             break;
         default:
-            $query = '';  // Default if category is unknown
+            $query = ''; 
             break;
     }
 
-    // Check if the query is set
     if ($query) {
-        // Execute the query using mysqli
-        $result = mysqli_query($conn, $query);  // Assuming $conn is your mysqli connection
+        
+        $result = mysqli_query($conn, $query); 
 
-        // Check if a product was found
+        
         if ($result) {
             $product = mysqli_fetch_assoc($result);
-            echo json_encode($product);  // Return product as JSON
+            echo json_encode($product);  
         } else {
-            echo json_encode([]);  // Return empty array if no product found
+            echo json_encode([]); 
         }
     } else {
-        echo json_encode([]);  // Return empty array if category is not valid
+        echo json_encode([]);  
     }
 }
 ?>

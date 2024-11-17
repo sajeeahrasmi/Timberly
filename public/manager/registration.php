@@ -5,12 +5,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Insert the new user into the database
     $stmt = $conn->prepare("INSERT INTO users (email, password, createdAt) VALUES (?, ?, NOW())");
     $stmt->bind_param("ss", $email, $password);
 
     if ($stmt->execute()) {
-        header("Location: login.php"); // Redirect to login page after successful registration
+        header("Location: login.php"); 
         exit();
     } else {
         $error = "Registration failed.";

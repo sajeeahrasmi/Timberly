@@ -246,13 +246,13 @@
         }
 
         function renderData() {
-            // Clear previous data
+          
             const timberTableBody = document.querySelector('#timber tbody');
             const lumberTableBody = document.querySelector('#lumber tbody');
             timberTableBody.innerHTML = '';
             lumberTableBody.innerHTML = '';
 
-            // Render Timber Data
+            
             const filteredTimber = currentFilter ? timberData.filter(item => item.material_type === currentFilter) : timberData;
             filteredTimber.forEach(item => {
                 timberTableBody.innerHTML += `
@@ -267,7 +267,7 @@
                     </tr>`;
             });
 
-            // Render Lumber Data
+          
             const filteredLumber = currentFilter ? lumberData.filter(item => item.material_type === currentFilter) : lumberData;
             filteredLumber.forEach(item => {
                 lumberTableBody.innerHTML += `
