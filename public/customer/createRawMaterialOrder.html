@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../customer/scripts/sidebar.js" defer></script>
     <script src="../customer/scripts/header.js" defer></script>
-    <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
+    <script src="../customer/scripts/createLumberOrder.js" defer></script>
 
     <style>
         .image-dropdown {
@@ -78,40 +78,46 @@
                         <h4>Item Details</h4>
                         <form>
                             <div class="form-group">
-                                <label for="category">Select Type: </label>
-                                <select id="category">
-                                    <option>Jak</option>
-                                    <option>Mahogany</option>
-                                    <option>Teak</option>
-                                    <option>Nedum</option>
-                                    <option>Sooriyamaara</option>
+                                <label for="type">Raw Material Type: </label>
+                                <select id="type" name="type" onchange="updateLengths()">
+                                    <option value="">--Select Type--</option>
+                                    <option value="Jak">Jak</option>
+                                    <option value="Mahogany">Mahogany</option>
+                                    <option value="Teak">Teak</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
                                 <h5>Size</h5>
-                                <label>Length (m)</label>
-                                <input type="number">
-                                <label>Width (mm)</label>
-                                <input type="number">
-                                <label>Thickness (mm)</label>
-                                <input type="number">
+                                <label for="length">Length (m):</label>
+                                <select id="length" name="length" onchange="updateWidths()">
+                                    <option value="">--Select Length--</option>
+                                </select>
+                                <label for="width">Width (mm):</label>
+                                <select id="width" name="width" onchange="updateThicknesses()">
+                                    <option value="">--Select Width--</option>
+                                </select>
+                                <br><br>
+                                <label for="thickness">Thickness (mm):</label>
+                                <select id="thickness" name="thickness" onchange="updateQty()">
+                                    <option value="">--Select Thickness--</option>
+                                </select>
                             </div>
                             
 
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number">
+                                <input type="number" id="qty" name="qty" min="1" value="1">
                             </div>
                             
                             <div class="form-group">
-                                <label>Unit Price : Rs. 450</label>
+                                <label id="price" >Unit Price:</label>
                                 
                             </div>
 
                         </form>
                         <div class="add-button">
-                            <button type="submit" class="button outline">Add Item</button>
+                            <button type="button" onclick="addCard()" class="button outline">Add Item</button>
                         </div>
                         
                     </div>               
@@ -122,26 +128,11 @@
 
                     <div class="right-top">
                         <div class="heading">
-                            <h2>Order #5656</h2>
-                            <h4>No.of Items : 4</h4>
+                            <h2>Order </h2>
+                            <h4>No.of Items : </h4>
                         </div>
                         <div class="order-list">
-                            <div class="product">
-                                <h6>Chair</h6>
-                                <p>Type: Mahogany</p>
-                            </div>
-                            <div class="product">
-                                <h6>Chair</h6>
-                                <p>Type: Mahogany</p>
-                            </div>
-                            <div class="product">
-                                <h6>Chair</h6>
-                                <p>Type: Mahogany</p>
-                            </div>
-                            <div class="product">
-                                <h6>Chair</h6>
-                                <p>Type: Mahogany</p>
-                            </div>
+                            
                           
                         </div>
                     </div>
