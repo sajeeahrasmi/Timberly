@@ -148,3 +148,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <?php endif; ?>
     </body>
 </html>
+
+<script src="./scripts/components/sidebar.js" defer></script>

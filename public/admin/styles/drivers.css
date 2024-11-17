@@ -19,7 +19,7 @@ body {
 }
 
 .content-header a {
-    width: 100px;
+    width: 100px !important;
     height: 20px;
     background-color: transparent;
     color: #895D47;

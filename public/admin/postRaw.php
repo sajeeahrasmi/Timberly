@@ -1,10 +1,10 @@
 <?php
 // Mock data for suppliers
 $rawData = [
-    ['raw_id' => '#QA159', 'date' => 'May 15, 2021', 'product' => 'Mahogani', 'category' => 'Timber', 'u_price' => '$15.90', 'availability' => 'Out of stock', 'quantity' => 0],
-    ['raw_id' => '#WE159', 'date' => 'February 26, 2021', 'product' => 'Thekka', 'category' => 'Lumber', 'u_price' => '$8.90', 'availability' => 'In stock', 'quantity' => 2],
-    ['raw_id' => '#ZA159', 'date' => 'August 5, 2020', 'product' => 'Kaluwara', 'category' => 'Timber', 'u_price' => '$28.90', 'availability' => 'Out of stock', 'quantity' => 0],
-    ['raw_id' => '#KQ159', 'date' => 'December 31, 2021', 'product' => 'Thekka', 'category' => 'Timber', 'u_price' => '$20.90', 'availability' => 'In stock', 'quantity' => 3]
+    ['raw_id' => '#QA159', 'date' => 'May 15, 2021', 'product' => 'Mahogani', 'category' => 'Timber', 'u_price' => '$15.90', 'quantity' => 0],
+    ['raw_id' => '#WE159', 'date' => 'February 26, 2021', 'product' => 'Thekka', 'category' => 'Lumber', 'u_price' => '$8.90', 'quantity' => 2],
+    ['raw_id' => '#ZA159', 'date' => 'August 5, 2020', 'product' => 'Kaluwara', 'category' => 'Timber', 'u_price' => '$28.90', 'quantity' => 0],
+    ['raw_id' => '#KQ159', 'date' => 'December 31, 2021', 'product' => 'Thekka', 'category' => 'Timber', 'u_price' => '$20.90', 'quantity' => 3]
 ];
 ?>
 
@@ -44,13 +44,21 @@ $rawData = [
                         </thead>
                         <tbody>
                             <?php foreach ($rawData as $item): ?>
-                            <tr onclick="window.location.href='/admin/productEdit.php';">
+                            <tr onclick="window.location.href='./rawDetails.php?prod_id=<?php echo urlencode($item['prod_id']); ?>&date=<?php echo urlencode($item['date']); ?>&product=<?php echo urlencode($item['product']); ?>&category=<?php echo urlencode($item['category']); ?>&price=<?php echo urlencode($item['price']); ?>&quantity=<?php echo urlencode($item['quantity']); ?>';">
                                 <td><?php echo $item['raw_id']; ?></td>
                                 <td><?php echo $item['date']; ?></td>
                                 <td><?php echo $item['product']; ?></td>
                                 <td><?php echo $item['category']; ?></td>
                                 <td><?php echo $item['u_price']; ?></td>
-                                <td><?php echo $item['availability']; ?></td>
+                                <td>
+                                <?php 
+                                if ($item['quantity'] > 0) {
+                                    echo "In Stock";
+                                } else {
+                                    echo "Out of Stock";
+                                }
+                                ?>
+                                </td>
                                 <td><?php echo $item['quantity']; ?></td>
                             </tr>
                             <?php endforeach; ?>
