@@ -394,3 +394,48 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
+function deleteProduct(productId) {
+    if (confirm("Are you sure you want to delete this product?")) {
+        fetch("../../api/deleteProduct.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "productId=" + encodeURIComponent(productId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                
+                const currentTab = document.querySelector('.tab-content.active');
+                
+                
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        
+                        
+                        if (currentTab) {
+                            const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
+                            if (newTabContent) {
+                                currentTab.innerHTML = newTabContent.innerHTML;
+                            }
+                        }
+                        
+                        const productElement = document.getElementById("product-" + productId);
+                        if (productElement) {
+                            productElement.remove();
+                        }
+                    });
+            }
+        })
+        .catch(() => {
+            alert("Error occurred during deletion");
+        });
+    }
+}
+
+

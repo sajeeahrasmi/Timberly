@@ -1,4 +1,6 @@
 <?php include '../../api/Allproducts.php'; ?>
+<?php
+    include '../../api/session.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <title>Stylish Product Page</title>
     <link rel="stylesheet" href="./styles/products.css">
@@ -90,7 +95,8 @@
                 <button class="edit-btn">
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['productId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
+
                 </div>
             </div>
         <?php endforeach; ?>
@@ -113,7 +119,7 @@
                 <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button> 
-                    <button class="delete-btn" onclick = "deletee()"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
+    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['productId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -135,8 +141,8 @@
                 <option value="">Select Material Type</option>
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
-                <option value="Oak">Oak</option>
-                <option value="other">Other (Please specify)</option>
+                <option value="Nedum">Nedum</option>
+                <option value="Sooriyam">Sooriyam </option>
             </select>
 
             <label for="custom_material_type" id="custom_material_label" style="display:none;">Custom Material:</label>
