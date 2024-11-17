@@ -1,36 +1,95 @@
 <?php
-// update-product.php
-include 'db.php';
+header('Content-Type: application/json');
 
-$productId = $_POST['productId'];
-$category = $_POST['category'];
-$response = ['success' => false, 'message' => 'Product update failed!'];
+try {
+    require_once 'db.php'; 
 
-if ($category == 'raw-materials') {
-    $type = $_POST['type'];
-    $diameter = $_POST['diameter'];
-    $price = $_POST['price'];
-    $supplierId = $_POST['supplierId'];
+    
+    $category = $_POST['category'] ?? '';
+    $productName = $_POST['productName'] ?? '';
 
-    $query = "UPDATE timber SET type = ?, diameter = ?, price = ?, supplierId = ? WHERE timberId = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('sdiii', $type, $diameter, $price, $supplierId, $productId);
-    if ($stmt->execute()) {
-        $response = ['success' => true, 'message' => 'Product updated successfully!'];
+    
+    $response = ['success' => false, 'message' => 'Product update failed!'];
+
+    
+    switch ($category) {
+        case 'rtimber':
+            $sql = "UPDATE timber SET 
+                    diameter = ?, 
+                    price = ? 
+                    WHERE timberId = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ddi", 
+                $_POST['diameter'],
+                $_POST['price'],
+                $productName 
+            );
+            break;
+            
+        case 'rlumber':
+            $sql = "UPDATE lumber SET 
+                    length = ?, 
+                    width = ?,
+                    thickness = ?,
+                    qty = ?,
+                    unitPrice = ?
+                    WHERE lumberId = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("dddiid", 
+                $_POST['length'],
+                $_POST['width'],
+                $_POST['thickness'],
+                $_POST['quantity'],
+                $_POST['unitPrice'],
+                $productName 
+            );
+            break;
+            
+        case 'ffurniture':
+        
+            $sql = "UPDATE products SET 
+                    type = ?,
+                    price = ?,
+                    description = ? 
+                    WHERE productId = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sdss",
+                $_POST['type'],
+                $_POST['price'],
+                $_POST['description'],
+                $productName 
+            );
+            break;
+        case 'ddoorsandwindows': 
+            $sql = "UPDATE products SET 
+            type = ?,
+            price = ?,
+            description = ? 
+            WHERE productId = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sdss",
+            $_POST['type'],
+            $_POST['price'],
+            $_POST['description'],
+            $productName 
+            );
+            break;
+        default:
+            throw new Exception('Invalid category');
     }
-} elseif ($category == 'furniture' || $category == 'doors-and-windows') {
-    $description = $_POST['description'];
-    $type = $_POST['type'];
-    $price = $_POST['price'];
-    $review = $_POST['review'];
 
-    $query = "UPDATE products SET description = ?, type = ?, price = ?, review = ? WHERE productId = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ssdsi', $description, $type, $price, $review, $productId);
+    
     if ($stmt->execute()) {
-        $response = ['success' => true, 'message' => 'Product updated successfully!'];
+        $response['success'] = true;
+        $response['message'] = 'Product updated successfully!';
+    } else {
+        throw new Exception('Failed to update product');
     }
+
+} catch (Exception $e) {
+    $response['message'] = $e->getMessage();
 }
+
 
 echo json_encode($response);
 ?>

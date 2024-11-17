@@ -1,5 +1,5 @@
 <?php
-// Mock data for Timber and Lumber
+
 $timberData = [
     ['id' => 1, 'material_type' => 'Oak', 'logs' => 100, 'bought_date' => '2024-03-15'],
     ['id' => 2, 'material_type' => 'Pine', 'logs' => 150, 'bought_date' => '2024-03-10'],
@@ -12,7 +12,7 @@ $lumberData = [
     ['id' => 3, 'material_type' => 'Walnut', 'logs' => 70, 'bought_date' => '2024-03-01'],
 ];
 
-// Function to get unique material types
+
 function getMaterialTypes($data) {
     return array_unique(array_column($data, 'material_type'));
 }

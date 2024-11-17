@@ -247,7 +247,7 @@ form {
 </div>
 
 
-    <!-- Supplier Details Modal -->
+    
     <div id="supplierModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('supplierModal')">&times;</span>
@@ -261,7 +261,7 @@ form {
         </div>
     </div>
 
-    <!-- Product Details Modal -->
+    
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('productModal')">&times;</span>

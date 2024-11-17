@@ -10,11 +10,11 @@
     <div class="content">
         <h1 class="page-title">Orders</h1>
 
-        <!-- All Orders Section -->
+        
         <div class="orders-section">
             <h3 class="section-title">All Orders</h3>
 
-            <!-- Orders Table -->
+            
             <table class="styled-table">
                 <thead>
                     <tr>
@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                    include '../../api/getOrders.php';  // Include the PHP file with the orders and details
+                    include '../../api/getOrders.php';  
 
                     
                     ?>

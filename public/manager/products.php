@@ -14,8 +14,7 @@
     <div id="product-section" class="products-container">
         <h1>Available Products</h1>
 
-        <!-- Tabs for Furniture, Raw Materials, and Doors and Windows -->
-        <!-- Modify tab buttons to use data-tab attributes -->
+        
 <div class="tabs">
     <button class="tab active" data-tab="raw-materials" onclick="showTab('raw-materials')">Raw Materials</button>
     <button class="tab" data-tab="furniture" onclick="showTab('furniture')">Furniture</button>
@@ -23,11 +22,11 @@
 </div>
 
 
-        <!-- Content for Raw Materials -->
-    <!-- Raw Materials Content -->
+        
+    
 <div id="raw-materials" class="tab-content active">
     <div id="product-list">
-        <!-- Timber Data -->
+        
         <div class="supplier">
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
@@ -42,14 +41,14 @@
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
+                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
                 </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- Lumber Data -->
+        
         <div class="supplier">
             <h2 class="supplier-title">Lumber </h2>
             <div class="products">
@@ -65,8 +64,8 @@
                         <div class="card-actions">
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
-    </button><!-- Icon for Edit -->
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
+    </button>
+                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
                 </div>
                     </div>
                 <?php endforeach; ?>
@@ -76,8 +75,7 @@
 </div>
 
 
-        <!-- Content for Furniture -->
-       <!-- For Furniture Content -->
+        
 <div id="furniture" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($furnitureData as $item): ?>
@@ -92,7 +90,7 @@
                 <button class="edit-btn">
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
+                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -100,7 +98,7 @@
     <button class="create-product-btn">Create New Product</button>
 </div>
 
-<!-- For Doors and Windows Content -->
+
 <div id="doors-and-windows" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($doorsAndwindowsData as $item): ?>
@@ -114,7 +112,7 @@
                 <div class="card-actions">
                 <button class="edit-btn" >
         <i class="fas fa-edit"></i>
-    </button> <!-- Icon for Edit -->
+    </button> 
                     <button class="delete-btn" onclick = "deletee()"><i class="fas fa-trash-alt"></i></button> <!-- Icon for Delete -->
                 </div>
             </div>
@@ -122,15 +120,14 @@
     </div>
 </div>
 
-<!-- Add this code just before the closing </body> tag in your products.php file -->
-<!-- Edit Product Modal -->
+
 
         
         <div id="create-order-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Product Post</h1>
-        <form id="create-order-form" class="create-order-form" action="createorder.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form id="create-order-form" class="create-order-form" action="../../api/createProduct.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             
            
             <label for="material_type">Material Type:</label>
@@ -158,10 +155,10 @@
             <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
 
             
-            <label for="product_image">Product Image:</label>
-            <input type="file" id="product_image" name="product_image" accept="image/*" required>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description"  required>
 
-            <button type="submit">Submit Order</button>
+            <button type="submit1">Submit Order</button>
         </form>
     </div>
 </div>
@@ -183,12 +180,12 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Edit Product</h1>
-        <form id="edit-product-form" class="create-order-form" action="../../api/editProducts.php" method="post" enctype="multipart/form-data">
+        <form id="edit-product-form" class="create-order-form"  action=" " method="post" enctype="multipart/form-data">
             
-            <!-- Dynamic fields will be populated here -->
+            
             <div id="dynamic-fields"></div>
 
-            <button type="submit">Save Changes</button>
+            <button type="submit" class ="save-btn">Save Changes</button>
         </form>
     </div>
 </div>

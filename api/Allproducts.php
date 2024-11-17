@@ -1,7 +1,7 @@
 <?php
         include 'db.php';
 
-// Fetch Timber Data
+
 $timberDataQuery = "SELECT timberId, type, diameter, price, supplierId FROM timber";
 $timberDataResult = mysqli_query($conn, $timberDataQuery);
 
@@ -27,17 +27,17 @@ while ($row = mysqli_fetch_assoc($lumberDataResult)) {
     $lumberData[] = $row;
 }
 
-// Furniture Data
+
 
    
      
  // Fetch Furniture Data
  $furnitureDataQuery = "SELECT productId, description, type, price, review FROM products WHERE categories = 'furniture'";
 
-$furnitureDataResult = mysqli_query($conn, $furnitureDataQuery); // Correct variable used for query execution
+$furnitureDataResult = mysqli_query($conn, $furnitureDataQuery); 
 
 if (!$furnitureDataResult) {
-    die("Error fetching furniture data: " . mysqli_error($conn)); // Correct connection variable
+    die("Error fetching furniture data: " . mysqli_error($conn)); 
 }
 
 $furnitureData = [];
@@ -45,7 +45,6 @@ while ($row = mysqli_fetch_assoc($furnitureDataResult)) {
     $furnitureData[] = $row;
 }
 
-// Fetch Doors and Windows Data
 // Fetch Doors and Windows Data
 
 
