@@ -17,12 +17,12 @@ function checkAndShowSection(sectionId) {
 
     // Check if the current page is index.php
     if (currentPage !== 'index.php') {
-        // Redirect to index.php
-        window.location.href = 'index.php';
+        // Redirect to index.php with a query parameter to indicate the section
+        window.location.href = `index.php?section=${sectionId}`;
     } else {
         // If on index.php, show the section
+        showSection(sectionId);
     }
-    showSection(sectionId);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
