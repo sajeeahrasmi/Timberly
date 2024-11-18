@@ -1,0 +1,54 @@
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;;
+    padding: 10px;
+    border-bottom: #895D47 2px;
+    margin-bottom: 0px;
+}
+
+.top-bar h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #895D47;;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    span{
+      background: #fff;
+      padding: 5px;
+      cursor: pointer;
+      color: #895D47;
+
+      
+    }
+
+    h5{
+      padding: 0px 10px;
+      margin: 0px;
+    }
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.fa-regular.fa-bell:hover {
+    transform: scale(0.9);
+}
+
+@media (max-width: 768px){
+    .top-bar {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}

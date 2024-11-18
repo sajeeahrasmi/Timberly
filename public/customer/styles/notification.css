@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --color-primary: #895D47;
+  --color-secondary: #B18068;
+  --color-danger: #ff7782;
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 20px;
+  --padding: 10px;
+
+  --box-shadow: 0 4px 8px var(--color-secondary);
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.button {
+    /* padding: 10px 20px; */
+    border-radius: 20px; 
+    /* font-size: 16px; */
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .button.outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  
+  .button.outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0px;
+    background-color: var(--color-primary);
+    gap: 2px;
+}
+.dashboard-container .main-content .content {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    background-color: var(--color-white);
+}
+.notifications {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-2);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.notifications h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+    text-align: center;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notification {
+    background-color: #f9f9f9;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+    padding: 10px 15px;
+    box-shadow: var(--box-shadow);
+}
+
+.notification p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.notification .time {
+    font-size: 12px;
+    color: #888;
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+}

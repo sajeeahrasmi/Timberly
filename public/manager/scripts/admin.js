@@ -1,0 +1,84 @@
+
+function showSection(sectionId) {
+  
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => section.classList.remove('active'));
+
+  
+  const selectedSection = document.getElementById(sectionId);
+  if (selectedSection) {
+    selectedSection.classList.add('active');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  showSection('dashboard-section');
+
+  
+  document.querySelector('#orders-tbody').addEventListener('click', (event) => {
+    if (event.target && event.target.classList.contains('accept-btn')) {
+    
+      alert('Order accepted!');
+      
+    } else if (event.target && event.target.classList.contains('reject-btn')) {
+      
+      alert('Order rejected!');
+    
+    }
+  });
+
+  
+  document.querySelector('.notification-btn').addEventListener('click', function() {
+    showSection('supplier-notification-section');
+   
+  });
+
+  document.querySelector('.profile-btn').addEventListener('click', function() {
+    alert('Profile clicked!');
+    
+  });
+});
+
+
+function fetchOrders() {
+  fetch('../../api/mockOrders.php')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('orders-tbody');
+      
+      
+      const pendingOrders = data.filter(order => order.status === 'Pending');
+
+      
+      tbody.innerHTML = '';
+
+   
+      pendingOrders.forEach(order => {
+        const row = document.createElement('tr');
+        const orderDetails = order.order_details.map(detail => 
+          `Product ID: ${detail.product_id}, Quantity: ${detail.quantity}, Price: $${detail.price}`).join('<br/>');
+
+        row.innerHTML = `
+          <td>${order.customer_id}</td>
+          <td>${order.customer_name}</td>
+          <td>${order.order_id}</td>
+          <td>${orderDetails}</td> <!-- Order Details -->
+          <td>${order.total}</td>
+          <td>${order.status}</td>
+          <td>
+            <button class="accept-btn">Accept</button>
+            <button class="reject-btn">Reject</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => console.error('Error fetching orders:', error));
+}
+
+
+
+
+
+window.onload = fetchOrders;

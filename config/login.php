@@ -25,9 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($row['role'] === 'customer') {
             header("Location: ../public/customer/customerDashboard.html");
         } elseif ($row['role'] === 'manager') {
-            header("Location: ../manager.html");
+            header("Location: ../public/manager/admin.php");
         } elseif ($row['role'] === 'supplier') {
-            header("Location: ../supplier.html");
+            header("Location: ../public/supplier/Dashboard/dashboard.html");
+        } elseif ($row['role'] === 'admin') {
+            header("Location: ../public/admin/index.php");
         }
     } else {
         echo "<script>alert('Invalid username or password'); window.location.href='../public/login.html';</script>";
