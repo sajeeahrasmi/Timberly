@@ -62,6 +62,8 @@
     line-height: 30px;
     text-align: center;
     border-radius: 50%;
+    z-index: 33
+    ;
 
 }
 
@@ -101,3 +103,150 @@
 
 
 }
+
+ .head-sec{
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-primary);
+    
+    
+ }
+
+ .logoname{
+    font-size: 60px;
+    color: var(--color-white);
+    margin-left: 20px;
+
+ }
+
+ .head-icons{
+    font-size: 20px;
+    color: var(--color-white);
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    
+ }
+
+ .notification{
+    margin: 10px 10px;
+ }
+
+ .profile{
+    margin: 10px 10px;
+ }
+
+.sidebar{
+    position: fixed;
+    width: 250px;
+    margin-top: 0px;
+    height: 100%;
+    background-color: var(--color-primary);
+    
+}
+
+.text{
+    color: var(--color-white);
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+ul li{
+    list-style: none;
+    line-height: 60px;
+    margin: 25px 10px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    margin-left: -20px;
+    width: 200px;
+    
+}
+ul{
+    align-items: center;
+    justify-content: center;
+}
+  
+ul li a{
+    position: relative;
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 20px;
+    padding-left: 40px;
+    padding-right: -20px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    margin-right: 10px;
+    margin-right: 20px;
+    border-left: 6px solid transparent;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    
+}
+
+ul li a:hover{
+    background-color: var(--color-secondary);
+    border-left-color: var(--color-white);
+    color: black;
+    transition: 0.5s all linear;
+
+}
+
+
+
+.main-content{
+    margin-top: 0px;
+    margin-left: 320px;
+    float:left;
+
+}
+
+.main-card{
+    margin-top: 0px;
+    margin-left: 0px;
+    border: 1px solid black;
+    width: 1140px;
+    height: 520px;
+    border-radius: 40px;
+    box-shadow: var(--box-shadow);
+    background: rgb(200, 196, 196);
+}
+
+.main-card .content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 60px;
+    margin-right: 40px;
+    margin-left: 40px;
+
+}
+
+.main-card .content .left{
+    justify-content: center;
+}
+
+
+.main-card .content .left img{
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    position: relative;
+    justify-content: center;
+    padding: 0px 40px;
+}
+
+.main-card .content .right{
+    border: 1px solid black;
+    justify-content: center;
+    padding: 0px 200px;
+    border-radius: 80px;
+    background: var(--color-background);
+} 

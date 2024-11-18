@@ -239,3 +239,19 @@ ul li a:hover{
 .bottom .table-container .styled-table tbody td span{
     cursor: pointer;
 }
+
+
+
+.popup {
+    display: none;
+    /* Add your other styling */
+}
+
+.popup.active {
+    display: block;
+    /* Add additional styling for the active state */
+}
+
+button{
+    cursor: pointer;
+}
