@@ -15,7 +15,6 @@
 <body>
     <div class="dashboard-container">
         <?php include "./components/sidebar.php" ?>
-
         <div class="main-content">
             <?php include "./components/header.php" ?>
             <div class="content">
