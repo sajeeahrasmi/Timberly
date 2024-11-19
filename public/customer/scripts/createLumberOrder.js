@@ -1,3 +1,5 @@
+let userId = 0;
+
 async function updateLengths() {
     const type = document.getElementById("type").value;
     const lengthSelect = document.getElementById("length");
@@ -146,9 +148,9 @@ async function addCard() {
 
             // Generate content for the card
             card.innerHTML = `
-                <h6><strong>Lumber ID:</strong> ${data.lumberId}</h6>
-                <p><strong>Quantity:</strong> ${qty}</p>
-                <p><strong>Unit Price:</strong> ${data.price}</p>
+                <h6><strong>Lumber ID:</strong> <span id="ItemLumberid"> ${data.lumberId}</span></h6>
+                <p><strong>Quantity:</strong> <span id="itemQty"> ${qty}</span></p>
+                <p><strong>Unit Price:</strong><span id="itemPrice">${data.price}</span></p>
             `;
 
             // Add delete button for the card
@@ -168,6 +170,70 @@ async function addCard() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("../../config/customer/customer.php")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch customer data.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Populate the customer's name
+            // document.getElementById("customer-name").textContent = data.name;
+            userId = data.userId;
+            console.log(userId)
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Session expired. Please log in again.");
+            window.location.href = "../testPhp/login.html";
+        });
+});
+
+async function placeOrder() {
+    try {
+        const cardElements = document.querySelectorAll(".product");
+        if (cardElements.length === 0) {
+            alert("No items selected to order.");
+            return;
+        }
+
+        const items = Array.from(cardElements).map(card => ({
+            lumberId: card.querySelector("#ItemLumberid").textContent.trim(),
+            qty: parseInt(card.querySelector("#itemQty").textContent.trim()),
+            price: parseFloat(card.querySelector("#itemPrice").textContent.trim())
+        }));
+
+        const totalAmount = items.reduce((sum, item) => sum + item.qty * item.price, 0);
+
+        // Example order data (userId can be dynamic)
+        const orderData = {
+            userId: userId, // Replace with logged-in user's ID
+            itemQty: items.length,
+            totalAmount: totalAmount
+        };
+
+        // Send order data to the server
+        const response = await fetch('../../config/customer/placeLumberOrder.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ order: orderData, items: items })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Order placed successfully!");
+            document.querySelector(".card-grid").innerHTML = ""; // Clear selected items
+        } else {
+            alert("Failed to place the order. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error placing order:", error);
+        alert("An error occurred while placing the order.");
+    }
+}
 
 
 
