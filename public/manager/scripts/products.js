@@ -1,5 +1,6 @@
 let currentCategory = ''; 
 let currentProductName = '';
+let currentTab = null; 
 document.addEventListener('DOMContentLoaded', () => {
     // Tab switching 
     const tabs = document.querySelectorAll('.tab');
@@ -40,7 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const submitButton = document.querySelector('.create-order-form button[type="submit1"]');
+    const submitButton = document.querySelector('.create-order-form button[type="submit"]');
+    submitButton.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the form from submitting immediately
+
+        const form = document.getElementById('create-order-form');
+
+        if (form.reportValidity()) {
+            // If the form is valid, proceed with the submission logic
+            confirmSubmit(form);
+        }
+    });
     //const confirmationPopup = document.getElementById('confirmation-popup');
     //const confirmSubmitButton = document.getElementById('confirm-submit');
     const cancelSubmitButton = document.getElementById('cancel-submit');
@@ -57,37 +68,29 @@ document.addEventListener('DOMContentLoaded', () => {
     //  handle confirmation
     function confirmSubmit() {
         const form = document.getElementById('create-order-form');
-        const formData = new FormData(form); 
+        const formData = new FormData(form);
+        
+        const selectCategory = form.querySelector('#product_category').value;
     
         fetch('../../api/createProduct.php', {
             method: 'POST',
-            body: formData  
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 alert('Product created successfully!');
                 
+                
                 document.getElementById('create-order-modal').style.display = 'none';
-                fetch(window.location.href)
-                .then(response => response.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const newDoc = parser.parseFromString(html, 'text/html');
-                    
-                    
-                    if (currentTab) {
-                        const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
-                        if (newTabContent) {
-                            currentTab.innerHTML = newTabContent.innerHTML;
-                        }
-                    }
-                    
-                    const productElement = document.getElementById("product-" + productId);
-                    if (productElement) {
-                        productElement.remove();
-                    }
-                });
+    
+                
+                if (selectCategory === 'furniture') {
+                    refreshTab('furniture');
+                } else if (selectCategory === 'doorsandwindows') {
+                    refreshTab('doors-and-windows');
+                }
+                
             } else {
                 alert('Failed to create product: ' + data.message);
             }
@@ -98,6 +101,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    function refreshTab(tabId) {
+        
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.style.display = 'none';  
+        });
+        document.getElementById(tabId).style.display = 'block';  
+    
+        
+        fetch(window.location.href)
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(html, 'text/html');
+            
+            
+            const updatedTabContent = newDoc.querySelector(`#${tabId}`);
+            if (updatedTabContent) {
+              
+                const currentTabContent = document.querySelector(`#${tabId}`);
+                if (currentTabContent) {
+                    currentTabContent.innerHTML = updatedTabContent.innerHTML;
+                }
+            }
+        });
+    }
     
 
     
@@ -106,47 +134,50 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
    
-    submitButton.addEventListener('click', confirmSubmit);
+   
    // confirmSubmitButton.addEventListener('click', confirmSubmit);
     //cancelSubmitButton.addEventListener('click', closeConfirmationPopup);
 });
 
 
 function validateForm() {
-    const materialType = document.getElementById('material_type').value;
+    const materialType = document.getElementById('material_type').value.trim();
    
-    const unitPrice = parseFloat(document.getElementById('unit_price').value);
+    const unitPrice = parseFloat(document.getElementById('unit_price').value.trim());
     //const productImage = document.getElementById('product_image').value;
-    const productCategory = document.getElementById('product_category').value;
-    const productDescription = document.getElementById('description').value
+    const productCategory = document.getElementById('product_category').value.trim();
+    const productDescription = document.getElementById('description').value.trim()
+    
+   // const diameter = document.getElementById('diameter').value.trim();
+    
 
+    // Check if the material type is selected
     if (materialType === '') {
-        alert('Please select a material type.');
+        alert("Please select a material type.");
         return false;
     }
 
-    if (materialType === 'other') {
-        alert('Please select a material type');
-        return false;
-    }
-
-    if (unitPrice <= 0) {
-        alert('Unit price must be greater than 0.');
-        return false;
-    }
-
-    /*if (!productImage) {
-        alert('Please upload a product image.');
-        return false;
-    }*/
-
+    // Validate Product Category
     if (productCategory === '') {
-        alert('Please select a product category.');
+        alert("Please select a product category.");
         return false;
     }
 
-    if (productDescription === '') {
-        alert('Please Enter a description.');
+    // Validate Unit Price
+    if (!unitPrice || isNaN(unitPrice) || unitPrice <= 0) {
+        alert("Please enter a valid unit price (a positive number).");
+        return false;
+    }
+
+    // Validate Description (must not be empty and must not contain numbers)
+    if (description === '') {
+        alert("Description cannot be empty.");
+        return false;
+    }
+    
+    // Check if description contains numbers
+    if (/\d/.test(description)) {
+        alert("Description cannot contain numbers.");
         return false;
     }
 
