@@ -31,7 +31,7 @@
     
 <div id="raw-materials" class="tab-content active">
     <div id="product-list">
-    <button class ="create-Timber-button">Create Timber</button>
+    <button class ="create-Timber-button" onclick ="showModal('create-timber')">Create Timber</button>
         <div class="supplier">
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
@@ -136,7 +136,7 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Product Post</h1>
-        <form id="create-order-form" class="create-order-form"  method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form id="create-order-form" class="create-order-form"  method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
             
            
             <label for="material_type">Material Type:</label>
@@ -161,17 +161,51 @@
 
             
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid price (e.g., 10.99)">
 
             
             <label for="description">Description:</label>
-            <input type="text" id="description" name="description"  required>
+            <input type="text" id="description" name="description"  required pattern="^[A-Za-z\s]+$" title="Description should only contain letters and spaces.">
 
-            <button type="submit1" >Submit </button>
+            <button type="submit" >Submit </button>
         </form>
     </div>
 </div>
 
+<div id="create-timber" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h1>Create Timber</h1>
+        <form id="create-timber-form" class="create-timber-class" method="post" enctype="multipart/form-data" onsubmit="return validateCustomForm()">
+            
+            
+            
+
+            <label for="material_type">Material Type:</label>
+            <select id="material_type" name="material_type" >
+                <option value="">Select Material Type</option>
+                <option value="Sooriyam">Jak</option>
+                <option value="Mahogany">Mahogany</option>
+                <option value="Teak">Teak</option>
+                <option value="Nedum">Nedum</option>
+                <option value="Sooriyam">Sooriyam </option>
+            </select>
+            
+            <label for="diameter">Diameter:</label>
+            <input type="text" id="diameter" name="diameter" required>
+            
+            <label for="unit_price">Unit Price:</label>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
+            
+            <label for="unit_price">Supplier Id:</label>
+            <input type="text" id="supplierId" name="supplierId" >
+
+            
+
+            <button type="submit">Submit Product</button>
+        </form>
+    </div>
+</div>
 
        
       
