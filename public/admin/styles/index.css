@@ -22,6 +22,7 @@ body, html {
     gap: 10px;
     height:100%;
     margin: 0px;
+    width: 100%;
 }
 
 
@@ -36,8 +37,8 @@ body, html {
     height: 170px;
     background-color: #ffffff;
     padding: 0 20px;
-    margin-left: 40px;
-    margin-right: 130px;
+    margin-left: 20px;
+    margin-right: 100px;
     margin-bottom: 100px;
     border-radius: 20px;
     box-shadow: 0 4px 8px #B18068;

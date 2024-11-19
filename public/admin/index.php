@@ -17,7 +17,7 @@
         <?php include "./components/sidebar.php" ?>
         <div class="main-content">
             <?php include "./components/header.php" ?>
-            <div class="content">
+            <div class="dashboard">
                 <div class="card">
                     <div class="card-stats">
                         <h6>Total Orders</h6>
