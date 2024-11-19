@@ -12,12 +12,10 @@
 </head>
 <body>
     <div class="overlay show"></div>
-    <div class="logout-popup show">
-        <p class="close-button"> <a href="./index.php"> <i class="fa-solid fa-xmark"></i></a></p>
-        <p>Are you sure to log out?</p>
-        <div style="margin-top: 40px">
-            <a class="cancel-logout" href="./index.php">Cancel</a>
-            <a class="proceed-logout" href="./login.php">LogOut</a>
-        </div>
+    <div class="logout-popup">
+        <span class="fa-solid fa-xmark close-button"></span>
+        <p>Are you sure you want to logout?</p>
+        <button class="cancel-logout">Cancel</button>
+        <button class="proceed-logout">Logout</button>
     </div>
 </body>

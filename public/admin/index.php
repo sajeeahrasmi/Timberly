@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/components/header.css">
     <link rel="stylesheet" href="./styles/components/sidebar.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="./scripts/components/sidebar.js" defer></script>
 </head>
 
 <body>
