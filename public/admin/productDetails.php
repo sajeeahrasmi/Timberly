@@ -62,6 +62,7 @@ $quantity = $_GET['quantity'] ?? 0;
                     <?php include "./components/header.php" ?>
                     <div class="content">
                         <form method="POST">
+                            <p>product</p>
                             <div class="content-header">
                                 <h3><?php echo htmlspecialchars($prod_id); ?></h3>
                                 <button type="submit" name="save">Save</button>
