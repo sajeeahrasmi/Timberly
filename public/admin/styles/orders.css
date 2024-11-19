@@ -34,7 +34,7 @@ body,html {
 
 .orders-display-box {
     margin-top: 50px;
-    width: 95%;
+    width: 90%;
     padding: 30px;
     border-radius: 0.8rem;
     box-shadow: 0 2px 5px #B18068;
@@ -66,6 +66,11 @@ th {
 td {
     font-size: 14px;
     color: #555;
+}
+
+.order-amount {
+    width: 50px;
+    text-align: right;
 }
 
 tr:hover {

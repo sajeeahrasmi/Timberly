@@ -1,9 +1,9 @@
 <?php 
 $orders = [
-    ['id' => '#QA123', 'date' => 'July 06, 2023', 'product' => 'Table', 'customer' => 'John Doe', 'payType' => 'Null', 'orderStatus' => 'Not confirmed'],
-    ['id' => '#WE789', 'date' => 'April 01, 2023', 'product' => 'Chair', 'customer' => 'Mitchell Stark', 'payType' => 'Credit card', 'orderStatus' => 'Awaiting contact designer'],
-    ['id' => '#ZS456', 'date' => 'March 30, 2023', 'product' => 'Cupboard', 'customer' => 'Mike Willis', 'payType' => 'Cash', 'orderStatus' => 'Preparing'],
-    ['id' => '#AX753', 'date' => 'February 28, 2023', 'product' => 'Table', 'customer' => 'John Doe', 'payType' => 'Cash', 'orderStatus' => 'Delivered']
+    ['order_id' => '#QA123', 'date' => 'July 06, 2023', 'customer' => 'John Doe', 'amount' => '9600.00', 'payType' => 'Null', 'orderStatus' => 'Not confirmed'],
+    ['order_id' => '#WE789', 'date' => 'April 01, 2023', 'customer' => 'Mitchell Stark', 'amount' => '5200.00', 'payType' => 'Credit card', 'orderStatus' => 'Awaiting contact designer'],
+    ['order_id' => '#ZS456', 'date' => 'March 30, 2023', 'customer' => 'Mike Willis', 'amount' => '91000.00', 'payType' => 'Cash', 'orderStatus' => 'Preparing'],
+    ['order_id' => '#AX753', 'date' => 'February 28, 2023', 'customer' => 'John Doe', 'amount' => '1000.00', 'payType' => 'Cash', 'orderStatus' => 'Delivered']
 ];
 ?>
 
@@ -32,19 +32,19 @@ $orders = [
                             <tr>
                                 <th>Order ID</th>
                                 <th>Date</th>
-                                <th>Product</th>
                                 <th>Customer name</th>
+                                <th class="order-amount">Amount</th>
                                 <th>Payment type</th>
                                 <th>Order status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($orders as $order): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($order['id']); ?></td>
+                            <tr onclick="window.location.href='./orderDetails.php?order_id=<?php echo urlencode($order['order_id']); ?>'">
+                                <td><?php echo htmlspecialchars($order['order_id']); ?></td>
                                 <td><?php echo htmlspecialchars($order['date']); ?></td>
-                                <td><?php echo htmlspecialchars($order['product']); ?></td>
                                 <td><?php echo htmlspecialchars($order['customer']); ?></td>
+                                <td class="order-amount"><?php echo htmlspecialchars($order['amount']); ?></td>
                                 <td><?php echo htmlspecialchars($order['payType']); ?></td>
                                 <td class="order-status"><?php echo htmlspecialchars($order['orderStatus']); ?></td>
                             </tr>
