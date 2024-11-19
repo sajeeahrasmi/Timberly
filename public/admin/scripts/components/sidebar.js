@@ -1,32 +1,20 @@
-function showSection(sectionId) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => section.classList.remove('active'));
+document.addEventListener('DOMContentLoaded', function() {
+    var logoutButton = document.querySelector('.logout a');
+    var logoutPopup = document.querySelector('.logout-popup');
+    var closeButton = document.querySelector('.fa-xmark');
 
-    // Show the selected section
-    const selectedSection = document.getElementById(sectionId);
-    if (selectedSection) {
-        selectedSection.classList.add('active');
-    }
-}
+    logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        logoutPopup.classList.add('show');
+    });
 
-// Function to check if the current page is index.php
-function checkAndShowSection(sectionId) {
-    // Get the current page URL
-    const currentPage = window.location.pathname.split('/').pop();
+    closeButton.addEventListener('click', function() {
+        logoutPopup.classList.remove('show');
+    });
 
-    // Check if the current page is index.php
-    if (currentPage !== 'index.php') {
-        // Redirect to index.php
-        window.location.href = 'index.php';
-    } else {
-        // If on index.php, show the section
-        showSection(sectionId);
-    }
-}
-
-// Placeholder for accept/reject buttons
-document.addEventListener('DOMContentLoaded', () => {
-    // Show the dashboard section by default
-    checkAndShowSection('dashboard-section');
+    window.addEventListener('click', function(event) {
+        if (event.target == logoutPopup) {
+            logoutPopup.classList.remove('show');
+        }
+    });
 });

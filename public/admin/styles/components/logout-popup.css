@@ -11,9 +11,6 @@
     right: 12px;
     margin-top: 0px;
     cursor: pointer;
-}
-
-.fa-solid.fa-xmark {
     text-decoration: none;
     color: inherit;
 }
@@ -32,7 +29,7 @@
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 20;
-    text-align: left ;
+    text-align: left;
 }
 
 .logout-popup.show {
@@ -45,12 +42,6 @@
     font-weight: bold;
     color: #333;
     margin-top: 15px;
-}
-
-.logout-popup a{
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
 }
 
 .cancel-logout {
@@ -67,7 +58,7 @@
 .proceed-logout {
     border-radius: 15px;
     background-color: #895D47;
-    color: white;
+    color: rgb(15, 14, 14);
     border-color: #895D47;
     padding: 5px 10px;
 }
@@ -84,4 +75,8 @@
   
 .section.active {
     display: block;
+}
+
+.close-button {
+    color: black;
 }
