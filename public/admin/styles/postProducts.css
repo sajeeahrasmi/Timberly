@@ -95,7 +95,7 @@ body {
 }
 
 .active-category {
-    margin-left: 6px;
+    margin-left: 20px;
     font-weight: bolder;
 }
 
@@ -135,8 +135,8 @@ th, td {
 }
 
 th {
-    background-color: #F0F4F3;
-    color: #333;
+    background-color: #B18068;
+    color: white;
     font-size: 16px;
     font-weight: bold;
 }
@@ -147,7 +147,7 @@ td {
 }
 
 tr:hover {
-    background-color: #895d4728 !important;
+    background-color: #895d4728;
 }
 
 tbody tr {
