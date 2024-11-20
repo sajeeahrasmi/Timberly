@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
             console.error("Error:", error);
             alert("Session expired. Please log in again.");
-            window.location.href = "../testPhp/login.html";
+            window.location.href = "../../public/login.html";
         });
 });
 
@@ -225,7 +225,8 @@ async function placeOrder() {
 
         if (result.success) {
             alert("Order placed successfully!");
-            document.querySelector(".card-grid").innerHTML = ""; // Clear selected items
+            window.location.href = `http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`;
+            // document.querySelector(".card-grid").innerHTML = ""; // Clear selected items
         } else {
             alert("Failed to place the order. Please try again.");
         }
