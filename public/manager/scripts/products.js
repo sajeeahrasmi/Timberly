@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         
         const selectCategory = form.querySelector('#product_category').value;
-    
+        //const dia = form.querySelector('#diameter').value
         fetch('../../api/createProduct.php', {
             method: 'POST',
             body: formData
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 alert('Product created successfully!');
                 
-                
+                form.reset();
                 document.getElementById('create-order-modal').style.display = 'none';
     
                 
@@ -141,14 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function validateForm() {
-    const materialType = document.getElementById('material_type').value.trim();
+    const materialType = document.getElementById('material_type').value;
    
     const unitPrice = parseFloat(document.getElementById('unit_price').value.trim());
     //const productImage = document.getElementById('product_image').value;
     const productCategory = document.getElementById('product_category').value.trim();
-    const productDescription = document.getElementById('description').value.trim()
+    const description = document.getElementById('description').value.trim()
     
-   // const diameter = document.getElementById('diameter').value.trim();
+   //const diameter = document.getElementById('diameter').value.trim();
     
 
     // Check if the material type is selected
@@ -162,12 +162,17 @@ function validateForm() {
         alert("Please select a product category.");
         return false;
     }
-
+    /*if (diameter <=0 || !diameter || isNaN(diameter))
+    {
+        alert("Please enter a valid diameter (a positive number).");
+        return false;
+    }*/
     // Validate Unit Price
     if (!unitPrice || isNaN(unitPrice) || unitPrice <= 0) {
         alert("Please enter a valid unit price (a positive number).");
         return false;
     }
+
 
     // Validate Description (must not be empty and must not contain numbers)
     if (description === '') {
@@ -184,18 +189,80 @@ function validateForm() {
     return true;
 }
 
+const closeModal = document.querySelector('.close-modal');
+const modal = document.getElementById('create-timber');
 
-function checkCustomMaterial(select) {
-    const customMaterialInput = document.getElementById('custom_material_type');
-    const customMaterialLabel = document.getElementById('custom_material_label');
-    if (select.value === 'other') {
-        customMaterialInput.style.display = 'block';
-        customMaterialLabel.style.display = 'block';
-    } else {
-        customMaterialInput.style.display = 'none';
-        customMaterialLabel.style.display = 'none';
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Handle form submission with validation
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('create-timber-form');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (validateTimberForm()) {
+            confirmSubmit2(form);
+        }
+    });
+});
+
+// Validate form fields
+function validateTimberForm() {
+    const materialType = document.getElementById('material_type').value.trim();
+    const diameter = document.getElementById('diameter').value.trim();
+    const unitPrice = document.getElementById('unit_price').value.trim();
+    const supplierId = document.getElementById('supplierId').value.trim();
+
+    if (materialType === '') {
+        alert("Please select a material type.");
+        return false;
     }
+
+    if (!diameter || isNaN(diameter)) {
+        alert('Please enter a valid diameter.');
+        return false;
+    }
+
+    if (!unitPrice || isNaN(unitPrice) || parseFloat(unitPrice) <= 0) {
+        alert('Please enter a valid unit price.');
+        return false;
+    }
+
+    if (!supplierId) {
+        alert('Please enter a supplier ID.');
+        return false;
+    }
+
+    return true;
 }
+
+// Submit form data to PHP
+function confirmSubmit2(form) {
+    const formData = new FormData(form);
+
+    fetch('../../api/submitTimber.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Product successfully created!');
+            form.reset();
+            modal.style.display = 'none';  // Close the modal after success
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error submitting the form.');
+    });
+}
+
+
+
 
 // Popup Function for Detailed View
 /*function showPopup(productName) {
@@ -282,28 +349,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (category === 'rtimber') {
             fieldsHtml += `
                            <label for="diameter">Diameter (cm):</label>
-                           <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" required>
+                           <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" min="1" title="Diameter must be a positive number"  required>
                            
                            <label for="price">Price (Rs.):</label>
-                           <input type="number" id="price" name="price" value="${details.price || ''}" required>`;
+                           <input type="number" id="price" name="price" value="${details.price || ''}" min ="1" required>`;
 
         } else if (category === 'rlumber') {
             fieldsHtml += `
                            
                            <label for="length">Length (cm):</label>
-                           <input type="number" id="length" name="length" value="${details.length || ''}" required>
+                           <input type="number" id="length" name="length" value="${details.length || ''}" min ="1" required>
                            
                            <label for="width">Width (cm):</label>
-                           <input type="number" id="width" name="width" value="${details.width || ''}" required>
+                           <input type="number" id="width" name="width" value="${details.width || ''}" min="1" required>
                            
                            <label for="thickness">Thickness (cm):</label>
-                           <input type="number" id="thickness" name="thickness" value="${details.thickness || ''}" required>
+                           <input type="number" id="thickness" name="thickness" value="${details.thickness || ''}"  min="1" required>
                            
                            <label for="quantity">Quantity:</label>
-                           <input type="number" id="quantity" name="quantity" value="${details.qty || ''}" required>
+                           <input type="number" id="quantity" name="quantity" value="${details.qty || ''}"  min="1" required>
                            
                            <label for="unitPrice">Unit Price (Rs.):</label>
-                           <input type="number" id="unitPrice" name="unitPrice" value="${details.unitPrice || ''}" required>`;
+                           <input type="number" id="unitPrice" name="unitPrice" value="${details.unitPrice || ''}"  min="1" required>`;
 
         } else if (category === 'ffurniture') {
             fieldsHtml += `<label for="description">Description:</label>
@@ -311,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
                            
                                     Type:
                     <select name="type">
-                        <option value="Jak">${details.type}</option>    
+                        <option value="${details.type}">${details.type}</option>    
                         <option value="Jak">Jak</option>
                         <option value="Mahogany">Mahogany</option>
                         <option value="Teak">Teak</option>
@@ -323,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                            
                            
                            <label for="price">Price (Rs.):</label>
-                           <input type="number" id="price" name="price" value="${details.price || ''}" required>`;
+                           <input type="number" id="price" name="price" value="${details.price || ''}"  min="1" required>`;
 
         } else if (category === 'ddoorsandwindows') {
             fieldsHtml += `<label for="description">Description:</label>
@@ -333,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
                            Type:
                            <select name="type">
                                
-                            <option value="Jak">${details.type}</option>
+                            <option value="${details.type}">${details.type}</option>
                                <option value="Jak">Jak</option>
                                <option value="Mahogany">Mahogany</option>
                                <option value="Teak">Teak</option>
@@ -345,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           
                            
                            <label for="price">Price (Rs.):</label>
-                           <input type="number" id="price" name="price" value="${details.price || ''}" required>`;
+                           <input type="number" id="price" name="price" value="${details.price || ''}"  min="1" required>`;
         }
 
         
@@ -357,7 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
    
 
     
-
    
     
     const editForm = document.getElementById('edit-product-form');
@@ -365,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
        
+      
         const formData = new FormData(editForm);
         
        
@@ -436,6 +503,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
+
+
+
+
 function deleteProduct(productId) {
     if (confirm("Are you sure you want to delete this product?")) {
         fetch("../../api/deleteProduct.php", {
@@ -479,5 +550,98 @@ function deleteProduct(productId) {
         });
     }
 }
+function deleteTimber(timberId) {
+    if (confirm('Are you sure you want to delete this timber?')) {
+        fetch('../../api/deleteTimber.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ timberId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Timber deleted successfully.');
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        
+                        
+                        if (currentTab) {
+                            const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
+                            if (newTabContent) {
+                                currentTab.innerHTML = newTabContent.innerHTML;
+                            }
+                        }
+                        
+                        const productElement = document.querySelector(`.product-card[data-name="${timberId}"]`);
+                        if (productElement) {
+                            productElement.remove();
+                        }
+                    }); // Reload the page to reflect changes
+            } else {
+                alert('Error deleting timber: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
 
+function deleteLumber(lumberId) {
+    if (confirm('Are you sure you want to delete this lumber?')) {
+        fetch('../../api/deleteLumber.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ lumberId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Lumber deleted successfully.');
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        
+                        
+                        if (currentTab) {
+                            const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
+                            if (newTabContent) {
+                                currentTab.innerHTML = newTabContent.innerHTML;
+                            }
+                        }
+                        
+                        const productElement = document.querySelector(`.product-card[data-name="${lumberId}"]`);
+                        if (productElement) {
+                            productElement.remove();
+                        }
+                    });
+            } else {
+                alert('Error deleting lumber: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
+
+
+// Function to show the Create Timber modal
+function showTimberModal() {
+    document.getElementById('create-timber').style.display = 'block';
+}
+
+// Close modal functionality (optional: allows the user to close it)
+const closeModalButtons = document.querySelectorAll('.close-modal');
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = button.closest('.modal');
+        modal.style.display = 'none';
+    });
+});
 

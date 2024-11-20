@@ -8,16 +8,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productCategory = $_POST['product_category'];
     $unitPrice = $_POST['unit_price'];
     $description = $_POST['description'];
-
+   // $diameter = $POST['diameter'];
+    //$supplierId = $POST['suplierId'];
+//
     
-    if (empty($materialType) || empty($productCategory) || empty($unitPrice) || empty($description)) {
+    if (empty($materialType) || empty($productCategory) || empty($unitPrice) || empty($description) ) {
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
         exit;
     }
-
+    
     $query = "INSERT INTO products (type, price, description, categories) 
               VALUES ('$materialType', '$unitPrice', '$description', '$productCategory')";
-
+    
     
     if (mysqli_query($conn, $query)) {
         echo json_encode(['success' => true, 'message' => 'Product created successfully']);

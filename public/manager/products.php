@@ -31,7 +31,7 @@
     
 <div id="raw-materials" class="tab-content active">
     <div id="product-list">
-    <button class ="create-Timber-button" onclick ="showModal('create-timber')">Create Timber</button>
+    <button class ="create-Timber-button" onclick="showTimberModal()">Create Timber</button>
         <div class="supplier">
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
@@ -47,7 +47,7 @@
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
+    <button class="delete-btn" onclick="deleteTimber(<?php echo $item['timberId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                     </div>
                 <?php endforeach; ?>
@@ -72,7 +72,7 @@
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
+    <button class="delete-btn" onclick="deleteLumber(<?php echo $item['lumberId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                     </div>
                 <?php endforeach; ?>
@@ -176,12 +176,8 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Timber</h1>
-        <form id="create-timber-form" class="create-timber-class" method="post" enctype="multipart/form-data" onsubmit="return validateCustomForm()">
-            
-            
-            
-
-            <label for="material_type">Material Type:</label>
+        <form id="create-timber-form" class="create-timber-class" method="POST" enctype="multipart/form-data">
+        <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
                 <option value="Sooriyam">Jak</option>
@@ -190,17 +186,16 @@
                 <option value="Nedum">Nedum</option>
                 <option value="Sooriyam">Sooriyam </option>
             </select>
-            
+
+
             <label for="diameter">Diameter:</label>
             <input type="text" id="diameter" name="diameter" required>
-            
+
             <label for="unit_price">Unit Price:</label>
             <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
-            
-            <label for="unit_price">Supplier Id:</label>
-            <input type="text" id="supplierId" name="supplierId" >
 
-            
+            <label for="supplierId">Supplier Id:</label>
+            <input type="text" id="supplierId" name="supplierId" required>
 
             <button type="submit">Submit Product</button>
         </form>
@@ -217,7 +212,7 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Edit Product</h1>
-        <form id="edit-product-form" class="create-order-form"  action=" " method="post" enctype="multipart/form-data">
+        <form id="edit-product-form" class="create-order-form"  action=" " method="post" enctype="multipart/form-data" >
             
             
             <div id="dynamic-fields"></div>
