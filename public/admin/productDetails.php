@@ -64,7 +64,7 @@ $quantity = $_GET['quantity'] ?? 0;
                         <form method="POST">
                             <p>product</p>
                             <div class="content-header">
-                                <h3><?php echo htmlspecialchars($prod_id); ?></h3>
+                                <h3 class="product-name"><?php echo htmlspecialchars($prod_id); ?></h3>
                                 <button type="submit" name="save">Save</button>
                                 <button type="submit" name="delete" class="delete-button">Delete</button>
                             </div>
