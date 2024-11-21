@@ -128,7 +128,7 @@ $transact_amount = $_GET['transact_amount'] ?? '0';
                     <div class="delivery-address-section">
                         <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
                         <a href="#" class="edit-address"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px;">MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
+                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;">MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
                     </div>
                 </div>
             </div>
