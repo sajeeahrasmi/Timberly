@@ -1,4 +1,5 @@
 let userId = 0;
+let orderId = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("../../config/customer/customer.php")
@@ -32,6 +33,8 @@ async function fetchOrderDetails() {
 
           data.items.forEach(item => {
               const row = document.createElement("tr");
+              orderId = item.orderId;
+              console.log(orderId)
 
               row.innerHTML = `
                   <td>${item.orderId}</td>
@@ -250,7 +253,31 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             buttonElement.textContent = 'Cancel Order';
             buttonElement.onclick = function() {
-                alert("Order Cancelled")
+                //alert("Order Cancelled")
+                buttonElement.onclick = async function() {
+                    const confirmation = confirm("Are you sure you want to cancel this order?");
+                    if (confirmation) {
+                        try {
+                            const response = await fetch(`../../config/customer/cancelOrder.php?orderId=${orderId}`, {
+                                method: 'POST'
+                            });
+                            const result = await response.json();
+        
+                            if (result.success) {
+                                alert("Order Cancelled Successfully");
+                                window.location.href = "http://localhost/Timberly/public/customer/orderRawMaterialDetails.html";
+                                statusElement.textContent = "Cancelled";
+                                buttonElement.style.display = 'none';
+                                updateButton(); // Refresh button logic
+                            } else {
+                                alert("Failed to cancel the order. Please try again.");
+                            }
+                        } catch (error) {
+                            console.error("Error cancelling the order:", error);
+                            alert("An error occurred while cancelling the order.");
+                        }
+                    }
+                };
             };
 
             buttonAddElement.onclick = function(){
@@ -334,3 +361,15 @@ closePopupButton.onclick = function(){
 
 
  
+
+
+
+
+
+
+
+
+
+
+
+
