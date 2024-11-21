@@ -32,7 +32,7 @@
         /* Title styling */
         h1 {
             margin-bottom: 30px; /* More spacing for title */
-            font-size: 30px; /* Larger font size */
+            font-size: 16px; /* Larger font size */
             color: #333;
             text-align: center;
             font-family: Arial, sans-serif;
@@ -83,7 +83,7 @@
             border: 1px solid #ddd;
             padding: 20px; /* Larger padding for table cells */
             text-align: left;
-            font-size: 18px; /* Larger font for readability */
+            font-size: 14px; /* Larger font for readability */
             font-family: Arial, sans-serif;
         }
 
@@ -104,14 +104,14 @@
             border: 2px solid #8B4513; /* Brown border for the buttons */
             cursor: pointer;
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 14px;
             background-color: transparent;
             color: #8B4513;
             transition: background-color 0.3s;
         }
 
         .inventory-actions button i {
-            font-size: 20px; /* Icon size */
+            font-size: 14px; /* Icon size */
         }
 
         .inventory-actions button:hover {
@@ -151,11 +151,11 @@
             .inventory-table th,
             .inventory-table td {
                 padding: 15px; /* Adjusted padding for smaller screens */
-                font-size: 16px; /* Adjust font size for smaller screens */
+                font-size: 14px; /* Adjust font size for smaller screens */
             }
 
             .inventory-actions button {
-                font-size: 16px; /* Adjust button font size for smaller screens */
+                font-size: 14px; /* Adjust button font size for smaller screens */
             }
         }
     </style>

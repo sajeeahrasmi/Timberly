@@ -7,7 +7,10 @@ $message = '';
 
 // Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $raw_id = $_POST['raw_id'] ?? '';
+
+    $prod_id = $_POST['prod_id'] ?? '';
+
+
     $product = $_POST['product'] ?? '';
     $category = $_POST['category'] ?? '';
     $description = $_POST['description'] ?? '';
@@ -32,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Handle GET requests for initial data
-$raw_id = $_GET['raw_id'] ?? 'Unknown';
+
+$prod_id = $_GET['prod_id'] ?? 'Unknown';
+
+
 $date = $_GET['date'] ?? 'Unknown';
 $product = $_GET['product'] ?? 'Unknown';
 $category = $_GET['category'] ?? 'Unknown';
@@ -62,9 +68,11 @@ $quantity = $_GET['quantity'] ?? 0;
                     <?php include "./components/header.php" ?>
                     <div class="content">
                         <form method="POST">
-                            <p>raw materials</p>
+
                             <div class="content-header">
-                                <h3><?php echo htmlspecialchars($raw_id); ?></h3>
+                                <h3><?php echo htmlspecialchars($prod_id); ?></h3>
+
+
                                 <button type="submit" name="save">Save</button>
                                 <button type="submit" name="delete" class="delete-button">Delete</button>
                             </div>
@@ -74,7 +82,11 @@ $quantity = $_GET['quantity'] ?? 0;
 
                             <div class="form-section">
                                 <h3>Basic Information</h3>
-                                <input type="hidden" name="raw_id" value="<?php echo htmlspecialchars($prod_id); ?>">
+
+                                <input type="hidden" name="prod_id" value="<?php echo htmlspecialchars($prod_id); ?>">
+
+                               
+
                                 <label>Name</label>
                                 <input type="text" name="name" value="<?php echo htmlspecialchars($product); ?>">
 

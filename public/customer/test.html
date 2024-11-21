@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Lumber Details</title>
+    <script>
+        async function fetchOptions(level, params) {
+            const url = new URL("../../../config/customer/lumber.php", window.location.origin);
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            
+            const response = await fetch(url);
+            const options = await response.json();
+
+            const selectElement = document.getElementById(level);
+            selectElement.innerHTML = "<option value=''>Select " + level + "</option>";
+            
+            if (level === 'quantity') {
+                document.getElementById("quantity").max = options.max_qty || 0;
+                return;
+            }
+            
+            options.forEach(option => {
+                const opt = document.createElement("option");
+                opt.value = option;
+                opt.textContent = option;
+                selectElement.appendChild(opt);
+            });
+        }
+
+        function onTypeChange() {
+            const type = document.getElementById("type").value;
+            fetchOptions('length', { type });
+        }
+
+        function onLengthChange() {
+            const type = document.getElementById("type").value;
+            const length = document.getElementById("length").value;
+            fetchOptions('width', { type, length });
+        }
+
+        function onWidthChange() {
+            const type = document.getElementById("type").value;
+            const length = document.getElementById("length").value;
+            const width = document.getElementById("width").value;
+            fetchOptions('thickness', { type, length, width });
+        }
+
+        function onThicknessChange() {
+            const type = document.getElementById("type").value;
+            const length = document.getElementById("length").value;
+            const width = document.getElementById("width").value;
+            const thickness = document.getElementById("thickness").value;
+            fetchOptions('quantity', { type, length, width, thickness });
+        }
+    </script>
+</head>
+<body>
+    <h2>Select Lumber</h2>
+    <form>
+        <label for="type">Type:</label>
+        <select id="type" name="type" onchange="onTypeChange()">
+            <option value="">Select Type</option>
+            <option value="Jak">Jak</option>
+            <option value="Mahogany">Mahogany</option>
+        </select>
+
+        <label for="length">Length:</label>
+        <select id="length" name="length" onchange="onLengthChange()">
+            <option value="">Select Length</option>
+        </select>
+
+        <label for="width">Width:</label>
+        <select id="width" name="width" onchange="onWidthChange()">
+            <option value="">Select Width</option>
+        </select>
+
+        <label for="thickness">Thickness:</label>
+        <select id="thickness" name="thickness" onchange="onThicknessChange()">
+            <option value="">Select Thickness</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="0">
+    </form>
+</body>
+</html>
