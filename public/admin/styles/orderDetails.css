@@ -84,46 +84,75 @@ body,html {
 .first-order-body {
     display: flex;
     gap: 20px;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .items-section{
+    display: inline;
+    background: #FFF;
+    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    margin-left: 20px;
+    height: fit-content;
+    width: 45vw;
+}
+
+.customer-section {
+    margin-bottom: 10px;
+}
+
+.customer-section,
+.delivery-address-section{
+    background: #FFF;
+    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 18vw;
+    font-size: 15px;
+}
+
+.delete-transaction {
+    margin-right: 3px;
+    transition: 0.3s;
+}
+
+.delete-transaction:hover {
+    transform: scale(0.9);
+}
+
+.transaction p {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.transactions-section {
+    margin-bottom: 10px;
+}
+
+.transactions-section,
+.balance-section {
     background: #FFF;
     box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
     border-radius: 12px;
     padding: 20px;
     margin-left: 20px;
     width: 45vw;
-}
-
-.customer-section{
-    background: #FFF;
-    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
-    border-radius: 12px;
-    padding: 20px;
-    margin-left: 20px;
-    width: 20vw;
-}
-
-.transactions-section {
-    background: #FFF;
-    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
-    border-radius: 12px;
-    padding: 20px;
-    margin-left: 20px;
-    width: 20vw;
+    font-size: 15px;
 }
 
 .items-section table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 10px;
+    font-size: 15px;
 }
 
 .items-section table td {
     padding: 10px 5px;
     text-align: left;
-    border-bottom: 0.5px solid #B3B3B3;
+    border-bottom: 0.5px solid #e2d0c7;
 }
 
 .items-section table td a {
@@ -162,23 +191,31 @@ body,html {
 .customer-section .customer-info {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .customer-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.edit-customer,
-.edit-address {
+.edit-button {
     text-decoration: none;
     display: inline-block;
-    margin-left: 55%;
+    margin-left: 81%;
     transition: 0.3s;
 }
 
-.edit-customer:hover,
+.edit-address {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 35%;
+    transition: 0.3s;
+    color: rgb(187, 187, 187);
+}
+
+.edit-button:hover,
 .edit-address:hover {
     transform: scale(0.9);
 }
@@ -193,14 +230,15 @@ body,html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .transaction button {
+    padding-right: 30px;
     background: transparent;
     border: none;
     cursor: pointer;
     font-size: 18px;
+    margin-left: 55%;
 }
 
 .add-transaction {

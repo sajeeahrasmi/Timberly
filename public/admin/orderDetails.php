@@ -80,9 +80,9 @@ $transact_amount = $_GET['transact_amount'] ?? '0';
 
             <div class="first-order-body">
                 <div class="items-section">
-                    <h3 style="display: inline-block">Items</h3>
+                    <h3 style="display: inline-block; margin-top: 10px">Items</h3>
                     <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                    <table class="items-table">
+                    <table>
                         <tr>
                             <td><a href="#">#WE15936</a></td>
                             <td>Library stool chair</td>
@@ -112,38 +112,40 @@ $transact_amount = $_GET['transact_amount'] ?? '0';
                     </table>
                 </div>
             
-                <div class="customer-section">
+                <div style="display: inline">
                     <div class="customer-section">
-                        <h3 style="display: inline-block">Customer</h3>
-                        <a href="#" class="edit-customer"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                        <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
+                        <a href="#" style="margin-left: 55%" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                         <div class="customer-info">
-                            <img src="../Assets/customerPic.png" alt="Customer">
+                            <img src="../Assets/customerPic.png" alt="custmr-img">
                             <div>
-                                <p>Mike James Willis</p>
+                                <p style="margin-bottom: 5px">Mike James Willis</p>
                                 <a href="mailto:mikee.willis@wowmail.com">mikee.willis@wowmail.com</a>
-                                <p>#WE15936541</p>
+                                <p style="color: #707070; font-size: 12px; margin-bottom: 0px">#WE15936541</p>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <h3 style="display: inline-block">Delivery address</h3>
+                    <div class="delivery-address-section">
+                        <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
                         <a href="#" class="edit-address"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                        <p>MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
+                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px;">MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
                     </div>
                 </div>
             </div>
             <div class="second-order-body"></div>
                 <div class="transactions-section">
-                    <h3>Transactions</h3>
+                    <h3 style="margin-top: 8px; margin-bottom:15px; display: inline-block">Transactions</h3>
+                    <a href="#" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <div class="transaction">
-                        <p>Advance payments from the Debit card</p>
+                        <p>Advance payments</p>
                         <p>August 06, 2022</p>
                         <p>$100.00</p>
-                        <button class="delete-transaction">🗑️</button>
+                        <a href="#" class="delete-transaction"><i class="fa-solid fa-trash-can" style="color: #000000;"></i></a>
                     </div>
-                    <a href="#" class="add-transaction">Add transaction</a>
-
-                    <h3>Balance</h3>
+                    <p style="margin-top: 0px; margin-left: 5px; margin-bottom:0px; font-size:smaller; color:#707070">via debit card</p>
+                </div>
+                <div class="balance-section">
+                    <h3 style="margin-top: 8px">Balance</h3>
                     <table class="balance-table">
                         <tr>
                             <td>Order Total</td>
@@ -153,7 +155,7 @@ $transact_amount = $_GET['transact_amount'] ?? '0';
                             <td>Paid by the customer</td>
                             <td>-$100.00</td>
                         </tr>
-                        <tr>
+                        <tr style="border-top: 1px #e2d0c7 solid">
                             <td>Remaining balance</td>
                             <td>$252.80</td>
                         </tr>
