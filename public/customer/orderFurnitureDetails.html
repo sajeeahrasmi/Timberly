@@ -5,12 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Furniture Order Details</title>
 
-    <link rel="stylesheet" href="/styles/orderDoorDetails.css">
+    <link rel="stylesheet" href="../customer/styles/pendingDoorOrder.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="/scripts/sidebar.js" defer></script>
-    <script src="/scripts/header.js" defer></script>
-    <script src="/scripts/pendingDoorOrder.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/orderFurnitureDetails.js" defer></script>
 
+    <style>
+        .image-dropdown {
+            position: relative;
+        }
+    
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+    
+        .dropdown-toggle {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            white-space: nowrap;
+        }
+    
+        .dropdown-menu img {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+    
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    
+        .dropdown img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
 
 </head>
 <body>
@@ -26,7 +71,7 @@
                 <div class="top">
                     <h2>Order #4545</h2>
                     <div class="right-section">
-                        <p data-status="Pending" id="status">Processing</p>
+                        <p data-status="Pending" id="status">Confirmed</p>
                         <button id="action-button" class="button outline">Cancel Order</button>
                     </div>
                 </div>
@@ -38,7 +83,7 @@
                         <p>Total: Rs. 65,000</p>
                         <p>Paid: Rs. 25,000</p>
                         <p>Balance: Rs. 40,000</p>
-                        <button class="button outline">Pay</button>
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/payment-details.html`">Pay</button>
                     </div>
                     <div class="card">
                         <h4>Measurement Person</h4>
@@ -60,13 +105,11 @@
 
                 <div class="bottom">
 
-                    <!-- Topic section with heading and item count on the right -->
                     <div class="topic">
                         <h2>Order Details</h2>
                         <p>No. of Items: 4</p>
                     </div>
     
-                    <!-- Scrollable table section -->
                     <div class="table-container">
                         <table class="styled-table">
                             <thead>
@@ -159,8 +202,8 @@
     
                     <!-- Footer button -->
                     <div class="footer-button">
-                        <button id="add-button">Add</button>
-                        <button id="update-button">Update</button>
+                        <button id="add-button" class="button outline">Add</button>
+                        <button id="update-button" class="button solid">Update</button>
                     </div>
     
                 </div>
@@ -168,6 +211,66 @@
             </div>
         </div>
    
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <div id="popup" class="popup">
+        <div class="form-content">
+            <h4>Item Details</h4>
+            <form>
+                <div class="form-group">
+                    <label for="category">Select Category: </label>
+                    <select id="category">
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select Design</label>
+                    <input type="radio" name="designChoice" id="selectDesign" value="select-design">
+                    <br>
+                    <div id="design-options" class="image-dropdown" style="display:none;">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle">
+                                <img id="selected-design" src="/images/design1.jpg" alt="Select Design" width="100">
+                            </div>
+                            <div class="dropdown-menu">
+                                <img class="design-option" src="/images/design1.jpg" alt="Design 1" width="100">
+                                <img class="design-option" src="/images/design2.jpg" alt="Design 2" width="100">
+                                <img class="design-option" src="/images/design3.jpg" alt="Design 3" width="100">
+                                <img class="design-option" src="/images/design4.jpg" alt="Design 1" width="100">
+                                <img class="design-option" src="/images/design5.jpg" alt="Design 2" width="100">
+                                <img class="design-option" src="/images/design6.jpg" alt="Design 3" width="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>                   
+                <div class="form-group">
+                    <label>Select Type: </label>
+                    <select>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number">
+                </div>
+                <div class="form-group">
+                    <label>Additional Information</label><br>
+                    <textarea></textarea>
+                </div>
+               
+            </form>
+            <div class="add-button">
+                <button type="submit" class="button outline" onclick="closePopup()" >Add Item</button>
+            </div>
+            
+        </div>
     </div>
 
 </body>

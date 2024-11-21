@@ -118,7 +118,7 @@
     </div>
       <div id="inventory-section" class="section"><?php include 'inventory.php'; ?></div>
       <div id="report-section" class="section">
-            <?php  include 'customer.php'; ?>
+            <?php  include 'reports.php'; ?>
      
 </div>
 

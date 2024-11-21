@@ -53,7 +53,7 @@ body {
 }
 
 .content-header a {
-    width: 135px;
+    width: 130px !important;
     height: 20px;
     background-color: transparent;
     color: #895D47;

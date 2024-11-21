@@ -17,7 +17,7 @@
         <p>Are you sure to log out?</p>
         <div style="margin-top: 40px">
             <a class="cancel-logout" href="./index.php">Cancel</a>
-            <a class="proceed-logout" href="./login.php">LogOut</a>
+            <a class="proceed-logout" href="../">LogOut</a>
         </div>
     </div>
 </body>

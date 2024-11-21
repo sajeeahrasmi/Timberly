@@ -46,72 +46,82 @@ $quantity = $_GET['quantity'] ?? 0;
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Product Details - Timberly Ltd</title>
-        <link rel="stylesheet" href="./productDetails.php">
+        <title>Timberly-Admin</title>
+        <link rel="stylesheet" href="./styles/productDetails.css">
+        <link rel="stylesheet" href="./styles/components/header.css">
+        <link rel="stylesheet" href="./styles/components/sidebar.css">
+        <script src="./scripts/components/sidebar.js" defer></script>
+        <script src="./scripts/components/header.js" defer></script>
     </head>
     <body>
-        <div class="page-content">
-            <div class="main-container">
-                <form method="POST">
-                    <div class="content-header">
-                        <h3><?php echo htmlspecialchars($prod_id); ?></h3>
-                        <a href="/admin/postProducts.php">Back</a>
-                        <button type="submit" name="save">Save</button>
-                        <button type="submit" name="delete" class="delete-button">Delete</button>
+        <div class="dashboard-container">
+            <?php include "./components/sidebar.php" ?>
+
+            <div class="page-content">
+                <div class="main-container">
+                    <?php include "./components/header.php" ?>
+                    <div class="content">
+                        <form method="POST">
+                            <div class="content-header">
+                                <h3><?php echo htmlspecialchars($prod_id); ?></h3>
+                                <button type="submit" name="save">Save</button>
+                                <button type="submit" name="delete" class="delete-button">Delete</button>
+                            </div>
+                            <hr class="custom-hr">
+                            <p style="color: black; font-size: 13px"><?php echo htmlspecialchars($date); ?></p>
+                            <hr class="custom-hr">
+
+                            <div class="form-section">
+                                <h3>Basic Information</h3>
+                                <input type="hidden" name="prod_id" value="<?php echo htmlspecialchars($prod_id); ?>">
+                                <label>Name</label>
+                                <input type="text" name="name" value="<?php echo htmlspecialchars($product); ?>">
+
+                                <label>Category</label>
+                                <input type="text" name="category" value="<?php echo htmlspecialchars($category); ?>">
+
+                                <label>Description</label>
+                                <textarea name="description" rows="4">Add description link when database connected</textarea>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Pricing</h3>
+                                <label>Price</label>
+                                <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($price); ?>">
+                                
+                                <label>Old Price</label>
+                                <input type="number" step="0.01" name="old_price" value="170.00">
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Inventory</h3>
+                                <label>Stock Quantity</label>
+                                <input type="number" name="stock" value="<?php echo htmlspecialchars($quantity); ?>">
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Visibility</h3>
+                                <label>
+                                    <input type="radio" name="visibility" value="Published"> Published
+                                </label>
+                                <label>
+                                    <input type="radio" name="visibility" value="Hidden" checked> Hidden
+                                </label>
+                            </div>
+                        </form>
                     </div>
-                    <hr class="custom-hr">
-                    <p style="color: black; font-size: 13px"><?php echo htmlspecialchars($date); ?></p>
-                    <hr class="custom-hr">
-
-                    <div class="form-section">
-                        <h3>Basic Information</h3>
-                        <input type="hidden" name="prod_id" value="<?php echo htmlspecialchars($prod_id); ?>">
-                        <label>Name</label>
-                        <input type="text" name="name" value="<?php echo htmlspecialchars($product); ?>">
-
-                        <label>Category</label>
-                        <input type="text" name="category" value="<?php echo htmlspecialchars($category); ?>">
-
-                        <label>Description</label>
-                        <textarea name="description" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Pricing</h3>
-                        <label>Price</label>
-                        <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($price); ?>">
-                        
-                        <label>Old Price</label>
-                        <input type="number" step="0.01" name="old_price" value="170.00">
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Inventory</h3>
-                        <label>Stock Quantity</label>
-                        <input type="number" name="stock" value="<?php echo htmlspecialchars($quantity); ?>">
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Visibility</h3>
-                        <label>
-                            <input type="radio" name="visibility" value="Published"> Published
-                        </label>
-                        <label>
-                            <input type="radio" name="visibility" value="Hidden" checked> Hidden
-                        </label>
-                    </div>
-                </form>
+                </div>
             </div>
+
+            <!-- Popup for success message -->
+            <?php if ($message !== ''): ?>
+                <div class="overlay show"></div>
+                <div class="popup show">
+                    <p class="close-button"><a href="/admin/postProducts.php"><img src="../Assets/close-icon.png" alt="Close"></a></p>
+                    <img src="../Assets/succeeded.png" alt="Success">
+                    <p><?php echo $message; ?></p>
+                </div>
+            <?php endif; ?>
         </div>
-
-        <!-- Popup for success message -->
-        <?php if ($message !== ''): ?>
-            <div class="overlay show"></div>
-            <div class="popup show">
-                <p class="close-button"><a href="/admin/postProducts.php"><img src="../Assets/close-icon.png" alt="Close"></a></p>
-                <img src="../Assets/succeeded.png" alt="Success">
-                <p><?php echo $message; ?></p>
-            </div>
-        <?php endif; ?>
     </body>
 </html>

@@ -5,12 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raw Material Order Details</title>
 
-    <link rel="stylesheet" href="/styles/orderDoorDetails.css">
+    <link rel="stylesheet" href="../customer/styles/pendingDoorOrder.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="/scripts/sidebar.js" defer></script>
-    <script src="/scripts/header.js" defer></script>
-    <script src="/scripts/pendingDoorOrder.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/orderRawMaterialDetails.js" defer></script>
 
+    <style>
+        .image-dropdown {
+            position: relative;
+        }
+    
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+    
+        .dropdown-toggle {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            white-space: nowrap;
+        }
+    
+        .dropdown-menu img {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+    
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    
+        .dropdown img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
 
 </head>
 <body>
@@ -24,9 +69,9 @@
             <div class="content">
                 
                 <div class="top">
-                    <h2>Order #4545</h2>
+                    <h2>Order </h2>
                     <div class="right-section">
-                        <p data-status="Pending" id="status">Processing</p>
+                        <p data-status="Pending" id="status">Pending</p>
                         <button id="action-button" class="button outline">Cancel Order</button>
                     </div>
                 </div>
@@ -35,25 +80,25 @@
                 <div class="middle">
                     <div class="card">
                         <h4>Payment Detail</h4>
-                        <p>Total: Rs. 65,000</p>
-                        <p>Paid: Rs. 25,000</p>
-                        <p>Balance: Rs. 40,000</p>
-                        <button class="button outline">Pay</button>
+                        <p>Total: </p>
+                        <p>Paid: </p>
+                        <p>Balance: </p>
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/payment-details.html`">Pay</button>
                     </div>
                     <div class="card">
                         <h4>Measurement Person</h4>
-                        <p>Name : Mr. Perera</p>
+                        <p>Name : </p>
                         <p>Date : <input type="date" /></p>
-                        <p>Time : 10.00 am to 12.00 pm</p>
-                        <p>Contact : 0723455566</p>
+                        <p>Time : </p>
+                        <p>Contact : </p>
                         
                     </div>
                     <div class="card">
                         <h4>Delivery Person</h4>
-                        <p>Name : Mr. Perera</p>
+                        <p>Name : </p>
                         <p>Date : <input type="date" /></p>
-                        <p>Time : 10.00 am to 12.00 pm</p>
-                        <p>Contact : 0723455566</p>
+                        <p>Time : </p>
+                        <p>Contact : </p>
                     </div>
                 </div>
                 
@@ -68,90 +113,22 @@
     
                     <!-- Scrollable table section -->
                     <div class="table-container">
-                        <table class="styled-table">
+                        <table class="styled-table" id="orderDetails">
                             <thead>
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Description</th>
+                                    <th>Order ID</th>
+                                    <th>Item ID</th>
+                                    <th>Type</th>
                                     <th>Length(m)</th>
                                     <th>width(mm)</th>
                                     <th>thickness(mm)</th>
                                     <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Unit Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Chair</td>
-                                    <td>Mahogany Wood</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>$50</td>
-                                    <td>
-                                        <span ><i class="fa-solid fa-eye"></i></span>
-                                        <span ><i class="fa-solid fa-pen"></i></span>
-                                        <span ><i class="fa-solid fa-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Table</td>
-                                    <td>Oak Wood</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>$150</td>
-                                    <td>
-                                        <span ><i class="fa-solid fa-eye"></i></span>
-                                        <span ><i class="fa-solid fa-pen"></i></span>
-                                        <span ><i class="fa-solid fa-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Table</td>
-                                    <td>Oak Wood</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>$150</td>
-                                    <td>
-                                        <span ><i class="fa-solid fa-eye"></i></span>
-                                        <span ><i class="fa-solid fa-pen"></i></span>
-                                        <span ><i class="fa-solid fa-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Table</td>
-                                    <td>Oak Wood</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>$150</td>
-                                    <td>
-                                        <span ><i class="fa-solid fa-eye"></i></span>
-                                        <span ><i class="fa-solid fa-pen"></i></span>
-                                        <span ><i class="fa-solid fa-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Table</td>
-                                    <td>Oak Wood</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>$150</td>
-                                    <td>
-                                        <span ><i class="fa-solid fa-eye"></i></span>
-                                        <span ><i class="fa-solid fa-pen"></i></span>
-                                        <span ><i class="fa-solid fa-trash"></i></span>
-                                    </td>
-                                </tr>
+
                                 
                             </tbody>
                         </table>
@@ -159,8 +136,8 @@
     
                     <!-- Footer button -->
                     <div class="footer-button">
-                        <button id="add-button">Add</button>
-                        <button id="update-button">Update</button>
+                        <button id="add-button" class="button outline">Add</button>
+                        <button id="update-button" class="button solid">Update</button>
                     </div>
     
                 </div>
@@ -169,6 +146,60 @@
         </div>
    
     </div>
+
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <div id="popup" class="popup">
+        <div class="form-content">
+            <h4>Item Details</h4>
+            <form>
+                <div class="form-group">
+                    <label for="category">Select Type: </label>
+                    <select id="category">
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                        <option>Jak</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <h5>Size</h5>
+                    <label>Length</label>
+                    <input type="number">
+                    <label>Width</label>
+                    <input type="number">
+                    <label>Height</label>
+                    <input type="number">
+                </div>
+                
+
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number">
+                </div>
+                
+                <div class="form-group">
+                    <label>Unit Price : Rs. 450</label>
+                    
+                </div>
+
+            </form>
+            <div class="add-button">
+                <button type="submit" class="button outline" onclick="closePopup()">Add Item</button>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div id="popup-2" class="popup2">
+        <h3>Change Quantity</h3>
+        <p id="popup-content"></p>
+        <label>Quantity:</label>
+        <input type="number" id="qty">
+        <!-- Buttons are dynamically appended via JavaScript -->
+    </div>
+    
 
 </body>
 </html>

@@ -124,7 +124,7 @@ td {
 }
 
 tr:hover {
-    background-color: #f9f9f9;
+    background-color: #895d4728 !important;
 }
 
 tbody tr {
