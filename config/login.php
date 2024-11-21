@@ -30,6 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../public/supplier/Dashboard/dashboard.html");
         } elseif ($row['role'] === 'admin') {
             header("Location: ../public/admin/index.php");
+        }elseif ($row['role'] === 'driver') {
+            header("Location: ../public/other/driver.html");
+        }elseif ($row['role'] === 'designer') {
+            header("Location: ../public/other/designer.html");
         }
     } else {
         echo "<script>alert('Invalid username or password'); window.location.href='../public/login.html';</script>";
