@@ -19,6 +19,7 @@
         
         <nav>
             <ul >
+
                 <li><a href="#" onclick="checkAndShowSection('dashboard-section')"><i class="fa-solid fa-house icon"></i>Dashboard</a></li>
                 <li><a href="#" onclick="checkAndShowSection('postProducts-section')"><i class="fa-solid fa-rectangle-list icon"></i>Post</a></li>
                 <li><a href="#" onclick="checkAndShowSection('order-section')"><i class="fa-solid fa-list-check"></i>Order</a></li>
@@ -29,9 +30,12 @@
                 <li><a href="#" onclick="checkAndShowSection('driver-section')"><i class="fa-solid fa-truck" style="margin-left: 1px; margin-right: 10px"></i>Driver</a></li>
                 <!-- <li class="logout"><a href="#" onclick="showSection('logout-section')"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</a></li> -->
                 <li class="logout"><a href="#" onclick="window.location.href=`http://localhost/Timberly/config/logout.php`"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</a></li>
+
+                
             </ul>
         </nav>
     </aside>
+    <script src="../scripts/components/sidebar.js" defer></script>
 </body>
 </html>
 

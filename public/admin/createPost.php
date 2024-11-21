@@ -78,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             <div class="form-filling">
                                 <div style="display: grid; grid-template-columns: repeat(2,1fr);">
                                     <div class="main-category-selection" style="margin-bottom: 10px">
-                                    <label style="width: 150px; font-weight: bold">
-                                        <input type="radio" name="material" value="product" checked <?php if ($material == 'product') echo 'checked'; ?>> Product
-                                    </label>
-                                    <label style="width: 150px; font-weight: bold">
-                                        <input type="radio" name="material" value="raw_materials" <?php if ($material == 'raw_materials') echo 'checked'; ?>> Raw materials
-                                    </label>
+                                        <label style="width: 150px; font-weight: bold">
+                                            <input type="radio" name="material" value="product" checked <?php if ($material == 'product') echo 'checked'; ?>> Product
+                                        </label>
+                                        <label style="width: 150px; font-weight: bold">
+                                            <input type="radio" name="material" value="raw_materials" <?php if ($material == 'raw_materials') echo 'checked'; ?>> Raw materials
+                                        </label>
                                     </div>
                                     <button class="Selector-submission" type="submit">Select type</button>
                                 </div>
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                     <textarea id="description" name="description"><?php echo $description; ?></textarea>
 
                                     <div class="form-footer">
-                                        <a href="/Admin/home.php">Cancel</a>
+                                        <a href="index.php">Cancel</a>
                                         <button name="create_post" type="submit">Create the post</button>
                                     </div>
                                 </div>
