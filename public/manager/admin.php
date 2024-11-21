@@ -33,7 +33,7 @@
 <li><a href="#" onclick="showSection('products-section')"><i class="fa-solid fa-tree icon"></i>Products</a></li>
 <li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Order</a></li>
 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-box icon"></i>Inventory</a></li>
-
+<li><a href="#" onclick="showSection('report-section')"><i class="fas fa-chart-line icon"></i>Reports</a></li>
 
       
     </ul>
@@ -50,7 +50,7 @@
     
     <div class="content">
       <div id="dashboard-section" class="section">
-        <h1>Dashboard Overview</h1>
+        <h2>Dashboard Overview</h2>
         <div class="metric-grid">
             
             <div class="metric-card">
@@ -59,7 +59,7 @@
         <span class="metric-value">$25,000</span> 
         <i class="fas fa-dollar-sign"></i>
     </div>
-    <button>
+    <button onclick="showSection('report-section')">
         <i class="fas fa-eye"></i>
         View Revenue
     </button>
@@ -117,11 +117,12 @@
       <div id="orders-section" class="section"><?php include 'orders.php'; ?>
     </div>
       <div id="inventory-section" class="section"><?php include 'inventory.php'; ?></div>
-      <div id="customer-section" class="section">
+      <div id="report-section" class="section">
             <?php  include 'customer.php'; ?>
-      <div id="supplier-section" class="section"><?php include 'supplier.php'; ?>
-    </div>
-      
+     
+</div>
+
   
 </body>
+<script src='/scripts/admin.js'></script>
 </html>

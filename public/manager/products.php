@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <button class ="create-Lumber-button">Create Lumber</button>
+        <button class ="create-Lumber-button" onclick="showLumberModal()">Create Lumber</button>
         <div class="supplier">
             <h2 class="supplier-title">Lumber </h2>
             <div class="products">
@@ -189,10 +189,10 @@
 
 
             <label for="diameter">Diameter:</label>
-            <input type="text" id="diameter" name="diameter" required>
+            <input type="number" id="diameter" name="diameter" min="1" required>
 
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
 
             <label for="supplierId">Supplier Id:</label>
             <input type="text" id="supplierId" name="supplierId" required>
@@ -202,6 +202,45 @@
     </div>
 </div>
 
+
+<div id="create-lumber" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h1>Create Lumber</h1>
+        <form id="create-lumber-form" class="create-lumber-class" method="POST" enctype="multipart/form-data">
+        <label for="material_type">Material Type:</label>
+            <select id="material_type" name="material_type" >
+                <option value="">Select Material Type</option>
+                <option value="Sooriyam">Jak</option>
+                <option value="Mahogany">Mahogany</option>
+                <option value="Teak">Teak</option>
+                <option value="Nedum">Nedum</option>
+                <option value="Sooriyam">Sooriyam </option>
+            </select>
+
+
+            <label for="length">Length:</label>
+            <input type="number" id="length" name="length"  min="1" required>
+
+            <label for="length">Width:</label>
+            <input type="number" id="width" name="width"  min='1' required>
+
+            <label for="length">Thickness:</label>
+            <input type="number" id="thickness" name="thickness"  min='1' required>
+
+            <label for="length">Quantity:</label>
+            <input type="number" id="quantity" name="quantity"  min='1' required>
+
+           
+            <label for="unit_price">Unit Price:</label>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
+
+          
+
+            <button type="submit">Submit Product</button>
+        </form>
+    </div>
+</div>
        
       
 
