@@ -28,7 +28,7 @@ $customerData = [
                                 align-items: center;"
                          class="content-header">
                         <h2>Customers</h2>
-                        <a href="addCustomer.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Customer</a>
+                        <a href="./addCustomer.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Add Customer</a>
                     </div>
                     <table class="product-table">
                         <thead>

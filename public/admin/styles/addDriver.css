@@ -16,8 +16,6 @@
 
   --card-padding: 20px;
   --padding: 10px;
-
-  --box-shadow: 0 4px 8px var(--color-secondary);
 }
 
 body, html {
@@ -25,26 +23,6 @@ body, html {
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
-}
-
-p {
-    color: #333333;
-}
-
-.button-container {
-    display: flex;
-    gap: 10px;
-    padding: 20px;
-}
-
-.button {
-    padding: 10px 20px;
-    border-radius: 20px; 
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
 }
 
 .dashboard-container {
@@ -58,10 +36,6 @@ p {
     flex-direction: column;
     padding-left: 5px;
     margin: 0px;
-} 
-
-.page-content {
-    width: 100%;
 }
 
 .dashboard-container .main-content .content {
@@ -69,6 +43,28 @@ p {
     gap: 10px;
     height:100%;
     margin: 0px;
+    width: 100%;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.button-container {
+    display: flex;
+    padding: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 20px; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
 }
 
 .button.outline {
@@ -78,7 +74,8 @@ p {
 }
 
 .button.outline:hover {
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
     color: white;
 }
 
@@ -97,25 +94,9 @@ p {
     padding: var(--card-padding);
     margin: 20px auto;
     max-width: 600px;
-    border-radius: var(--card-border-radius);
+    border-radius: 20px;
     background-color: #fff;
-    box-shadow: var(--box-shadow);
-}
-
-.table-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 10px;
-}
-
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius-2);
-    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .styled-table thead th {
