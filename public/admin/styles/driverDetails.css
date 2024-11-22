@@ -26,3 +26,30 @@ body, html {
     width: 100%;
 }
 
+.driver-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.driver-header h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.page-type-banner {
+    margin-bottom: 0;
+    margin-left: 20px;
+    color: rgba(0, 0, 0, 0.519);
+    font-weight: bold;
+}
+
+.driver-edit {
+    background-color: white;
+    color: #895D47;
+    border: #895D47 1px solid;
+    border-radius: 70px;
+    width: 110px;
+}

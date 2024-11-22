@@ -64,9 +64,40 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
             <?php include "./components/sidebar.php" ?>
             <div class="main-content">
                 <?php include "./components/header.php" ?>
-                <div>
-                    
+                <p class="page-type-banner">driver</p>
+                <div class="driver-header">
+                    <h2><?php echo htmlspecialchars($driver_id); ?></h2>
+                    <div>
+                        <a href="./driverEdit.php" class="driver-edit">Edit</a>
+                        <button class="delete-button">Delete</button>
+                    </div>
                 </div>
+                <div class="driver-detail-panel">
+                    <div class="driver-info">
+                        <img src=".images/image.png" alt="driver-foto">
+                        <p><?php echo htmlspecialchars($name); ?></p>
+                        <p><?php echo htmlspecialchars($email); ?></p>
+                        <p><?php echo htmlspecialchars($nic); ?></p>
+                        <p><?php echo htmlspecialchars($driver_id); ?></p>
+                    </div>
+                    <div class="driver-stats">
+                        <p>Registered</p>
+                        <p>5 months ago</p>
+                        <p>Last delivery</p>
+                        <p>1 hour ago</p>
+                        <p>Total deliveries</p>
+                        <p>32</p>
+                    </div>
+                </div>
+                <div class="work-panel">
+                    <div class="delivery-table">
+
+                    </div>
+                    <div class="contact-details">
+
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </body>
