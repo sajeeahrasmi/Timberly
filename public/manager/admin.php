@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="./styles/admin.css">
+    <link rel="stylesheet" href="./styles/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="./scripts/admin.js" defer></script> 
+    <script src="./scripts/admin.js" defer></script>
+    <style>
+      
+    </style>
 </head>
 <body>
+
   <div class="admin-container">
     
     <div class="top-bar">
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
       <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
-        <button class="profile-btn"><i class="fas fa-user"></i></button>
+        <button class="profile-btn" ><i class="fas fa-user"></i></button>
       </div>
     </div>
 
@@ -119,10 +124,17 @@
       <div id="inventory-section" class="section"><?php include 'inventory.php'; ?></div>
       <div id="report-section" class="section">
             <?php  include 'reports.php'; ?>
+            
      
 </div>
 
-  
+
+
 </body>
 <script src='/scripts/admin.js'></script>
 </html>
+
+
+
+
+

@@ -545,11 +545,14 @@
 
 /* Modal Content */
 #create-lumber .modal-content {
+   
     background-color: rgb(252, 242, 242);
-    margin: 15% auto;
+    margin: 5% auto; /* Reduce margin for better visibility on smaller screens */
     padding: 20px;
-    width: 80%;
-    max-width: 600px;
+    width: 90%; /* Make the modal adaptive to smaller screens */
+    max-width: 600px; /* Keep it within a reasonable size */
+    max-height: 90vh; /* Limit height to 90% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the modal height */
     border-radius: 10px;
 }
 
@@ -611,16 +614,26 @@
 #create-lumber .modal-content button:hover {
     background-color:#895D47;
 }
-
+#create-lumber-form input,
+#create-lumber-form select {
+    width: 100%; /* Ensure inputs stretch to the modal width */
+    margin-bottom: 15px; /* Add space between form elements */
+}
 
 /* For responsiveness */
-@media screen and (max-width: 600px) {
-    #create-lumber .modal-content {
-        width: 90%;
+@media (max-width: 768px) {
+    .modal-content {
         padding: 15px;
     }
+
+    #create-lumber-form input,
+    #create-lumber-form select,
+    #create-lumber-form button {
+        font-size: 14px; /* Reduce font size for better fit */
+    }
+}
 
     #create-lumber .modal-content button {
         padding: 10px;
     }
-}
+

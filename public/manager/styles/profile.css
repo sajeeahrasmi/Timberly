@@ -1,0 +1,48 @@
+/* Profile Popup */
+.profile-popup {
+  display: none;
+  position: absolute;
+  top: 40px; /* Adjust based on button size */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Profile Info */
+.profile-info {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.profile-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Profile Actions */
+.profile-action {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-action:hover {
+  background-color: #f0f0f0;
+}
