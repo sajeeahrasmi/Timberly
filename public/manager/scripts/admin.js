@@ -34,10 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
    
   });
 
-  document.querySelector('.profile-btn').addEventListener('click', function() {
-    alert('Profile clicked!');
+  
     
-  });
+ 
 });
 
 
@@ -82,3 +81,8 @@ function fetchOrders() {
 
 
 window.onload = fetchOrders;
+// Open and close modal functionality
+// Open modal when profile button is clicked
+// Function to toggle the profile popup visibility
+
+

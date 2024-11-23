@@ -22,12 +22,37 @@ body {
   flex-direction: column;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .admin-container {
     flex-direction: row;
   }
 }
 
+
+@media (max-width: 767px) {
+  .admin-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .admin-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; 
+    padding: 20px; 
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .admin-container {
+    max-width: 1400px; 
+    margin: 0 auto; 
+  }
+}
 /* Top Bar */
 .top-bar {
   position: fixed;
@@ -339,29 +364,53 @@ body {
 /* Button Styles */
 .button-container {
   display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
   gap: 10px;
   padding: 20px;
+  justify-content: center; /* Center buttons */
 }
 
 /* Accept and Reject Button Styles */
+/* Accept and Reject Button Styles */
 .accept-btn, .reject-btn {
   padding: 10px 20px;
-  border-radius: 20px; 
+  border-radius: 20px;
   cursor: pointer;
   color: #f5f2f0; /* Set text color to brown */
-  font-size: 16px;
+  font-size: 16px; /* Default font size */
   font-weight: 600;
   margin: 5px;
   border: 2px solid #895D47;
   background-color: #895D47; 
   transition: all 0.3s ease;
-  width: calc(50% - 10px);
+  width: calc(50% - 10px); /* Default for medium screens */
+  text-align: center; /* Ensure text is centered */
 }
 
+/* Adjust button sizes and font for smaller screens */
+@media (max-width: 2000px) {
+  .accept-btn, .reject-btn {
+    width: 100%; /* Full width on smaller screens */
+    font-size: 14px; /* Smaller font size for better readability */
+    padding: 8px 16px; /* Reduced padding for compactness */
+  }
+}
+
+/* Adjust button font size even more for very small screens */
+@media (max-width: 480px) {
+  .accept-btn, .reject-btn {
+    font-size: 12px; /* Further reduce font size for very small screens */
+    padding: 6px 12px; /* Further reduce padding for compactness */
+  }
+}
+
+
+/* Hover effects */
 .accept-btn:hover, .reject-btn:hover {
   background-color: #f4efed; 
   color: #895D47; 
 }
+
 
 
 /* Section visibility */
