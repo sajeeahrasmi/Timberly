@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form action="submit.php" method="GET">
+                        <form id="add-driver-form" class="add-driver-form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -30,19 +30,19 @@
                                 <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="phone">Tele</label>
+                                <label for="phone">Phone number</label>
                                 <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="home_address">Address (Home)</label>
-                                <input type="text" id="home_address" name="home_address" placeholder="Home address" required class="input-field">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" placeholder="Address" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="work_address">Address (Work)</label>
-                                <input type="text" id="work_address" name="work_address" placeholder="Work address" required class="input-field">
+                                <label for="nic">NIC</label>
+                                <input type="text" id="nic" name="nic" placeholder="NIC" required class="input-field">
                             </div>
                             <div class="form-buttons button-container">
-                                <button type="reset" class="button outline">Cancel</button>
+                                <button onclick="window.location.href='drivers.php'" class="button outline">Cancel</button>
                                 <button type="submit" class="button solid">Submit</button>
                             </div>
                         </form>
