@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Handle GET requests for initial data
-$driver_id = $_GET['driver_id'] ?? 'Unknown';
-$name = $_GET['name'] ?? 'Unknown';
-$nic = $_GET['nic'] ?? 'Unknown';
-$email = $_GET['email'] ?? 'Unknown';
-$address = $_GET['address'] ?? 'Unknown';
-$tele_num = $_GET['tele_num'] ?? 'Unknown';
+$driver_id = $_GET['driver_id'] ?? '#WE15936541';
+$name = $_GET['name'] ?? 'Mike James';
+$nic = $_GET['nic'] ?? '198756455645';
+$email = $_GET['email'] ?? 'mikee.willis@wowmail.com';
+$address = $_GET['address'] ?? '21, Temple road, Kohuwala.';
+$tele_num = $_GET['tele_num'] ?? '077-9626186';
 $reg_day = $_GET['reg_day'] ?? 'Unknown';
 $last_delv_day = $GET['last_delv_day'] ?? 'Unknown';
 $tot_dels = $_GET['tot_dels'] ?? 'Unknown';
@@ -72,29 +72,51 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                         <button class="delete-button">Delete</button>
                     </div>
                 </div>
-                <div class="driver-detail-panel">
-                    <div class="driver-info">
-                        <img src=".images/image.png" alt="driver-foto">
-                        <p><?php echo htmlspecialchars($name); ?></p>
-                        <p><?php echo htmlspecialchars($email); ?></p>
-                        <p><?php echo htmlspecialchars($nic); ?></p>
-                        <p><?php echo htmlspecialchars($driver_id); ?></p>
+                <div class="page-content">
+                    <div class="driver-detail-panel">
+                        <div class="driver-info">
+                            <img src="./images/image.png" alt="driver-foto">
+                            <p class="name"><?php echo htmlspecialchars($name); ?></p>
+                            <p class="email"><?php echo htmlspecialchars($email); ?></p>
+                            <p class="nic"><?php echo htmlspecialchars($nic); ?></p>
+                            <p class="driver_id"><?php echo htmlspecialchars($driver_id); ?></p>
+                        </div>
+                        <div class="driver-stats">
+                            <p class="stat-title">Registered</p>
+                            <p class="stat-value">5 months ago</p>
+                            <p class="stat-title">Last delivery</p>
+                            <p class="stat-value">1 hour ago</p>
+                            <p class="stat-title">Total deliveries</p>
+                            <p class="stat-value">32</p>
+                        </div>
                     </div>
-                    <div class="driver-stats">
-                        <p>Registered</p>
-                        <p>5 months ago</p>
-                        <p>Last delivery</p>
-                        <p>1 hour ago</p>
-                        <p>Total deliveries</p>
-                        <p>32</p>
-                    </div>
-                </div>
-                <div class="work-panel">
-                    <div class="delivery-table">
-
-                    </div>
-                    <div class="contact-details">
-
+                    <div class="work-panel">
+                        <div class="delivery-table">
+                            <h3>Deliveries</h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>#QA1593</td>
+                                        <td style="color: red">To be delivered before</td>
+                                        <td>February 21, 2025</td>
+                                        <td>$ 170.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#RD1243</td>
+                                        <td style="color: green">Delivered on</td>
+                                        <td>February 21, 2025</td>
+                                        <td>$ 540.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Contact details</h3>
+                            <p>Home</p>
+                            <p><?php echo htmlspecialchars($address) ?></p>
+                            <p>Telephone number</p>
+                            <p><?php echo htmlspecialchars($tele_num) ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
