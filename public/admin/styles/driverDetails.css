@@ -163,6 +163,7 @@ table td {
     font-size: 14px;
     padding: 10px 45px;
     text-align: left;
+    border-collapse: collapse;
     border-bottom: 1px solid #ddd;
 }
 
@@ -173,4 +174,29 @@ table td {
 
 .order-no:hover {
     text-decoration: underline;
+}
+
+.contact-details {
+    width: 150%;
+    margin-top: 30px;
+    padding: 15px 20px;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 5px #B18068;
+}
+
+.contact-details h3 {
+    margin: 0px;
+    padding-bottom: 20px;
+}
+
+.detail-title {
+    margin-left: 15px;
+    margin: 0px;
+}
+
+.detail-value {
+    margin-top: 0px;
+    margin-left: 15px;
+    color: #bd7049;
+    font-size: medium;
 }

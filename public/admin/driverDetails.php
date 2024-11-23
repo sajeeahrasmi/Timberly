@@ -112,10 +112,10 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                         </div>
                         <div class="contact-details">
                             <h3>Contact details</h3>
-                            <p>Home</p>
-                            <p><?php echo htmlspecialchars($address) ?></p>
-                            <p>Telephone number</p>
-                            <p><?php echo htmlspecialchars($tele_num) ?></p>
+                            <p class="detail-title">Home</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($address) ?></p>
+                            <p class="detail-title">Telephone number</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($tele_num) ?></p>
                         </div>
                     </div>
                 </div>
