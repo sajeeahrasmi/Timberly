@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard</title>
 
-    <link rel="stylesheet" href="../test-current-wrking/styles/customerDashboard.css">
+    <link rel="stylesheet" href="../customer/styles/customerDashboard.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="../test-current-wrking/scripts/header.js" defer></script>
-    <script src="../test-current-wrking/scripts/calenderScript.js" defer></script>
-    <script src="../test-current-wrking/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/calenderScript.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
     
 </head>
 <body>
@@ -27,12 +27,12 @@
                         <div class="card">
                             <h3>Total Orders</h3>
                             <p>02</p>
-                            <button class="button outline" >View Orders</button>
+                            <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderHistory.html`" >View Orders</button>
                         </div>
                         <div class="card">
                             <h3>Current Order Items</h3>
                             <p>02</p>
-                            <button class="button outline">View Items</button>
+                            <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderDoorDetails.html`">View Items</button>
                         </div>
                         <div class="card">
                             <h3>Current Order Progress</h3>
@@ -108,7 +108,7 @@
                             <h6>Chair</h6>
                             <p>Type: Mahogany</p>
                         </div>
-                        <button class="button outline">View more</button>
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderWishlist.html`">View more</button>
                     </div>
                 </div>
 

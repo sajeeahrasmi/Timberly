@@ -47,7 +47,11 @@ $rawData = [
                         </thead>
                         <tbody>
                             <?php foreach ($rawData as $item): ?>
-                            <tr onclick="window.location.href='./rawDetails.php?raw_id=<?php echo urlencode($item['raw_id']); ?>&date=<?php echo urlencode($item['date']); ?>&product=<?php echo urlencode($item['product']); ?>&category=<?php echo urlencode($item['category']); ?>&u_price=<?php echo urlencode($item['u_price']); ?>&quantity=<?php echo urlencode($item['quantity']); ?>';">
+
+                            <tr onclick="window.location.href='./rawDetails.php?prod_id=<?php echo urlencode($item['prod_id']); ?>&date=<?php echo urlencode($item['date']); ?>&product=<?php echo urlencode($item['product']); ?>&category=<?php echo urlencode($item['category']); ?>&price=<?php echo urlencode($item['price']); ?>&quantity=<?php echo urlencode($item['quantity']); ?>';">
+
+                            
+
                                 <td><?php echo $item['raw_id']; ?></td>
                                 <td><?php echo $item['date']; ?></td>
                                 <td><?php echo $item['product']; ?></td>
