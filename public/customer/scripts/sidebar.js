@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/test-current-wrking/components/sidebar.html') 
+    fetch('/Timberly/public/customer/components/sidebar.html') 
         .then(response => response.text())
         .then(data => {
             document.getElementById('sidebar').innerHTML = data;
