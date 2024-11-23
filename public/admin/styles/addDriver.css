@@ -31,9 +31,7 @@ body, html {
 }
 
 .page-content {
-    margin-top: 50px;
-    width: 90%;
-    padding: 30px;
+    width: 100%;
 }
 
 .dashboard-container .main-content {
@@ -56,6 +54,7 @@ body, html {
     margin-top: 0px;
     margin-left: 30px;
     padding: 20px;
+    height: fit-content;
 }
 
 .button-container {
@@ -77,12 +76,19 @@ body, html {
     background-color: transparent;
     color: var(--color-primary);
     border-color: var(--color-primary);
+    margin-right: 5px;
 }
 
 .button.outline:hover {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
     color: white;
+}
+
+.fa-solid.fa-user-tie.fa-2xl {
+    border: 1px solid #B18068;
+    border-radius: 50px;
+    padding: 50px;
 }
 
 .button.solid {
@@ -134,7 +140,7 @@ body, html {
 
 /* New Styles for the Profile Form */
 .input-field {
-    width: 100%;
+    width: 85%;
     padding: 10px;
     border: 1px solid var(--color-secondary);
     border-radius: var(--border-radius-2);
