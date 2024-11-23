@@ -30,7 +30,7 @@
                                 <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
+                                <label for="phone">Tele</label>
                                 <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
                             </div>
                             <div class="form-group">

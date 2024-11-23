@@ -31,7 +31,7 @@ body, html {
 }
 
 .page-content {
-    width: 100%;
+    width: 80%;
 }
 
 .dashboard-container .main-content {
@@ -76,7 +76,8 @@ body, html {
     background-color: transparent;
     color: var(--color-primary);
     border-color: var(--color-primary);
-    margin-right: 5px;
+    margin-right: 15px;
+    margin-left: 50px;
 }
 
 .button.outline:hover {
@@ -103,6 +104,7 @@ body, html {
 }
 
 .card {
+    width: 50%;
     padding: var(--card-padding);
     margin: 20px auto;
     border-radius: 20px;
@@ -139,6 +141,14 @@ body, html {
 }
 
 /* New Styles for the Profile Form */
+.form-group {
+    margin-left: 30px;
+}
+
+label {
+    display: block;
+}
+
 .input-field {
     width: 85%;
     padding: 10px;
@@ -148,11 +158,13 @@ body, html {
     margin-top: 8px;
     margin-bottom: 16px;
     box-shadow: var(--box-shadow);
+    transition: 0.3s;
 }
 
 .input-field:focus {
     outline: none;
     border-color: var(--color-primary);
+    background-color: #efeeee;
 }
 
 .profile-picture {
