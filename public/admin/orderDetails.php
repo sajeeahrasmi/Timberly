@@ -8,15 +8,20 @@ $message = '';
 // Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $order_id = $_POST['order_id'] ?? '';
-    $product = $_POST['product'] ?? '';
-    $order_date = $_POST['order_date'] ?? '';
-    $order_time = $_POST['order_time'] ?? '';
+    $products = $_POST['product'] ?? [];
+    $prices = $_POST['price'] ?? [];
+    $quantities = $_POST['quantity'] ?? [];
+
+    $productData = []; // To store processed products
+
+    $order_datetime = $_POST['order_datetime'] ?? '';
     $customer = $_POST['customer'] ?? '';
-    $del_address = $_POST['del_address'] ?? '';
-    $price = $_POST['price'] ?? 0;
-    $old_price = $_POST['old_price'] ?? 0;
-    $stock = $_POST['stock'] ?? 0;
-    $visibility = $_POST['visibility'] ?? 'Hidden';
+    $delv_address = $_POST['delv_address'] ?? '';
+    $amount = $_POST['amount'] ?? 0;
+
+    $transact_mode = $_POST['transact_mode'] ?? '';
+    $transact_date = $_POST['transact_date'] ?? '';
+    $transact_amount = $_POST['transact_amount'] ?? 0;
 
     if (isset($_POST['save'])) {
         // Update product logic
@@ -34,13 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Handle GET requests for initial data
-$prod_id = $_GET['prod_id'] ?? 'Unknown';
-$date = $_GET['date'] ?? 'Unknown';
-$product = $_GET['product'] ?? 'Unknown';
-$category = $_GET['category'] ?? 'Unknown';
-$price = $_GET['price'] ?? 0;
-$availability = $_GET['availability'] ?? 'Unknown';
-$quantity = $_GET['quantity'] ?? 0;
+$order_id = $_GET['order_id'] ?? 'Unknown';
+$products = $_GET['product'] ?? 'Unknown';
+$prices = $_GET['price'] ?? '0';
+$quantities = $_GET['quantity'] ?? 'Unknown';
+$order_datetime = $_GET['order_datetime'] ?? 'Unknown';
+$customer = $_GET['customer'] ?? 'Unknown';
+$delv_address = $_GET['delv_address'] ?? 'Unknown';
+$amount = $_GET['amount'] ?? '0';
+
+$transact_mode = $_GET['transact_mode'] ?? 'Unknown';
+$transact_date = $_GET['transact_date'] ?? 'Unknown';
+$transact_amount = $_GET['transact_amount'] ?? '0';
 ?>
 
 <!DOCTYPE html>
@@ -52,21 +62,27 @@ $quantity = $_GET['quantity'] ?? 0;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="orderEdit.css">
+    <link rel="stylesheet" href="./styles/orderDetails.css">
+    <link rel="stylesheet" href="./styles/components/header.css">
+    <link rel="stylesheet" href="./styles/components/sidebar.css">
 </head>
 <body>
-    <div class="page-content">
+    <div class="dashboard-container">
+        <?php include "./components/sidebar.php" ?>
         <div class="main-content">
+            <?php include "./components/header.php" ?>
+            <p class="page-type-banner">order</p>
             <div class="order-header">
-                <h2>Order #QA15932</h2>
+                <h2><?php echo htmlspecialchars($order_id); ?></h2>
                 <button class="delete-button">Delete</button>
             </div>
-            <p>August 06, 2022 | 8:12 pm | 2 items | <span class="advance-paid">Advance paid</span></p>
+            <p class="order-stats">August 06, 2022 | 8:12 pm | 2 items | <span class="advance-paid">Advance paid</span></p>
 
-            <div class="order-body">
+            <div class="first-order-body">
                 <div class="items-section">
-                    <h3>Items</h3>
-                    <table class="items-table">
+                    <h3 style="display: inline-block; margin-top: 10px">Items</h3>
+                    <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                    <table>
                         <tr>
                             <td><a href="#">#WE15936</a></td>
                             <td>Library stool chair</td>
@@ -94,37 +110,42 @@ $quantity = $_GET['quantity'] ?? 0;
                             <td>$352.80</td>
                         </tr>
                     </table>
-                    <a href="#" class="edit-items">Edit items</a>
                 </div>
-
-                <div class="customer-section">
-                    <h3>Customer</h3>
-                    <div class="customer-info">
-                        <img src="../Assets/customerPic.png" alt="Customer">
-                        <div>
-                            <p>Mike James Willis</p>
-                            <a href="mailto:mikee.willis@wowmail.com">mikee.willis@wowmail.com</a>
-                            <p>#WE15936541</p>
+            
+                <div style="display: inline">
+                    <div class="customer-section">
+                        <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
+                        <a href="#" style="margin-left: 55%" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                        <div class="customer-info">
+                            <img src="../Assets/customerPic.png" alt="custmr-img">
+                            <div>
+                                <p style="margin-bottom: 5px">Mike James Willis</p>
+                                <a href="mailto:mikee.willis@wowmail.com">mikee.willis@wowmail.com</a>
+                                <p style="color: #707070; font-size: 12px; margin-bottom: 0px">#WE15936541</p>
+                            </div>
                         </div>
                     </div>
-                    <a href="#" class="edit-customer">Edit</a>
-
-                    <h3>Delivery address</h3>
-                    <p>MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
-                    <a href="#" class="edit-address">Edit</a>
+                    <div class="delivery-address-section">
+                        <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
+                        <a href="#" class="edit-address"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;">MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
+                    </div>
                 </div>
-
+            </div>
+            <div class="second-order-body"></div>
                 <div class="transactions-section">
-                    <h3>Transactions</h3>
+                    <h3 style="margin-top: 8px; margin-bottom:15px; display: inline-block">Transactions</h3>
+                    <a href="#" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <div class="transaction">
-                        <p>Advance payments from the Debit card</p>
+                        <p>Advance payments</p>
                         <p>August 06, 2022</p>
                         <p>$100.00</p>
-                        <button class="delete-transaction">🗑️</button>
+                        <a href="#" class="delete-transaction"><i class="fa-solid fa-trash-can" style="color: #000000;"></i></a>
                     </div>
-                    <a href="#" class="add-transaction">Add transaction</a>
-
-                    <h3>Balance</h3>
+                    <p style="margin-top: 0px; margin-left: 5px; margin-bottom:0px; font-size:smaller; color:#707070">via debit card</p>
+                </div>
+                <div class="balance-section">
+                    <h3 style="margin-top: 8px">Balance</h3>
                     <table class="balance-table">
                         <tr>
                             <td>Order Total</td>
@@ -134,7 +155,7 @@ $quantity = $_GET['quantity'] ?? 0;
                             <td>Paid by the customer</td>
                             <td>-$100.00</td>
                         </tr>
-                        <tr>
+                        <tr style="border-top: 1px #e2d0c7 solid">
                             <td>Remaining balance</td>
                             <td>$252.80</td>
                         </tr>

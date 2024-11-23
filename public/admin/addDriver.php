@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Timberly-Admin</title>
-        <link rel="stylesheet" href="./styles/addCustomer.css">
+        <link rel="stylesheet" href="./styles/addDriver.css">
         <link rel="stylesheet" href="./styles/components/header.css">
         <link rel="stylesheet" href="./styles/components/sidebar.css">
     </head>
@@ -14,7 +14,7 @@
             <div class="page-content">
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
-                    <div class="container card">
+                    <div class="card">
                         <form action="submit.php" method="GET">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
@@ -30,7 +30,7 @@
                                 <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
+                                <label for="phone">Tele</label>
                                 <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
                             </div>
                             <div class="form-group">
@@ -50,6 +50,6 @@
                 </div>
             </div>
         </div>
-        <script src="./scripts/addCustomer.js"></script>
+        <script src="./scripts/addDriver.js"></script>
     </body>
 </html>
