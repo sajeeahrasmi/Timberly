@@ -96,13 +96,13 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>#QA1593</td>
+                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RT0923'">#RT0923</td>
                                         <td style="color: red">To be delivered before</td>
                                         <td>February 21, 2025</td>
                                         <td>$ 170.00</td>
                                     </tr>
                                     <tr>
-                                        <td>#RD1243</td>
+                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RD1243'">#RD1243</td>
                                         <td style="color: green">Delivered on</td>
                                         <td>February 21, 2025</td>
                                         <td>$ 540.00</td>

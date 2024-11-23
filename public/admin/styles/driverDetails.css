@@ -140,6 +140,37 @@ body, html {
     color: #bd7049;
     margin-top: 0px;
     margin-left: 5px;
-    font-size: 10px;
+    font-size: 12px;
 }
 
+.work-panel {
+    width: 42%;
+    text-align: justify;
+}
+
+.delivery-table {
+    width: 150%;
+    padding: 15px 20px;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 5px #B18068;
+}
+
+.delivery-table h3 {
+    margin: 0px;
+}
+
+table td {
+    font-size: 14px;
+    padding: 10px 45px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-no {
+    color: #895D47;
+    cursor: pointer;
+}
+
+.order-no:hover {
+    text-decoration: underline;
+}
