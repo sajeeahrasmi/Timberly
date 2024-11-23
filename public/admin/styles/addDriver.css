@@ -19,15 +19,21 @@
 }
 
 body, html {
+    font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
 }
 
 .dashboard-container {
     display: flex;
     min-height: 100vh;
+}
+
+.page-content {
+    margin-top: 50px;
+    width: 90%;
+    padding: 30px;
 }
 
 .dashboard-container .main-content {
@@ -38,7 +44,7 @@ body, html {
     margin: 0px;
 }
 
-.dashboard-container .main-content .content {
+.dashboard-container .main-content {
     padding: 10px;
     gap: 10px;
     height:100%;
@@ -93,7 +99,6 @@ body, html {
 .card {
     padding: var(--card-padding);
     margin: 20px auto;
-    max-width: 600px;
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
