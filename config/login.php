@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($row['role'] === 'supplier' && $row['status'] !== 'Approved') {
             echo "<script>
                 alert('Your account is pending approval. Please contact administrator.');
-                window.location.href='../public/login.html';
+                window.location.href='../public/landingPage.html';
             </script>";
             exit();
         }
