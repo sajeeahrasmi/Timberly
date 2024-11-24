@@ -1,49 +1,5 @@
-<?php
-// Database connection placeholder
-// include('db_connection.php');
-
-// Initialize variables
-$message = '';
-
-// Handle POST requests
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $driver_id = $_POST['driver_id'] ?? '';
-    $name = $_POST['name'] ?? '';
-    $nic = $_POST['nic'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $address = $_POST['address'] ?? '';
-    $tele_num = $_POST['tele_num'] ?? '';
-    $reg_day = $_POST['reg_day'] ?? ''; //registered date
-    $last_delv_day = $_POST['last_delv_day'] ?? '';
-    $tot_dels = $_POST['tot_dels'] ?? ''; //total deliveries
-    $deliveries = $_POST['deliveries'] ?? '';
-
-    if (isset($_POST['save'])) {
-        // Update product logic
-        // $query = "UPDATE products SET name='$name', category='$category', description='$description', price='$price', stock='$stock', visibility='$visibility' WHERE id='$prod_id'";
-        // mysqli_query($db_connection, $query);
-
-        $message = 'Product updated successfully!';
-    } elseif (isset($_POST['delete'])) {
-        // Delete product logic
-        // $query = "DELETE FROM products WHERE id='$prod_id'";
-        // mysqli_query($db_connection, $query);
-
-        $message = 'Product deleted successfully!';
-    }
-}
-
-// Handle GET requests for initial data
-$driver_id = $_GET['driver_id'] ?? '#WE15936541';
-$name = $_GET['name'] ?? 'Mike James';
-$nic = $_GET['nic'] ?? '198756455645';
-$email = $_GET['email'] ?? 'mikee.willis@wowmail.com';
-$address = $_GET['address'] ?? '21, Temple road, Kohuwala.';
-$tele_num = $_GET['tele_num'] ?? '077-9626186';
-$reg_day = $_GET['reg_day'] ?? 'Unknown';
-$last_delv_day = $GET['last_delv_day'] ?? 'Unknown';
-$tot_dels = $_GET['tot_dels'] ?? 'Unknown';
-$deliveries = $_GET['deliveries'] ?? 'Unknown';
+<?php 
+    include '../../api/getDriverDetails.php';
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +22,7 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">driver</p>
                 <div class="driver-header">
-                    <h2><?php echo htmlspecialchars($driver_id); ?></h2>
+                    <h2><?php echo htmlspecialchars($driver['name']); ?></h2>
                     <div>
                         <a href="./editDriver.php" class="driver-edit">Edit</a>
                         <button class="delete-button">Delete</button>
@@ -76,14 +32,13 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                     <div class="driver-detail-panel">
                         <div class="driver-info">
                             <img src="./images/image.png" alt="driver-foto">
-                            <p class="name"><?php echo htmlspecialchars($name); ?></p>
-                            <p class="email"><?php echo htmlspecialchars($email); ?></p>
-                            <p class="nic"><?php echo htmlspecialchars($nic); ?></p>
+                            <p class="name"><?php echo htmlspecialchars($driver['name']); ?></p>
+                            <p class="email"><?php echo htmlspecialchars($driver['email']); ?></p>
                             <p class="driver_id"><?php echo htmlspecialchars($driver_id); ?></p>
                         </div>
                         <div class="driver-stats">
                             <p class="stat-title">Registered</p>
-                            <p class="stat-value">5 months ago</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
                             <p class="stat-title">Last delivery</p>
                             <p class="stat-value">1 hour ago</p>
                             <p class="stat-title">Total deliveries</p>
@@ -112,10 +67,10 @@ $deliveries = $_GET['deliveries'] ?? 'Unknown';
                         </div>
                         <div class="contact-details">
                             <h3>Contact details</h3>
-                            <p class="detail-title">Home</p>
-                            <p class="detail-value"><?php echo htmlspecialchars($address) ?></p>
+                            <p class="detail-title">Address</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($driver['address']) ?></p>
                             <p class="detail-title">Telephone number</p>
-                            <p class="detail-value"><?php echo htmlspecialchars($tele_num) ?></p>
+                            <p class="detail-value"><?php echo htmlspecialchars($driver['phone']) ?></p>
                         </div>
                     </div>
                 </div>
