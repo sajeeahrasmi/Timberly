@@ -21,7 +21,7 @@
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
       <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
-        <button class="profile-btn" ><i class="fas fa-user"></i></button>
+        <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
       </div>
     </div>
 
@@ -127,11 +127,24 @@
             
      
 </div>
-
+<div id="profile-modal" class="profile-modal-overlay">
+        <div class="profile-modal-content">
+            <button class="profile-close-btn" onclick="closeProfileModal()"><span class="profile-close-modal">&times;</span></button>
+            <h3>Manager Profile</h3>
+            <form id="profile-form">
+                <input type="text" id="name" placeholder="Name" value="Rishi Rasheen" required>
+                <input type="email" id="email" placeholder="Email" value="rasheen25@gmail.com" required>
+                <input type="password" id="new-password" placeholder="New Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm New Password" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
 
 
 </body>
-<script src='/scripts/admin.js'></script>
+
+
 </html>
 
 
