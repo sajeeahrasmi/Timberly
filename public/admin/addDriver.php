@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-driver-form" class="add-driver-form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <form id="add-driver-form" class="add-driver-form" method="POST" action="../../api/addDriver.php" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>

@@ -1,11 +1,5 @@
 <?php
-// Mock data for drivers
-$driverData = [
-    ['driver_id' => '#QA1593', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
-    ['driver_id' => '#WE1593', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
-    ['driver_id' => '#ZA1593', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
-    ['driver_id' => '#KQ1598', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
-];
+    include '../../api/getDrivers.php';
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +33,7 @@ $driverData = [
                             <tr>
                                 <th>Driver ID</th>
                                 <th>Name</th>
+                                <th>Vehicle No</th>
                                 <th>Registered on</th>
                                 <th>Telephone no</th>
                                 <th>Email</th>
@@ -49,6 +44,7 @@ $driverData = [
                                 <tr onclick="window.location.href='./driverDetails.php?driver_id=<?php echo urlencode($item['driver_id']); ?>'">
                                     <td><?php echo $item['driver_id']; ?></td>
                                     <td><?php echo $item['name']; ?></td>
+                                    <td><?php echo $item['vehicleNo']; ?></td>
                                     <td><?php echo $item['registered_on']; ?></td>
                                     <td><?php echo $item['tele_num']; ?></td>
                                     <td><?php echo $item['email']; ?></td>
