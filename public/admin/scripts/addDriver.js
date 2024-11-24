@@ -23,14 +23,30 @@ submitButton.addEventListener('click', (event) => {
 function validateForm() {
     const profileImage = document.getElementById('uploadImage').value;
     const name = document.getElementById('name').value.trim();
+    const vehicleNo = document.getElementById('vehicleNo').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
     const nic = document.getElementById('nic').value.trim();
 
    
+    if (profileImage === '') {
+        alert("Please upload the image.");
+        return false;
+    }
+
     if (name === '') {
         alert("Please enter the name.");
+        return false;
+    }
+
+    if (vehicleNo === '') {
+        alert("Please enter the vehicle number.");
+        return false;
+    }
+
+    if (nic === '') {
+        alert("Please enter the NIC.");
         return false;
     }
 

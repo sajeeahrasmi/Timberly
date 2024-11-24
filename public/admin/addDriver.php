@@ -26,12 +26,16 @@
                                 <input type="text" id="name" name="name" placeholder="Full name" required class="input-field">
                             </div>
                             <div class="form-group">
+                                <label for="vehicleNo">Vehicle No</label>
+                                <input type="text" id="vehicleNo" name="vehicleNo" placeholder="XXX-XXXX" required class="input-field">
+                            </div>
+                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
+                                <input type="tel" id="phone" name="phone" placeholder="0XXXXXXXXX" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="address">Address</label>
