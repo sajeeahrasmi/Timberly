@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Timberly-Admin</title>
-        <link rel="stylesheet" href="./styles/addDriver.css">
+        <link rel="stylesheet" href="./styles/editDriver.css">
         <link rel="stylesheet" href="./styles/components/header.css">
         <link rel="stylesheet" href="./styles/components/sidebar.css">
     </head>
@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-driver-form" class="add-driver-form" method="POST" action="../../api/addDriver.php" onsubmit="return validateForm()">
+                        <form id="add-driver-form" class="add-driver-form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -26,16 +26,12 @@
                                 <input type="text" id="name" name="name" placeholder="Full name" required class="input-field">
                             </div>
                             <div class="form-group">
-                                <label for="vehicleNo">Vehicle No</label>
-                                <input type="text" id="vehicleNo" name="vehicleNo" placeholder="XXX-XXXX" required class="input-field">
-                            </div>
-                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="0XXXXXXXXX" required class="input-field">
+                                <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="address">Address</label>
@@ -46,7 +42,7 @@
                                 <input type="text" id="nic" name="nic" placeholder="NIC" required class="input-field">
                             </div>
                             <div class="form-buttons button-container">
-                                <button onclick="window.location.href='drivers.php'" class="button outline">Cancel</button>
+                                <button onclick="window.location.href='./editDriver.php'" class="button outline">Cancel</button>
                                 <button type="submit" class="button solid">Submit</button>
                             </div>
                         </form>
