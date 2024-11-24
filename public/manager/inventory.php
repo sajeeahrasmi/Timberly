@@ -21,11 +21,11 @@
         #inventory-section {
             width: 98%; /* Increased width to fill more screen space */
             max-width: 1600px; /* Further widened max-width */
-            background-color: #e9ecef;
+            background-color:  #f4f4f4;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 50px auto; /* Keeps the centering but increased width */
-            padding: 40px; /* Increased padding for better spacing */
+            margin: 20px auto; /* Reduced margin-top */
+            padding: 20px; /* Reduced padding *//* Increased padding for better spacing */
             border: 2px solid #8B4513; /* Brown border around the entire inventory section */
         }
 
