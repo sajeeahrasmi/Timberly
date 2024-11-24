@@ -201,6 +201,15 @@ body,html {
     margin-top: 10px;
 }
 
+.customer-info a {
+    color: #ad785e;
+    text-decoration: none;
+}
+
+.customer-info a:hover {
+    text-decoration: underline;
+}
+
 .edit-button {
     text-decoration: none;
     display: inline-block;
