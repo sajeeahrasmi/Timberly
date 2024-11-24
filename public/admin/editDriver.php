@@ -1,3 +1,7 @@
+<?php
+    include '../../api/getEditDriver.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +19,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-driver-form" class="add-driver-form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <form id="edit-driver-form" class="edit-driver-form" method="POST" action="../../api/getEditDriver.php?driver_id=<?php echo htmlspecialchars($driver_id); ?>" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -23,26 +27,26 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Full name" required class="input-field">
+                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($data['name']); ?>" required class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Vehicle No</label>
+                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($data['vehicleNo']); ?>" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
+                                <input style="color: #aaaaaa" type="email" id="email" name="email" value="<?php echo htmlspecialchars($data['email']); ?>" required readonly class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="(0XX) XX-XXX-XX" required class="input-field">
+                                <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($data['phone']); ?>" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" id="address" name="address" placeholder="Address" required class="input-field">
-                            </div>
-                            <div class="form-group">
-                                <label for="nic">NIC</label>
-                                <input type="text" id="nic" name="nic" placeholder="NIC" required class="input-field">
+                                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($data['address']); ?>" required class="input-field">
                             </div>
                             <div class="form-buttons button-container">
-                                <button onclick="window.location.href='./editDriver.php'" class="button outline">Cancel</button>
+                                <button onclick="window.location.href='./drivers.php'" class="button outline">Cancel</button>
                                 <button type="submit" class="button solid">Submit</button>
                             </div>
                         </form>
@@ -50,6 +54,6 @@
                 </div>
             </div>
         </div>
-        <script src="./scripts/addDriver.js"></script>
     </body>
+    <script> src="./scripts/editDriver.js"</script>
 </html>
