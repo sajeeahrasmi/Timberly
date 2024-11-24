@@ -41,10 +41,6 @@
                                 <label for="address">Address</label>
                                 <input type="text" id="address" name="address" placeholder="Address" required class="input-field">
                             </div>
-                            <div class="form-group">
-                                <label for="nic">NIC</label>
-                                <input type="text" id="nic" name="nic" placeholder="NIC" required class="input-field">
-                            </div>
                             <div class="form-buttons button-container">
                                 <button onclick="window.location.href='drivers.php'" class="button outline">Cancel</button>
                                 <button type="submit" class="button solid">Submit</button>

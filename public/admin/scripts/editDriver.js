@@ -9,11 +9,11 @@ document.getElementById("uploadImage").addEventListener("change", function (even
     }
 });
 
-const submitButton = document.querySelector('.add-driver-form button[type="submit"]');
+const submitButton = document.querySelector('.edit-driver-form button[type="submit"]');
 submitButton.addEventListener('click', (event) => {
     event.preventDefault(); 
 
-    const form = document.getElementById('add-driver-form');
+    const form = document.getElementById('edit-driver-form');
 
     if (form.reportValidity()) {
         confirmSubmit(form);
@@ -24,10 +24,8 @@ function validateForm() {
     const profileImage = document.getElementById('uploadImage').value;
     const name = document.getElementById('name').value.trim();
     const vehicleNo = document.getElementById('vehicleNo').value.trim();
-    const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
-    const nic = document.getElementById('nic').value.trim();
 
    
     if (profileImage === '') {
@@ -42,21 +40,6 @@ function validateForm() {
 
     if (vehicleNo === '') {
         alert("Please enter the vehicle number.");
-        return false;
-    }
-
-    if (nic === '') {
-        alert("Please enter the NIC.");
-        return false;
-    }
-
-    if (email === '') {
-        alert("Please enter the email.");
-        return false;
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address.");
         return false;
     }
 
@@ -79,24 +62,24 @@ function validateForm() {
 }
 
 function confirmSubmit(form) {
-    const form = document.getElementById('add-driver-form');
+    const form = document.getElementById('edit-driver-form');
     const formData = new FormData(form);
 
-    fetch('../../../api/addDriver.php', {
-        method: 'POST',
+    fetch('../../../api/getEditDriver.php', {
+        method: 'PUT',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Driver added successfully.");
+            alert("Driver updated successfully.");
             form.reset();
         } else {
-            alert('Failed to add the driver:');
+            alert('Failed to edit the driver:');
         }
     })
     .catch((error) => {
-        console.error('Error submitting driver:', error);
-        alert('An error occurred while submitting the driver.');
+        console.error('Error submitting the update:', error);
+        alert('An error occurred while updating the driver.');
     });
 }

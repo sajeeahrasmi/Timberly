@@ -24,7 +24,7 @@
                 <div class="driver-header">
                     <h2><?php echo htmlspecialchars($driver['name']); ?></h2>
                     <div>
-                        <a href="./editDriver.php" class="driver-edit">Edit</a>
+                        <a href="./editDriver.php?driver_id=<?php echo urlencode($driver_id);?>" class="driver-edit">Edit</a>
                         <button class="delete-button">Delete</button>
                     </div>
                 </div>
