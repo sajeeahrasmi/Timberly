@@ -35,6 +35,7 @@
                             <p class="name"><?php echo htmlspecialchars($driver['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($driver['email']); ?></p>
                             <p class="driver_id"><?php echo htmlspecialchars($driver_id); ?></p>
+                            <p class="vehicleNo"><?php echo htmlspecialchars($driver['vehicleNo'])?></p>
                         </div>
                         <div class="driver-stats">
                             <p class="stat-title">Registered</p>

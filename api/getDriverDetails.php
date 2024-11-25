@@ -5,7 +5,7 @@ include 'db.php';
 $driver_id = $_GET['driver_id'] ?? '';
 
 $query = "SELECT *, TIMESTAMPDIFF(SECOND, created_at, NOW()) AS seconds_elapsed 
-          FROM user WHERE role = 'driver' AND userId = '$driver_id'";
+          FROM driverdetails WHERE userId = '$driver_id'";
 $result = mysqli_query($conn, $query);
 $driver = mysqli_fetch_assoc($result);
 

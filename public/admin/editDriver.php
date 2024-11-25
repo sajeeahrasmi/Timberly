@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Vehicle No</label>
-                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($data['vehicleNo']); ?>" required class="input-field">
+                                <input type="text" id="vehicleNo" name="vehicleNo" value="<?php echo htmlspecialchars($data['vehicleNo']); ?>" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

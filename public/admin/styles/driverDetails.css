@@ -119,8 +119,8 @@ body, html {
     margin-bottom: 0px;
 }
 
-.nic,
-.driver_id {
+.driver_id,
+.vehicleNo {
     font-size: smaller;
     color: #bd7049;
     margin-top: 7px;
