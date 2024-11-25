@@ -1,10 +1,10 @@
 <?php
 // Mock data for customers
 $customerData = [
-    ['cust_id' => '#QA15932456', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
-    ['cust_id' => '#WE15936541', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
-    ['cust_id' => '#ZA15937153', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
-    ['cust_id' => '#KQ15987512', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
+    ['customer_id' => '#QA15932456', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
+    ['customer_id' => '#WE15936541', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
+    ['customer_id' => '#ZA15937153', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
+    ['customer_id' => '#KQ15987512', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
 ];
 ?>
 
@@ -46,8 +46,8 @@ $customerData = [
                     </thead>
                     <tbody>
                     <?php foreach ($customerData as $item): ?>
-                        <tr>
-                            <td><?php echo $item['cust_id']; ?></td>
+                        <tr onclick="window.location.href='./customerDetails.php?customer_id=<?php echo urlencode($item['customer_id']); ?>'">
+                            <td><?php echo $item['customer_id']; ?></td>
                             <td><?php echo $item['name']; ?></td>
                             <td><?php echo $item['registered_on']; ?></td>
                             <td><?php echo $item['tele_num']; ?></td>
