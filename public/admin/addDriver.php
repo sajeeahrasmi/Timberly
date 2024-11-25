@@ -22,7 +22,7 @@
                                 <label for="uploadImage" class="button solid">+</label>
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Driver Name</label>
                                 <input type="text" id="name" name="name" placeholder="Full name" required class="input-field">
                             </div>
                             <div class="form-group">
