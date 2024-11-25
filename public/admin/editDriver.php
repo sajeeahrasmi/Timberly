@@ -26,7 +26,7 @@
                                 <label for="uploadImage" class="button solid">+</label>
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Driver name</label>
                                 <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($data['name']); ?>" required class="input-field">
                             </div>
                             <div class="form-group">
