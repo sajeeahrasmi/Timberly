@@ -37,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo json_encode(['success' => false, 'message' => 'Error updating driver data: ' . mysqli_error($conn)]);
         exit;
     }
-
-    echo json_encode(['success' => true, 'message' => 'Driver data updated successfully']);
+    header("Location: ../public/admin/drivers.php");
 }
 
 ?>
