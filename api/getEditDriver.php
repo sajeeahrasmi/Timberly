@@ -17,18 +17,27 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $driver_id = $_GET['driver_id'];
     $name = $_POST['name'];
+    $vehicleNo = $_POST['vehicleNo'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
 
-    $query = "UPDATE driverdetails SET name = '$name', phone = '$phone', address = '$address' WHERE userId = '$driver_id'";
-    $result = mysqli_query($conn, $query);
+    $query1 = "
+        UPDATE user 
+        SET name = '$name', phone = '$phone', address = '$address' 
+        WHERE userId = '$driver_id';
 
-    if (!$result) {
+        UPDATE driver 
+        SET vehicleNo = '$vehicleNo' 
+        WHERE driverId = '$driver_id';
+    ";
+
+    $result1 = mysqli_multi_query($conn, $query1);
+
+    if (!$result1) {
         echo json_encode(['success' => false, 'message' => 'Error updating driver data: ' . mysqli_error($conn)]);
         exit;
     }
-
-    echo json_encode(['success' => true, 'message' => 'Driver data updated successfully']);
+    header("Location: ../public/admin/drivers.php");
 }
 
 ?>

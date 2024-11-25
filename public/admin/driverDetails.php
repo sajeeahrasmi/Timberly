@@ -1,5 +1,6 @@
 <?php 
     include '../../api/getDriverDetails.php';
+    include '../../api/deleteDriver.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
                     <h2><?php echo htmlspecialchars($driver['name']); ?></h2>
                     <div>
                         <a href="./editDriver.php?driver_id=<?php echo urlencode($driver_id);?>" class="driver-edit">Edit</a>
-                        <button class="delete-button">Delete</button>
+                        <button class="delete-button" onclick="deleteDriver(<?php echo htmlspecialchars($driver_id); ?>)">Delete</button>
                     </div>
                 </div>
                 <div class="page-content">
@@ -35,6 +36,7 @@
                             <p class="name"><?php echo htmlspecialchars($driver['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($driver['email']); ?></p>
                             <p class="driver_id"><?php echo htmlspecialchars($driver_id); ?></p>
+                            <p class="vehicleNo"><?php echo htmlspecialchars($driver['vehicleNo'])?></p>
                         </div>
                         <div class="driver-stats">
                             <p class="stat-title">Registered</p>
@@ -78,4 +80,5 @@
             </div>
         </div>
     </body>
+    <script src="./scripts/deleteDriver.js"></script>
 </html>
