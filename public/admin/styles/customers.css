@@ -55,7 +55,7 @@ body,html {
     background-color: #895D47 !important;
 }
 
-.orders-display-box {
+.customers-display-box {
     margin-top: 50px;
     width: 95%;
     padding: 30px;
@@ -64,12 +64,12 @@ body,html {
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
-.orders-display-box h2 {
+.customers-display-box h2 {
     width: fit-content;
     display: inline;
 }
 
-.orders-display-box a{
+.customers-display-box a{
     text-decoration: none;
     color: inherit;
     display: inline;
@@ -81,11 +81,11 @@ body,html {
     transition: 300ms;
 }
 
-.orders-display-box a:hover {
+.customer-display-box a:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
-.orders-display-box a:active {
+.customers-display-box a:active {
     box-shadow: none;
 }
 

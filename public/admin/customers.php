@@ -26,7 +26,7 @@ $customerData = [
         <?php include "./components/sidebar.php" ?>
         <div class="main-content">
             <?php include "./components/header.php" ?>
-            <div class="orders-display-box">
+            <div class="customers-display-box">
                 <div style="display: flex;
                             justify-content: space-between;
                             align-items: center;"
