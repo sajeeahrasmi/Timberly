@@ -1,6 +1,7 @@
 function deleteDriver(driverId) {
     if (confirm("Are you sure you want to delete this driver?")) {
-        fetch("../../../api/deleteDriver.php", {
+        console.log("Sending POST request to delete driver...");
+        fetch("../../api/deleteDriver.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",  // Make sure the server knows how to process the data
