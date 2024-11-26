@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+    <link rel="stylesheet" href="../styles/globals.css">
+    <link rel="stylesheet" href="../styles/layout.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body> 
+    <div class="popup" id="notification-popup">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title">Notifications</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                <button class="popup-trigger" data-popup-id="not-1">New order request</button>
+                <button class="popup-trigger" data-popup-id="not-2">Payment processed</button>
+                <button class="popup-trigger" data-popup-id="not-3">Stock update required</button>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-1">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title">Notification 1</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
+                deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
+                veritatis quibusdam est?
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-2">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title">Notification 2</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
+                deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
+                veritatis quibusdam est?
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-3">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title">Notification 3</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
+                deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
+                veritatis quibusdam est?
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="header-content">
+            <div class="header-logo">Timberly</div>
+            <nav class="header-nav">
+                <button data-popup-id="notification-popup" class="header-link popup-trigger"><i
+                        class="fa-solid fa-bell"></i></button>
+                <a href="../Update Profile/updateprofile.html" class="header-link"><i class="fa-solid fa-user"></i></a>
+            </nav>
+        </div>
+    </header>
+    <div class="body-content-wrapper">
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <a href="../Dashboard/dashboard.html" class="sidebar-link ">Dashboard</a>
+                <a href="../Create Post/createPost.html" class="sidebar-link active">Create Post</a>
+                <a href="../Posts/total.html" class="sidebar-link">Supplier Posts</a>
+                <a href="../Posts/approved.html" class="sidebar-link">Supplier Orders</a>
+                <a href="../Update Profile/updateprofile.html" class="sidebar-link">User Profile</a>
+                <a href="#" class="sidebar-link">Log Out</a>
+            </div>
+        </div>
+        <div class="body-content-container">
+            <div class="body-content">
+                <div class="left">  
+                    <div class="buttons">
+                        <button><a href="../Create Post/timber.html"></a>Timber</button>
+                        <button><a href="../Create Post/lumber.html"></a>Lumber</button>
+                        
+                    </div>
+                    <div class="form-content">
+                        <h4>Item Details</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="category">Select Category: </label>
+                                <select id="category">
+                                    <option>Timber</option>
+                                    <option>Lumber</option>
+                                </select>
+                            </div>
+                            
+
+                                <!-- Container for image upload -->
+                                <div id="image-input" >
+                                    <!-- <label>Upload Design Image:</label> -->
+
+                                    <label>Upload images</label>
+                                    <input type="file" id="design-image" accept="image/*">
+                                    <!-- <img src="/images/timber.png" alt=""> -->
+                                    <!-- <br> -->
+                                    <!-- Image preview -->
+                                    <!-- <img id="image-preview" src="" alt="Image Preview" style="display:none; max-width: 100px; margin-top: 10px;"> -->
+                                </div>
+                            </div>                   
+
+
+                            <div class="form-group">
+                                <label>Select Type: </label>
+                                <select>
+                                    <option>Jak</option>
+                                    <option>Teak</option>
+                                    <option>Mahogani</option>
+                                    <option>Cinamond</option>
+                                </select>
+                            </div>
+                           
+                            <div class="form-group">
+                                <h5>Size</h5>
+                                <label>Length</label>
+                                <input type="number">
+                                <label>Width</label>
+                                <input type="number">
+                                <label>Height</label>
+                                <input type="number">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Additional Information</label><br>
+                                <textarea></textarea>
+                            </div>
+
+                        </form>
+                        <div class="add-button">
+                            <button type="submit" class="button outline">Update Item</button>
+                        </div>
+                        
+                    </div>            
+               
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/popup.js"></script>
+    <script src="./post.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-white: #fff;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --border-radius: 10px;
+}
+
+/* Popup Overlay */
+.popup .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1;
+}
+
+/* Popup Content */
+.popup .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 400px;
+    background: var(--color-white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Popup Active State */
+
+.popup.active .content {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Buttons */
+.close-btn, .back-btn {
+    position: absolute;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.close-btn {
+    top: 10px;
+    right: 10px;
+}
+
+.back-btn {
+    top: 10px;
+    left: 10px;
+}
+
+/* Notification Details */
+.notification-details {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.notification-img {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+}
+
+.message h3 {
+    font-size: 18px;
+    color: var(--color-primary);
+}
+
+.message p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Order Summary */
+.summary {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.summary h4 {
+    font-size: 16px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* View Notification Button */
+.view-btn {
+    margin-top: 20px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.view-btn:hover {
+    background: var(--color-secondary);
+}
+
+/* Notification Button*/  
+.notification-btn {
+    margin: 20px;
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.notification-btn:hover {
+    background: var(--color-secondary);
+}
+
+
+#dashboardNotificationBtn {
+    background-color: #895D47;
+    position: relative;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 60px;
+}
+
+#dashboardNotificationBtn:hover {
+    background-color: #B18068;
+}

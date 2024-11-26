@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Popup</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <!-- Popup structure -->
+    <div class="popup" id="notificationPopup">
+        <div class="overlay"></div>
+        <div class="content">
+            <button class="back-btn" onclick="goBack()">&#x2190;</button>
+            <button class="close-btn" onclick="togglePopup()">&times;</button>
+            <div class="popup-header">
+                <h2>Notification</h2>
+            </div>
+            <div class="notification-details">
+                <img src="https://via.placeholder.com/100" alt="Product Image" class="notification-img">
+                <div class="message">
+                    <h3>Order #400</h3>
+                    <p>Mahogany Timber | Your order is approved.</p>
+                </div>
+            </div>
+            <div class="summary">
+                <h4>Order Summary</h4>
+                <p><strong>Item:</strong> Mahogany Timber</p>
+                <p><strong>Quantity:</strong> 20 Units</p>
+                <p><strong>Price:</strong> $500</p>
+            </div>
+            <button class="view-btn" onclick="viewNotification()">View Notification</button>
+        </div>
+    </div>
+
+    <button class="notification-btn" onclick="togglePopup()">Show Notification</button>
+
+    <script src="popup.js"></script>
+</body>
+</html>

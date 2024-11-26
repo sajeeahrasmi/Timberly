@@ -1,0 +1,94 @@
+body,html {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    width: 100%;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.orders-display-box {
+    margin-top: 50px;
+    width: 90%;
+    padding: 30px;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 5px #B18068;
+}
+
+.orders-display-box h2 {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #895D47;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+td {
+    font-size: 14px;
+    color: #555;
+}
+
+.order-amount {
+    width: 50px;
+    text-align: right;
+}
+
+tr:hover {
+    background-color: #895d4722;
+}
+
+tbody tr {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Availability Colors */
+.delivered {
+    color: green;
+    font-weight: bold;
+}
+
+.awaiting {
+    color: red;
+    font-weight: bold;
+}

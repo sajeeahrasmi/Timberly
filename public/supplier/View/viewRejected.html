@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View-Approved</title>
+    <link rel="stylesheet" href="approved.css">
+    <link rel="stylesheet" href="../Dashboard/dashboard.css">
+    <link rel="stylesheet" href="../Notification Popup/popup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section class="head-sec">
+        <div class="logoname">
+            Timberly
+        </div>
+        <div class="head-icons">
+            <div class="notification">
+                <button class="notification-btn" onclick="togglePopup()"
+                    style="background-color:#895D47; border: #895D47; color: #fff;">
+                    <i class="fa-solid fa-bell"></i>
+
+                </button>
+
+                </a>
+            </div>
+
+            <!-- Notification Popup -->
+            <div class="popup" id="notificationPopup">
+                <div class="overlay"></div>
+                <div class="content">
+                    <button class="back-btn" onclick="goBack()">&#x2190;</button>
+                    <button class="close-btn" onclick="togglePopup()">&times;</button>
+                    <div class="popup-header">
+                        <h2>Notification</h2>
+                    </div>
+                    <div class="notification-details">
+                        <img src="https://via.placeholder.com/100" alt="Product Image" class="notification-img">
+                        <div class="message">
+                            <h3>Order #400</h3>
+                            <p>Mahogany Timber | Your order is approved.</p>
+                        </div>
+                    </div>
+                    <div class="summary">
+                        <h4>Order Summary</h4>
+                        <p><strong>Item:</strong> Mahogany Timber</p>
+                        <p><strong>Quantity:</strong> 20 Units</p>
+                        <p><strong>Price:</strong> $500</p>
+                    </div>
+                    <button class="view-btn" onclick="viewNotification()">View Notification</button>
+                </div>
+            </div>
+            <a href="../Create Profile/createProfile.html" class="user-profile-icon">
+                <i class="fa-solid fa-user"></i>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="sidebar">
+            <div class="text">Side Menu</div>
+            <ul>
+                <li><a href="../Dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="../Create Post/createPost.html">Create Post</a></li>
+                <li><a href="../Posts/total.html">Supplier Posts</a></li>
+                <li><a href="../Posts/approved.html">Supplier Orders</a></li>
+                <li><a href="../Update Profile/updateprofile.html">User Profile</a></li>
+                <li class="logout"><a href="#">Log Out</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="main-content">
+            <div class="main-text">
+                <h1>Posts Details</h1>
+            </div>
+
+            <div class="main-card">
+
+                <div class="content">
+
+                    <div class="left">
+                        <img src="../images/post1.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>Mahogani</h2>
+                        <p>Post No - 400</p>
+                        <p>Unit price: LKR 200/=</p>
+                        <p>Quantity: 6</p>
+                        <p>Length: 145 Inc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+
+    <!-- <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+        <div class="content">
+        <div class="close-btn" onclick="togglePopup()">&times;</div>
+        <div class="info-pic">
+            <img src="/images/lumber.jpg" alt="">
+
+        </div>
+
+        <div class="info-items">
+            <h1>Mahogani</h1>
+            <p>Post No - 400</p>
+            <p>Unit Price: LKR 2300</p>
+            <p>Quantity: 4</p>
+            <p>Length: 154 Inc</p>
+            <p>Width: 54 Inc</p>
+            <p>Thickness: 23 mm</p>
+            <p>Total Price: LKR 8900</p>
+        </m div>
+    
+    
+    </div>
+    </div>
+    <button onclick="togglePopup()">show popup</button>
+
+    <script src="view.js"></script>
+    
+     -->
+
+    <script src="../Dashboard/dashboard.js"></script>
+    <script src="../Notification Popup/popup.js"></script>
+</body>
+
+</html>
