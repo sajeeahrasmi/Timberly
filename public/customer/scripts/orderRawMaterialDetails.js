@@ -1,5 +1,7 @@
 let userId = 0;
+
 let orderId = 0;
+
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("../../config/customer/customer.php")
@@ -33,8 +35,10 @@ async function fetchOrderDetails() {
 
           data.items.forEach(item => {
               const row = document.createElement("tr");
+
               orderId = item.orderId;
               console.log(orderId)
+
 
               row.innerHTML = `
                   <td>${item.orderId}</td>
@@ -253,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             buttonElement.textContent = 'Cancel Order';
             buttonElement.onclick = function() {
+
                 //alert("Order Cancelled")
                 buttonElement.onclick = async function() {
                     const confirmation = confirm("Are you sure you want to cancel this order?");
@@ -278,6 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 };
+
             };
 
             buttonAddElement.onclick = function(){
@@ -360,7 +366,9 @@ closePopupButton.onclick = function(){
   }
 
 
+
  
+
 
 
 

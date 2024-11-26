@@ -23,6 +23,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Driver Name</label>
+
                                 <input type="text" 
                                     id="name" 
                                     name="name" 
@@ -76,6 +77,7 @@
                                     placeholder="Address" 
                                     required 
                                     class="input-field">
+
                             </div>
                             <div class="form-buttons button-container">
                                 <button onclick="window.location.href='drivers.php'" class="button outline">Cancel</button>

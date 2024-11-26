@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'db_connection.php'; // Adjust path if needed
@@ -8,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Modified query to also check status for suppliers
     $stmt = $conn->prepare("SELECT login.userId, user.name, user.role, user.status FROM login 
+
                             JOIN user ON login.userId = user.userId 
                             WHERE login.username = ? AND login.password = ?");
     $stmt->bind_param("ss", $username, $password);
@@ -16,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+
         
         // Check if supplier is approved
         if ($row['role'] === 'supplier' && $row['status'] !== 'Approved') {
@@ -63,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             alert('Invalid username or password');
             window.location.href='../public/login.html';
         </script>";
+
     }
     $stmt->close();
     $conn->close();
