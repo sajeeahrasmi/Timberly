@@ -142,7 +142,9 @@
             <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-                <option value="Sooriyam">Jak</option>
+
+                <option value="Jak">Jak</option>
+
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
@@ -180,7 +182,9 @@
         <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-                <option value="Sooriyam">Jak</option>
+
+                <option value="Jak">Jak</option>
+
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
@@ -211,7 +215,9 @@
         <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-                <option value="Sooriyam">Jak</option>
+
+                <option value="Jak">Jak</option>
+
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>

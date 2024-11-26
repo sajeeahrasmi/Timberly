@@ -1,23 +1,26 @@
 /* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #FFFFFF; /* White background for the sidebar */
+    background-color: #FFFFFF; 
     padding: 0px 20px;
-    color: #895D47; /* Brown color for text to match theme */
+    color: #895D47; 
     display: flex;
     flex-direction: column;
-    gap: 20px;  
+    gap: 10px;  
     height: 100vh;     
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds slight shadow for depth */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
 }
 
 .sidebar .logo {
     display: flex;
-    align-items: center;
+    align-items: center; 
     gap: 0.8rem;
-    padding: 20px 0;
-    color: #895D47; /* Brown color for logo text */
+    padding: 2px 0; 
+    color: #895D47; 
+    max-height: 100px;
+    
 }
+
 
 .sidebar h2 {
     margin: 0;

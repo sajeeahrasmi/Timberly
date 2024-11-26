@@ -1,15 +1,17 @@
 <?php
 // Mock data for Timber and Lumber
 $timberData = [
-    ['id' => 1, 'material_type' => 'Oak', 'logs' => 100, 'bought_date' => '2024-03-15'],
-    ['id' => 2, 'material_type' => 'Pine', 'logs' => 150, 'bought_date' => '2024-03-10'],
-    ['id' => 3, 'material_type' => 'Maple', 'logs' => 80, 'bought_date' => '2024-03-05'],
+
+    ['id' => 1, 'material_type' => 'Teak', 'logs' => 100, 'bought_date' => '2024-03-15'],
+    ['id' => 2, 'material_type' => 'Sooriyam', 'logs' => 150, 'bought_date' => '2024-03-10'],
+    ['id' => 3, 'material_type' => 'Mahogany', 'logs' => 80, 'bought_date' => '2024-03-05'],
 ];
 
 $lumberData = [
-    ['id' => 1, 'material_type' => 'Cedar', 'logs' => 120, 'bought_date' => '2024-03-12'],
-    ['id' => 2, 'material_type' => 'Birch', 'logs' => 90, 'bought_date' => '2024-03-08'],
-    ['id' => 3, 'material_type' => 'Walnut', 'logs' => 70, 'bought_date' => '2024-03-01'],
+    ['id' => 1, 'material_type' => 'Nedum', 'logs' => 120, 'bought_date' => '2024-03-12'],
+    ['id' => 2, 'material_type' => 'Jak', 'logs' => 90, 'bought_date' => '2024-03-08'],
+    ['id' => 3, 'material_type' => 'Jak', 'logs' => 70, 'bought_date' => '2024-03-01'],
+
 ];
 
 // Function to get unique material types
@@ -23,14 +25,17 @@ $lumberMaterialTypes = getMaterialTypes($lumberData);
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventory Management</title>
-        <link rel="stylesheet" href="./styles/inventory.css">
-        <link rel="stylesheet" href="./styles/components/header.css">
-        <link rel="stylesheet" href="./styles/components/sidebar.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="./styles/inventory.css">
+    <link rel="stylesheet" href="./styles/components/header.css">
+    <link rel="stylesheet" href="./styles/components/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
     <body>
         <div class="dashboard-container">
             <?php include "./components/sidebar.php" ?>
@@ -72,8 +77,10 @@ $lumberMaterialTypes = getMaterialTypes($lumberData);
                                         <td><?php echo $item['logs']; ?></td>
                                         <td><?php echo $item['bought_date']; ?></td>
                                         <td class="inventory-actions">
-                                            <a href="#" class="edit" onclick="editItem('timber', <?php echo $item['id']; ?>)"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
-                                            <a href="#" class="delete" onclick="deleteItem('timber', <?php echo $item['id']; ?>)"><i class="fa-solid fa-trash-can" style="color: #000000;"></i></a>
+
+                                            <!-- <a href="#" class="edit" onclick="editItem('timber', <?php echo $item['id']; ?>)"><i class="fas fa-pen-to-square" style="color: #000000;"></i></a>
+                                            <a href="#" class="delete" onclick="deleteItem('timber', <?php echo $item['id']; ?>)"><i class="fa-solid fa-trash-can" style="color: #000000;"></i></a> -->
+
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

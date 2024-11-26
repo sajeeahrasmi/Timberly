@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Profile</title>
+    <link rel="stylesheet" href="styles/driverProfile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Profile</h1>
+            <div class="header-buttons">
+                <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/designer.html`">Dashboard</button>
+                <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/public/landingPage.html`">Logout</button>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-card view-mode" id="viewProfile">
+                <h2>Personal Details</h2>
+                <div class="profile-info">
+                    <!-- <p><strong>Driver ID:</strong> <span>#123</span></p> -->
+                    <p><strong>Name:</strong> <span>Amal Perera</span></p>
+                    <p><strong>Email:</strong> <span>amal@gmail.com</span></p>
+                    <p><strong>Phone:</strong> <span>077 8945234</span></p>
+                    <p><strong>Address:</strong> <span>New Road, Colombo</span></p>
+                </div>
+                <button class="button solid" onclick="showEditMode()">Edit Profile</button>
+            </div>
+
+            <div class="profile-card edit-mode" id="editProfile">
+                <h2>Edit Profile</h2>
+                <form id="profileForm" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="amal@gmail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" value="077 8945234" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" required>New Road, Colombo</textarea>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="button outline" onclick="cancelEdit()">Cancel</button>
+                        <button type="submit" class="button solid">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/driverProfile.js"></script>
+</body>
+</html>

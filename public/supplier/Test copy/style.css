@@ -1,0 +1,59 @@
+
+
+.body-content .post-body{
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+    
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  .notifi-window {
+    width: 1000%;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .notifi-list {
+    list-style: none;
+    margin: 0;
+  }
+  
+  .notifi-item {
+    display: flex;
+    justify-content: space-between;
+    width: 560px;
+    gap: 20px;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid black;
+  }
+  
+  .notifi-item:last-child {
+    border-bottom: none;
+  }
+  
+  .popup-trigger-notifi{
+    background-color: var(--color-primary);
+    float: right;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .popup-trigger:hover {
+    background-color: var(--color-secondary);
+  }
+  
