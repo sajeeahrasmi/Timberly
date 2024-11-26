@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="./styles/admin.css">
+    <link rel="stylesheet" href="./styles/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    <script src="./scripts/admin.js" defer></script> 
+    <script src="./scripts/admin.js" defer></script>
+    <style>
+      
+    </style>
 </head>
 <body>
+
   <div class="admin-container">
     
     <div class="top-bar">
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
       <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
-        <button class="profile-btn"><i class="fas fa-user"></i></button>
+        <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
       </div>
     </div>
 
@@ -33,14 +38,14 @@
 <li><a href="#" onclick="showSection('products-section')"><i class="fa-solid fa-tree icon"></i>Products</a></li>
 <li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Order</a></li>
 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-box icon"></i>Inventory</a></li>
-
+<li><a href="#" onclick="showSection('report-section')"><i class="fas fa-chart-line icon"></i>Reports</a></li>
 
       
     </ul>
     
   </nav>
   <div class="logout">
-      <form action="../../config/logout.php" method="POST">
+      <form action="logout.php" method="POST">
         <button type="submit"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</button>
       </form>
     </div>
@@ -50,7 +55,7 @@
     
     <div class="content">
       <div id="dashboard-section" class="section">
-        <h1>Dashboard Overview</h1>
+        <h2>Dashboard Overview</h2>
         <div class="metric-grid">
             
             <div class="metric-card">
@@ -59,7 +64,7 @@
         <span class="metric-value">$25,000</span> 
         <i class="fas fa-dollar-sign"></i>
     </div>
-    <button>
+    <button onclick="showSection('report-section')">
         <i class="fas fa-eye"></i>
         View Revenue
     </button>
@@ -117,11 +122,32 @@
       <div id="orders-section" class="section"><?php include 'orders.php'; ?>
     </div>
       <div id="inventory-section" class="section"><?php include 'inventory.php'; ?></div>
-      <div id="customer-section" class="section">
-            <?php  include 'customer.php'; ?>
-      <div id="supplier-section" class="section"><?php include 'supplier.php'; ?>
+      <div id="report-section" class="section">
+            <?php  include 'reports.php'; ?>
+            
+     
+</div>
+<div id="profile-modal" class="profile-modal-overlay">
+        <div class="profile-modal-content">
+            <button class="profile-close-btn" onclick="closeProfileModal()"><span class="profile-close-modal">&times;</span></button>
+            <h3>Manager Profile</h3>
+            <form id="profile-form">
+                <input type="text" id="name" placeholder="Name" value="Rishi Rasheen" required>
+                <input type="email" id="email" placeholder="Email" value="rasheen25@gmail.com" required>
+                <input type="password" id="new-password" placeholder="New Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm New Password" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
     </div>
-      
-  
+
+
 </body>
+
+
 </html>
+
+
+
+
+

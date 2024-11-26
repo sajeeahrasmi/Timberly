@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --color-primary: #895D47;
+  --color-secondary: #B18068;
+  --color-danger: #ff7782;
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 20px;
+  --padding: 10px;
+}
+
+body, html {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.page-content {
+    width: 80%;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.dashboard-container .main-content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    width: 100%;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.button-container {
+    display: flex;
+    padding: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 20px; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.button.outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    margin-right: 15px;
+    margin-left: 50px;
+}
+
+.button.outline:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: white;
+}
+
+.fa-solid.fa-user-tie.fa-2xl {
+    border: 1px solid #B18068;
+    border-radius: 50px;
+    padding: 50px;
+}
+
+.button.solid {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.button.solid:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+
+.card {
+    width: 50%;
+    padding: var(--card-padding);
+    margin: 20px auto;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead th {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--color-secondary);
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+.styled-table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.styled-table tbody td {
+    padding: 10px;
+    color: #333;
+    border: 1px solid var(--color-secondary);
+}
+
+.styled-table tbody tr:hover {
+    background-color: var(--color-secondary);
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* New Styles for the Profile Form */
+.form-group {
+    margin-left: 30px;
+}
+
+label {
+    display: block;
+}
+
+.input-field {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-2);
+    font-size: 16px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    box-shadow: var(--box-shadow);
+    transition: 0.3s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background-color: #efeeee;
+}
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture i {
+    font-size: 4rem;
+    color: var(--color-secondary);
+    margin-bottom: 10px;
+}
+
+.profile-picture .button {
+    font-size: 1.2rem;
+    padding: 5px 10px;
+}
