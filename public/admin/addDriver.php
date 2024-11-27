@@ -50,7 +50,7 @@
                                     type="email" 
                                     id="email" 
                                     name="email"
-                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                                    pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$" 
                                     placeholder="someone@mail.com" 
                                     required 
                                     class="input-field">

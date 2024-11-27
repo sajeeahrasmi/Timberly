@@ -1,0 +1,71 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+    --color-foreground: #0f0a07;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 20px;
+    --padding: 10px;
+
+
+    --box-shadow: 0 4px 8px var(--color-secondary);
+    --color-boxbg: rgb(200, 196, 196);
+
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    font-size: inherit;
+    color: inherit;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+
+h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}

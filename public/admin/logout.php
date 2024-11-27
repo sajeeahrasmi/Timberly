@@ -2,5 +2,5 @@
 session_start();
 session_unset();
 session_destroy();
-header('location: ../landingPage.html');
+header('location: ../landingpage.html');
 ?>

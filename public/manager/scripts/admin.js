@@ -86,3 +86,33 @@ window.onload = fetchOrders;
 // Function to toggle the profile popup visibility
 
 
+function openProfileModal() {
+  document.getElementById('profile-modal').style.display = 'flex';
+}
+
+// Close profile modal
+function closeProfileModal() {
+  document.getElementById('profile-modal').style.display = 'none';
+}
+window.onclick = function(event) {
+  const modal = document.getElementById('profile-modal');
+  if (event.target === modal) {
+      closeProfileModal();
+  }
+};
+
+
+// Handle form submission
+document.getElementById('profile-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const newPassword = document.getElementById('new-password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (newPassword !== confirmPassword) {
+      alert("New password and confirm password do not match.");
+  } else {
+      alert("Password changed successfully!");
+  }
+  closeProfileModal();
+});
