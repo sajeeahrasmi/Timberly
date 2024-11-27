@@ -1,10 +1,29 @@
-body {
+body,html {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    width: 100%;
 }
 
 .main-content {
@@ -15,7 +34,7 @@ body {
 
 .orders-display-box {
     margin-top: 50px;
-    width: 95%;
+    width: 90%;
     padding: 30px;
     border-radius: 0.8rem;
     box-shadow: 0 2px 5px #B18068;
@@ -47,6 +66,11 @@ th {
 td {
     font-size: 14px;
     color: #555;
+}
+
+.order-amount {
+    width: 50px;
+    text-align: right;
 }
 
 tr:hover {

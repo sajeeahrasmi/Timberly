@@ -31,7 +31,7 @@
     
 <div id="raw-materials" class="tab-content active">
     <div id="product-list">
-    <button class ="create-Timber-button">Create Timber</button>
+    <button class ="create-Timber-button" onclick="showTimberModal()">Create Timber</button>
         <div class="supplier">
             <h2 class="supplier-title">Timber </h2>
             <div class="products">
@@ -47,14 +47,14 @@
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
+    <button class="delete-btn" onclick="deleteTimber(<?php echo $item['timberId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
-        <button class ="create-Lumber-button">Create Lumber</button>
+        <button class ="create-Lumber-button" onclick="showLumberModal()">Create Lumber</button>
         <div class="supplier">
             <h2 class="supplier-title">Lumber </h2>
             <div class="products">
@@ -72,7 +72,7 @@
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button>
-                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button> 
+    <button class="delete-btn" onclick="deleteLumber(<?php echo $item['lumberId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
                     </div>
                 <?php endforeach; ?>
@@ -136,13 +136,13 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Create Product Post</h1>
-        <form id="create-order-form" class="create-order-form"  method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form id="create-order-form" class="create-order-form"  method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
             
            
             <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-                <option value="Sooriyam">Jak</option>
+                <option value="Jak">Jak</option>
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
@@ -161,18 +161,86 @@
 
             
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid price (e.g., 10.99)">
 
             
             <label for="description">Description:</label>
-            <input type="text" id="description" name="description"  required>
+            <input type="text" id="description" name="description"  required pattern="^[A-Za-z\s]+$" title="Description should only contain letters and spaces.">
 
-            <button type="submit1" >Submit </button>
+            <button type="submit" >Submit </button>
+        </form>
+    </div>
+</div>
+
+<div id="create-timber" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h1>Create Timber</h1>
+        <form id="create-timber-form" class="create-timber-class" method="POST" enctype="multipart/form-data">
+        <label for="material_type">Material Type:</label>
+            <select id="material_type" name="material_type" >
+                <option value="">Select Material Type</option>
+                <option value="Jak">Jak</option>
+                <option value="Mahogany">Mahogany</option>
+                <option value="Teak">Teak</option>
+                <option value="Nedum">Nedum</option>
+                <option value="Sooriyam">Sooriyam </option>
+            </select>
+
+
+            <label for="diameter">Diameter:</label>
+            <input type="number" id="diameter" name="diameter" min="1" required>
+
+            <label for="unit_price">Unit Price:</label>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
+
+            <label for="supplierId">Supplier Id:</label>
+            <input type="text" id="supplierId" name="supplierId" required>
+
+            <button type="submit">Submit Product</button>
         </form>
     </div>
 </div>
 
 
+<div id="create-lumber" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h1>Create Lumber</h1>
+        <form id="create-lumber-form" class="create-lumber-class" method="POST" enctype="multipart/form-data">
+        <label for="material_type">Material Type:</label>
+            <select id="material_type" name="material_type" >
+                <option value="">Select Material Type</option>
+                <option value="Jak">Jak</option>
+                <option value="Mahogany">Mahogany</option>
+                <option value="Teak">Teak</option>
+                <option value="Nedum">Nedum</option>
+                <option value="Sooriyam">Sooriyam </option>
+            </select>
+
+
+            <label for="length">Length:</label>
+            <input type="number" id="length" name="length"  min="1" required>
+
+            <label for="length">Width:</label>
+            <input type="number" id="width" name="width"  min='1' required>
+
+            <label for="length">Thickness:</label>
+            <input type="number" id="thickness" name="thickness"  min='1' required>
+
+            <label for="length">Quantity:</label>
+            <input type="number" id="quantity" name="quantity"  min='1' required>
+
+           
+            <label for="unit_price">Unit Price:</label>
+            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
+
+          
+
+            <button type="submit">Submit Product</button>
+        </form>
+    </div>
+</div>
        
       
 
@@ -183,7 +251,7 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h1>Edit Product</h1>
-        <form id="edit-product-form" class="create-order-form"  action=" " method="post" enctype="multipart/form-data">
+        <form id="edit-product-form" class="create-order-form"  action=" " method="post" enctype="multipart/form-data" >
             
             
             <div id="dynamic-fields"></div>

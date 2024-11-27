@@ -1,8 +1,41 @@
-* {
+body,html {
+    font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    width: 100%;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.page-content {
+    width: 80%;
+}
+
 #inventory-section {
     width: 100%;
     background-color: #e9ecef;
@@ -30,6 +63,40 @@ h2 {
     margin-right: 10px;
     margin-left: 20px;
 }
+.inventory-filter select {
+    padding: 8px 16px;
+    color: #ad785e;
+    border: 1px solid #ad785e;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.inventory-filter select:hover {
+    background-color: #ad785e;
+    color: #fff;
+}
+.inventory-filter select:focus {
+    background-color: #b08169;
+    border-color: #b08169;
+    color: #fff;outline: none;
+}
+.inventory-filter select option {
+    background-color: #fff;
+    color: #ad785e;
+    padding: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.inventory-filter select option:hover {
+    background-color: #f9f1eb;
+    color: #ad785e;
+}
+.inventory-filter select:disabled {
+    background-color: #eee;
+    color: #bbb;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
 /* Tab styles */
 .inventory-tabs {
     display: flex;
@@ -39,13 +106,15 @@ h2 {
 .inventory-tab {
     padding: 10px 20px;
     background-color: #fff;
-    border: 1px solid #ddd;
+    color: #ad785e;
+    border: 1px solid #ad785e;
+    border-radius: 20px;
     cursor: pointer;
     margin-right: 10px;
     transition: background-color 0.3s;
 }
 .inventory-tab.active {
-    background-color: #4f4f4f;
+    background-color: #ad785e;
     color: white;
 }
 /* Inventory table styles */
@@ -62,7 +131,10 @@ h2 {
     margin-right: 10px;
 }
 .inventory-table th {
-    background-color: #f2f2f2;
+    padding: 15px;
+    background-color: #ad785e;
+    color: white;
+    border: 1px solid #ad785e !important;
     text-align: left;
 }
 /* Action button styles */
@@ -70,22 +142,11 @@ h2 {
     display: flex;
     gap: 10px;
 }
-.inventory-actions button {
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-}
-.inventory-actions .edit {
-    background-color: #0bd067;
-    color: white;
-}
+.inventory-actions .edit,
 .inventory-actions .delete {
-    background-color: #ca1417;
-    color: white;
+    transition: 0.3s;
 }
 .inventory-actions .edit:hover,
 .inventory-actions .delete:hover {
-    background-color: #4a4d4b;
+    transform: scale(0.9);
 }

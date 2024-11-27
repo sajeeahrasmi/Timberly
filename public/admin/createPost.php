@@ -78,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             <div class="form-filling">
                                 <div style="display: grid; grid-template-columns: repeat(2,1fr);">
                                     <div class="main-category-selection" style="margin-bottom: 10px">
-                                    <label style="width: 150px; font-weight: bold">
-                                        <input type="radio" name="material" value="product" checked <?php if ($material == 'product') echo 'checked'; ?>> Product
-                                    </label>
-                                    <label style="width: 150px; font-weight: bold">
-                                        <input type="radio" name="material" value="raw_materials" <?php if ($material == 'raw_materials') echo 'checked'; ?>> Raw materials
-                                    </label>
+                                        <label style="width: 150px; font-weight: bold">
+                                            <input type="radio" name="material" value="product" checked <?php if ($material == 'product') echo 'checked'; ?>> Product
+                                        </label>
+                                        <label style="width: 150px; font-weight: bold">
+                                            <input type="radio" name="material" value="raw_materials" <?php if ($material == 'raw_materials') echo 'checked'; ?>> Raw materials
+                                        </label>
                                     </div>
                                     <button class="Selector-submission" type="submit">Select type</button>
                                 </div>
@@ -98,20 +98,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                     </select>
 
                                     <div class="input-group">
-                                        <label for="length">Length
-                                            <input type="number" id="length" name="length" value="<?php echo $length; ?>" step="0.01" min="0">
+                                        <label for="length">Length (m)
+                                            <input type="number" id="length" name="length" value="<?php echo $length; ?>" step="0.1" min="0">
                                         </label>
 
-                                        <label for="width">Width
-                                            <input type="number" id="width" name="width" value="<?php echo $width; ?>" step="0.01" min="0">
+                                        <label for="width">Width (m)
+                                            <input type="number" id="width" name="width" value="<?php echo $width; ?>" step="0.1" min="0">
                                         </label>
 
-                                        <label for="thickness">Thickness
-                                            <input type="number" id="thickness" name="thickness" value="<?php echo $thickness; ?>" step="0.01" min="0">
+                                        <label for="thickness">Thickness/height (m)
+                                            <input type="number" id="thickness" name="thickness" value="<?php echo $thickness; ?>" step="0.1" min="0">
                                         </label>
 
-                                        <label for="price">Price
-                                            <input type="number" id="price" name="price" value="<?php echo $price; ?>" step="0.01" min="0">
+                                        <label for="price">Price 
+                                            <input type="number" id="price" name="price" value="<?php echo $price; ?>" step="0.1" min="0">
                                         </label>
                                     </div>
 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                     <textarea id="description" name="description"><?php echo $description; ?></textarea>
 
                                     <div class="form-footer">
-                                        <a href="/Admin/home.php">Cancel</a>
+                                        <a href="index.php">Cancel</a>
                                         <button name="create_post" type="submit">Create the post</button>
                                     </div>
                                 </div>
@@ -141,8 +141,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <?php if ($popupType === 'success' || $popupType === 'failure'): ?>
             <div class="overlay show"></div>
             <div class="popup show">
-                <p class="close-button"> <a href="createPost.php"><img src="../Assets/close-icon.png"></a></p>
-                <img src="<?php echo $popupType === 'success' ? '../Assets/succeeded.png' : '../Assets/failure.png'; ?>" alt="<?php echo $popupType; ?> Icon">
+                <p class="close-button"> <a href="./createPost.php"><i class="fa-solid fa-xmark" style="color: #000000;"></i></a></p>
+                <img src="<?php echo $popupType === 'success' ? './icons/succeeded.png' : './icons/failure.png'; ?>" alt="<?php echo $popupType; ?> Icon">
                 <p><?php echo $message; ?></p>
             </div>
         <?php endif; ?>

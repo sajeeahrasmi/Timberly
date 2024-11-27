@@ -1,19 +1,17 @@
-function showSection(sectionId) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => section.classList.remove('active'));
+document.addEventListener('DOMContentLoaded', function() {
+    var logoutButton = document.querySelector('.logout a');
+    var logoutPopup = document.querySelector('.logout-popup');
+    var closeButton = document.querySelector('.fa-xmark');
 
-    // Show the selected section
-    const selectedSection = document.getElementById(sectionId);
-    if (selectedSection) {
-        selectedSection.classList.add('active');
-    }
-}
+    logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        logoutPopup.classList.add('show');
+    });
 
-// Function to check if the current page is index.php
-function checkAndShowSection(sectionId) {
-    // Get the current page URL
-    const currentPage = window.location.pathname.split('/').pop();
+    closeButton.addEventListener('click', function() {
+        logoutPopup.classList.remove('show');
+    });
+
 
     // Check if the current page is index.php
     if (currentPage !== 'index.php') {
@@ -34,4 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mark the function as executed
         sessionStorage.setItem('dashboardShown', 'true');
     }
+   
 });

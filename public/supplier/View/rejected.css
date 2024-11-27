@@ -123,6 +123,27 @@
 
  }
 
+ .head-sec{
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+
+    
+    
+ }
+
+ .logoname{
+    font-size: 40px;
+    color: var(--color-primary);
+    margin-left: 20px;
+
+ }
+
  .head-icons{
     font-size: 20px;
     color: var(--color-white);
@@ -145,12 +166,14 @@
     width: 250px;
     margin-top: 0px;
     height: 100%;
-    background-color: var(--color-primary);
+    border-right: 4px solid var(--color-primary);
+    margin-top: 10px;
+    margin-bottom: 40px;
     
 }
 
 .text{
-    color: var(--color-white);
+    color: var(--color-primary);
     font-size: 30px;
     font-weight: 600;
     margin-top: 20px;
@@ -175,7 +198,7 @@ ul{
   
 ul li a{
     position: relative;
-    color: var(--color-white);
+    color: var(--color-primary);
     text-decoration: none;
     font-size: 20px;
     padding-left: 40px;
@@ -193,10 +216,11 @@ ul li a{
 }
 
 ul li a:hover{
-    background-color: var(--color-secondary);
+    background-color: var(--color-primary);
     border-left-color: var(--color-white);
-    color: black;
+    color: var(--color-white);
     transition: 0.5s all linear;
+    transform: scale(105%);
 
 }
 
@@ -207,19 +231,24 @@ ul li a:hover{
     margin-left: 320px;
     float:left;
 
+
+}
+
+.main-content h1{
+    color: var(--color-primary);
+    margin-left: 20px;
 }
 
 .main-card{
     margin-top: 0px;
     margin-left: 0px;
-    border: 1px solid black;
-    width: 1140px;
-    height: 520px;
+    border: var(--border-radius-1);
+    width: 1200px;
+    height: 560px;
     border-radius: 40px;
     box-shadow: var(--box-shadow);
-    background: rgb(200, 196, 196);
+    position: relative;
 }
-
 .main-card .content{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -250,3 +279,20 @@ ul li a:hover{
     border-radius: 80px;
     background: var(--color-background);
 } 
+
+
+#dashboardNotificationBtn {
+    background-color: #895D47;
+    position: relative;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 60px;
+}
+
+#dashboardNotificationBtn:hover {
+    background-color: #B18068;
+}

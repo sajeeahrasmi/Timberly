@@ -18,11 +18,15 @@ $productData = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/postProducts.css">
+    <link rel="stylesheet" href="./styles/components/header.css">
+    <link rel="stylesheet" href="./styles/components/sidebar.css">
 </head>
 <body>
-    <div class="page-content">
+    <div class="dashboard-container">
+        <?php include "./components/sidebar.php" ?>
         <div class="main-content">
-            <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="#" onclick="showSection('postRaw-section')">Raw materials</a></span></h3>
+            <?php include "./components/header.php" ?>
+            <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="postRaw.php">Raw materials</a></span></h3>
             <div class="product-display-box">
                 <p>posts</p>
                 <div class="content-header">

@@ -107,6 +107,7 @@ button[name="reject_product"]:hover {
 }
 
 /* Modal Styles */
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -129,23 +130,32 @@ button[name="reject_product"]:hover {
 }
 
 .modal-content {
-    background-color: #ffffff;
+    background-color: #fff;
     color: #333;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 750px;
-    max-height: 450px;
+    max-height: 550px;
     overflow-y: auto;
     position: relative;
     border: 3px solid #895D47;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: scale(0.9); /* Initial scale effect */
+}
+
+.modal.active .modal-content {
+    transform: scale(1); /* Animate modal into view */
 }
 
 .modal h3 {
     margin-top: 0;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     color: #895D47;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
 }
 
 /* Close Button */
@@ -165,13 +175,80 @@ button[name="reject_product"]:hover {
     color: #000;
 }
 
+/* Product Image */
+#productDetails img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
 /* Form Styles */
 form {
-    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    gap: 18px;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
 }
+
+form button {
+    background-color: #895D47;
+    color: white;
+    border: 2px solid #895D47;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
+    width: 48%; /* Ensure the buttons are side by side */
+}
+
+form button:hover {
+    background-color: white;
+    color: #895D47;
+    border-color: #895D47;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form button {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+}
+
+
+/* Close Button */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+/* Form Styles */
+
 
 .supplier-name {
     font-size: 20px;
@@ -197,14 +274,7 @@ form {
         padding: 25px;
     }
 
-    form {
-        flex-direction: column;
-    }
-
-    form button {
-        width: 100%;
-        margin-bottom: 12px;
-    }
+   
 }
 
 </style>
@@ -216,10 +286,11 @@ form {
     <h2 style="text-align: center;">Pending Suppliers</h2>
     <div class="list-container">
         <?php foreach ($suppliers as $supplier): ?>
-            <?php if ($supplier['status'] === 'pending'): ?>
+            <?php if ($supplier['status'] === 'Not Approved'): ?>
                 <div class="list-item">
                     <span><?php echo $supplier['name']; ?></span>
-                    <button onclick="showSupplierDetails(<?php echo $supplier['id']; ?>)">View Supplier</button>
+                    
+                    <button onclick="showSupplierDetails(<?php echo $supplier['userId']; ?>)">View Supplier</button>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
@@ -230,22 +301,16 @@ form {
 
 <h2 style="text-align: center;">Pending Products</h2>
 
-<div class="list-container">
-    <?php foreach ($suppliers as $supplier): ?>
-        <?php if ($supplier['status'] === 'pending'): ?>
-            <h3 class="supplier-name" style="border-top: 3px solid #895D47; padding-top: 15px;"><?php echo $supplier['name']; ?></h3>
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['status'] === 'pending' && $product['supplier_id'] === $supplier['id']): ?>
-                    <div class="list-item">
-                        <span><?php echo $product['name']; ?></span>
-                        <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
+<<div class="list-container">
+    <?php foreach ($products as $product): ?>
+        <?php if ($product['status'] === 'Not Approved'): ?>
+            <div class="list-item">
+                <span><?php echo $product['name']; ?></span>
+                <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
+            </div>
         <?php endif; ?>
     <?php endforeach; ?>
 </div>
-
 
     
     <div id="supplierModal" class="modal">
@@ -255,8 +320,8 @@ form {
             <div id="supplierDetails"></div>
             <form method="POST">
                 <input type="hidden" id="supplier_id" name="supplier_id">
-                <button type="submit" name="approve_supplier">Approve</button>
-                <button type="submit" name="reject_supplier">Reject</button>
+                <button type="submit" onclick ="approveProduct()" name="approve_supplier">Approve</button>
+                <button type="submit"  onclick ="rejectProduct()"  name="reject_supplier">Reject</button>
             </form>
         </div>
     </div>
@@ -269,24 +334,38 @@ form {
             <div id="productDetails"></div>
             <form method="POST">
                 <input type="hidden" id="product_id" name="product_id">
-                <button type="submit" name="approve_product">Approve</button>
-                <button type="submit" name="reject_product">Reject</button>
+                <button type="submit" onclick ="approveProduct()"  name="approve_product">Approve</button>
+                <button type="submit"  onclick ="rejectProduct()" name="reject_product">Reject</button>
             </form>
         </div>
     </div>
 
     <script>
-        function showSupplierDetails(supplierId) {
-            const suppliers = <?php echo json_encode($suppliers); ?>;
-            const supplier = suppliers.find(s => s.id === supplierId);
-            document.getElementById('supplierDetails').innerHTML = `
+       function showSupplierDetails(supplierId) {
+    console.log(supplierId); // Log supplierId for debugging
+    const suppliers = <?php echo json_encode($suppliers); ?>; // JSON encode PHP array to JavaScript
+
+    // Ensure you are comparing the correct data type (strings or numbers)
+    const supplier = suppliers.find(s => s.userId == supplierId); // Use == to compare both string and number types
+    if (supplier) {
+    document.getElementById('supplierDetails').innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
                 <p><strong>Name:</strong> ${supplier.name}</p>
                 <p><strong>Address:</strong> ${supplier.address}</p>
-                <p><strong>Contact:</strong> ${supplier.contact}</p>
-            `;
-            document.getElementById('supplier_id').value = supplier.id;
-            document.getElementById('supplierModal').classList.add('active');
-        }
+                <p><strong>Contact:</strong> ${supplier.phone}</p>
+                <p><strong>Email:</strong> ${supplier.email}</p>
+            </div>
+            <img src="./images/download.png" alt="Mock Supplier Image" style="margin-right: 100px; margin-top: -20px; border: 5px solid #895D47 ;">
+        </div>
+    `;
+    document.getElementById('supplier_id').value = supplier.id; // Set hidden input value
+    document.getElementById('supplierModal').classList.add('active'); // Show modal
+} else {
+    alert('Supplier not found');
+}
+      }
+
 
         function showProductDetails(productId) {
             const products = <?php echo json_encode($products); ?>;
@@ -294,7 +373,9 @@ form {
             document.getElementById('productDetails').innerHTML = `
                 <p><strong>Name:</strong> ${product.name}</p>
                 <p><strong>Details:</strong> ${product.details}</p>
-                <img src="${product.photo}" alt="${product.name}" style="width:100%; max-width: 300px;">
+               
+                <p><strong>Supplier:</strong> ${product.supplier_id}</p>
+                <img src="./images/log.jpeg" alt="${product.name}" ">
             `;
             document.getElementById('product_id').value = product.id;
             document.getElementById('productModal').classList.add('active');
@@ -303,6 +384,27 @@ form {
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
         }
+        function approveProduct() {
+        
+        
+        // You can handle product approval logic here
+        alert('Approving ');
+        
+        // If you want to submit the form after approval (for example, send POST request):
+        // document.getElementById('approvalForm').submit();
+
+        closeModal('supplierModal'); // Close the modal after approval
+    }
+
+    function rejectProduct() {
+        
+
+        // You can handle product rejection logic here
+        alert('Rejecting product');
+        
+        // Close the modal after rejection
+        closeModal('supplierModal');
+    }
     </script>
 </body>
 </html>
