@@ -27,7 +27,6 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Driver name</label>
-
                                 <input type="text" 
                                     id="name" 
                                     name="name" 
@@ -86,7 +85,6 @@
                                     value="<?php echo htmlspecialchars($data['address']); ?>" 
                                     required 
                                     class="input-field">
-
                             </div>
                             <div class="form-buttons button-container">
                                 <button onclick="window.location.href='./drivers.php'" class="button outline">Cancel</button>
