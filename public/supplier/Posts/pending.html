@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Orders</title>
+    <link rel="stylesheet" href="../styles/globals.css">
+    <link rel="stylesheet" href="../styles/layout.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="popup" id="notification-popup">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Notifications</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                <button class="popup-trigger" data-popup-id="not-1">
+                    <div class="pop1">
+                    <div class="notification-message">Order Payment paid successfully!</div>
+                    <div class="notification-timestamp">2024-11-25 02:15 PM</div> 
+                    </div>
+                 
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-2">
+                    <div class="pop2">
+                    <div class="notification-message">Your post has been approved!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-3">
+                    <div class="pop3">
+                    <div class="notification-message">Timber stock is running low!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-1">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Order Payment paid successfully!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            The message "Order Payment Paid Successfully!" serves as a confirmation to both the supplier and the woodworking company 
+            that the payment for an order has been processed without any issues. This notification is essential in maintaining 
+            transparency and trust between the supplier and the buyer, ensuring the transaction is complete and ready for the next 
+            steps, such as delivery or invoicing.
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-2">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Your post has been approved!</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification confirms that the post you submitted has successfully passed the review process and is now live or 
+            visible to others. It reassures you that your content meets the necessary guidelines and encourages further engagement.
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-3">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Timber stock is running low!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification alerts you that the stock of a specific type of timber is nearing depletion. It serves as a reminder 
+            to restock promptly to avoid delays in fulfilling orders or disruptions in production.
+            </div>
+        </div>
+    </div> 
+    <header>
+        <div class="header-content">
+            <div class="header-logo">Timberly</div>
+            <nav class="header-nav">
+                <button data-popup-id="notification-popup" class="header-link popup-trigger"><i
+                        class="fa-solid fa-bell"></i></button>
+                <a href="../Update Profile/updateprofile.html" class="header-link"><i class="fa-solid fa-user"></i></a>
+            </nav>
+        </div>
+    </header>
+    <div class="body-content-wrapper">
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <a href="../Dashboard/dashboard.html" class="sidebar-link"><i class="fa-solid fa-house icon"></i>Dashboard</a>
+                <a href="../Backend/create.php" class="sidebar-link "><i class="fa-solid fa-plus"></i>Create Post</a>
+                <a href="../Backend/display.php" class="sidebar-link active"><i class="fa-solid fa-box"></i>Supplier Posts</a>
+                <a href="../Posts/approved.html" class="sidebar-link"><i class="fa-solid fa-bag-shopping"></i>Supplier Orders</a>
+                <a href="../Update Profile/updateprofile.html" class="sidebar-link"><i class="fas fa-user"></i>User Profile</a>
+                <a href="http://localhost/Timberly/config/logout.php" class="sidebar-link"><i class="fa-solid fa-right-from-bracket icon"></i>Log Out</a>
+            </div>
+        </div>
+        <div class="body-content-container">
+            <div class="body-content">
+
+                <div class="top" >
+                    <h2>Pending Posts Summary</h2>
+                    <h3>Total no.of Posts : 04</h3>
+                </div>
+
+                <div class="bottom">
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Post ID</th>
+                                    <th>Category</th>
+                                    <th>Type</th>
+                                    <th>No.of Items</th>
+                                    <th>Date</th>
+                                    <th>Post Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Timber</td>
+                                    <td>Mahogani</td>
+                                    <td>4</td>
+                                    <td>04/11/2024</td>
+                                    <td class="po">Pending</td>
+                                    <td class="py">Processing</td>
+                                    <td>
+                                        <div class="btns">
+                                            <button>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                    </div>  
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Timber</td>
+                                    <td>Jak</td>
+                                    <td>5</td>
+                                    <td>05/11/2024</td>
+                                    <td class="po">Pending</td>
+                                    <td class="py">Processing</td>
+                                    <td>
+                                        <div class="btns">
+                                            <button>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Timber</td>
+                                    <td>Teak</td>
+                                    <td>12</td>
+                                    <td>08/11/2024</td>
+                                    <td class="po">Pending</td>
+                                    <td class="py">Processing</td>
+
+                                    <td>
+                                        <div class="btns">
+                                            <button>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Lumber</td>
+                                    <td>Cinamond</td>
+                                    <td>11</td>
+                                    <td>08/11/2024</td>
+                                    <td class="po">pending</td>
+                                    <td class="py">processing</td>
+                                    <td>
+                                        <div class="btns">
+                                            <button>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+               
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/popup.js"></script>
+</body>
+
+</html>

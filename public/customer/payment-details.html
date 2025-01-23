@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+
+    <link rel="stylesheet" href="../customer/styles/payment-details.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+
+
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">                  
+                <h2>Payment Details</h2>
+                
+                <div class="items-list">
+                    <h3>Order Items</h3>
+                    <div class="item">
+                        <span class="item-name">Wooden Chair</span>
+                        <span class="item-price">Rs 15000.00</span>
+                    </div>
+                    <div class="item">
+                        <span class="item-name">Dining Table</span>
+                        <span class="item-price">Rs 50000.00</span>
+                    </div>
+                    
+                    <!-- Add more items as needed -->
+                </div>
+
+                <div class="summary">
+                    <h3>Payment Summary</h3>
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span>Rs. </span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Transport Expenses:</span>
+                        <span>Rs. </span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Discount:</span>
+                        <span>Rs. </span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Amount Due:</span>
+                        <span>Rs. </span>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button outline" onclick="history.back()">Cancel Payment</button>
+                    <button class="button solid" onclick="location.href='payment-method.html'">Confirm Payment</button>
+                </div>
+
+                
+          
+            </div>
+        </div>
+   
+    </div>
+
+</body>
+</html>

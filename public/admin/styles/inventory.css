@@ -1,0 +1,157 @@
+body,html {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    width: 100%;
+}
+
+.main-content {
+    margin-top: 0px;
+    margin-left: 30px;
+    padding: 20px;
+}
+
+.page-content {
+    width: 80%;
+}
+
+#inventory-section {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+h1 {
+    margin-bottom: 20px;
+}
+h2 {
+    margin-left: 20px;
+}
+#inventory-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+/* Filter styles */
+.inventory-filter {
+    margin-bottom: 20px;
+}
+.inventory-filter label {
+    margin-right: 10px;
+    margin-left: 20px;
+}
+.inventory-filter select {
+    padding: 8px 16px;
+    color: #ad785e;
+    border: 1px solid #ad785e;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.inventory-filter select:hover {
+    background-color: #ad785e;
+    color: #fff;
+}
+.inventory-filter select:focus {
+    background-color: #b08169;
+    border-color: #b08169;
+    color: #fff;outline: none;
+}
+.inventory-filter select option {
+    background-color: #fff;
+    color: #ad785e;
+    padding: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.inventory-filter select option:hover {
+    background-color: #f9f1eb;
+    color: #ad785e;
+}
+.inventory-filter select:disabled {
+    background-color: #eee;
+    color: #bbb;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+/* Tab styles */
+.inventory-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.inventory-tab {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #ad785e;
+    border: 1px solid #ad785e;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.inventory-tab.active {
+    background-color: #ad785e;
+    color: white;
+}
+/* Inventory table styles */
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.inventory-table th,
+.inventory-table td {
+    color: #555;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin-right: 10px;
+}
+.inventory-table th {
+    padding: 15px;
+    background-color: #ad785e;
+    color: white;
+    border: 1px solid #ad785e !important;
+    text-align: left;
+}
+/* Action button styles */
+.inventory-actions {
+    display: flex;
+    gap: 10px;
+}
+.inventory-actions .edit,
+.inventory-actions .delete {
+    background-color: transparent;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.inventory-actions .edit:hover,
+.inventory-actions .delete:hover {
+    transform: scale(0.95);
+}

@@ -1,0 +1,213 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 20px;
+    --padding: 10px;
+
+
+    --box-shadow: 0 4px 8px var(--color-secondary);
+    --color-boxbg: rgb(200, 196, 196);
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: auto;
+    height: 80px;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: var(--color-background);
+    box-shadow: var(--box-shadow);
+    backdrop-filter: blur(4px);
+    width: 100%;
+    border-radius: 99999px;
+}
+
+.header-logo {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-left: 10px;
+    color: var(--color-primary);
+}
+
+.header-nav {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.header-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    border-radius: 50%;
+}
+
+.body-content-wrapper {
+    display: flex;
+}
+
+.sidebar {
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 80px;
+    padding: 0 10px;
+    min-width: 240px;
+    display: flex;
+    border-right: 4px solid var(--color-primary);
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background-color: var(--color-background);
+    padding: 20px 10px;
+    border-radius: 20px;
+    height: 100%;
+    gap: 20px;
+    width: 100%;
+    
+}
+
+.sidebar-link {
+    padding: 10px 20px;
+   
+   
+    white-space: nowrap;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    margin: 10px 0px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-weight: 1500;
+}
+
+.sidebar-link.active {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.sidebar-link:not(.active):hover {
+    background-color:var(--color-primary);
+    color: var(--color-white);
+    color: var(--color-white);
+    transition: 0.5s all linear;
+    transform: scale(105%);
+
+}
+.sidebar .icon {
+    margin-right: 10px; 
+  }
+.fas fa-user
+{
+    margin-right: 10px;
+}
+.body-content-container {
+    height: calc(100vh - 80px);
+    padding: 0 20px 20px 10px;
+    flex: 1;
+}
+
+.body-content {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    background-color: var(--color-background);
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+}
+
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000b2;
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    padding: 20px;
+}
+
+.popup.show {
+    display: flex;
+}
+
+.popup-wrapper {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    background-color: var(--color-background);
+    margin: auto;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.popup-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+}
+
+.popup-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.popup-close-button {
+    font-size: 1.2rem;
+}
+
+.popup-close-button:active {
+    transform: scale(0.9);
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}

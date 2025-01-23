@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+
+    <link rel="stylesheet" href="../customer/styles/customerDashboard.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/calenderScript.js" defer></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    </head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content">
+
+            <div id="header"></div>
+
+            <section class="content">
+                <div class="main">
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Total Orders</h3>
+                            <p></p>
+                            <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderHistory.html`" >View Orders</button>
+                        </div>
+                        <div class="card">
+                            <h3>Recent Order Payment</h3>
+                            <p><strong>Total :</strong></p>
+                            <p><strong>Paid :</strong></p>
+                            <p><strong>Balance : </strong></p>
+                        </div>
+                    </div>
+                    <h2>Upcoming Events</h2>
+                    <div class="upcoming-events">
+                        <div class="event-card" id="measurement-event">
+                            <div class="event-icon">
+                                <i class="fas fa-ruler"></i>
+                            </div>
+                            <div>
+                                <h4>Measurement Appointment</h4>
+                                <p>Scheduled for Dec 15, 2024</p>
+                            </div>
+                        </div>
+                        <div class="event-card" id="delivery-event">
+                            <div class="event-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div>
+                                <h4>Delivery Scheduled</h4>
+                                <p>Expected on Dec 28, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                     <div class="recent-order">
+                        <h2>Recent Order Details</h2>
+                    <table class="order-details-table">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BKS001</td>
+                                <td>Modern Wooden Bookshelf</td>
+                                <td>Bookshelf</td>
+                                <td>1</td>
+                                <td>$450</td>
+                                <td class="status-in-making">In Making</td>
+                            </tr>
+                            <tr>
+                                <td>CHR002</td>
+                                <td>Ergonomic Office Chair</td>
+                                <td>Chair</td>
+                                <td>2</td>
+                                <td>$300</td>
+                                <td class="status-completed">Completed</td>
+                            </tr>
+                            <tr>
+                                <td>TBL003</td>
+                                <td>Rustic Dining Table</td>
+                                <td>Table</td>
+                                <td>1</td>
+                                <td>$750</td>
+                                <td class="status-delivered">Delivered</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+
+                     
+                    
+
+                </div>
+
+                <div class="right">
+                    <!-- <h1>Calender</h1> -->
+                    <div class="right-top">
+                        <div class="wrapper">
+                            <header>
+                                <p class="current-date"></p>
+                                <div class="icons">
+                                <span id="prev" class="material-symbols-rounded"><i class="fa-solid fa-chevron-left"></i></span>
+                                <span id="next" class="material-symbols-rounded"><i class="fa-solid fa-chevron-right"></i></span>
+                                </div>
+                            </header>
+                            <div class="calendar">
+                                <ul class="weeks">
+                                  <li>Sun</li>
+                                  <li>Mon</li>
+                                  <li>Tue</li>
+                                  <li>Wed</li>
+                                  <li>Thu</li>
+                                  <li>Fri</li>
+                                  <li>Sat</li>
+                                </ul>
+                                <ul class="days"></ul>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="right-bottom">
+                        <div class="heading">
+                            <h2>Notifications</h2>
+                            
+                        </div>
+                        
+                        <div class="notification-card">
+                            <h6>From : </h6>
+                            <p>heading </p>
+                        </div>
+                        <div class="notification-card">
+                            <h6>From : </h6>
+                            <p>heading </p>
+                        </div>
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderWishlist.html`">See more</button>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+  
+     <div id="measurement-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Measurement Appointment Details</h2>
+            <p>Date: December 15, 2024</p>
+            <p>Time: 10:00 AM</p>
+            <p>Technician: Mr. John Doe</p>
+            <p>Contact: 077-1234567</p>
+        </div>
+    </div>
+
+    <div id="delivery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Delivery Schedule</h2>
+            <p>Expected Date: December 28, 2024</p>
+            <p>Estimated Time: 2:00 PM</p>
+            <p>Delivery Person: Mr. Nimal Silva</p>
+            <p>Contact: 071-9876543</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Event Modal Functionality
+            const measurementEvent = document.getElementById('measurement-event');
+            const deliveryEvent = document.getElementById('delivery-event');
+            const measurementModal = document.getElementById('measurement-modal');
+            const deliveryModal = document.getElementById('delivery-modal');
+            const closeModals = document.querySelectorAll('.close-modal');
+
+            measurementEvent.addEventListener('click', () => {
+                measurementModal.style.display = 'block';
+            });
+
+            deliveryEvent.addEventListener('click', () => {
+                deliveryModal.style.display = 'block';
+            });
+
+            closeModals.forEach(closeBtn => {
+                closeBtn.addEventListener('click', () => {
+                    measurementModal.style.display = 'none';
+                    deliveryModal.style.display = 'none';
+                });
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target === measurementModal) {
+                    measurementModal.style.display = 'none';
+                }
+                if (event.target === deliveryModal) {
+                    deliveryModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

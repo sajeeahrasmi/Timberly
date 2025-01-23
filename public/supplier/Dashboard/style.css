@@ -1,0 +1,163 @@
+/* asdasd */
+
+.header-content .welcome{
+    color: var(--color-primary);
+  }
+
+  .popup .popup-content{
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-white);
+    border-radius: 20px;
+    
+
+  }
+
+.popup .popup-content .pop1{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+.popup .popup-content .pop2{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+.popup .popup-content .pop3{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+
+  }
+
+.popup-content .notification-timestamp{
+    font-size: 12px;
+  }
+
+
+.header-content .welcome{
+    color: var(--color-primary);
+ }
+
+ .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.metric-card {
+    background-color: #fff;
+    border: 2px solid #895D47;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px #895D47(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 80%;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card h3 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.metric-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #895D47;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.metric-content i {
+    font-size: 36px;
+    color: #895D47;
+
+}
+
+.metric-card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #895D47;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-card button i {
+    margin-right: 8px;
+}
+
+.top h2{
+    color: var(--color-primary);
+    margin-left: 10px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius-2);
+    overflow: hidden;
+}
+
+.styled-table thead th {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid var(--color-secondary);
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+.styled-table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.styled-table tbody  tr td {
+    padding: 10px;
+    color: var(--color-primary);
+    border: 1px solid var(--color-secondary);
+    text-align: center;
+}
+
+.styled-table tbody tr td.hover{
+    cursor: pointer;
+    color: var(--color-white);
+}
+
+.styled-table tbody tr:hover {
+    background-color: var(--color-secondary);
+    transition: background-color 0.3s;
+}

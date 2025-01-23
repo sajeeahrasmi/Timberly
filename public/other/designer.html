@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/designer.css">
+    <script src="scripts/designer.js"></script>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Designer Dashboard</h1>
+            <div class="header-buttons">
+                <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/designerProfile.html`">Profile</button>
+                <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/config/logout.php`">Logout</button>
+            </div>
+        </div>
+        <div class="container1">
+            <div class="orders-list">
+                <h2>Current Orders</h2>
+                <div id="ordersList"></div>
+            </div>
+    
+            <div class="chat-container">
+                <div class="chat-header">
+                    <span id="customerName">Select an order to start chat</span>
+                </div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <label class="file-upload">
+                        <i class="fas fa-image"></i>
+                        <input type="file" style="display: none" accept="image/*" onchange="handleFileUpload(event)">
+                    </label>
+                    <input type="text" placeholder="Type your message..." id="messageInput">
+                    <button class="button solid" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+</html>

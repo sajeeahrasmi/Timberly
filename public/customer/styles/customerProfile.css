@@ -1,0 +1,219 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+  
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+  
+    --card-padding: 20px;
+    --padding: 10px;
+  
+    --box-shadow: 0 4px 8px var(--color-secondary);
+  }
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.button {
+    /* padding: 10px 20px; */
+    border-radius: 20px; 
+    /* font-size: 16px; */
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.button.outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.button.outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0px;
+    background-color: #895D47;
+    gap: 2px;
+}
+.dashboard-container .main-content .content {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+}
+
+.dashboard-container .main-content .content .profile {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: fit-content;
+    border: 1px solid var(--color-primary);
+
+    img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 1px solid var(--color-secondary);
+        /* object-fit: cover; */
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+        margin: 10px 0;
+    }
+}
+
+
+
+.dashboard-container .main-content .content .profile .profile-info {
+    width: 80%;
+    margin-top: 20px;
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        gap: 10px;
+    
+        h4 {
+            font-size: 16px;
+            color: #555; 
+            margin: 0;
+        }
+    
+        p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        i{
+            color: var(--color-primary);
+        }
+    }
+}
+
+
+
+
+
+.dashboard-container .main-content .content .edit-profile {
+    flex: 1.3;
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-1);
+    height: fit-content;
+    border: 1px solid var(--color-primary);
+
+    h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],input[type="number"],textarea {
+        width: 70%;
+        padding: var(--padding);
+        margin-bottom: 15px;
+        border: 2px solid var(--color-primary);
+        border-radius: var(--border-radius-3);
+    }
+
+    textarea {
+        resize: vertical;
+        height: 60px;
+    }
+
+    button {
+        width: 30%;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    
+    }
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-container .main-content .content {
+        flex-direction: row;
+    }
+
+    .dashboard-container .main-content .content .profile, .edit-profile {
+        width: 100%;
+    }
+
+    .dashboard-container .main-content .content .profile .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .d ashboard-container .main-content .content.edit-profile button {
+        width: auto;
+    }
+    
+}

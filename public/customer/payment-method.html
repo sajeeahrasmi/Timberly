@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Method</title>
+
+    <link rel="stylesheet" href="../customer/styles/payment-method.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+
+
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">                  
+                <h2>Select Payment Method</h2>
+
+                <div class="payment-method">
+                    <label>
+                        <input type="radio" name="payment-method" value="visa">
+                        <i class="fa-brands fa-cc-visa"></i> Visa
+                    </label>
+                    <label>
+                        <input type="radio" name="payment-method" value="mastercard">
+                        <i class="fa-brands fa-cc-mastercard"></i> MasterCard
+                    </label>
+                    <label>
+                        <input type="radio" name="payment-method" value="paypal">
+                        <i class="fa-brands fa-cc-paypal"></i> PayPal
+                    </label>
+                </div>
+
+                <div class="card-details">
+                    <input type="text" placeholder="Card Number">
+                    <input type="text" placeholder="Card Holder Name">
+                    <input type="text" placeholder="Expiry Date (MM/YY)">
+                    <input type="text" placeholder="CVV">
+                </div>
+                
+
+                <div class="button-container">
+                    <button class="button outline" onclick="history.back()">Cancel</button>
+                    <button class="button solid"onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`">Proceed to Pay</button>
+                </div>
+
+                
+          
+            </div>
+        </div>
+   
+    </div>
+
+</body>
+</html>

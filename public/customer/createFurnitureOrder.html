@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Furniture Order</title>
+
+    <link rel="stylesheet" href="../customer/styles/createDoorOrder.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
+
+    <style>
+        .image-dropdown {
+            position: relative;
+        }
+    
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+    
+        .dropdown-toggle {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            white-space: nowrap;
+        }
+    
+        .dropdown-menu img {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+    
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    
+        .dropdown img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">
+            
+                <div class="left">  
+                    <div class="buttons">
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.html`">Door/Window</button>
+                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.html`">Other furnitures</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
+                    </div>
+                    <div class="form-content">
+                        <h4>Item Details</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="category">Select Category: </label>
+                                <select id="category">
+                                    <option>Chair</option>
+                                    <option>Table</option>
+                                    <option>Bookshelf</option>
+                                    <!-- <option></option> -->
+                                </select>
+                            </div>
+                            
+                            <!-- <br> -->
+
+                            <div class="form-group">
+                                <label>Select Design</label>
+                                <input type="radio" name="designChoice" id="selectDesign" value="select-design">
+                                <!-- <label>Input Design</label>
+                                <input type="radio" name="designChoice" id="inputDesign" value="input-design"> -->
+                                <br>
+
+                                <!-- Custom image dropdown for selecting designs -->
+                                <div id="design-options" class="image-dropdown" style="display:none;">
+                                    <!-- <label>Select a Design: </label> -->
+                                    <div class="dropdown">
+                                        <div class="dropdown-toggle">
+                                            <img id="selected-design" src="../images/bookshelf.jpg" alt="Select Design" width="100">
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <img class="design-option" src="../images/chair.jpg" alt="Design 1" width="100">
+                                            <img class="design-option" src="../images/table.jpg" alt="Design 2" width="100">
+                                            <!-- <img class="design-option" src="/images/design3.jpg" alt="Design 3" width="100">
+                                            <img class="design-option" src="/images/design4.jpg" alt="Design 1" width="100">
+                                            <img class="design-option" src="/images/design5.jpg" alt="Design 2" width="100">
+                                            <img class="design-option" src="/images/design6.jpg" alt="Design 3" width="100"> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div id="image-input" style="display:none;">
+                                    <input type="file" id="design-image" accept="image/*">
+                                    <img id="image-preview" src="" alt="Image Preview" style="display:none; max-width: 100px; margin-top: 10px;">
+                                </div> -->
+                            </div>                   
+
+                            <!-- <br> -->
+
+                            <div class="form-group">
+                                <label>Select Type: </label>
+                                <select>
+                                    <option>Jak</option>
+                                    <option>Mahogany</option>
+                                    <option>Teak</option>
+                                    <option>Nedum</option>
+                                </select>
+                            </div>
+                           
+                            <!-- <br> -->
+
+                           
+                            
+                            <!-- <br> -->
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" min="1" max="100">
+                            </div>
+                            
+                            <!-- <br> -->
+
+                            <div class="form-group">
+                                <label>Size </label>
+                                <select>
+                                    <option>Small</option>
+                                    <option>Medium</option>
+                                    <option>Large</option>
+                                    <!-- <option>Nedum</option> -->
+                                </select>
+                                <!-- <input type="radio"> -->
+                            </div>
+                            
+                            <!-- <br> -->
+
+                            <div class="form-group">
+                                <label>Additional Information</label><br>
+                                <textarea></textarea>
+                            </div>
+                            
+                            <!-- <br> -->
+
+                            <!-- <div class="form-group">
+                            <button type="submit">Add Item</button>
+                            </div> -->
+
+                        </form>
+                        <div class="add-button">
+                            <button type="submit" class="button outline" >Add Item</button>
+                        </div>
+                        
+                    </div>               
+                </div>
+
+               
+                <div class="right">
+                    <div class="right-top">
+                        <h2>Order #</h2>
+                        <h3>No.of Items : </h3>
+                    </div>
+
+                    <div class="right-middle">
+                        <div class="product">
+                            <h6>Product 1</h6>
+                            <p>Type: </p>
+                        </div>
+                         
+                        <div class="product">
+                            <h6>Product 2</h6>
+                            <p>Type: </p>
+                        </div>
+                        <div class="product">
+                            <h6>product 3</h6>
+                            <p>Type: </p>
+                        </div>
+                    </div>
+                    <div class="right-bottom">
+                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderFurnitureDetails.html`">Checkout Order</button>              
+                    </div>      
+                   
+                </div>
+
+        </div>
+        </div>
+        
+        
+        
+        
+    </div>
+
+</body>
+</html>

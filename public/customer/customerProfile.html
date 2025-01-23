@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+
+    <link rel="stylesheet" href="../customer/styles/customerProfile.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+
+
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">              
+                        
+                <div class="profile">
+
+                    <img src="../images/profile.jpg" alt="profile" />
+                    <h2>Amal Perera</h2>
+
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <span><i class="fa-solid fa-envelope"></i></span>
+                            <h4>Email</h4>
+                            <p>amalperera@gmail.com</p>
+                        </div>
+                        <div class="info-item">
+                            <span><i class="fa-solid fa-phone"></i></span>
+                            <h4>Contact</h4>
+                            <p>0774523675</p>
+                        </div>
+                        <div class="info-item">
+                            <span><i class="fa-solid fa-location-dot"></i></span>
+                            <h4>Address</h4>
+                            <p>Main Town Road, Colombo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-profile">
+                    <h3>Edit Profile</h3>
+                    <label>Email</label>
+                    <input type="text" placeholder="Enter new email">
+            
+                    <label>Phone Number</label>
+                    <input type="number" placeholder="Enter phone number">
+            
+                    <label>Address</label>
+                    <textarea placeholder="Enter address"></textarea>
+            
+                    <button type="submit" class="button outline">Save</button>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+
+</body>
+</html>

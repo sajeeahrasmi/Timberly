@@ -1,0 +1,82 @@
+.overlay.show {
+    transition: 0.3s;
+    display: block;
+}
+
+.fa-solid.fa-xmark {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    margin-top: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logout-popup {
+    transition: 0.3s;
+    width: 400px;
+    height: 110px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 20;
+    text-align: left;
+}
+
+.logout-popup.show {
+    display: block;
+}
+
+.logout-popup p {
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+}
+
+.cancel-logout {
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #895D47;
+    border-color: #895D47;
+    padding: 5px 10px;
+    margin-left: 240px;
+    margin-right: 5px;
+}
+
+.proceed-logout {
+    border-radius: 15px;
+    background-color: #895D47;
+    color: rgb(15, 14, 14);
+    border-color: #895D47;
+    padding: 5px 10px;
+}
+
+.proceed-logout:hover {
+    background-color: #B18068;
+    border-color: #B18068;
+}
+
+/* Section visibility */
+.section {
+    display: none;
+}
+  
+.section.active {
+    display: block;
+}
+
+.close-button {
+    color: black;
+}

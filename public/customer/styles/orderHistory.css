@@ -1,0 +1,214 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+  
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+  
+    --card-padding: 20px;
+    --padding: 10px;
+  
+    --box-shadow: 0 4px 8px var(--color-secondary);
+  }
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius-2);
+    overflow: hidden;
+}
+
+.styled-table thead th {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+.styled-table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.styled-table tbody td {
+    padding: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.styled-table tbody tr:hover {
+    background-color: var(--color-secondary);
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 20px; 
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .button.outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  
+  .button.outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+.dashboard-container {
+    display: flex;
+    max-height: 100vh;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0px;
+    background-color: #895D47;
+    gap: 2px;
+}
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+    margin: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow-y: auto;
+
+}
+
+.dashboard-container .main-content .content .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: fit-content;
+}
+
+.dashboard-container .main-content .content .bottom{
+    display: flex;
+    gap: 10px;
+    background-color: #fff;
+    
+}
+
+
+/* Filter Bar Styling */
+ .filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    /* background-color: #f9f9f9; */
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    height: fit-content;
+}
+
+.filter-container label {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 180px;
+}
+
+.filter-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0px 0px 4px var(--color-secondary);
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border-radius: var(--border-radius-2);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--color-secondary);
+}
+
+
+
+.dashboard-container .main-content .content .bottom .table-container {
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 5px;
+    
+}
+
+.dashboard-container .main-content .content .bottom .table-container table tbody td i{
+    color: var(--color-primary);
+    margin-left: 5px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

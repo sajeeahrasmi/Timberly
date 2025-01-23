@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+
+    <link rel="stylesheet" href="../customer/styles/orderHistory.css">
+    <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
+    <script src="../customer/scripts/sidebar.js" defer></script>
+    <script src="../customer/scripts/header.js" defer></script>
+
+
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <div id="sidebar"></div>
+
+        <div class="main-content">
+            <div id="header"></div>
+
+            <div class="content">  
+                
+                <div class="top">
+                    <h2>Order History</h2>
+                    <h3>Total no.of orders : 01</h3>
+                </div>
+
+                <div class="filter-container">
+                    <label for="order-status">Order Status:</label>
+                    <select id="order-status" class="filter-select">
+                        <option value="">All</option>
+                        <option value="Completed">Completed</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                
+                    <label for="payment-status">Payment Status:</label>
+                    <select id="payment-status" class="filter-select">
+                        <option value="">All</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Unpaid">Unpaid</option>
+                        <option value="Refunded">Refunded</option>
+                    </select>
+                
+                    <label for="order-category">Order Category:</label>
+                    <select id="order-category" class="filter-select">
+                        <option value="">All</option>
+                        <option value="Door/Window">Door/Window</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Raw Materials">Raw Materials</option>
+                    </select>
+                
+                    <button class="button filter-btn">Filter</button>
+                </div>
+
+                <div class="bottom">
+                    
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>No.of Items</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Order Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2345</td>
+                                    <td>10</td>
+                                    <td>Door/Window</td>
+                                    <td>21.12.2023</td>
+                                    <td >Completed</td>
+                                    <td>Paid</td>
+                                    <td>
+                                        <span onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`" ><button class="button outline">view</button></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2345</td>
+                                    <td>10</td>
+                                    <td>Door/Window</td>
+                                    <td>21.12.2023</td>
+                                    <td >Completed</td>
+                                    <td>Paid</td>
+                                    <td>
+                                        <span onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`" ><button class="button outline">view</button></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2345</td>
+                                    <td>10</td>
+                                    <td>Door/Window</td>
+                                    <td>21.12.2023</td>
+                                    <td >Completed</td>
+                                    <td>Paid</td>
+                                    <td>
+                                        <span onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`" ><button class="button outline">view</button></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2345</td>
+                                    <td>10</td>
+                                    <td>Door/Window</td>
+                                    <td>21.12.2023</td>
+                                    <td >Completed</td>
+                                    <td>Paid</td>
+                                    <td>
+                                        <span onclick="window.location.href=`http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`" ><button class="button outline">view</button></span>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+   
+    </div>
+
+</body>
+</html>

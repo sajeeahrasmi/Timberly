@@ -1,0 +1,569 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #333;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Set background color to white */
+}
+
+/* Admin container */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .admin-container {
+    flex-direction: row;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .admin-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .admin-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; 
+    padding: 20px; 
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .admin-container {
+    max-width: 1400px; 
+    margin: 0 auto; 
+  }
+}
+/* Top Bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #343a40;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Set background color to white */
+  padding: 10px;
+  box-shadow: 0 4px 8px #895D47; 
+  margin: 0px;
+  z-index: 1000;
+}
+
+.top-bar h1 {
+  margin:0;
+  
+  font-size: 24px;
+  color: #895D47;
+}
+
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: #f7efef;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.titleRevenue{
+  margin-top: 20px;
+}
+.titleOverview{
+  margin-top : -40px; 
+}
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* User actions */
+.user-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.user-actions button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 15px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #fff; /* Set background color to white */
+  padding: 0px 20px;
+  color: #895D47; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;  
+  height: 100vh;     
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  position: fixed; 
+  left: 0; 
+}
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 10px 0;
+  color: #895D47;
+  margin-top: 40px;
+  
+}
+
+.logo img {
+  max-height: 80px;  /* Reduced size */
+  width: auto;       /* Maintain aspect ratio */
+  object-fit: contain;
+  
+}
+.sidebar h2 {
+  margin-top: 80px;
+}
+
+.sidebar hr {
+  border: none;
+  height: 2px;
+  background-color: #895D47; 
+  margin: -20px 0 0px;
+  width: 100%;
+}
+
+.sidebar nav {
+  flex-grow: 1; 
+  display: flex;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0; 
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #895D47; 
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 500;
+}
+
+.sidebar ul li a i.icon {
+  margin-right: 10px; 
+}
+
+/* Hover and active styles */
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background-color: #B18068; 
+  color: #fff;
+}
+
+.sidebar ul li a:hover i.icon,
+.sidebar ul li a.active i.icon {
+  color: #fff;
+}
+
+/* Log Out Button at the bottom */
+.logout {
+  margin-bottom: 100px; 
+}
+
+.logout button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #dc3545;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%; 
+  margin-left: 0px; 
+}
+
+.logout button:hover {
+  background-color: #c82333;
+}
+
+/* Main Content Area */
+.content {
+  flex-grow: 1;
+  padding: 80px 20px 20px;
+  transition: margin-left 0.3s ease;
+  border-left: 2px solid #895D47; /* Add vertical line */
+  padding-left: 20px; /* Add some spacing between the line and content */
+}
+
+@media (min-width: 769px) {
+  .content {
+    margin-left: 0;
+  }
+}
+
+/* Metric Cards Styling */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.metric-card {
+  background-color: #fff; /* Set background color to white */
+  border: 2px solid #895D47; /* Set border color to brown */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px #895D47(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.metric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.metric-content i {
+  font-size: 36px;
+  color: #895D47;
+}
+
+.metric-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #895D47;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-card button i {
+  margin-right: 8px;
+}
+
+/* Orders Table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid #895D47; /* Set border color to brown */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius-2);
+  overflow: hidden;
+  margin-top:50px;
+}
+
+.styled-table thead th {
+  background-color: var(--color-primary);
+  color: #895D47;
+  padding: 12px;
+  text-align: left;
+  border: 2px solid #895D47; /* Set border color to brown */
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #fff; /* Set background color to white */
+}
+
+.styled-table tbody td {
+  padding: 10px;
+  color: #333;
+  border: 1px solid #895D47; /* Set border color to brown */
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .orders-table thead {
+    display: none;
+  }
+
+  .orders-table tbody, .orders-table tr, .orders-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .orders-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+  }
+
+  .orders-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .orders-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: left;
+    flex-basis: 50%;
+  }
+}
+
+/* Button Styles */
+.button-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  gap: 10px;
+  padding: 20px;
+  justify-content: center; /* Center buttons */
+}
+
+/* Accept and Reject Button Styles */
+/* Accept and Reject Button Styles */
+.accept-btn, .reject-btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #f5f2f0; /* Set text color to brown */
+  font-size: 16px; /* Default font size */
+  font-weight: 600;
+  margin: 5px;
+  border: 2px solid #895D47;
+  background-color: #895D47; 
+  transition: all 0.3s ease;
+  width: calc(50% - 10px); /* Default for medium screens */
+  text-align: center; /* Ensure text is centered */
+}
+
+/* Adjust button sizes and font for smaller screens */
+@media (max-width: 2000px) {
+  .accept-btn, .reject-btn {
+    width: 100%; /* Full width on smaller screens */
+    font-size: 14px; /* Smaller font size for better readability */
+    padding: 8px 16px; /* Reduced padding for compactness */
+  }
+}
+
+/* Adjust button font size even more for very small screens */
+@media (max-width: 480px) {
+  .accept-btn, .reject-btn {
+    font-size: 12px; /* Further reduce font size for very small screens */
+    padding: 6px 12px; /* Further reduce padding for compactness */
+  }
+}
+
+
+/* Hover effects */
+.accept-btn:hover, .reject-btn:hover {
+  background-color: #f4efed; 
+  color: #895D47; 
+}
+
+
+
+/* Section visibility */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Responsive font sizes */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .metric-card h3 {
+    font-size: 16px;
+  }
+
+  .metric-value {
+    font-size: 24px;
+  }
+
+  .metric-content i {
+    font-size: 30px;
+  }
+}
+
+/* Ensure sidebar is visible on larger screens */
+@media (min-width: 769px) {
+  body {
+    padding-left: 250px;
+  }
+
+  .sidebar {
+    left: 0;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}
+
+/* Adjustments for top bar icons */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  border-radius: 50%;
+  background-color: #895D47;
+}
+
+.user-actions button:hover {
+  background-color: #895D47;
+}
+
+/* Logout Button */
+.logoutButton form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.logoutButton button {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logoutButton button:hover {
+  background-color: #c82333;
+}
+
+.textt h2 {
+  color: #fff;
+  margin-top: 20px;
+}
+
+/* Basic Reset */
+
+
+/* Profile Button */
+
+/* Modal Overlay */
+.profile-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.profile-modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.profile-modal-content button {
+  background-color: #895D47;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-modal-content button:hover {
+  background-color: #895D47;
+}
+
+
+.profile-close-btn {
+  float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+
+}

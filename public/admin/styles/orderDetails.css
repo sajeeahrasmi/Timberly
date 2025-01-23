@@ -1,0 +1,283 @@
+body,html {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    width: 100%;
+    padding: 20px;
+}
+
+.dashboard-container .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0px;
+
+    /* /* gap: 2px; */
+} 
+.dashboard-container .main-content .content {
+    padding: 10px;
+    gap: 10px;
+    height:100%;
+}
+
+.content {
+    margin-top: 40px;
+}
+
+/* Header */
+
+.page-type-banner {
+    margin-bottom: 0;
+    margin-left: 20px;
+    color: rgba(0, 0, 0, 0.519);
+    font-weight: bold;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.order-stats {
+    font-size: 14px;
+    margin-left: 9px;
+    padding: 15px 0;
+    border-top: 1px solid #e2d0c7;
+    border-bottom: 1px solid #e2d0c7;
+}
+
+.order-header h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.delete-button {
+    background-color: #ad785e;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #c7a28f;
+}
+
+/* Order Details */
+.first-order-body {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.items-section{
+    display: inline;
+    background: #FFF;
+    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    margin-left: 20px;
+    height: fit-content;
+    width: 45vw;
+}
+
+.customer-section {
+    margin-bottom: 10px;
+}
+
+.customer-section,
+.delivery-address-section{
+    background: #FFF;
+    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 18vw;
+    font-size: 15px;
+}
+
+.delete-transaction {
+    margin-right: 3px;
+    transition: 0.3s;
+}
+
+.delete-transaction:hover {
+    transform: scale(0.9);
+}
+
+.transaction p {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.transactions-section {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.transactions-section,
+.balance-section {
+    background: #FFF;
+    box-shadow: 0 0 30px rgba(39, 35, 67, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 45vw;
+    font-size: 15px;
+}
+
+.items-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.items-section table td {
+    padding: 10px 5px;
+    text-align: left;
+    border-bottom: 0.5px solid #e2d0c7;
+}
+
+.items-section table td a {
+    text-decoration: none;
+}
+
+.items-section table tr:last-child td {
+    border-bottom: none;
+}
+
+.items-section h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    width: 60px;
+}
+
+.edit-items {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 83%;
+    transition: 0.3s;
+}
+
+.edit-items:hover {
+    transform: scale(0.9);
+}
+
+/* Customer Section */
+.customer-section img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.customer-section .customer-info {
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 20px; */
+}
+
+.customer-section h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.customer-info img {
+    object-fit: cover;
+}
+
+.customer-info a {
+    color: #ad785e;
+    text-decoration: none;
+}
+
+.customer-info a:hover {
+    text-decoration: underline;
+}
+
+.edit-button {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 81%;
+    transition: 0.3s;
+}
+
+.edit-address {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 35%;
+    transition: 0.3s;
+    color: rgb(187, 187, 187);
+}
+
+.edit-button:hover,
+.edit-address:hover {
+    transform: scale(0.9);
+}
+
+/* Transactions Section */
+.transactions-section h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction button {
+    padding-right: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 55%;
+}
+
+.add-transaction {
+    text-decoration: none;
+}
+
+.add-transaction:hover {
+    text-decoration: underline;
+}
+
+/* Balance Section */
+.balance-table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.balance-table td {
+    padding: 10px 5px;
+}
+
+.balance-table tr td:nth-child(2) {
+    text-align: right;
+}
+
+.advance-paid {
+    color: green;
+}

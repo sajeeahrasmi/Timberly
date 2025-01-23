@@ -1,0 +1,646 @@
+/* Styling specific to the products section */
+#product-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#product-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.tab.active {
+    background-color: #895D47;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Supplier and product styles */
+.supplier {
+    margin-bottom: 40px;
+}
+
+.supplier-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* General card border for all cards */
+.product-card, .f-card {
+    border: 1px solid #895D47; /* Given brown color for all cards */
+}
+
+/* Product card styling */
+.product-card {
+    width: 200px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+/* Furniture product cards */
+.f-card {
+    padding: 16px;
+    margin: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 250px; /* Adjust the max-width if needed */
+    display: inline-block; /* Ensure cards are side-by-side */
+    vertical-align: top; /* Align cards to the top */
+    transition: transform 0.3s ease;
+}
+
+/* Product card image */
+.f-card img {
+    width: 100%;
+    height: auto;
+    max-height: 150px; /* Ensure image does not exceed this height */
+    object-fit: cover; /* Keep aspect ratio and cover the area */
+}
+
+/* Product card title */
+.f-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+}
+
+/* Product card details */
+.f-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+}
+.f-card:hover {
+    transform: scale(1.05);
+}
+
+/* Edit/Delete buttons */
+.card-actions {
+    margin-top: 10px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 8px 12px;
+    margin: 5px;
+    border: 1px solid #895D47; /* Given brown color for the border */
+    background-color: white; /* Make the background white */
+    color: #895D47; /* Set text color to the given brown */
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #895D47; /* Optional: Slight hover effect */
+    color: #f2f1f0; /* Maintain the text color */
+}
+
+
+/* Create new product button */
+.create-product-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color:  #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Adjust font size if needed */
+    text-align: center; /* Center text */
+    margin-right: 20px;
+}
+
+.create-product-btn:hover {
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
+}
+.create-Timber-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color:  #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Adjust font size if needed */
+    text-align: center; /* Center text */
+    margin-left: 0px;
+}
+
+.create-Timber-button:hover {
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
+}
+.create-Lumber-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color:  #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Adjust font size if needed */
+    text-align: center; /* Center text */
+    margin-left: 0px;
+}
+
+.create-Lumber-button:hover {
+    background-color: #faf9f9; /* Optional: Slight hover effect */
+    color: #895D47;
+    border : 2px solid #895D47; /* Maintain the text color */
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: rgb(252, 242, 242);
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin-top: 100px;
+}
+
+.close-modal {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* create-order-styles.css */
+
+/* Reset and base styles */
+.create-order-page {
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.create-order-page * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.create-order-page body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.create-order-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.create-order-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* Form styles */
+.create-order-form {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.create-order-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.create-order-form input,
+.create-order-form select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; /* Ensure inputs fill the available space */
+}
+
+.create-order-form input[type="file"] {
+    border: none;
+    padding: 10px 0;
+}
+
+.create-order-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: 98%;
+    background-position-y: 50%;
+}
+
+.create-order-form button {
+    padding: 12px;
+    background-color: #895D47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-order-form button:hover {
+    background-color: #895D47;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .create-order-container {
+        padding: 20px;
+    }
+
+    .create-order-form input,
+    .create-order-form select,
+    .create-order-form button {
+        font-size: 14px;
+}
+
+/* Ensure that the popup does not overlap other elements */
+#confirmation-popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2000; /* Sit on top of other elements */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background with opacity */
+    overflow: auto; /* Enable scroll if needed */
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    margin: 10% auto;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%; /* Allow it to scale on smaller screens */
+    
+}
+
+.popup-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    background-color: #895D47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.popup-content button:hover {
+    background-color: #5D4037;
+}
+
+/* Apply popup visibility */
+#confirmation-popup.show {
+    display: block; /* Show popup when active */
+}
+}
+
+
+#confirm-submit {
+    padding: 12px 20px;
+    background-color: #895D47; /* Brown color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add some space between buttons */
+    margin-top: 20px; /* Add space from the top */
+}
+
+/* Hover effect for Yes, Submit button */
+#confirm-submit:hover {
+    background-color: #6f4f3d; /* Slightly darker brown on hover */
+}
+
+/* Style for No, Cancel button */
+#cancel-submit {
+    padding: 12px 20px;
+    background-color: #895D47; /* Brown color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Add space from the top */
+}
+
+/* Hover effect for No, Cancel button */
+#cancel-submit:hover {
+    background-color: #6f4f3d; /* Slightly darker brown on hover */
+}
+/* Modal styling */
+#create-timber {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+
+/* Modal Content */
+#create-timber .modal-content {
+    background-color: rgb(252, 242, 242);
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    overflow-y: auto;
+    margin-top: 100px;
+}
+
+/* Close Button */
+#create-timber .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#create-timber .close-modal:hover,
+#create-timber .close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Elements */
+#create-timber .modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+#create-timber .modal-content label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+#create-timber .modal-content input,
+#create-timber .modal-content select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; 
+}
+
+#create-timber .modal-content input[type="number"] {
+    width: 100%;
+}
+
+/* Submit Button */
+#create-timber .modal-content button {
+    padding: 12px;
+    background-color: #895D47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#create-timber .modal-content button:hover {
+    background-color:#895D47;
+}
+
+
+/* For responsiveness */
+@media screen and (max-width: 600px) {
+    #create-timber .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    #create-timber .modal-content button {
+        padding: 10px;
+    }
+}
+
+/**/
+
+#create-lumber {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+#create-lumber .modal-content {
+   
+    background-color: rgb(252, 242, 242);
+    margin: 5% auto; /* Reduce margin for better visibility on smaller screens */
+    padding: 20px;
+    width: 90%; /* Make the modal adaptive to smaller screens */
+    max-width: 600px; /* Keep it within a reasonable size */
+    max-height: 90vh; /* Limit height to 90% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the modal height */
+    border-radius: 10px;
+}
+
+/* Close Button */
+#create-lumber .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#create-lumber .close-modal:hover,
+#create-lumber .close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Elements */
+#create-lumber .modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+#create-lumber .modal-content label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+#create-lumber .modal-content input,
+#create-lumber .modal-content select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; 
+}
+
+#create-lumber .modal-content input[type="number"] {
+    width: 100%;
+}
+
+/* Submit Button */
+#create-lumber .modal-content button {
+    padding: 12px;
+    background-color: #895D47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#create-lumber .modal-content button:hover {
+    background-color:#895D47;
+}
+#create-lumber-form input,
+#create-lumber-form select {
+    width: 100%; /* Ensure inputs stretch to the modal width */
+    margin-bottom: 15px; /* Add space between form elements */
+}
+
+/* For responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+    }
+
+    #create-lumber-form input,
+    #create-lumber-form select,
+    #create-lumber-form button {
+        font-size: 14px; /* Reduce font size for better fit */
+    }
+}
+
+    #create-lumber .modal-content button {
+        padding: 10px;
+    }
+

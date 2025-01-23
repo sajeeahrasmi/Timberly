@@ -1,0 +1,73 @@
+/* General styles for the admin panel */
+.admin-container {
+    display: flex;
+    margin-top: -20px; 
+
+   
+}
+.order-content{
+    margin-top: -25px; 
+}
+
+.main-content {
+    width: 100%;
+    margin-top: -20px;
+    
+}
+
+.page-title {
+    color: #090300;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #895D47;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Remove borders from other parts and keep the brown border */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: none; /* Ensures no extra borders around the table */
+}
+
+.orders-table th, .orders-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #895D47; /* Only adds a bottom border */
+}
+
+.orders-table th {
+    background-color: #464545;
+    color: white;
+}
+
+.orders-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Style for the "View Order" button */
+.view-btn {
+    background-color: #895D47;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border: none;
+    font-size: 14px;
+    margin: 8px 4px; /* Increase margin for more space */
+    cursor: pointer;
+    text-align: center;
+    display: inline-block; /* Make sure the button stays block-level */
+    border-radius: 50px; /* Makes the button oval */
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.view-btn:hover {
+    background-color: #faf7f5; /* Keep the button color same */
+    color: #895D47; /* Keep the text color white */
+    border: 2px solid #895D47; /* Border color to #895D47 */
+}
