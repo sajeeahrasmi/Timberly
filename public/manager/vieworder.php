@@ -1,13 +1,13 @@
 <?php
 // Authentication check MUST be the first thing in the file
 require_once '../../api/auth.php';
+include '../../api/ViewOrderDetails.php';
+// Debug: Print order details (optional)
 
-// Rest of your existing PHP code follows...
 ?>
-<?php
-    include '../../api/viewOrderDetails.php'
+
     
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -272,7 +272,7 @@ require_once '../../api/auth.php';
         <div class="header-section">
             <div class="header-content">
                 <button class="back-btn" onclick="goToOrders()">← Back</button>
-                <h1>Order #<?php echo htmlspecialchars($order['id']); ?></h1>
+                <h1>Order #<?php echo htmlspecialchars($orderDetails['orderId']); ?></h1>
             </div>
         </div>
 
@@ -280,37 +280,39 @@ require_once '../../api/auth.php';
             <div class="order-details">
                 <div class="info-card">
                     <h2>Order Information</h2>
-                    <p><strong>Date:</strong> <?php echo htmlspecialchars($order['date']); ?></p>
-                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($order['status']); ?></span></p>
-                    <p><strong>Total:</strong> Rs.<?php echo number_format($order['total'], 2); ?></p>
+                    <p><strong>Date:</strong> <?php echo htmlspecialchars($orderDetails['date']); ?></p>
+                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['status']); ?></span></p>
+                    <p><strong>Total:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'], 2); ?></p>
                 </div>
                 
                 <div class="info-card">
                     <h2>Customer Information</h2>
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($customer['name']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($customer['email']); ?></p>
-                    <p><strong>Phone:</strong> <?php echo htmlspecialchars($customer['phone']); ?></p>
-                    <p><strong>Address:</strong> <?php echo htmlspecialchars($customer['address']); ?></p>
+                    <p><strong>Name:</strong> <?php echo htmlspecialchars($orderDetails['name']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($orderDetails['email']); ?></p>
+                    <p><strong>Phone:</strong> <?php echo htmlspecialchars($orderDetails['phone']); ?></p>
+                    <p><strong>Address:</strong> <?php echo htmlspecialchars($orderDetails['address']); ?></p>
                 </div>
             </div>
             
             <div class="items-section">
                 <h2>Order Items</h2>
                 <div class="order-items">
-                    <?php foreach ($orderItems as $item): ?>
+                   
                         <div class="item">
-                            <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
+                           
                             <div class="item-details">
-                                <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-                                <p>Quantity: <?php echo htmlspecialchars($item['quantity']); ?></p>
-                                <p>Price: Rs.<?php echo number_format($item['price'], 2); ?></p>
-                                <p>Status: <span class="status-badge"><?php echo htmlspecialchars($item['status']); ?></span></p>
+                                <h3><?php echo htmlspecialchars($orderDetails['description']); ?></h3>
+                                <p>Quantity: <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
+                                <p>Price: Rs.<?php echo number_format($orderDetails['unitPrice'], 2); ?></p>
+                                <p>Size:<?php echo htmlspecialchars($orderDetails['size']); ?></p>
+                                <p>Status: <span class="status-badge"><?php echo htmlspecialchars($orderDetails['status']); ?></span></p>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                  
                 </div>
                 
-                <a href="Trackorder.php?id=5002" class="track-order-btn">Track Order</a>
+                <a href="Trackorder.php?id=<?php echo $orderDetails['orderId']; ?>" class="track-order-btn">Track Order</a>
+
             </div>
         </div>
     </div>

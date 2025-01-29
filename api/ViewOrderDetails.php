@@ -1,43 +1,56 @@
 <?php
-// $orderId = $_GET['id'];
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+if (isset($_GET['id'])) {
+    $orderId = $_GET['id'];
 
-
-$order = [
-    'id' => '12345',
-    'date' => '2023-09-14',
-    'status' => 'Pending',
-    'total' => 129.99
-];
-
-$customer = [
-    'name' => 'Sajeeah',
-    'email' => 'sajeeah@gmail.com',
-    'phone' => '07712345677',
-    'address' => '123 Main St, Sajeeahs town, Kalutara'
-];
-
-$orderItems = [
-    [
-        'name' => 'Product 1',
-        'quantity' => 2,
-        'price' => 49.99,
-        'status' => 'Pending',
-        'image' => 'https://via.placeholder.com/100x100.png?text=Product+1'
-    ],
-    [
-        'name' => 'Product 2',
-        'quantity' => 1,
-        'price' => 30.01,
-        'status' => 'Pending',
-        'image' => 'https://via.placeholder.com/100x100.png?text=Product+2'
-    ]
-];
-
-$subtotal = 0;
-foreach ($orderItems as $item) {
-    $subtotal += $item['price'] * $item['quantity'];
+    // Validate the ID (e.g., ensure it's numeric or within expected format)
+    if (!is_numeric($orderId)) {
+        die("Invalid order ID.");
+    }
 }
 
-$deliveryFee = 10.00; // Mock delivery fee
-$total = $subtotal + $deliveryFee;
+// Include database connection
+require_once '../../api/db.php';
+
+// Fetch values from the orderfurniture and orders table
+$orderId = $_GET['id'] ?? null; // Assuming you pass orderId via GET
+
+if ($orderId) {
+    // Query to fetch order, customer, and user details
+    $query = "
+        SELECT 
+            o.orderId, 
+            o.date, 
+            oi.status, 
+            oi.unitPrice, 
+            oi.qty, 
+            (oi.unitPrice * oi.qty) AS totalAmount,
+            oi.size,
+            oi.description,
+            u.userId, 
+            u.name , 
+            u.email , 
+            u.phone ,
+            u.address 
+        FROM orderfurniture oi
+        LEFT JOIN orders o ON oi.orderId = o.orderId
+        LEFT JOIN user u ON o.userId = u.userId
+        WHERE o.orderId = ?
+    ";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $orderId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Fetch result as associative array
+    $orderDetails = $result->fetch_assoc();
+
+    $stmt->close();
+} else {
+    $orderDetails = null; // No order ID provided
+}
+
+// Debug: Print order details (optional)
+
 ?>

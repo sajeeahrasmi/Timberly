@@ -127,7 +127,7 @@ function assignDriver() {
                     <h3>Payment Details</h3>
                     <p>Card: **** **** **** 1234</p>
                     <p>Expiry: 12/25</p>
-                    <p>Name on Card: Sajeeah Rasmi</p>
+                    <p>Name on Card: John Doe</p>
                 </div>
             </div>
         </div>

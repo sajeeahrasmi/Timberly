@@ -191,8 +191,8 @@ require_once '../../api/auth.php';
                 <thead>
                     <tr>
                         <th>Material Type</th>
-                        <th>No. of Logs</th>
-                        <th>Bought Date</th>
+                        <th>Price</th>
+                        <th>Supplier Id</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -200,8 +200,8 @@ require_once '../../api/auth.php';
                     <?php foreach ($timberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
-                            <td><?php echo $item['logs_count']; ?></td>
-                            <td><?php echo $item['bought_date']; ?></td>
+                            <td><?php echo $item['price']; ?></td>
+                            <td><?php echo $item['supplierId']; ?></td>
                             <td class="inventory-actions">
                                 <button class="edit"><i class="fas fa-edit"></i> Edit</button>
                                 <button class="delete"><i class="fas fa-trash-alt"></i> Delete</button>
@@ -218,8 +218,8 @@ require_once '../../api/auth.php';
                 <thead>
                     <tr>
                         <th>Material Type</th>
-                        <th>No. of Logs</th>
-                        <th>Bought Date</th>
+                        <th>Logs</th>
+                        <th>Price</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -227,8 +227,10 @@ require_once '../../api/auth.php';
                     <?php foreach ($lumberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
-                            <td><?php echo $item['logs_count']; ?></td>
-                            <td><?php echo $item['bought_date']; ?></td>
+                            <td><?php echo $item['unitPrice']; ?></td>
+                            <td><?php echo $item['qty']; ?></td>
+                            
+                            
                             <td class="inventory-actions">
                                 <button class="edit"><i class="fas fa-edit"></i> Edit</button>
                                 <button class="delete"><i class="fas fa-trash-alt"></i> Delete</button>
@@ -252,42 +254,47 @@ require_once '../../api/auth.php';
         }
 
         function renderData() {
-          
-            const timberTableBody = document.querySelector('#timber tbody');
-            const lumberTableBody = document.querySelector('#lumber tbody');
-            timberTableBody.innerHTML = '';
-            lumberTableBody.innerHTML = '';
+    const timberTableBody = document.querySelector('#timber tbody');
+    const lumberTableBody = document.querySelector('#lumber tbody');
+    timberTableBody.innerHTML = '';
+    lumberTableBody.innerHTML = '';
 
-            
-            const filteredTimber = currentFilter ? timberData.filter(item => item.material_type === currentFilter) : timberData;
-            filteredTimber.forEach(item => {
-                timberTableBody.innerHTML += `
-                    <tr>
-                        <td>${item.material_type}</td>
-                        <td>${item.logs}</td>
-                        <td>${item.bought_date}</td>
-                        <td class="inventory-actions">
-                            <button class="edit" onclick="editItem('timber', ${item.id})">Edit</button>
-                            <button class="delete" onclick="deleteItem('timber', ${item.id})">Delete</button>
-                        </td>
-                    </tr>`;
-            });
+    // Filtered Timber Data
+    const filteredTimber = currentFilter
+        ? timberData.filter(item => item.type === currentFilter)
+        : timberData;
+    filteredTimber.forEach(item => {
+        timberTableBody.innerHTML += `
+            <tr>
+                <td>${item.type}</td>
+                <td>${item.price}</td>
+                <td>${item.supplierId}</td>
+                <td class="inventory-actions">
+                    <button class="edit" onclick="editItem('timber', ${item.timberId})">Edit</button>
+                    <button class="delete" onclick="deleteItem('timber', ${item.timberId})">Delete</button>
+                </td>
+            </tr>`;
+    });
 
-          
-            const filteredLumber = currentFilter ? lumberData.filter(item => item.material_type === currentFilter) : lumberData;
-            filteredLumber.forEach(item => {
-                lumberTableBody.innerHTML += `
-                    <tr>
-                        <td>${item.material_type}</td>
-                        <td>${item.logs}</td>
-                        <td>${item.bought_date}</td>
-                        <td class="inventory-actions">
-                            <button class="edit" onclick="editItem('lumber', ${item.id})">Edit</button>
-                            <button class="delete" onclick="deleteItem('lumber', ${item.id})">Delete</button>
-                        </td>
-                    </tr>`;
-            });
-        }
+    // Filtered Lumber Data
+    const filteredLumber = currentFilter
+        ? lumberData.filter(item => item.type === currentFilter)
+        : lumberData;
+    filteredLumber.forEach(item => {
+        lumberTableBody.innerHTML += `
+            <tr>
+                <td>${item.type}</td>
+                <td>${item.unitPrice}</td>
+                <td>${item.qty}</td>
+                
+                <td class="inventory-actions">
+                    <button class="edit" onclick="editItem('lumber', ${item.id})">Edit</button>
+                    <button class="delete" onclick="deleteItem('lumber', ${item.id})">Delete</button>
+                </td>
+            </tr>`;
+    });
+}
+
 
         function showTab(tabName) {
             const tabs = document.getElementsByClassName('tab-content');

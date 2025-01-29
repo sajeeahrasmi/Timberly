@@ -9,7 +9,7 @@ $data = json_decode($input, true);
 if (isset($data['lumberId'])) {
     $lumberId = intval($data['lumberId']);
     $stmt = $conn->prepare("UPDATE `lumber`
-    SET `is_deleted` = '1'
+    SET `is_deleted` = 1
     WHERE `lumberId` = ?;
     ");
     $stmt->bind_param("i", $lumberId);

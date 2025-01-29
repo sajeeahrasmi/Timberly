@@ -78,7 +78,7 @@ require_once '../../api/auth.php';
                     
                     <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
                      ? 'http://localhost/Timberly/api/' . $item['image_path'] 
-                     : 'uploads/timbre4.jpg'; ?>" 
+                     : 'uploads/log.jpeg'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
                         <h3><?php echo htmlspecialchars($item['type']); ?></h3>
                         <p>Length: <?php echo htmlspecialchars($item['length']); ?> cm</p>
