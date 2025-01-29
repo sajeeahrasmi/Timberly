@@ -114,6 +114,8 @@ button:active {
     flex: 1 1 30%;  /* Set to 30% to ensure space for the order details */
     display: flex;
     flex-direction: column;
+    
+    
 }
 
 .card {
@@ -124,6 +126,8 @@ button:active {
     margin-bottom: 20px;
     border: 2px solid #895D47;
     width: 100%;
+    margin-right:100px;
+    
 }
 
 table {
@@ -235,4 +239,21 @@ th {
         width: 100%;
         margin-right: 0;
     }
+}
+
+.driver-select {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Hover and focus effects for the select dropdown */
+.driver-select:hover,
+.driver-select:focus {
+    border-color: #895D47; /* Green border on hover/focus */
+    outline: none;
 }

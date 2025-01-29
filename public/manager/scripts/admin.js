@@ -56,14 +56,14 @@ function fetchOrders() {
       pendingOrders.forEach(order => {
         const row = document.createElement('tr');
         const orderDetails = order.order_details.map(detail => 
-          `Product ID: ${detail.product_id}, Quantity: ${detail.quantity}, Price: $${detail.price}`).join('<br/>');
+          `Product ID: ${detail.product_id}, Quantity: ${detail.quantity}, Price: Rs.${detail.price}`).join('<br/>');
 
         row.innerHTML = `
           <td>${order.customer_id}</td>
           <td>${order.customer_name}</td>
           <td>${order.order_id}</td>
           <td>${orderDetails}</td> <!-- Order Details -->
-          <td>${order.total}</td>
+          <td>Rs.${order.total}</td>
           <td>${order.status}</td>
           <td>
             <button class="accept-btn">Accept</button>

@@ -4,7 +4,7 @@ $orders = [
     [
         'order_id' => 5001,
         'customer_id' => 101,
-        'customer_name' => 'John Doe',
+        'customer_name' => 'Amal perera',
         'date' => '2024-11-01',
         'total_payment' => 150.00,
         'total' => 1000.00,
@@ -15,7 +15,7 @@ $orders = [
     [
         'order_id' => 5002,
         'customer_id' => 102,
-        'customer_name' => 'Jane Smith',
+        'customer_name' => 'Jayasundara Sunimal',
         'date' => '2024-11-02',
         'total_payment' => 150.00,
         'total' => 1000.00,
@@ -59,7 +59,7 @@ $orders = [
     [
         'order_id' => 5006,
         'customer_id' => 106,
-        'customer_name' => 'Eve White',
+        'customer_name' => 'Evanthara Nimnavi',
         'date' => '2024-11-06',
         'total_payment' => 100.00,
         'total' => 700.00,

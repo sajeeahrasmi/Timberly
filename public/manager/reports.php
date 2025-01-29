@@ -1,3 +1,9 @@
+<?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +24,7 @@
           <div class="metric-card">
             <h3>Total Revenue</h3>
             <div class="metric-content">
-              <span class="metric-value">$25,000</span> 
+              <span class="metric-value">Rs.25,000</span> 
               <i class="fas fa-dollar-sign"></i>
             </div>
             <button onclick="generateRevenueReport()">
@@ -39,17 +45,7 @@
             </button>
           </div>
           
-          <div class="metric-card">
-            <h3>Products</h3>
-            <div class="metric-content">
-              <span class="metric-value">4 Categories</span>
-              <i class="fas fa-layer-group"></i>
-            </div>
-            <button onclick="generateProductReport()">
-              <i class="fas fa-tree"></i>
-              Product Breakdown
-            </button>
-          </div>
+          
         </div>
 
         <div class="report-details">
@@ -106,22 +102,22 @@
               <tbody>
                 <tr>
                   <td>Furniture</td>
-                  <td>$12,500</td>
+                  <td>Rs.12,500</td>
                   <td>50%</td>
                 </tr>
                 <tr>
                   <td>Doors</td>
-                  <td>$6,250</td>
+                  <td>Rs.6,250</td>
                   <td>25%</td>
                 </tr>
                 <tr>
                   <td>Windows</td>
-                  <td>$3,750</td>
+                  <td>Rs.3,750</td>
                   <td>15%</td>
                 </tr>
                 <tr>
                   <td>Raw Materials</td>
-                  <td>$2,500</td>
+                  <td>Rs.2,500</td>
                   <td>10%</td>
                 </tr>
               </tbody>

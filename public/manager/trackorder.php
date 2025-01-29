@@ -1,4 +1,10 @@
 <?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
+<?php
 
         include '../../api/viewOrderDetails.php';
 
@@ -60,7 +66,7 @@
                     </div>
                     <div class="summary-item">
                         <span>Delivery fee:</span>
-                        <input type="number" id="deliveryFee" value="<?php echo number_format($deliveryFee, 2); ?>" min="0" step="0.01">
+                        <input type="number" id="deliveryFee" value="<?php echo number_format($deliveryFee, 2); ?>" min="0" step="0.1">
                     </div>
                     <div class="summary-item">
                         <strong>Total:</strong>
@@ -78,6 +84,45 @@
                     <p>Phone: (123) 456-7890</p>
                     <button onclick="showPopup('measurementPopup')">Update</button>
                 </div>
+                <div class="card">                            
+    <div class="driver-assignment-section">
+        <form class="driver-form" onsubmit="event.preventDefault(); assignDriver();">
+        <select class="driver-select">
+                <option value="">Select Available Driver</option>
+                <option value="1">Driver 1 - Vehicle: ABC123</option>
+                <option value="2">Driver 2 - Vehicle: XYZ456</option>
+                <option value="3">Driver 3 - Vehicle: DEF789</option>
+            </select>
+            <button type="submit">Assign Driver</button>
+        </form>
+        <div class="assignment-details">
+            <!-- Placeholder for assignment details or status -->
+            Please select a driver to assign to the task.
+        </div>
+    </div>
+</div>
+<script>
+function assignDriver() {
+    // Select the <select> element and the assignment details div
+    const driverSelect = document.querySelector('.driver-form select');
+    const driverStatusDiv = document.querySelector('.assignment-details');
+    
+    // Get the selected driver value
+    const selectedDriverId = driverSelect.value;
+
+    if (!selectedDriverId) {
+        driverStatusDiv.textContent = 'Please select a driver';
+        driverStatusDiv.style.color = '#f44336'; // Error text color
+        return;
+    }
+
+    // Simulate driver assignment
+    driverStatusDiv.textContent = `Driver ${selectedDriverId} assigned successfully!`;
+    driverStatusDiv.style.color = '#4CAF50'; // Success text color
+    driverSelect.disabled = true; // Disable the dropdown after selection
+}
+</script>
+
                 <div class="card">
                     <h3>Payment Details</h3>
                     <p>Card: **** **** **** 1234</p>

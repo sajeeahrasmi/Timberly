@@ -493,18 +493,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let fieldsHtml = '';
         if (category === 'rtimber') {
             fieldsHtml += `
-                <label for="diameter">Diameter (cm):</label>
-                <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" min="1" required>
+                <label for="diameter">Diameter (mm):</label>
+                <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" step="0.01" min="100" max="800" required>
                 <label for="price">Price (Rs.):</label>
                 <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>`;
         } else if (category === 'rlumber') {
             fieldsHtml += `
-                <label for="length">Length (cm):</label>
-                <input type="number" id="length" name="length" value="${details.length || ''}" min="1" required>
-                <label for="width">Width (cm):</label>
-                <input type="number" id="width" name="width" value="${details.width || ''}" min="1" required>
-                <label for="thickness">Thickness (cm):</label>
-                <input type="number" id="thickness" name="thickness" value="${details.thickness || ''}" min="1" required>
+                <label for="length">Length (m):</label>
+                <input type="number" id="length" name="length" value="${details.length || ''}" step="0.01" min="2.4"  max ="4.8" required>
+                <label for="width">Width (mm):</label>
+                <input type="number" id="width" name="width" value="${details.width || ''}" step="0.01" min='50' max="300" required>
+                <label for="thickness">Thickness (mm):</label>
+                <input type="number" id="thickness" name="thickness" value="${details.thickness || ''}" step="0.01" min='12' max="50" required>
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity" name="quantity" value="${details.qty || ''}" min="1" required>
                 <label for="unitPrice">Unit Price (Rs.):</label>
@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <option value="Mahogany">Mahogany</option>
                     <option value="Teak">Teak</option>
                     <option value="Nedum">Nedum</option>
-                    <option value="Sooriyam">Sooriyam</option>
+                    <option value="Sooriyamaara">Sooriyamaara</option>
                 </select>
                 <label for="price">Price (Rs.):</label>
                 <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>`;
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <option value="Mahogany">Mahogany</option>
                     <option value="Teak">Teak</option>
                     <option value="Nedum">Nedum</option>
-                    <option value="Sooriyam">Sooriyam</option>
+                    <option value="Sooriyamaara">Sooriyamaara</option>
                 </select>
                 <label for="price">Price (Rs.):</label>
                 <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>`;
@@ -742,38 +742,31 @@ function deleteLumber(lumberId) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ lumberId }),
+            body: JSON.stringify({ lumberId })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // Alert the user about successful deletion
                 alert('Lumber deleted successfully.');
-                fetch(window.location.href)
-                    .then(response => response.text())
-                    .then(html => {
-                        const parser = new DOMParser();
-                        const newDoc = parser.parseFromString(html, 'text/html');
-                        
-                        
-                        if (currentTab) {
-                            const newTabContent = newDoc.querySelector(`#${currentTab.id}`);
-                            if (newTabContent) {
-                                currentTab.innerHTML = newTabContent.innerHTML;
-                            }
-                        }
-                        
-                        const productElement = document.querySelector(`.product-card[data-name="${lumberId}"]`);
-                        if (productElement) {
-                            productElement.remove();
-                        }
-                    });
+
+                // Find and remove the lumber card directly from the DOM
+                const productElement = document.querySelector(`.product-card[data-name="${lumberId}"]`);
+                if (productElement) {
+                    productElement.remove();  // Remove the element
+                }
             } else {
                 alert('Error deleting lumber: ' + data.message);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle errors during the fetch
+            console.error('Error:', error);
+            alert('An error occurred while deleting the lumber.');
+        });
     }
 }
+
 
 
 // Function to show the Create Timber modal

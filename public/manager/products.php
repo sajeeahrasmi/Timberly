@@ -1,6 +1,14 @@
+<?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
 <?php include '../../api/Allproducts.php'; ?>
 <?php
     include '../../api/session.php' ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +46,14 @@
             
                 <?php foreach ($timberData as $item): ?>
                     <div class="product-card" data-name="<?php echo htmlspecialchars($item['timberId']); ?>" id ="rtimber">
-                        <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
-                        <h3><?php echo htmlspecialchars($item['type']); ?></h3>
+                   <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
+                     ? 'http://localhost/Timberly/api/' . $item['image_path'] 
+                     : 'uploads/log.jpeg'; ?>" 
+          alt="<?php echo htmlspecialchars($item['type']); ?>" />
+
+                
+                    <h3><?php echo htmlspecialchars($item['type']); ?></h3>
+                        
                         <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> cm</p>
                         <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                         <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
@@ -61,7 +75,11 @@
             
                 <?php foreach ($lumberData as $item): ?>
                     <div class="product-card" data-name="<?php echo htmlspecialchars($item['lumberId']); ?>" id ="rlumber">
-                        <img src="./images/log.jpeg" alt="<?php echo htmlspecialchars($item['type']); ?>">
+                    
+                    <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
+                     ? 'http://localhost/Timberly/api/' . $item['image_path'] 
+                     : 'uploads/log.jpeg'; ?>" 
+          alt="<?php echo htmlspecialchars($item['type']); ?>" />
                         <h3><?php echo htmlspecialchars($item['type']); ?></h3>
                         <p>Length: <?php echo htmlspecialchars($item['length']); ?> cm</p>
                         <p>Width: <?php echo htmlspecialchars($item['width']); ?> cm</p>
@@ -87,7 +105,11 @@
     <div class="products">
         <?php foreach ($furnitureData as $item): ?>
             <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ffurniture">
-                <img src="./images/chair.jpg" alt="<?php echo htmlspecialchars($item['productId']); ?>">
+            <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
+                     ? 'http://localhost/timberly/api/' . $item['image_path'] 
+                     : 'uploads/chair.jpg'; ?>" 
+          alt="<?php echo htmlspecialchars($item['type']); ?>" />
+
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
                 
@@ -111,7 +133,11 @@
     <div class="products">
         <?php foreach ($doorsAndwindowsData as $item): ?>
             <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ddoorsandwindows">
-                <img src="./images/decorated-front-door-with-plant_23-2150562176.avif" alt="<?php echo htmlspecialchars($item['productId']); ?>">
+            <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
+                     ? 'http://localhost/timberly/api/' . $item['image_path'] 
+                     : 'uploads/decorated-front-door-with-plant_23-2150562176.avif'; ?>" 
+          alt="<?php echo htmlspecialchars($item['type']); ?>" />
+
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
                 
@@ -142,13 +168,11 @@
             <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-
                 <option value="Jak">Jak</option>
-
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
-                <option value="Sooriyam">Sooriyam </option>
+                <option value="Sooriyamaara">Sooriyamaara </option>
             </select>
 
            
@@ -163,9 +187,11 @@
 
             
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="0" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid price (e.g., 10.99)">
+            <input type="number" id="unit_price" name="unit_price"  min="0" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid price (e.g., 10.99)">
 
-            
+            <label for="product_image">Upload Product Image:</label>
+            <input type="file" id="product_image" name="product_image" accept="image/*" required>
+
             <label for="description">Description:</label>
             <input type="text" id="description" name="description"  required pattern="^[A-Za-z\s]+$" title="Description should only contain letters and spaces.">
 
@@ -182,25 +208,25 @@
         <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-
                 <option value="Jak">Jak</option>
-
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
-                <option value="Sooriyam">Sooriyam </option>
+                <option value="Sooriyamaara">Sooriyamaara </option>
             </select>
 
 
             <label for="diameter">Diameter:</label>
-            <input type="number" id="diameter" name="diameter" min="1" required>
+            <input type="number" id="diameter" name="diameter" placeholder="Enter in milimeters" step="0.01" min="100" max="800" required>
 
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
+            <input type="number" id="unit_price" name="unit_price" min="1" required>
 
             <label for="supplierId">Supplier Id:</label>
             <input type="text" id="supplierId" name="supplierId" required>
 
+            <label for="image">Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
             <button type="submit">Submit Product</button>
         </form>
     </div>
@@ -215,32 +241,32 @@
         <label for="material_type">Material Type:</label>
             <select id="material_type" name="material_type" >
                 <option value="">Select Material Type</option>
-
                 <option value="Jak">Jak</option>
-
                 <option value="Mahogany">Mahogany</option>
                 <option value="Teak">Teak</option>
                 <option value="Nedum">Nedum</option>
-                <option value="Sooriyam">Sooriyam </option>
+                <option value="Sooriyamaara">Sooriyamaara </option>
             </select>
 
 
             <label for="length">Length:</label>
-            <input type="number" id="length" name="length"  min="1" required>
+            <input type="number" id="length" name="length" placeholder="Enter in meters" step="0.01" min="2.4"  max ="4.8" required>
 
             <label for="length">Width:</label>
-            <input type="number" id="width" name="width"  min='1' required>
+            <input type="number" id="width" name="width"  placeholder="Enter in milimeters" step="0.01" min='50' max="300" required>
 
             <label for="length">Thickness:</label>
-            <input type="number" id="thickness" name="thickness"  min='1' required>
+            <input type="number" id="thickness" name="thickness"  placeholder="Enter in milimeters" step="0.01" min='12' max="50" required>
 
             <label for="length">Quantity:</label>
             <input type="number" id="quantity" name="quantity"  min='1' required>
 
            
             <label for="unit_price">Unit Price:</label>
-            <input type="number" id="unit_price" name="unit_price" step="0.01" min="1" required>
+            <input type="number" id="unit_price" name="unit_price"  min="1" required>
 
+            <label for="image">Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
           
 
             <button type="submit">Submit Product</button>

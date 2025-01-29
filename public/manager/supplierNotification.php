@@ -1,4 +1,10 @@
 <?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
+<?php
     include '../../api/newSupplierandProducts.php';
 ?>
 
@@ -341,6 +347,7 @@ form button:hover {
     </div>
 
     <script>
+        const suppliers = <?php echo json_encode($suppliers); ?>;
        function showSupplierDetails(supplierId) {
     console.log(supplierId); // Log supplierId for debugging
     const suppliers = <?php echo json_encode($suppliers); ?>; // JSON encode PHP array to JavaScript
@@ -375,6 +382,10 @@ form button:hover {
                 <p><strong>Details:</strong> ${product.details}</p>
                
                 <p><strong>Supplier:</strong> ${product.supplier_id}</p>
+                <p><strong>Supplier Address:</strong> ${product.supplier_address}</p> <!-- Added Supplier Address -->
+        <p><strong>Unit Price:</strong> Rs.${product.unit_price.toFixed(2)}</p> <!-- Added Unit Price -->
+                
+                
                 <img src="./images/log.jpeg" alt="${product.name}" ">
             `;
             document.getElementById('product_id').value = product.id;

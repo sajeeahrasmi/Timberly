@@ -73,7 +73,8 @@ body {
 }
 
 .top-bar h1 {
-  margin: 0;
+  margin:0;
+  
   font-size: 24px;
   color: #895D47;
 }
@@ -130,15 +131,23 @@ body {
   position: fixed; 
   left: 0; 
 }
-
 .sidebar .logo {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 20px 0;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 10px 0;
   color: #895D47;
+  margin-top: 40px;
+  
 }
 
+.logo img {
+  max-height: 80px;  /* Reduced size */
+  width: auto;       /* Maintain aspect ratio */
+  object-fit: contain;
+  
+}
 .sidebar h2 {
   margin-top: 80px;
 }

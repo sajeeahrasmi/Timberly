@@ -1,3 +1,9 @@
+<?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -72,11 +72,25 @@ function updateTotal() {
         const price = parseFloat(priceText.replace('Rs.', '').trim()) || 0;
         const quantityInput = row.querySelector('.quantity');
         const quantity = parseInt(quantityInput.value) || 1;
+        if (quantity < 0) {
+            alert("Quantity must be a positive number!");
+            quantity = 1; 
+            quantityInput.value = 1; 
+        }
+        
         subtotal += price * quantity;
     });
 
     
-    const deliveryFee = parseFloat(document.getElementById('deliveryFee').value) || 0;
+    const deliveryFeeInput = document.getElementById('deliveryFee');
+    let deliveryFee = parseFloat(deliveryFeeInput.value) || 0;
+
+    // Show a message if delivery fee is negative
+    if (deliveryFee < 0) {
+        alert("Delivery fee must be a positive number!");
+        deliveryFee = 0; // Reset to a default value
+        deliveryFeeInput.value = 0; // Update the input field
+    }
 
     
     const total = subtotal + deliveryFee;

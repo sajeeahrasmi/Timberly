@@ -1,3 +1,9 @@
+<?php
+// Authentication check MUST be the first thing in the file
+require_once '../../api/auth.php';
+
+// Rest of your existing PHP code follows...
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,14 +35,14 @@
     <aside class="sidebar">
     
   <div class="logo">
-  <h2>Timberly</h2>
+  <img src="./images/final_logo.png" alt="Logo" style="height: 200px; margin: 0%; padding: 0%;"  />
   </div>
   <hr>
   <nav>
     <ul>
     <li><a href="#" onclick="showSection('dashboard-section')"><i class="fa-solid fa-house icon"></i>Dashboard</a></li>
 <li><a href="#" onclick="showSection('products-section')"><i class="fa-solid fa-tree icon"></i>Products</a></li>
-<li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Order</a></li>
+<li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Orders</a></li>
 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-box icon"></i>Inventory</a></li>
 <li><a href="#" onclick="showSection('report-section')"><i class="fas fa-chart-line icon"></i>Reports</a></li>
 
@@ -61,7 +67,7 @@
             <div class="metric-card">
     <h3>Total Revenue</h3>
     <div class="metric-content">
-        <span class="metric-value">$25,000</span> 
+        <span class="metric-value">Rs.25,000</span> 
         <i class="fas fa-dollar-sign"></i>
     </div>
     <button onclick="showSection('report-section')">
