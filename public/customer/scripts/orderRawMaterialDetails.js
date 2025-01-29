@@ -1,5 +1,8 @@
 let userId = 0;
 let orderId = 0;
+let orderStatus = "";
+let totalAmount = 0;
+let count = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("../../config/customer/customer.php")
@@ -13,16 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
       userId = data.userId;
       console.log(userId);
       fetchOrderDetails();
+      
   })
   .catch(error => {
       console.error("Error:", error);
       alert("Session expired. Please log in again.");
       window.location.href = "../../public/login.html"
   });
+
+
 });
 
-let totalAmount = 0;
-let count = 0;
 
 async function fetchOrderDetails() {
   try {
@@ -38,6 +42,7 @@ async function fetchOrderDetails() {
               const row = document.createElement("tr");
               orderId = item.orderId;
               console.log(orderId);
+              fetchOrderStatus();
               document.getElementById("orderID").textContent = `Order # ${item.orderId}`;
 
             totalAmount = totalAmount + item.qty * item.unitPrice;
@@ -52,27 +57,21 @@ async function fetchOrderDetails() {
                   <td>${item.unitPrice}</td>
                   <td>${item.status}</td>
                   <td>
-                    <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href='http://localhost/Timberly/public/customer/trackOrderDoor.html'">View</button>
-                    <button class="button solid" style=" padding: 10px; border-radius: 10px;">Delete</button>
+                    <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href='http://localhost/Timberly/public/customer/trackOrderMaterials.html?orderId=${item.orderId}&itemId=${item.itemId}&userId=${userId}'">View</button>
+                    <button class="button solid delete-btn" style=" padding: 10px; border-radius: 10px;">Delete</button>
                                     
                 </td>
               `;
+
+            const deleteButton = row.querySelector(".delete-btn");
+            deleteButton.addEventListener("click", () => deleteOrderItem(item.itemId));
+
 
               tableBody.appendChild(row);
           });
 
           document.getElementById("noOfItems").textContent = `No.of Items: ${count}`
-          // Add event listeners to pen icons
-          const penIcons = document.querySelectorAll(".pen-icon");
-          penIcons.forEach(icon => {
-              icon.addEventListener("click", (e) => {
-                  const orderId = e.target.getAttribute("data-order-id");
-                  const itemId = e.target.getAttribute("data-item-id");
-                  const qty = e.target.getAttribute("data-qty");
-
-                  showPopup2(orderId, itemId, qty);
-              });
-          });
+       
       } else {
           alert("Failed to fetch order details. Please try again.");
       }
@@ -82,149 +81,150 @@ async function fetchOrderDetails() {
   }
 }
 
+  //fetching the length
+async function updateLengths() {
+    const type = document.getElementById("type").value;
+    const lengthSelect = document.getElementById("length");
+    const widthSelect = document.getElementById("width");
+    const thicknessSelect = document.getElementById("thickness");
 
-// async function showPopup2(orderId, itemId, currentQty) {
-//     document.getElementById("overlay").style.display = "block";
-//     const popup = document.getElementById("popup-2");
-//     const content = document.getElementById("popup-content");
-//     const qtyInput = document.getElementById("qty");
+    // Clear dependent dropdowns
+    lengthSelect.innerHTML = '<option value="">--Select Length--</option>';
+    widthSelect.innerHTML = '<option value="">--Select Width--</option>';
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
 
-//     try {
-//         // Fetch maximum quantity for the itemId from the lumber table
-//         const response = await fetch(`../../config/customer/fetchLumberQty.php?itemId=${itemId}`);
-//         const data = await response.json();
+    if (type) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}`);
+            const data = await response.json();
 
-//         if (data.success) {
-//             const maxQty = data.maxQty;
+            // Populate the length dropdown
+            data.lengths.forEach(length => {
+                const option = document.createElement("option");
+                option.value = length;
+                option.textContent = length;
+                lengthSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching lengths:", error);
+        }
+    }
+}
 
-//             // Set popup content
-//             content.textContent = `Order ID: ${orderId}, Item ID: ${itemId}`;
+//fetching width
+async function updateWidths() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const widthSelect = document.getElementById("width");
+    const thicknessSelect = document.getElementById("thickness");
 
-//             // Configure quantity input
-//             qtyInput.value = currentQty;
-//             qtyInput.min = 1;
-//             qtyInput.max = maxQty;
+    // Clear dependent dropdown
+    widthSelect.innerHTML = '<option value="">--Select Width--</option>';
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
 
-//             // Clear existing buttons and add styled ones
-//             const buttonContainer = document.createElement("div");
-//             buttonContainer.classList.add("button-container");
+    if (type && length) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}`);
+            const data = await response.json();
 
-//             const saveBtn = document.createElement("button");
-//             saveBtn.textContent = "Save";
-//             saveBtn.className = "button solid"; // Styled class
-//             saveBtn.onclick = () => updateQuantity(orderId, itemId, qtyInput.value);
+            // Populate the width dropdown
+            data.widths.forEach(width => {
+                const option = document.createElement("option");
+                option.value = width;
+                option.textContent = width;
+                widthSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching widths:", error);
+        }
+    }
+}
 
-//             const closeBtn = document.createElement("button");
-//             closeBtn.textContent = "Close";
-//             closeBtn.className = "button outline"; // Styled class
-//             closeBtn.onclick = closePopup2;
+//fetching thickness
+async function updateThicknesses() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const thicknessSelect = document.getElementById("thickness");
 
-//             buttonContainer.appendChild(closeBtn);
-//             buttonContainer.appendChild(saveBtn);
+    // Clear thickness dropdown
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
 
-//             // Append buttons to the popup and display it
-//             popup.appendChild(buttonContainer);
-//             popup.style.display = "block";
-//         } else {
-//             alert("Failed to fetch lumber quantity. Please try again.");
-//         }
-//     } catch (error) {
-//         console.error("Error fetching lumber quantity:", error);
-//         alert("An error occurred while fetching lumber details.");
-//     }
-// }
+    if (type && length && width) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}`);
+            const data = await response.json();
 
+            // Populate the thickness dropdown
+            data.thicknesses.forEach(thickness => {
+                const option = document.createElement("option");
+                option.value = thickness;
+                option.textContent = thickness;
+                thicknessSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching thicknesses:", error);
+        }
+    }
+}
 
-// async function updateQuantity(orderId, itemId, newQty) {
-//     try {
-//         // Send the updated quantity to the backend
-//         const response = await fetch("../../config/customer/updateQty.php", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({ orderId, itemId, newQty })
-//         });
+//fetching qty
+async function updateQty() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const thickness = document.getElementById("thickness").value;
+    const qtyLabel = document.getElementById("qty");
+    const priceLabel = document.getElementById("price");
 
-//         const data = await response.json();
+    // Reset the label text
+    qtyLabel.value = 1;
 
-//         if (data.success) {
-//             alert("Quantity updated successfully!");
+    if (type && length && width && thickness) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
+            const data = await response.json();
 
-//             // Update the table row
-//             const tableRows = document.querySelectorAll("#orderDetails tbody tr");
-//             tableRows.forEach(row => {
-//                 if (
-//                     row.children[0].textContent == orderId &&
-//                     row.children[1].textContent == itemId
-//                 ) {
-//                     row.children[2].textContent = newQty; // Update quantity cell
-//                 }
-//             });
+            console.log("Response Data:", data); // Log response for debugging
 
-//             closePopup();
-//         } else {
-//             alert("Failed to update quantity. Please try again.");
-//         }
-//     } catch (error) {
-//         console.error("Error updating quantity:", error);
-//         alert("An error occurred while updating the quantity.");
-//     }
-// }
+            // Update the quantity label
+            if (data.qtys && data.price) {
+                priceLabel.textContent = `Unit Price: ${data.price}`;
+                qtyLabel.max = data.qtys;
+            } else {
+                priceLabel.textContent = "Price: Not Available";
+                qtyLabel.max = 1;
+            }
+        } catch (error) {
+            console.error("Error fetching quantity:", error);
+            qtyLabel.textContent = "Qty: Error";
+        }
+    } else {
+        qtyLabel.textContent = "Qty: Select all options";
+    }
+}
 
-// function closePopup2() {
-//     const popup = document.getElementById("popup-2");
-//     popup.style.display = "none";
+async function fetchOrderStatus(){
+    const response = await fetch(`../../config/customer/orderRawMaterialDetails.php?action=getStatus&orderId=${orderId}&userId=${userId}`);
+    const data = await response.json();
 
-//     // Clean up Save button to avoid duplicates
-//     const saveBtn = popup.querySelector("button");
-//     if (saveBtn) popup.removeChild(saveBtn);
-//     document.getElementById("overlay").style.display = "none";
-// }
+    if(data.success){
+        orderStatus = `${data.status}`;
+        document.getElementById("status").textContent = orderStatus;
+        console.log(orderStatus);
+    }
 
+    updateButton();
+}
 
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const buttonElement = document.getElementById('action-button');
-    const statusElement = document.getElementById('status');
-    const buttonAddElement = document.getElementById('addItem');
-    const buttonUpdateElement = document.getElementById('update-button');
     
+async function updateButton() {
+    const buttonElement = document.getElementById('action-button');
+    const buttonAddElement = document.getElementById('addItem');
+    const statusElement = document.getElementById("status");
 
-   
-    function updateButton() {
-        if (statusElement.textContent === 'Confirmed') {
-            buttonElement.textContent = 'Contact';
+        if (statusElement.textContent === 'Pending') {
             buttonElement.onclick = function() {
-                window.location.href = "http://localhost/Timberly/public/customer/contactDesigner.html";
-            };
-
-            buttonAddElement.style.display = 'none';
-            buttonUpdateElement.textContent = 'Proceed to Pay';
-            buttonUpdateElement.onclick = function() {
-                window.location.href = "http://localhost/Timberly/public/customer/payment-details.html";
-                // statusElement.textContent = 'Processing';
-                // updateButton();
-            };
-
-        } else if (statusElement.textContent === 'Processing') {
-            buttonElement.textContent = 'Track';
-            buttonElement.onclick = function() {
-                window.location.href = "http://localhost/Timberly/public/customer/trackOrder.html";
-            };
-
-            buttonUpdateElement.style.display = 'none';
-            buttonAddElement.style.display = 'none';
-
-        } else {
-            buttonElement.textContent = 'Cancel Order';
-            buttonElement.onclick = function() {
-                //alert("Order Cancelled")
                 buttonElement.onclick = async function() {
                     const confirmation = confirm("Are you sure you want to cancel this order?");
                     if (confirmation) {
@@ -255,92 +255,230 @@ document.addEventListener('DOMContentLoaded', function() {
                 showPopup();
             }
 
-           
+        } else {    
+           buttonAddElement.disabled = true;
+           buttonElement.style.display = 'none';
         }
     }
 
-    function showPopup() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("popup").style.display = "block";
+       
 
-        const selectDesignRadio = document.getElementById('selectDesign');
-        const inputDesignRadio = document.getElementById('inputDesign');
-        const designOptionsDiv = document.getElementById('design-options');
-        const imageInputDiv = document.getElementById('image-input');
-        const selectedDesign = document.getElementById('selected-design');
-        const designOptions = document.querySelectorAll('.design-option');
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     const buttonElement = document.getElementById('action-button');
+//     const statusElement = document.getElementById('status');
+//     const buttonAddElement = document.getElementById('addItem');
+//     const buttonUpdateElement = document.getElementById('update-button');
     
-        // Event listener for radio button change
-        document.querySelectorAll('input[name="designChoice"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (selectDesignRadio.checked) {
-                    designOptionsDiv.style.display = 'block'; // Show design options
-                    imageInputDiv.style.display = 'none';    // Hide image input
-                } else if (inputDesignRadio.checked) {
-                    imageInputDiv.style.display = 'block';   // Show image input
-                    designOptionsDiv.style.display = 'none'; // Hide design options
-                }
-            });
-        });
+
+   
+//     function updateButton() {
+//         if (statusElement.textContent === 'Confirmed') {
+//             buttonElement.textContent = 'Contact';
+//             buttonElement.onclick = function() {
+//                 window.location.href = "http://localhost/Timberly/public/customer/contactDesigner.html";
+//             };
+
+//             buttonAddElement.style.display = 'none';
+//             buttonUpdateElement.textContent = 'Proceed to Pay';
+//             buttonUpdateElement.onclick = function() {
+//                 window.location.href = "http://localhost/Timberly/public/customer/payment-details.html";
+//                 // statusElement.textContent = 'Processing';
+//                 // updateButton();
+//             };
+
+//         } else if (statusElement.textContent === 'Processing') {
+//             buttonElement.textContent = 'Track';
+//             buttonElement.onclick = function() {
+//                 window.location.href = "http://localhost/Timberly/public/customer/trackOrder.html";
+//             };
+
+//             buttonUpdateElement.style.display = 'none';
+//             buttonAddElement.style.display = 'none';
+
+//         } else {
+//             buttonElement.textContent = 'Cancel Order';
+//             buttonElement.onclick = function() {
+//                 //alert("Order Cancelled")
+//                 buttonElement.onclick = async function() {
+//                     const confirmation = confirm("Are you sure you want to cancel this order?");
+//                     if (confirmation) {
+//                         try {
+//                             const response = await fetch(`../../config/customer/cancelOrder.php?orderId=${orderId}`, {
+//                                 method: 'POST'
+//                             });
+//                             const result = await response.json();
+        
+//                             if (result.success) {
+//                                 alert("Order Cancelled Successfully");
+//                                 window.location.href = "http://localhost/Timberly/public/customer/createRawMaterialOrder.html";
+//                                 statusElement.textContent = "Cancelled";
+//                                 buttonElement.style.display = 'none';
+//                                 updateButton(); // Refresh button logic
+//                             } else {
+//                                 alert("Failed to cancel the order. Please try again.");
+//                             }
+//                         } catch (error) {
+//                             console.error("Error cancelling the order:", error);
+//                             alert("An error occurred while cancelling the order.");
+//                         }
+//                     }
+//                 };
+//             };
+
+//             buttonAddElement.onclick = function(){
+//                 showPopup();
+//             }
+
+           
+//         }
+//     }
+
+//     function showPopup() {
+//         document.getElementById("overlay").style.display = "block";
+//         document.getElementById("popup").style.display = "block";
+
+//         const selectDesignRadio = document.getElementById('selectDesign');
+//         const inputDesignRadio = document.getElementById('inputDesign');
+//         const designOptionsDiv = document.getElementById('design-options');
+//         const imageInputDiv = document.getElementById('image-input');
+//         const selectedDesign = document.getElementById('selected-design');
+//         const designOptions = document.querySelectorAll('.design-option');
     
-        // Event listener for selecting a design from the image dropdown
-        designOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                selectedDesign.src = this.src;  // Set the selected design image
-            });
-        });
+//         // Event listener for radio button change
+//         document.querySelectorAll('input[name="designChoice"]').forEach(radio => {
+//             radio.addEventListener('change', function() {
+//                 if (selectDesignRadio.checked) {
+//                     designOptionsDiv.style.display = 'block'; // Show design options
+//                     imageInputDiv.style.display = 'none';    // Hide image input
+//                 } else if (inputDesignRadio.checked) {
+//                     imageInputDiv.style.display = 'block';   // Show image input
+//                     designOptionsDiv.style.display = 'none'; // Hide design options
+//                 }
+//             });
+//         });
+    
+//         // Event listener for selecting a design from the image dropdown
+//         designOptions.forEach(option => {
+//             option.addEventListener('click', function() {
+//                 selectedDesign.src = this.src;  // Set the selected design image
+//             });
+//         });
 
 
-        const designImageInput = document.getElementById('design-image');
-        const imagePreview = document.getElementById('image-preview');
+//         const designImageInput = document.getElementById('design-image');
+//         const imagePreview = document.getElementById('image-preview');
 
-        // Listen for changes when the user uploads an image
-        designImageInput.addEventListener('change', function(event) {
-            const file = event.target.files[0]; // Get the uploaded file
-            if (file) {
-                const reader = new FileReader();  // Create a FileReader to read the file
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;  // Set the image src to the uploaded file
-                    imagePreview.style.display = 'block'; // Make the image visible
-                };
-                reader.readAsDataURL(file);  // Read the file as a data URL (base64)
-            }
-        });
+//         // Listen for changes when the user uploads an image
+//         designImageInput.addEventListener('change', function(event) {
+//             const file = event.target.files[0]; // Get the uploaded file
+//             if (file) {
+//                 const reader = new FileReader();  // Create a FileReader to read the file
+//                 reader.onload = function(e) {
+//                     imagePreview.src = e.target.result;  // Set the image src to the uploaded file
+//                     imagePreview.style.display = 'block'; // Make the image visible
+//                 };
+//                 reader.readAsDataURL(file);  // Read the file as a data URL (base64)
+//             }
+//         });
 
 
 
         
-      }   
+//       }   
 
-    updateButton();
-});
-
-
+//     updateButton();
+// });
 
 const popupMessage = document.getElementById('popup-message');
 const overlay = document.getElementById('popup-overlay');
 const closePopupButton = document.getElementById('close-popup');
 
 closePopupButton.onclick = function(){
-    closePopup();
+    close();
 }
 
-  function closePopup() {
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("popup").style.display = "none";
+async function showPopup() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popup").style.display = "block";
   }
 
+async function closePopup() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const thickness = document.getElementById("thickness").value;
+    const qty = document.getElementById("qty").value;
 
- 
+    if (!type || !length || !width || !thickness || !qty) {
+        alert("Please fill out all fields before adding to the selection.");
+        return;
+    }
+
+    const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
+    const lumber = await response.json();
+
+    try {
+        const response = await fetch(`../../config/customer/orderRawMaterialDetails.php?action=addItem&type=${type}&length=${length}&width=${width}&thickness=${thickness}&qty=${qty}&orderId=${orderId}&userId=${userId}&lumberId=${lumber.lumberId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            alert(`Lumber added successfully!`);
+        } else {
+            alert(`Error: ${data.error}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Couldn't add the lumber.");
+    }
+
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+async function close() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
 
 
+document.getElementById("filter").addEventListener("click", () => {
+    const itemStatus = document.getElementById("order-status").value.toLowerCase();
+    const woodType = document.getElementById("wood-type").value.toLowerCase();
 
+    const table = document.getElementById("orderDetails");
+    const rows = table.querySelectorAll("tbody tr");
 
+    rows.forEach(row => {
+        const statusCell = row.cells[5].textContent.toLowerCase(); // Column for Status
+        const typeCell = row.cells[2].textContent.toLowerCase(); // Column for Type
 
+        const matchesStatus = itemStatus === "" || statusCell === itemStatus;
+        const matchesType = woodType === "" || typeCell === woodType;
 
+        if (matchesStatus && matchesType) {
+            row.style.display = ""; // Show the row
+        } else {
+            row.style.display = "none"; // Hide the row
+        }
+    });
+});
 
+async function deleteOrderItem(itemId) {
+    try {
+        const response = await fetch(`../../config/customer/orderRawMaterialDetails.php?action=deleteItem&orderId=${orderId}&itemId=${itemId}&userId=${userId}`);
 
+        const data = await response.json();
 
-
-
-
+        if (data.success) {
+            alert("Item deleted successfully");
+            // Reload the order details table
+            fetchOrderDetails();
+        } else {
+            alert("Failed to delete the item: " + data.error);
+        }
+    } catch (error) {
+        console.error("Error deleting order item:", error);
+        alert("An error occurred while deleting the item.");
+    }
+}

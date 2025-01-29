@@ -114,22 +114,26 @@
                             <label for="order-status">Item Status:</label>
                             <select id="order-status" class="filter-select">
                                 <option value="">All</option>
-                                <option value="Completed">Completed</option>
-                                <option value="In Progress">In Progress</option>
                                 <option value="Pending">Pending</option>
+                                <option value="Declined">Declined</option>
+                                <option value="Accepted">Accepted</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Not_Delivered">Not_Delivered</option>
+                                <option value="Delivered">Delivered</option>
+             
                             </select>
                         </div>
                         
                         <div class="filter">
-                            <label for="payment-status">Description</label>
-                            <select id="payment-status" class="filter-select">
+                            <label for="wood-type">Wood Type</label>
+                            <select id="wood-type" class="filter-select">
                                 <option value="">All</option>
-                                <option value="Paid">Paid</option>
-                                <option value="Unpaid">Unpaid</option>
-                                <option value="Refunded">Refunded</option>
+                                <option value="Jak">Jak</option>
+                                <option value="Mahogany">Mahogany</option>
+                                <option value="Teak">Teak</option>
                             </select>
                         </div>                    
-                        <button class="button filter-btn">Filter</button>
+                        <button id="filter" class="button filter-btn">Filter</button>
                         <button id="addItem" style="margin-left: auto; padding: 8px;" class="button outline" onclick="showPopup()">Add Items</button>
                     </div>
     
@@ -169,52 +173,56 @@
             <h4>Item Details</h4>
             <form>
                 <div class="form-group">
-                    <label for="category">Select Type: </label>
-                    <select id="category">
-                        <option>Jak</option>
-                        <option>Jak</option>
-                        <option>Jak</option>
-                        <option>Jak</option>
+                    <label for="type">Raw Material Type: </label>
+                    <select id="type" name="type" onchange="updateLengths()">
+                        <option value="">--Select Type--</option>
+                        <option value="Jak">Jak</option>
+                        <option value="Mahogany">Mahogany</option>
+                        <option value="Teak">Teak</option>
+                        <option value="Teak">Sooriyamaara</option>
+                        <option value="Teak">Nedum</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <h5>Size</h5>
-                    <label>Length</label>
-                    <input type="number">
-                    <label>Width</label>
-                    <input type="number">
-                    <label>Height</label>
-                    <input type="number">
+                    <label for="length">Length (m):</label>
+                    <select id="length" name="length" onchange="updateWidths()">
+                        <option value="">--Select Length--</option>
+                    </select><br><br>
+                    <label for="width">Width (mm):</label>
+                    <select id="width" name="width" onchange="updateThicknesses()">
+                        <option value="">--Select Width--</option>
+                    </select>
+                    <br><br>
+                    <label for="thickness">Thickness (mm):</label>
+                    <select id="thickness" name="thickness" onchange="updateQty()">
+                        <option value="">--Select Thickness--</option>
+                    </select>
                 </div>
                 
 
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number">
+                    <input type="number" id="qty" name="qty" min="1" value="1">
                 </div>
                 
                 <div class="form-group">
-                    <label>Unit Price : Rs. 450</label>
+                    <label id="price" >Unit Price:</label>
                     
                 </div>
 
             </form>
             <div class="add-button">
                 <button type="submit" class="button outline" onclick="closePopup()">Add Item</button>
+                <button id="close-popup" class="button solid" onclick="close()">Close</button>
             </div>
             
         </div>
     </div>
 
 
-    <div id="popup-2" class="popup2">
-        <h3>Change Quantity</h3>
-        <p id="popup-content"></p>
-        <label>Quantity:</label>
-        <input type="number" id="qty">
-        <!-- Buttons are dynamically appended via JavaScript -->
-    </div>
+    
     
 
 </body>
