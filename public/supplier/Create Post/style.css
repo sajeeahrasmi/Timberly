@@ -1,3 +1,46 @@
+.header-content .welcome{
+    color: var(--color-primary);
+  }
+
+  .popup .popup-content{
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-white);
+    border-radius: 20px;
+    
+
+  }
+
+  .popup .popup-content .pop1{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop2{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop3{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+
+  }
+
+  .popup-content .notification-timestamp{
+    font-size: 12px;
+  }
+
 
 
 .body-content{

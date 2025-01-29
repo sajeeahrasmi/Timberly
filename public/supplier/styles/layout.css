@@ -103,8 +103,8 @@ header {
 
 .sidebar-link {
     padding: 10px 20px;
-    box-shadow: var(--box-shadow);
-    border-radius: 999px;
+   
+   
     white-space: nowrap;
     transition: background-color 0.3s;
     cursor: pointer;
@@ -128,7 +128,13 @@ header {
     transform: scale(105%);
 
 }
-
+.sidebar .icon {
+    margin-right: 10px; 
+  }
+.fas fa-user
+{
+    margin-right: 10px;
+}
 .body-content-container {
     height: calc(100vh - 80px);
     padding: 0 20px 20px 10px;

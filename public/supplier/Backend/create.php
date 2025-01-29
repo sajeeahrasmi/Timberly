@@ -1,5 +1,6 @@
 <?php
 include 'db.php'; // Ensure this file contains a working database connection.
+session_start();
 
 if (isset($_POST['submit'])) {
     // Collect form data
@@ -9,10 +10,12 @@ if (isset($_POST['submit'])) {
     $width = $_POST['width'];
     $height = $_POST['height'];
     $quantity = $_POST['quantity'];
+    $price = $_POST['price'];
     $info = $_POST['info'];
 
+
     // Check for empty fields
-    if (empty($category) || empty($type) || empty($length) || empty($width) || empty($height) || empty($quantity) || empty($info)) {
+    if (empty($category) || empty($type) || empty($length) || empty($width) || empty($height) || empty($quantity) || empty($price)) {
         die("All fields are required.");
     }
 
@@ -35,8 +38,8 @@ if (isset($_POST['submit'])) {
     }
 
     // Insert data into the database
-    $sql = "INSERT INTO `crudpost` (`category`, `type`, `length`, `width`, `height`, `quantity`, `info`, `image`) 
-            VALUES ('$category', '$type', '$length', '$width', '$height', '$quantity', '$info', '$image')";
+    $sql = "INSERT INTO `crudpost` (`category`, `type`, `length`, `width`, `height`, `quantity`, `price`, `info`, `image`, `supplierId`) 
+            VALUES ('$category', '$type', '$length', '$width', '$height', '$quantity', '$price', '$info', '$image', '{$_SESSION['userId']}')";
 
     $result = mysqli_query($con, $sql);
 
@@ -49,7 +52,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-
+<!-- This is a test comment -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +85,50 @@ if (isset($_POST['submit'])) {
     box-shadow: var(--box-shadow);
 
 }
+
+
+.header-content .welcome{
+    color: var(--color-primary);
+  }
+
+  .popup .popup-content{
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-white);
+    border-radius: 20px;
+    
+
+  }
+
+  .popup .popup-content .pop1{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop2{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop3{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+
+  }
+
+  .popup-content .notification-timestamp{
+    font-size: 12px;
+  }
 
 .body-content .left{
     flex: 2; 
@@ -273,28 +320,101 @@ if (isset($_POST['submit'])) {
 <header>
     <div class="header-content">
         <div class="header-logo">Timberly</div>
+        <div class="welcome"> <h3>Welcome <?php echo $_SESSION['name']; ?></h3></div>
         <nav class="header-nav">
             <button data-popup-id="notification-popup" class="header-link popup-trigger"><i
                     class="fa-solid fa-bell"></i></button>
             <a href="../Update Profile/updateprofile.html" class="header-link"><i class="fa-solid fa-user"></i></a>
         </nav>
     </div>
+
+
+    <div class="popup" id="notification-popup">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Notifications</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                <button class="popup-trigger" data-popup-id="not-1">
+                    <div class="pop1">
+                    <div class="notification-message">Order Payment paid successfully!</div>
+                    <div class="notification-timestamp">2024-11-25 02:15 PM</div> 
+                    </div>
+                 
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-2">
+                    <div class="pop2">
+                    <div class="notification-message">Your post has been approved!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-3">
+                    <div class="pop3">
+                    <div class="notification-message">Timber stock is running low!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-1">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Order Payment paid successfully!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            The message "Order Payment Paid Successfully!" serves as a confirmation to both the supplier and the woodworking company 
+            that the payment for an order has been processed without any issues. This notification is essential in maintaining 
+            transparency and trust between the supplier and the buyer, ensuring the transaction is complete and ready for the next 
+            steps, such as delivery or invoicing.
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-2">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Your post has been approved!</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification confirms that the post you submitted has successfully passed the review process and is now live or 
+            visible to others. It reassures you that your content meets the necessary guidelines and encourages further engagement.
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-3">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Timber stock is running low!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification alerts you that the stock of a specific type of timber is nearing depletion. It serves as a reminder 
+            to restock promptly to avoid delays in fulfilling orders or disruptions in production.
+            </div>
+        </div>
+    </div> 
 </header>
 
 <div class="body-content-wrapper">
     <div class="sidebar">
         <div class="sidebar-content">
-            <a href="../Dashboard/dashboard.html" class="sidebar-link">Dashboard</a>
-            <a href="../Backend/create.php" class="sidebar-link active">Create Post</a>
-            <a href="../Backend/display.php" class="sidebar-link">Supplier Posts</a>
-            <a href="../Posts/approved.html" class="sidebar-link">Supplier Orders</a>
-            <a href="../Update Profile/updateprofile.html" class="sidebar-link">User Profile</a>
-            <a href="#" class="sidebar-link">Log Out</a>
+                <a href="../Dashboard/dashboard.html" class="sidebar-link"><i class="fa-solid fa-house icon"></i>Dashboard</a>
+                <a href="../Backend/create.php" class="sidebar-link active"><i class="fa-solid fa-plus"></i>Create Post</a>
+                <a href="../Backend/display.php" class="sidebar-link"><i class="fa-solid fa-box"></i>Supplier Posts</a>
+                <a href="../Posts/approved.html" class="sidebar-link"><i class="fa-solid fa-bag-shopping"></i>Supplier Orders</a>
+                <a href="../Update Profile/updateprofile.html" class="sidebar-link"><i class="fas fa-user"></i>User Profile</a>
+                <a href="http://localhost/Timberly/config/logout.php" class="sidebar-link"><i class="fa-solid fa-right-from-bracket icon"></i>Log Out</a>
         </div>
     </div>
 
     <div class="body-content-container">
         <div class="body-content">
+            <div class="left">
             <div class="form-content">
                 <h1>Create Post Details</h1>
                 <form action="create.php" method="POST" enctype="multipart/form-data">
@@ -317,24 +437,27 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="length">Length(cm):</label>
-                        <input type="number" name="length" placeholder="Enter the length" required>
+                        <label for="length">Length(m):</label>
+                        <input type="number" name="length" placeholder="Enter the length" required min="0">
 
-                        <label for="width">Width(cm):</label>
-                        <input type="number" name="width" placeholder="Enter the width" required>
+                        <label for="width">Width(mm):</label>
+                        <input type="number" name="width" placeholder="Enter the width" required min="0">
 
-                        <label for="height">Height(cm):</label>
-                        <input type="number" name="height" placeholder="Enter the height" required>
+                        <label for="height">Height(mm):</label>
+                        <input type="number" name="height" placeholder="Enter the height" required min="0">
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">Quantity:</label>
-                        <input type="number" name="quantity" placeholder="Enter the quantity" required>
+                        <input type="number" name="quantity" placeholder="Enter the quantity" required min="1">
+
+                        <label for="price">Price per Unit:</label>
+                        <input type="number" name="price" placeholder="Enter the price per unit" required min="1">
                     </div>
 
                     <div class="form-group">
                         <label for="info">Additional Information:</label><br>
-                        <textarea name="info" placeholder="Enter additional information" required></textarea>
+                        <textarea name="info" placeholder="Enter additional information" ></textarea>
                     </div>
 
                     <div class="form-group">
@@ -346,6 +469,7 @@ if (isset($_POST['submit'])) {
                         <button type="submit" name="submit" class="button outline">Add Post</button>
                     </div>
                 </form>
+            </div>
             </div>
         </div>
     </div>

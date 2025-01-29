@@ -19,6 +19,7 @@ if (isset($_GET['id'])) {
         $width = $row['width'];
         $height = $row['height'];
         $quantity = $row['quantity'];
+        $price = $row['price'];
         $info = $row['info'];
         $image = $row['image'];
     } else {
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Update the record in the database
     $sql = "UPDATE crudpost 
             SET category = '$category', type = '$type', length = '$length', 
-                width = '$width', height = '$height', quantity = '$quantity', 
+                width = '$width', height = '$height', quantity = '$quantity', price = '$price',
                 info = '$info', image = '$image' 
             WHERE id = $id";
 
@@ -82,57 +83,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="popup" id="notification-popup">
-    <div class="popup-wrapper">
-        <div class="popup-header">
-            <h3 class="popup-title">Notifications</h3>
-            <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="popup-content">
-            <button class="popup-trigger" data-popup-id="not-1">Show Notification 1</button>
-            <button class="popup-trigger" data-popup-id="not-2">Show Notification 2</button>
-            <button class="popup-trigger" data-popup-id="not-3">Show Notification 3</button>
-        </div>
-    </div>
-</div>
-<div class="popup" id="not-1">
-    <div class="popup-wrapper">
-        <div class="popup-header">
-            <h3 class="popup-title">Notification 1</h3>
-            <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="popup-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
-            deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
-            veritatis quibusdam est?
-        </div>
-    </div>
-</div>
-<div class="popup" id="not-2">
-    <div class="popup-wrapper">
-        <div class="popup-header">
-            <h3 class="popup-title">Notification 2</h3>
-            <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="popup-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
-            deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
-            veritatis quibusdam est?
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Notifications</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+                <button class="popup-trigger" data-popup-id="not-1">
+                    <div class="pop1">
+                    <div class="notification-message">Order Payment paid successfully!</div>
+                    <div class="notification-timestamp">2024-11-25 02:15 PM</div> 
+                    </div>
+                 
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-2">
+                    <div class="pop2">
+                    <div class="notification-message">Your post has been approved!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+
+                <button class="popup-trigger" data-popup-id="not-3">
+                    <div class="pop3">
+                    <div class="notification-message">Timber stock is running low!</div>
+                    <div class="notification-timestamp">2024-11-27 10:30 AM</div>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
-</div>
-<div class="popup" id="not-3">
-    <div class="popup-wrapper">
-        <div class="popup-header">
-            <h3 class="popup-title">Notification 3</h3>
-            <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="popup-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat minus, assumenda laudantium dolore
-            deserunt dolor ut illo rerum, esse pariatur, iste maiores hic laboriosam accusamus porro tempora
-            veritatis quibusdam est?
+    <div class="popup" id="not-1">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Order Payment paid successfully!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            The message "Order Payment Paid Successfully!" serves as a confirmation to both the supplier and the woodworking company 
+            that the payment for an order has been processed without any issues. This notification is essential in maintaining 
+            transparency and trust between the supplier and the buyer, ensuring the transaction is complete and ready for the next 
+            steps, such as delivery or invoicing.
+            </div>
         </div>
     </div>
-</div> 
+    <div class="popup" id="not-2">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Your post has been approved!</h3>
+                <button class="popup-close-button"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification confirms that the post you submitted has successfully passed the review process and is now live or 
+            visible to others. It reassures you that your content meets the necessary guidelines and encourages further engagement.
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="not-3">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <h3 class="popup-title" style="color:var(--color-primary)">Timber stock is running low!</h3>
+                <button class="popup-close-button" style="color:var(--color-primary)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="popup-content">
+            This notification alerts you that the stock of a specific type of timber is nearing depletion. It serves as a reminder 
+            to restock promptly to avoid delays in fulfilling orders or disruptions in production.
+            </div>
+        </div>
+    </div> 
 <header>
     <div class="header-content">
         <div class="header-logo">Timberly</div>
@@ -148,12 +166,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="body-content-wrapper">
         <div class="sidebar">
             <div class="sidebar-content">
-                <a href="../Dashboard/dashboard.html" class="sidebar-link">Dashboard</a>
-                <a href="../Backend/create.php" class="sidebar-link">Create Post</a>
-                <a href="../Posts/total.html" class="sidebar-link active">Supplier Posts</a>
-                <a href="../Posts/approved.html" class="sidebar-link">Supplier Orders</a>
-                <a href="../Update Profile/updateprofile.html" class="sidebar-link">User Profile</a>
-                <a href="#" class="sidebar-link">Log Out</a>
+                <a href="../Dashboard/dashboard.html" class="sidebar-link"><i class="fa-solid fa-house icon"></i>Dashboard</a>
+                <a href="../Backend/create.php" class="sidebar-link"><i class="fa-solid fa-plus"></i>Create Post</a>
+                <a href="../Backend/display.php" class="sidebar-link active"><i class="fa-solid fa-box"></i>Supplier Posts</a>
+                <a href="../Posts/approved.html" class="sidebar-link"><i class="fa-solid fa-bag-shopping"></i>Supplier Orders</a>
+                <a href="../Update Profile/updateprofile.html" class="sidebar-link"><i class="fas fa-user"></i>User Profile</a>
+                <a href="http://localhost/Timberly/config/logout.php" class="sidebar-link"><i class="fa-solid fa-right-from-bracket icon"></i>Log Out</a>
             </div>
         </div>
 
@@ -182,19 +200,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div class="form-group">
-                            <label for="length">Length(cm):</label>
-                            <input type="number" name="length" value="<?php echo htmlspecialchars($length); ?>" required>
+                            <label for="length">Length(m):</label>
+                            <input type="number" name="length" value="<?php echo htmlspecialchars($length); ?>" required min="0">
 
-                            <label for="width">Width(cm):</label>
-                            <input type="number" name="width" value="<?php echo htmlspecialchars($width); ?>" required>
+                            <label for="width">Width(mm):</label>
+                            <input type="number" name="width" value="<?php echo htmlspecialchars($width); ?>" required min="0">
 
-                            <label for="height">Height(cm):</label>
-                            <input type="number" name="height" value="<?php echo htmlspecialchars($height); ?>" required>
+                            <label for="height">Height(mm):</label>
+                            <input type="number" name="height" value="<?php echo htmlspecialchars($height); ?>" required min="0">
                         </div>
 
                         <div class="form-group">
                             <label for="quantity">Quantity:</label>
-                            <input type="number" name="quantity" value="<?php echo htmlspecialchars($quantity); ?>" required>
+                            <input type="number" name="quantity" value="<?php echo htmlspecialchars($quantity); ?>" required min="1">
+
+                            <label for="price">Price per Unit(LKR):</label>
+                            <input type="number" name="price" value="<?php echo htmlspecialchars($price); ?>" required min="1">
                         </div>
 
                         <div class="form-group">

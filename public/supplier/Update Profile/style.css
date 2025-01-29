@@ -1,5 +1,49 @@
 /* asdasd */ 
 
+.header-content .welcome{
+    color: var(--color-primary);
+  }
+
+  .popup .popup-content{
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-white);
+    border-radius: 20px;
+    
+
+  }
+
+  .popup .popup-content .pop1{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop2{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+    margin-bottom: 10px ;
+  }
+
+  .popup .popup-content .pop3{
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+
+  }
+
+  .popup-content .notification-timestamp{
+    font-size: 12px;
+  }
+
+
 
 .profile img{
     width: 100px;
@@ -97,18 +141,13 @@
 }
 
 
-button{
+.edit-profile .button-outline{
     padding: 10px;
-    background-color: var(--color-secondary);
+    background-color: var(--color-primary);
     color: var(--color-white);
     border: none;
     border-radius: var(--border-radius-1);
     cursor: pointer;
 }
 
-button:hover{
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    box-shadow: var(--box-shadow);
-}
 
