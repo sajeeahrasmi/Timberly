@@ -24,7 +24,7 @@ require_once '../../api/auth.php';
   <div class="admin-container">
     
     <div class="top-bar">
-    <h1>Welcome Manager!</h1>
+    <h1>Welcome to our website!</h1>
       <div class="user-actions">
       <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
         <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
