@@ -57,7 +57,7 @@ async function fetchOrderDetails() {
                   <td>${item.unitPrice}</td>
                   <td>${item.status}</td>
                   <td>
-                    <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href='http://localhost/Timberly/public/customer/trackOrderMaterials.html?orderId=${item.orderId}&itemId=${item.itemId}&userId=${userId}'">View</button>
+                    <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href='http://localhost/Timberly/public/customer/trackOrderMaterials.php?orderId=${item.orderId}&itemId=${item.itemId}&userId=${userId}'">View</button>
                     <button class="button solid delete-btn" style=" padding: 10px; border-radius: 10px;">Delete</button>
                                     
                 </td>
