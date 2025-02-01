@@ -42,14 +42,14 @@ if (!$orderId || !$itemId || !$userId) {
 
                     <div class="item-container">
                         <div class="item-image">
-                            <img id="item-image" src="../images/bookshelf.jpg" alt="Item Image"> <!-- Image updates dynamically -->
+                            <img id="item-image" src="../images/lumber.jpg" alt="Item Image"> 
                         </div>
                         <div class="item-info">
-                            <p><strong>Description:</strong> <span id="description"></span></p>
+                            <p><strong>Description:</strong> <span id="description">Lumber</span></p>
                             <p><strong>Type of Wood:</strong> <span id="wood-type"></span></p>
                             <p><strong>Dimensions:</strong> <span id="dimensions"></span></p>
                             <p><strong>Quantity:</strong> <span id="quantity"></span></p>
-                            <p><strong>Price:</strong> $<span id="price"></span></p>
+                            <p><strong>Price:</strong><span id="price"></span></p>
                             <p><strong>Status:</strong> <span id="item-status" class="status-badge">Loading...</span></p>
                         </div>
                     </div>
@@ -62,6 +62,37 @@ if (!$orderId || !$itemId || !$userId) {
             </div>
         </div>
     </div>
+
+    <div id="edit-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('edit-popup')">&times;</span>
+        <h3>Edit Quantity</h3>
+        <label for="new-qty">Enter New Quantity:</label>
+        <input type="number" id="new-qty" min="1">
+        <button onclick="updateQuantity()">Update</button>
+    </div>
+    </div>
+
+    <div id="delivery-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('delivery-popup')">&times;</span>
+        <h3>Delivery Details</h3>
+        <p><strong>Name:</strong> <span id="delivery-name"></span></p>
+        <p><strong>Contact:</strong> <span id="delivery-contact"></span></p>
+        <p><strong>Vehicle No:</strong> <span id="delivery-vehicle"></span></p>
+        <p><strong>Delivery Date:</strong> <span id="delivery-date"></span></p>
+        <button onclick="trackLiveLocation()">Track Live Location</button>
+    </div>
+</div>
+
+<div id="review-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('review-popup')">&times;</span>
+        <h3>Leave a Review</h3>
+        <textarea id="review-text" rows="4" placeholder="Write your review here..."></textarea>
+        <button onclick="submitReview()">Submit</button>
+    </div>
+</div>
 
 </body>
 </html>

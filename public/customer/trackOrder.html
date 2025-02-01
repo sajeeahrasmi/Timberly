@@ -236,12 +236,10 @@
                                 <div class="detail-card">
                                     <h5>Delivery Person Details</h5>
                                     <div class="item">
-                                        <!-- <span>Name</span>
-                                        <span>Mr. Nimal Perera</span> -->
+                                        
                                     </div>
                                     <div class="item">
-                                        <!-- <span>Contact</span>
-                                        <span>0712345698</span> -->
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -312,12 +310,10 @@
             const submitReviewBtn = document.getElementById('submitReview');
             const reviewForm = document.getElementById('reviewForm');
 
-            // Open review modal
             actionButton.addEventListener('click', () => {
                 reviewModal.style.display = 'flex';
             });
 
-            // Close modal functions
             const closeModal = () => {
                 reviewModal.style.display = 'none';
                 reviewForm.reset();
@@ -326,7 +322,6 @@
             closeModalBtn.addEventListener('click', closeModal);
             cancelReviewBtn.addEventListener('click', closeModal);
 
-            // Submit review
             submitReviewBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 
@@ -335,7 +330,6 @@
                 const reviewText = document.getElementById('reviewText').value;
 
                 if (selectedItem && rating && reviewText) {
-                    // Here you would typically send the review to a backend service
                     alert(`Review submitted for ${selectedItem}!\nRating: ${rating} stars\nReview: ${reviewText}`);
                     closeModal();
                 } else {
@@ -343,7 +337,6 @@
                 }
             });
 
-            // Close modal if clicked outside
             reviewModal.addEventListener('click', (e) => {
                 if (e.target === reviewModal) {
                     closeModal();
