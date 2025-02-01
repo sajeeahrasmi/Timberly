@@ -22,17 +22,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (data.success) {
            
-            document.getElementById("order-title").textContent = `Order #${data.orderId}`;
-            document.getElementById("item-title").textContent = `Item #${data.itemId}`;
-            document.getElementById("description").textContent = data.description;
-            document.getElementById("wood-type").textContent = data.woodType;
-            document.getElementById("dimensions").textContent = data.dimensions;
-            document.getElementById("quantity").textContent = data.quantity;
-            document.getElementById("price").textContent = data.price;
-            document.getElementById("item-status").textContent = data.status;
-
+            document.getElementById("wood-type").textContent = data.lumber.type;
+            document.getElementById("dimensions").textContent = "Length "+data.lumber.length + " m, Width: "+ data.lumber.width + " mm, Thickness: " + data.lumber.thickness + " mm";
+            document.getElementById("quantity").textContent = data.itemDetail.qty;
+            document.getElementById("price").textContent = " Rs. " + data.lumber.unitPrice;
+            document.getElementById("item-status").textContent = data.itemDetail.status;
             
-            updateButtonsBasedOnStatus(data.status);
+            updateButtonsBasedOnStatus("Delivered");
         } else {
             alert("Failed to fetch order details.");
         }
@@ -44,7 +40,107 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 function updateButtonsBasedOnStatus(status) {
-    document.getElementById("edit-btn").disabled = status !== "Pending";
-    document.getElementById("view-location-btn").disabled = status !== "Delivering";
-    document.getElementById("leave-review-btn").disabled = status !== "Completed";
+
+    if(status == "Pending"){
+        document.getElementById("edit-btn").disabled = false;
+        document.getElementById("view-location-btn").disabled = true;
+        document.getElementById("leave-review-btn").disabled = true;
+    }else if (status == "Delivering"){
+        document.getElementById("edit-btn").disabled = true;
+        document.getElementById("view-location-btn").disabled = false;
+        document.getElementById("leave-review-btn").disabled = true;
+    }else if (status == "Delivered"){
+        document.getElementById("edit-btn").disabled = true;
+        document.getElementById("view-location-btn").disabled = true;
+        document.getElementById("leave-review-btn").disabled = false;
+    }else{
+        document.getElementById("edit-btn").disabled = true;
+        document.getElementById("view-location-btn").disabled = true;
+        document.getElementById("leave-review-btn").disabled = true;
+    }
 }
+
+
+//////////////////////////////////
+// Get all the buttons and popups
+const editBtn = document.getElementById('edit-btn');
+const viewLocationBtn = document.getElementById('view-location-btn');
+const leaveReviewBtn = document.getElementById('leave-review-btn');
+
+const editPopup = document.getElementById('edit-popup');
+const deliveryPopup = document.getElementById('delivery-popup');
+const reviewPopup = document.getElementById('review-popup');
+
+// Enable buttons when data is loaded
+window.addEventListener('DOMContentLoaded', () => {
+    // Enable buttons (in a real app, you might want to check certain conditions first)
+    editBtn.disabled = false;
+    viewLocationBtn.disabled = false;
+    leaveReviewBtn.disabled = false;
+
+    // Add click event listeners
+    editBtn.addEventListener('click', () => openPopup('edit-popup'));
+    viewLocationBtn.addEventListener('click', () => openPopup('delivery-popup'));
+    leaveReviewBtn.addEventListener('click', () => openPopup('review-popup'));
+});
+
+// Function to open popup
+function openPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    popup.style.display = 'block';
+    
+    // Close popup when clicking outside
+    popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+            closePopup(popupId);
+        }
+    });
+}
+
+// Function to close popup
+function closePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    popup.style.display = 'none';
+}
+
+// Handle quantity update
+function updateQuantity() {
+    const newQty = document.getElementById('new-qty').value;
+    if (newQty && newQty > 0) {
+        // Update the quantity display
+        document.getElementById('quantity').textContent = newQty;
+        // Here you would typically make an API call to update the backend
+        closePopup('edit-popup');
+    } else {
+        alert('Please enter a valid quantity');
+    }
+}
+
+// Handle delivery tracking
+function trackLiveLocation() {
+    // Placeholder function for tracking delivery
+    alert('Tracking feature would be implemented here');
+}
+
+// Handle review submission
+function submitReview() {
+    const reviewText = document.getElementById('review-text').value;
+    if (reviewText.trim()) {
+        // Here you would typically make an API call to submit the review
+        alert('Thank you for your review!');
+        closePopup('review-popup');
+    } else {
+        alert('Please write a review before submitting');
+    }
+}
+
+// Example function to load delivery details (you would replace this with actual data)
+function loadDeliveryDetails() {
+    document.getElementById('delivery-name').textContent = 'John Doe';
+    document.getElementById('delivery-contact').textContent = '123-456-7890';
+    document.getElementById('delivery-vehicle').textContent = 'ABC 123';
+    document.getElementById('delivery-date').textContent = '2025-02-15';
+}
+
+// Load delivery details when the page loads
+window.addEventListener('DOMContentLoaded', loadDeliveryDetails);

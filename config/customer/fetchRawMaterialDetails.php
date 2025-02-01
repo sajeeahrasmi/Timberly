@@ -1,5 +1,10 @@
 <?php
 require '../../config/db_connection.php'; 
+header("Content-Type: application/json");
+
+$orderId;
+$itemId;
+$userId;
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
@@ -19,28 +24,49 @@ if (isset($_GET['action'])) {
 function fetchDetails() {
     global $conn;
 
-    $orderId = isset($_GET['orderId']) ? intval($_GET['orderId']) : null;
-    $itemId = isset($_GET['itemId']) ? intval($_GET['itemId']) : null;
-    $userId = isset($_GET['userId']) ? intval($_GET['userId']) : null;
+    $orderId = $_GET['orderId'];
+    $itemId = $_GET['itemId'];
+    $userId = $_GET['userId'];
 
     if (!$orderId || !$itemId || !$userId) {
         echo json_encode(["success" => false, "message" => "Invalid parameters"]);
-        exit;
+        return;
     }
 
-    $query = "SELECT * FROM orderLumber WHERE orderId = ? AND itemId = ? AND userId = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("iii", $orderId, $itemId, $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $order = $result->fetch_assoc();
+    mysqli_begin_transaction($conn);
 
-    if ($order) {
-        echo json_encode(["success" => true, "orderId" => $order["orderId"], "itemId" => $order["itemId"], "description" => $order["description"], "woodType" => $order["type"], "dimensions" => $order["dimensions"], "quantity" => $order["qty"], "price" => $order["unitPrice"], "status" => $order["status"]]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Order not found"]);
+    try{
+        $query1 = "SELECT status FROM orders WHERE orderId = $orderId";
+        $result1 = mysqli_query($conn, $query1);
+        $orderStatus = mysqli_fetch_assoc($result1);
+
+        $query2 = "SELECT qty, status FROM orderLumber WHERE orderId = $orderId AND itemId = $itemId";
+        $result2 = mysqli_query($conn, $query2);
+        $lumberDetail = mysqli_fetch_assoc($result2);
+
+        $query3 = "SELECT type, length, width, thickness, unitPrice FROM lumber WHERE lumberId = $itemId";
+        $result3 = mysqli_query($conn, $query3);
+        $details = mysqli_fetch_assoc($result3);
+
+        if (!$orderStatus || !$lumberDetail || !$details) {
+            throw new Exception("Failed to fetch one or more records.");
+        }
+
+        mysqli_commit($conn);
+
+        echo json_encode([
+            "success" => true,
+            "orderStatus" => $orderStatus['status'],
+            "itemDetail" => $lumberDetail,
+            "lumber" => $details
+        ]);
+
+    }catch (Exception $e) {
+        mysqli_rollback($conn);
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
-    
+
+    mysqli_close($conn);
 }
 
 

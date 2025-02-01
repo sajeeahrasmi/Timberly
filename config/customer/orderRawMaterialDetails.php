@@ -1,8 +1,8 @@
 <?php
-// Include database connection
+
 include_once '../../config/db_connection.php';
 
-// Check if the request contains the 'action' parameter
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 
@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
             otherFunction1();
             break;
 
-        // Add more cases for other actions
+      
         default:
             echo json_encode(['error' => 'Invalid action']);
     }
@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
     echo json_encode(['error' => 'No action specified']);
 }
 
-// Function to add lumber and update two tables
+
 function addItem() {
     global $conn;
 
