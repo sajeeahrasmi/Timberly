@@ -12,8 +12,7 @@
 <body>
     <aside class="sidebar">
         <div class="logo">
-            <img src="./images/logo.png" alt="Logo" style="height: 60px;" />
-            <h2>Timberly</h2>
+            <img src="./images/final_logo.png" alt="Logo" style="height: 60px;" />
         </div>
         <hr>
         
