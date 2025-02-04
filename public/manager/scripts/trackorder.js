@@ -182,3 +182,7 @@ $(document).ready(function() {
     setOrderTitle(orderId);
     updateStatus('Pending'); 
 });
+function goToOrders() {
+    
+    window.location.href = 'admin.php';
+}
