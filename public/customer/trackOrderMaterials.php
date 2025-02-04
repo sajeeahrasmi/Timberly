@@ -68,7 +68,7 @@ if (!$orderId || !$itemId || !$userId) {
         <span class="close" onclick="closePopup('edit-popup')">&times;</span>
         <h3>Edit Quantity</h3>
         <label for="new-qty">Enter New Quantity:</label>
-        <input type="number" id="new-qty" min="1">
+        <input type="number" id="newQty" min="1">
         <button onclick="updateQuantity()">Update</button>
     </div>
     </div>
@@ -80,7 +80,6 @@ if (!$orderId || !$itemId || !$userId) {
         <p><strong>Name:</strong> <span id="delivery-name"></span></p>
         <p><strong>Contact:</strong> <span id="delivery-contact"></span></p>
         <p><strong>Vehicle No:</strong> <span id="delivery-vehicle"></span></p>
-        <p><strong>Delivery Date:</strong> <span id="delivery-date"></span></p>
         <button onclick="trackLiveLocation()">Track Live Location</button>
     </div>
 </div>

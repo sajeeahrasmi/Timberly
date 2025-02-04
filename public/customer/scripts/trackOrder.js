@@ -2,6 +2,13 @@ let urlParams ;
 let orderId ;
 let itemId ;
 let userId ;
+let length ;
+let width ;
+let thickness ;
+let type ;
+let driverId;
+let deliveryDate;
+let maxQty ;
 
 document.addEventListener("DOMContentLoaded", async () => {
     urlParams = new URLSearchParams(window.location.search);
@@ -9,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     itemId = urlParams.get('itemId');
     userId = urlParams.get('userId');
 
-    // Validate parameters
     if (!orderId || !itemId || !userId) {
         alert("Invalid order details.");
         return;
@@ -23,10 +29,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (data.success) {
            
             document.getElementById("wood-type").textContent = data.lumber.type;
+            type = data.lumber.type;
             document.getElementById("dimensions").textContent = "Length "+data.lumber.length + " m, Width: "+ data.lumber.width + " mm, Thickness: " + data.lumber.thickness + " mm";
+            length = data.lumber.length;
+            width = data.lumber.width;
+            thickness = data.lumber.thickness;
             document.getElementById("quantity").textContent = data.itemDetail.qty;
             document.getElementById("price").textContent = " Rs. " + data.lumber.unitPrice;
             document.getElementById("item-status").textContent = data.itemDetail.status;
+            driverId = data.itemDetail.driverId;
             
             updateButtonsBasedOnStatus("Delivered");
         } else {
@@ -88,6 +99,12 @@ window.addEventListener('DOMContentLoaded', () => {
 function openPopup(popupId) {
     const popup = document.getElementById(popupId);
     popup.style.display = 'block';
+
+    if (popupId == 'edit-popup'){
+        fetchQty();
+    }else if (popupId == 'delivery-popup'){
+        fetchDeliveryDetail();
+    }
     
     // Close popup when clicking outside
     popup.addEventListener('click', (e) => {
@@ -103,44 +120,100 @@ function closePopup(popupId) {
     popup.style.display = 'none';
 }
 
-// Handle quantity update
-function updateQuantity() {
-    const newQty = document.getElementById('new-qty').value;
-    if (newQty && newQty > 0) {
-        // Update the quantity display
-        document.getElementById('quantity').textContent = newQty;
-        // Here you would typically make an API call to update the backend
-        closePopup('edit-popup');
+// Handle quantity 
+async function fetchQty() {
+    const newQty = document.getElementById('newQty');
+    if (type && length && width && thickness) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
+            const data = await response.json();
+            if (data.qtys && data.price) {
+                newQty.max = data.qtys;
+                maxQty = data.qtys;
+            } else {
+                qtyLabel.max = 1;
+            }
+        } catch (error) {
+            console.error("Error fetching quantity:", error);
+            qtyLabel.textContent = "Qty: Error";
+        }
     } else {
-        alert('Please enter a valid quantity');
+        qtyLabel.textContent = "Qty not available";
     }
 }
 
-// Handle delivery tracking
+async function updateQuantity(){
+    const newQty = document.getElementById('newQty').value;
+
+    if (newQty > maxQty) {
+        alert(`Quantity should be less than ${maxQty}`);
+    }else{
+        try{
+            const response = await fetch(`../../config/customer/fetchRawMaterialDetails.php?action=updateQty&orderId=${orderId}&itemId=${itemId}&qty=${newQty}`);
+            const data = await response.json();
+
+            if(data.success){
+                alert("Successfully updated the quantity");
+            }else{
+                alert("Couldnt update quantity");
+            }
+        }catch (error){
+                console.log("Error: ", error);
+        }
+        
+    }
+}
+
+async function fetchDeliveryDetail(){
+    try {
+        const response = await fetch(`../../config/customer/fetchRawMaterialDetails.php?action=fetchDriverDetail&driverId=${driverId}`);
+        const data = await response.json();
+
+        if (data.success) {
+           
+            document.getElementById('delivery-name').textContent = data.personalDetail.name;
+            document.getElementById('delivery-contact').textContent = data.personalDetail.phone;
+            document.getElementById('delivery-vehicle').textContent = data.vehicle;
+           
+        } else {
+            alert("Failed to fetch driver details.");
+        }
+
+    } catch (error) {
+        console.error("Error fetching driver details:", error);
+        alert("An error occurred.");
+    }
+}
+
+
+
 function trackLiveLocation() {
-    // Placeholder function for tracking delivery
+    
     alert('Tracking feature would be implemented here');
 }
 
-// Handle review submission
-function submitReview() {
+
+async function submitReview() {
     const reviewText = document.getElementById('review-text').value;
     if (reviewText.trim()) {
-        // Here you would typically make an API call to submit the review
-        alert('Thank you for your review!');
-        closePopup('review-popup');
+
+        try{
+            const response = await fetch(`../../config/customer/fetchRawMaterialDetails.php?action=updateReview&orderId=${orderId}&itemId=${itemId}&reviewText=${encodeURIComponent(reviewText)}`);
+            const data = await response.json();
+
+            if(data.success){
+                alert('Thank you for your review!');
+                closePopup('review-popup');
+
+            }else{
+                alert("Couldnt update review.");
+            }   
+
+        }catch (error){
+                console.log("Error: ", error);
+        }
+   
     } else {
         alert('Please write a review before submitting');
     }
 }
-
-// Example function to load delivery details (you would replace this with actual data)
-function loadDeliveryDetails() {
-    document.getElementById('delivery-name').textContent = 'John Doe';
-    document.getElementById('delivery-contact').textContent = '123-456-7890';
-    document.getElementById('delivery-vehicle').textContent = 'ABC 123';
-    document.getElementById('delivery-date').textContent = '2025-02-15';
-}
-
-// Load delivery details when the page loads
-window.addEventListener('DOMContentLoaded', loadDeliveryDetails);
