@@ -10,7 +10,7 @@
         while ($row = mysqli_fetch_assoc($timberDataResult)) {
             $timberData[] = $row;
         }
-        $lumberDataQuery = "SELECT lumberId AS id, type, unitPrice , qty FROM lumber";
+        $lumberDataQuery = "SELECT lumberId AS id, type, unitPrice , qty FROM lumber WHERE is_deleted = '0'";
 $lumberDataResult = mysqli_query($conn, $lumberDataQuery);
 if (!$lumberDataResult) {
     die("Error fetching lumber data: " . mysqli_error($conn));

@@ -6,6 +6,9 @@ require_once '../../api/auth.php';
 ?>
 <?php
     include '../../api/inventoryItems.php';
+    
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -168,6 +171,7 @@ require_once '../../api/auth.php';
     </style>
 </head>
 <body>
+
     <div id="inventory-section">
         <h1>Inventory Management</h1>
 
@@ -205,8 +209,8 @@ require_once '../../api/auth.php';
                             <td><?php echo $item['supplierId']; ?></td>
                             <td class="inventory-actions">
                                 <button class="edit"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="delete"  data-type ="timber" data-id= "${item.id}"> 
-    <i class="fas fa-trash-alt"></i> Delete 
+                                <button class="delete"  onclick="deleteTimberItem($item['id'])">
+    <i class="fas fa-trash-alt"></i> Delete
 </button>
                             </td>
                         </tr>
@@ -236,8 +240,12 @@ require_once '../../api/auth.php';
                             
                             <td class="inventory-actions">
                                 <button class="edit"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="delete" data-type ="lumber"data-id= "${item.id}"> 
-    <i class="fas fa-trash-alt"></i> Delete 
+                                <button class="delete" onclick="deleteLumberItem(<?php echo $item['id']; ?>)">
+    <i class="fas fa-trash-alt"></i> Delete
+</button>
+
+
+
 </button>
                             </td>
                         </tr>
@@ -251,32 +259,97 @@ require_once '../../api/auth.php';
         const timberData = <?php echo json_encode($timberData); ?>;
         const lumberData = <?php echo json_encode($lumberData); ?>;
         let currentFilter = '';
-        async function deleteInventoryItem(type, id) {
-    if (!confirm('Are you sure you want to delete this item?')) return;
+  // Modify the delete function to handle type and id
+// Delete Timber Item
+
+
+// Delete Timber Item
+async function deleteTimberItem(id) {
+    console.log('Attempting to delete lumber item with ID:', id); // Debug log
+    
+    if (!confirm('Are you sure you want to delete this Timber item?')) {
+        return;
+    }
 
     try {
-        const response = await fetch('../../api/deleteeInventory.php', {
+        const response = await fetch('../../api/deleteTimberInventory.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: type, id: id })
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
         });
 
-        const result = await response.json();
-
-        if (result.success) {
-            // Remove the deleted item from the table without reloading
-            const row = document.querySelector(`.delete[data-type="${type}"][data-id="${id}"]`).closest('tr');
-            row.remove();
-        } else {
-            alert('Failed to delete item: ' + result.error);
+        console.log('Response status:', response.status); // Debug log
+        
+        const result = await response.text(); // Get raw response text first
+        console.log('Raw response:', result); // Debug log
+        
+        try {
+            const jsonResult = JSON.parse(result);
+            if (jsonResult.success) {
+                const row = document.querySelector(`button[onclick*="deleteTimberItem(${id})"]`).closest('tr');
+                if (row) {
+                    row.remove();
+                    alert('Item deleted successfully!');
+                }
+            } else {
+                throw new Error(jsonResult.message || 'Failed to delete item');
+            }
+        } catch (parseError) {
+            console.error('JSON Parse Error:', parseError);
+            throw new Error('Invalid response from server');
         }
     } catch (error) {
+        console.error('Error:', error);
         alert('Error deleting item: ' + error.message);
     }
 }
 
 
-  
+async function deleteLumberItem(id) {
+    console.log('Attempting to delete lumber item with ID:', id); // Debug log
+    
+    if (!confirm('Are you sure you want to delete this Lumber item?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch('../../api/deleteLumberInventory.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        });
+
+        console.log('Response status:', response.status); // Debug log
+        
+        const result = await response.text(); // Get raw response text first
+        console.log('Raw response:', result); // Debug log
+        
+        try {
+            const jsonResult = JSON.parse(result);
+            if (jsonResult.success) {
+                const row = document.querySelector(`button[onclick*="deleteLumberItem(${id})"]`).closest('tr');
+                if (row) {
+                    row.remove();
+                    alert('Item deleted successfully!');
+                }
+            } else {
+                throw new Error(jsonResult.message || 'Failed to delete item');
+            }
+        } catch (parseError) {
+            console.error('JSON Parse Error:', parseError);
+            throw new Error('Invalid response from server');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error deleting item: ' + error.message);
+    }
+}
 
 // Add click handlers to delete buttons
 
@@ -308,8 +381,8 @@ require_once '../../api/auth.php';
                 <td>${item.supplierId}</td>
                 <td class="inventory-actions">
                     <button class="edit" onclick="editItem('timber', ${item.id})">Edit</button>
-                    <button class="delete" data-type ="timber"  data-id= "${item.id}"> 
-    <i class="fas fa-trash-alt"></i> Delete 
+                    <button class="delete" onclick="deleteTimberItem(${item.id})">
+    <i class="fas fa-trash-alt"></i> Delete
 </button>
 
                 </td>
@@ -329,22 +402,22 @@ require_once '../../api/auth.php';
                 
                 <td class="inventory-actions">
                     <button class="edit" onclick="editItem('lumber', ${item.id})">Edit</button>
-                    <button class="delete"  data-type ="lumber" data-id= "${item.id}""> 
-    <i class="fas fa-trash-alt"></i> Delete 
+                    <button class="delete" onclick="deleteLumberItem(${item.id})">
+    <i class="fas fa-trash-alt"></i> Delete
+</button>
+
+
+
 </button>
 
                 </td>
             </tr>`;
     });
 
-    document.querySelectorAll('.delete').forEach(button => {
-        button.addEventListener('click', function() {
-            const type = this.getAttribute("data-type");
-            const id = this.getAttribute("data-id");
+   
 
-            deleteInventoryItem(type, id);
-        });
-    });
+
+    
 }
 
 
