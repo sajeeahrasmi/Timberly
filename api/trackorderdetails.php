@@ -34,16 +34,14 @@ if ($orderId) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Fetch all results as an array (since an order may have multiple items)
+   
     $orderDetails = $result->fetch_all(MYSQLI_ASSOC);
 
-    // Close the statement
+    
     $stmt->close();
 } else {
-    $orderDetails = []; // Initialize as empty array
+    $orderDetails = [];
 }
 
-// Debugging (optional)
-// echo "<pre>"; print_r($orderDetails); echo "</pre>";
 
 ?>
