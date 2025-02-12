@@ -1,3 +1,8 @@
+<?php 
+    include '../../api/getDesignerDetails.php';
+    // include '../../api/deleteDesigner.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -18,11 +23,9 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">designer</p>
                 <div class="designer-header">
-                    <!-- <h2><?php echo htmlspecialchars($designer['name']); ?></h2> -->
-                     <h2>This shows designer name</h2>
+                    <h2 style="margin-left: 15px"><?php echo htmlspecialchars($designer['name']); ?></h2>
                     <div>
-                        <!-- <a href="./editDesigner.php?customer_id=<?php echo urlencode($designer_id);?>" class="designer-edit">Edit</a> -->
-                        <a href="./editDesigner.php" class="designer-edit">Edit</a>
+                        <a href="./editDesigner.php?designer_id=<?php echo urlencode($designer_id);?>" class="designer-edit">Edit</a>
                         <button class="delete-button" onclick="deleteDesigner(<?php echo htmlspecialchars($designer_id); ?>)">Delete</button>
                     </div>
                 </div>
@@ -30,17 +33,13 @@
                     <div class="designer-detail-panel">
                         <div class="designer-info">
                             <img src="./images/image.png" alt="designer-foto">
-                            <!-- <p class="name"><?php echo htmlspecialchars($designer['name']); ?></p>
+                            <p class="name"><?php echo htmlspecialchars($designer['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($designer['email']); ?></p>
-                            <p class="customer_id"><?php echo htmlspecialchars($designer_id); ?></p> -->
-                            <p class="name">This shows designer name</p>
-                            <p class="email">designer@mail.com</p>
-                            <p class="designer_id">designer id shows here</p>
+                            <p class="designer_id"><?php echo htmlspecialchars($designer_id); ?></p>
                         </div>
                         <div class="designer-stats">
                             <p class="stat-title">Registered</p>
-                            <!-- <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p> -->
-                             <p class="stat-value">Registered time upto now</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
                             <p class="stat-title">Last delivery</p>
                             <p class="stat-value">1 hour ago</p>
                             <p class="stat-title">Total deliveries</p>
@@ -70,11 +69,9 @@
                         <div class="contact-details">
                             <h3>Contact details</h3>
                             <p class="detail-title">Address</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($designer['address']) ?></p> -->
-                            <p class="detail-value">designer's address</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($designer['address']) ?></p>
                             <p class="detail-title">Telephone number</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($designer['phone']) ?></p> -->
-                             <p class="detail-value">designer's telephone no</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($designer['phone']) ?></p>
                         </div>
                     </div>
                 </div>

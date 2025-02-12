@@ -8,7 +8,7 @@ function getDateOnly($datetime) {
 
 
 // Query to fetch designer details
-$designerDataQuery = "SELECT userId AS designer_id, name, created_at AS registered_on, phone AS tele_num, email FROM designerdetails";
+$designerDataQuery = "SELECT userId AS designer_id, name, created_at AS registered_on, phone AS tele_num, email FROM user WHERE role = 'designer'";
 $date = getDateOnly(date('Y-m-d H:i:s'));
 $designerDataResult = mysqli_query($conn, $designerDataQuery);
 
