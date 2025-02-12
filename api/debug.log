@@ -55,3 +55,17 @@ Decoded data: Array
 
 Attempting to delete lumber with ID: 5
 Error: Item not found or could not be deleted.
+Incoming data: {"id":5}
+Decoded data: Array
+(
+    [id] => 5
+)
+
+Attempting to delete lumber with ID: 5
+Incoming data: {"id":2}
+Decoded data: Array
+(
+    [id] => 2
+)
+
+Attempting to delete lumber with ID: 2

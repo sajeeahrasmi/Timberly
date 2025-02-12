@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $diameter = $_POST['diameter'];
     $unit_price = $_POST['unit_price'];
     $supplierId = $_POST['supplierId'];
+    $quantity = $_POST['quantity'];
 
     // Check if fields are filled
     if (empty($material_type) || empty($diameter) || empty($unit_price) || empty($supplierId)) {
@@ -30,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Move file to the uploads folder
         if (move_uploaded_file($fileTmpName, $filePath)) {
             // Save product data to the database
-            $query = "INSERT INTO timber (type, price, diameter, supplierId, image_path) 
-                      VALUES ('$material_type', '$unit_price', '$diameter', '$supplierId', '$filePath')";
+            $query = "INSERT INTO timber (type, price, diameter, supplierId, image_path , qty) 
+                      VALUES ('$material_type', '$unit_price', '$diameter', '$supplierId', '$filePath' , '$quantity')";
             
             if (mysqli_query($conn, $query)) {
                 echo json_encode(['success' => true, 'message' => 'Product created successfully']);

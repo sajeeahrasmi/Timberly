@@ -496,7 +496,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label for="diameter">Diameter (mm):</label>
                 <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" step="0.01" min="100" max="800" required>
                 <label for="price">Price (Rs.):</label>
-                <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>`;
+                <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="${details.qty|| ''}" min="1" required>`
+                
+                
+                
         } else if (category === 'rlumber') {
             fieldsHtml += `
                 <label for="length">Length (m):</label>

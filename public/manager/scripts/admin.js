@@ -27,6 +27,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
  
 });
+function fetchAlerts() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "../../api/alerts.php", true);
+
+  // When the request is complete
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var alerts = JSON.parse(xhr.responseText);
+
+          // If there are new alerts, show the default browser alert
+          if (alerts.length > 0) {
+              var alertss = alerts[0];  // Get the most recent alert
+              console.log(alertss.alert_message)
+              // Show the alert using a browser alert
+              alert('Low Stock Alert: ' + alertss.alert_message + '-ID ' + alertss.material_id +  '- Material: ' + alertss.material_type);
+          }
+      }
+  };
+
+  xhr.send();
+}
+
+// Fetch alerts immediately when the page loads
+fetchAlerts();
+
+// Optionally, fetch alerts every 10 seconds
+setInterval(fetchAlerts, 10000); 
 
 
 function fetchOrders() {
@@ -116,3 +143,5 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
   }
   closeProfileModal();
 });
+
+

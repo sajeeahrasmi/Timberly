@@ -196,6 +196,7 @@ require_once '../../api/auth.php';
                 <thead>
                     <tr>
                         <th>Material Type</th>
+                        <th>Quantity</th>
                         <th>Price</th>
                         <th>Supplier Id</th>
                         <th>Actions</th>
@@ -205,6 +206,7 @@ require_once '../../api/auth.php';
                     <?php foreach ($timberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
+                            <td><?php echo $item['qty']; ?></td>
                             <td><?php echo $item['price']; ?></td>
                             <td><?php echo $item['supplierId']; ?></td>
                             <td class="inventory-actions">
@@ -377,6 +379,7 @@ async function deleteLumberItem(id) {
         timberTableBody.innerHTML += `
             <tr>
                 <td>${item.type}</td>
+                <td>${item.qty}</td>
                 <td>${item.price}</td>
                 <td>${item.supplierId}</td>
                 <td class="inventory-actions">

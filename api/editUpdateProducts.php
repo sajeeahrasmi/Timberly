@@ -7,6 +7,7 @@ try {
     
     $category = $_POST['category'] ?? '';
     $productName = $_POST['productName'] ?? '';
+    $quantity = $_POST['quantity'];
 
     
     $response = ['success' => false, 'message' => 'Product update failed!'];
@@ -16,12 +17,14 @@ try {
         case 'rtimber':
             $sql = "UPDATE timber SET 
                     diameter = ?, 
-                    price = ? 
+                    price = ? ,
+                    qty = ?
                     WHERE timberId = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ddi", 
+            $stmt->bind_param("ddii", 
                 $_POST['diameter'],
                 $_POST['price'],
+               $_POST['quantity'],
                 $productName 
             );
             break;
