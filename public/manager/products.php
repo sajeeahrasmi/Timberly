@@ -57,6 +57,7 @@ require_once '../../api/auth.php';
                         <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> cm</p>
                         <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                         <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
+                        <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
                         <div class="card-actions">
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
@@ -227,6 +228,8 @@ require_once '../../api/auth.php';
 
             <label for="image">Image:</label>
     <input type="file" id="image" name="image" accept="image/*" required>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" required>
             <button type="submit">Submit Product</button>
         </form>
     </div>

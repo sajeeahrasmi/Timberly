@@ -1,0 +1,71 @@
+Incoming data: {"id":1}
+Decoded data: Array
+(
+    [id] => 1
+)
+
+Attempting to delete lumber with ID: 1
+Error: Unknown column 'id' in 'where clause'
+Incoming data: {"id":2}
+Decoded data: Array
+(
+    [id] => 2
+)
+
+Attempting to delete lumber with ID: 2
+Error: Cannot delete or update a parent row: a foreign key constraint fails (`timberly`.`orderlumber`, CONSTRAINT `fk_lumberId` FOREIGN KEY (`itemId`) REFERENCES `lumber` (`lumberId`))
+Incoming data: {"id":1}
+Decoded data: Array
+(
+    [id] => 1
+)
+
+Attempting to delete lumber with ID: 1
+Error: Item not found or could not be deleted.
+Incoming data: {"id":1}
+Decoded data: Array
+(
+    [id] => 1
+)
+
+Attempting to delete lumber with ID: 1
+Incoming data: {"id":6}
+Decoded data: Array
+(
+    [id] => 6
+)
+
+Attempting to delete lumber with ID: 6
+Incoming data: {"id":"5"}
+Decoded data: Array
+(
+    [id] => 5
+)
+
+Attempting to delete lumber with ID: 5
+Error: Table 'timberly.timbrt' doesn't exist
+Incoming data: 
+Decoded data: 
+Error: ID is required
+Incoming data: {"id":"5"}
+Decoded data: Array
+(
+    [id] => 5
+)
+
+Attempting to delete lumber with ID: 5
+Error: Item not found or could not be deleted.
+Incoming data: {"id":5}
+Decoded data: Array
+(
+    [id] => 5
+)
+
+Attempting to delete lumber with ID: 5
+Incoming data: {"id":2}
+Decoded data: Array
+(
+    [id] => 2
+)
+
+Attempting to delete lumber with ID: 2

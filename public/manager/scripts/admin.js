@@ -16,18 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   showSection('dashboard-section');
 
   
-  document.querySelector('#orders-tbody').addEventListener('click', (event) => {
-    if (event.target && event.target.classList.contains('accept-btn')) {
-    
-      alert('Order accepted!');
-      
-    } else if (event.target && event.target.classList.contains('reject-btn')) {
-      
-      alert('Order rejected!');
-    
-    }
-  });
-
+ 
   
   document.querySelector('.notification-btn').addEventListener('click', function() {
     showSection('supplier-notification-section');
@@ -38,36 +27,57 @@ document.addEventListener('DOMContentLoaded', () => {
     
  
 });
+function fetchAlerts() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "../../api/alerts.php", true);
+
+  // When the request is complete
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var alerts = JSON.parse(xhr.responseText);
+
+          // If there are new alerts, show the default browser alert
+          if (alerts.length > 0) {
+              var alertss = alerts[0];  // Get the most recent alert
+              console.log(alertss.alert_message)
+              // Show the alert using a browser alert
+              alert('Low Stock Alert: ' + alertss.alert_message + '-ID ' + alertss.material_id +  '- Material: ' + alertss.material_type);
+          }
+      }
+  };
+
+  xhr.send();
+}
+
+// Fetch alerts immediately when the page loads
+fetchAlerts();
+
+// Optionally, fetch alerts every 10 seconds
+setInterval(fetchAlerts, 10000); 
 
 
 function fetchOrders() {
-  fetch('../../api/mockOrders.php')
+  fetch('../../api/mockOrders.php') // Adjust path if necessary
     .then(response => response.json())
     .then(data => {
       const tbody = document.getElementById('orders-tbody');
-      
-      
-      const pendingOrders = data.filter(order => order.status === 'Pending');
+      tbody.innerHTML = ''; // Clear previous entries
 
-      
-      tbody.innerHTML = '';
-
-   
-      pendingOrders.forEach(order => {
+      data
+      .filter(order => order.itemStatus === 'Making')
+      .forEach(order => {
         const row = document.createElement('tr');
-        const orderDetails = order.order_details.map(detail => 
-          `Product ID: ${detail.product_id}, Quantity: ${detail.quantity}, Price: Rs.${detail.price}`).join('<br/>');
-
+        
         row.innerHTML = `
-          <td>${order.customer_id}</td>
-          <td>${order.customer_name}</td>
-          <td>${order.order_id}</td>
-          <td>${orderDetails}</td> <!-- Order Details -->
-          <td>Rs.${order.total}</td>
-          <td>${order.status}</td>
+          <td>${order.customerId}</td>
+          <td>${order.customerName}</td>
+          <td>${order.orderId}</td>
+          <td>Item ID: ${order.itemId}<br>Description: ${order.description}<br>Qty: ${order.qty}<br>Size: ${order.size}<br>Unit Price: Rs.${order.unitPrice}</td>
+          <td>Rs.${order.totalAmount}</td>
+          <td>${order.itemStatus}</td>
           <td>
-            <button class="accept-btn">Accept</button>
-            <button class="reject-btn">Reject</button>
+            <button class="accept-btn" onclick="updateOrderStatus(${order.orderId}, 'Completed')">Accept</button>
+            <button class="reject-btn" onclick="updateOrderStatus(${order.orderId}, 'Making')">Reject</button>
           </td>
         `;
         tbody.appendChild(row);
@@ -76,11 +86,28 @@ function fetchOrders() {
     .catch(error => console.error('Error fetching orders:', error));
 }
 
-
+function updateOrderStatus(orderId, newStatus) {
+  fetch('../../api/updateOrder.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderId, newStatus })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert(`Order ${orderId} updated to ${newStatus}`);
+          location.reload(); // Refresh orders table
+      } else {
+          alert(`Error: ${data.message}`);
+      }
+  })
+  .catch(error => console.error('Error updating order status:', error));
+}
 
 
 
 window.onload = fetchOrders;
+
 // Open and close modal functionality
 // Open modal when profile button is clicked
 // Function to toggle the profile popup visibility
@@ -116,3 +143,5 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
   }
   closeProfileModal();
 });
+
+

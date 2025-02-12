@@ -1,12 +1,18 @@
 <?php
-// Authentication check MUST be the first thing in the file
+// Authentication check
 require_once '../../api/auth.php';
 
-// Rest of your existing PHP code follows...
-?>
-<?php
+// Include backend logic
+include '../../api/viewOrderDetails.php';
+include '../../api/trackorderdetails.php';
 
-        include '../../api/viewOrderDetails.php';
+// Calculate subtotal & total
+$subtotal = 0;
+foreach ($orderDetails as $item) {
+    $subtotal += $item['unitPrice'] * $item['qty'];
+}
+$deliveryFee = 100; // Default delivery fee
+$totalAmount = $subtotal + $deliveryFee;
 
 ?>
 
@@ -20,9 +26,9 @@ require_once '../../api/auth.php';
     <link rel="stylesheet" href="./styles/trackorder.css">
 </head>
 <body>
-    <div class="header">
+<div class="header">
         <div class="container">
-            <h1 id="orderTitle">Order #<?php echo htmlspecialchars($order['id']); ?></h1>
+            <h1 id="orderTitle">Order #<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? 'N/A'); ?></h1>
         </div>
     </div>
     <div class="container">
@@ -36,43 +42,35 @@ require_once '../../api/auth.php';
             <button onclick="updateStatus('Polishing')">Polishing</button>
             <button onclick="updateStatus('Delivering')">Delivering</button>
         </div>
-        <button onclick="window.location.href = 'vieworder.php'">Back</button>
+        <button class="back-btn" onclick="window.location.href = 'admin.php';">← Back</button>
+
         <div class="main-content">
             <div class="order-details">
-                <h2>Order Details</h2>
-                <table>
+            <h2>Order Details</h2>
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Status</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <?php foreach ($orderDetails as $item): ?>
                     <tr>
-                        <th>Product</th>
-                        <th>Status</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <td><?php echo htmlspecialchars($item['description']); ?></td>
+                        <td><?php echo htmlspecialchars($item['status']); ?></td>
+                        <td>
+                            <input type="number" value="<?php echo $item['qty']; ?>" min="1" >
+                        </td>
+                        <td>Rs.<?php echo number_format($item['unitPrice'], 2); ?></td>
                     </tr>
-                    <?php foreach ($orderItems as $index => $item): ?>
-                        <tr id="product-<?php echo $index + 1; ?>">
-                            <td><?php echo htmlspecialchars($item['name']); ?></td>
-                            <td class="status" data-product-id="<?php echo $index + 1; ?>"><?php echo htmlspecialchars($item['status']); ?></td>
-                            <td>
-                                <input type="number" class="quantity" data-product-id="<?php echo $index + 1; ?>" value="<?php echo $item['quantity']; ?>" min="1">
-                            </td>
-                            <td>Rs.<?php echo number_format($item['price'], 2); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
-                <div class="order-summary">
-                    <h3>Order Summary</h3>
-                    <div class="summary-item">
-                        <span>Subtotal:</span>
-                        <span id="subtotal">Rs.<?php echo number_format($subtotal, 2); ?></span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Delivery fee:</span>
-                        <input type="number" id="deliveryFee" value="<?php echo number_format($deliveryFee, 2); ?>" min="0" step="0.1">
-                    </div>
-                    <div class="summary-item">
-                        <strong>Total:</strong>
-                        <strong id="total">Rs.<?php echo number_format($total, 2); ?></strong>
-                    </div>
-                </div>
+                <?php endforeach; ?>
+            </table>
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <p><strong>Subtotal:</strong> Rs.<?php echo number_format($subtotal, 2); ?></p>
+                <p><strong>Delivery Fee:</strong> <input type="number" value="100" min="0" step="0.1" onchange="updateTotal()"></p>
+                <p><strong>Total:</strong> Rs.<?php echo number_format($totalAmount, 2); ?></p>
+            </div>
                 <button class="update-total" onclick="updateTotal()">Update Total</button>
             </div>
             <div class="card-container">
