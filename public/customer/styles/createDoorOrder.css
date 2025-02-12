@@ -266,22 +266,32 @@ body, html {
         flex-grow: 1;
         overflow-y: auto;
         margin-bottom: 10px;
+       
 
-        .product{
-            margin-bottom: 10px;
-            padding: 2px 10px;
-            border-radius: var(--border-radius-2);
-            box-shadow: var(--box-shadow);
-            border: 1px solid var(--color-primary);
+        .order-list{
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 10px;
+            max-height: 90%;
             
-            h6{
-                font-size: 16px;
-                margin: 2px;
-            }
     
-            p{
-                font-size: 11px;
-            }
+            .product{
+                width: 90%;
+                margin-bottom: 10px;
+                padding: 2px 10px;
+                border-radius: var(--border-radius-2);
+                box-shadow: var(--box-shadow);
+                border: 1px solid var(--color-primary);
+                
+                h6{
+                    font-size: 16px;
+                    margin: 2px;
+                }
+        
+                p{
+                    font-size: 11px;
+                }
+            } 
         }
     }
 

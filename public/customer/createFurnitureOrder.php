@@ -7,6 +7,8 @@ $furnitureData = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $furnitureData[] = $row;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../customer/scripts/sidebar.js" defer></script>
     <script src="../customer/scripts/header.js" defer></script>
-    <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
+    <script src="../customer/scripts/createFurnitureOrder.js" defer></script>
 
 
 </head>
@@ -37,7 +39,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="left">  
                     <div class="buttons">
                         <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.html`">Door/Window</button>
-                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.html`">Other furnitures</button>
+                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.php`">Other furnitures</button>
                         <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
                     </div>
                     <div class="form-content">
@@ -54,87 +56,57 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 </select>
                             </div>
 
-                            <!-- <div class="form-group">
-                                <label>Select Design</label>
-                                <input type="radio" name="designChoice" id="selectDesign" value="select-design">
-                                <br>
-                                <div id="design-options" class="image-dropdown" style="display:none;">
-                                    <div class="dropdown">
-                                        <div class="dropdown-toggle">
-                                            <img id="selected-design" src="../images/bookshelf.jpg" alt="Select Design" width="100">
-                                        </div>
-                                        <div class="dropdown-menu">
-                                            <img class="design-option" src="../images/chair.jpg" alt="Design 1" width="100">
-                                            <img class="design-option" src="../images/table.jpg" alt="Design 2" width="100">
-                        
-                                        </div>
-                                    </div>
-                                </div>                              
-                            </div>                    -->
-
                             <div class="form-group">
-                                <label>Select Design</label>
+                                <label>Select Design </label>
                                 <div id="design-options" class="image-dropdown" style="display:none;">
-                                    <div class="dropdown">
-                                        <div class="dropdown-toggle">
-                                            <img id="selected-design" src="../images/default.jpg" alt="Select Design" width="100">
+                                    <div class="dropdown">  
+                                        <div class="dropdown-toggle">                                        
+                                            <img id="selected-design" src="../images/chair1.jpg" alt="Select Design" width="100">
                                         </div>
+                                        <label><span id="productDescription"></span></label>
                                         <div class="dropdown-menu"></div>
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
 
 
                             <div class="form-group">
                                 <label>Select Type: </label>
-                                <select>
+                                <select id="type">
                                     <option>Jak</option>
                                     <option>Mahogany</option>
                                     <option>Teak</option>
+                                    <option>Sooriyamaara</option>
                                     <option>Nedum</option>
                                 </select>
                             </div>
                            
-                            <!-- <br> -->
-
-                           
-                            
-                            <!-- <br> -->
 
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" min="1" max="100">
+                                <input type="number" min="1" max="20" id="qty">
                             </div>
-                            
-                            <!-- <br> -->
 
                             <div class="form-group">
                                 <label>Size </label>
-                                <select>
+                                <select id="size">
                                     <option>Small</option>
                                     <option>Medium</option>
                                     <option>Large</option>
-                                    <!-- <option>Nedum</option> -->
                                 </select>
-                                <!-- <input type="radio"> -->
                             </div>
                             
-                            <!-- <br> -->
 
                             <div class="form-group">
-                                <label>Additional Information</label><br>
-                                <textarea></textarea>
+                                <label>Additional Information (Mention the dimensions)</label><br>
+                                <textarea id="additionalDetails"></textarea>
                             </div>
-                            
-                            <!-- <br> -->
-
-                            <!-- <div class="form-group">
-                            <button type="submit">Add Item</button>
-                            </div> -->
 
                         </form>
                         <div class="add-button">
-                            <button type="submit" class="button outline" >Add Item</button>
+                            <button type="button" class="button outline" id="add-item">Add Item</button>
                         </div>
                         
                     </div>               
@@ -143,69 +115,76 @@ while ($row = mysqli_fetch_assoc($result)) {
                
                 <div class="right">
                     <div class="right-top">
-                        <h2>Order #</h2>
-                        <h3>No.of Items : </h3>
+                        <h2>Order </h2>
+                        <h4 >No.of Items : <span id="noOfItem"></span></h4>
                     </div>
 
                     <div class="right-middle">
-                        <div class="product">
-                            <h6>Product 1</h6>
-                            <p>Type: </p>
-                        </div>
-                         
-                        <div class="product">
-                            <h6>Product 2</h6>
-                            <p>Type: </p>
-                        </div>
-                        <div class="product">
-                            <h6>product 3</h6>
-                            <p>Type: </p>
-                        </div>
+                        <div class="order-list"></div>
+                        
                     </div>
                     <div class="right-bottom">
-                        <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderFurnitureDetails.html`">Checkout Order</button>              
+                        <button class="button outline" onclick=placeOrder()>Checkout Order</button>              
                     </div>      
                    
                 </div>
 
         </div>
         </div>
-        
-        
-        
-        
+     
     </div>
 
 </body>
 
 <script>
+
+    let productId;
+    let descriptionGlobal;
         document.addEventListener("DOMContentLoaded", function() {
             const furnitureData = <?php echo json_encode($furnitureData); ?>;
             const categorySelect = document.getElementById("category");
             const designOptionsDiv = document.getElementById("design-options");
             const dropdownMenu = document.querySelector(".dropdown-menu");
             const selectedDesign = document.getElementById("selected-design");
+            const description = document.getElementById('productDescription');
             
             categorySelect.addEventListener("change", function() {
                 const selectedCategory = categorySelect.value;
-                dropdownMenu.innerHTML = ""; // Clear previous images
+                dropdownMenu.innerHTML = ""; 
                 
                 furnitureData.forEach(item => {
                     if (item.category === selectedCategory) {
                         const imgElement = document.createElement("img");
-                        imgElement.src = item.image; // Use stored image path
-                        imgElement.alt = item.description;
+                        imgElement.src = item.image; 
+                        imgElement.alt = item.description;                        
                         imgElement.width = 100;
                         imgElement.classList.add("design-option");
                         
                         imgElement.addEventListener("click", function() {
                             selectedDesign.src = item.image;
+                            description.textContent = item.description;
+                            descriptionGlobal = item.description
+                            productId = item.furnitureId;
+                            console.log(item.furnitureId);
+                            
+
                         });
                         dropdownMenu.appendChild(imgElement);
                     }
                 });
-                designOptionsDiv.style.display = "block"; // Show image options
+                designOptionsDiv.style.display = "block";
             });
+
+            const addButton = document.getElementById("add-item");
+            addButton.addEventListener("click", function() {
+            if (productId) {
+                addCard(productId, descriptionGlobal);
+            } else {
+                alert("Please select a design first!");
+            }
+        });
+
+
         });
     </script>
 
