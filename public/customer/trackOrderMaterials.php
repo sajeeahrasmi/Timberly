@@ -80,6 +80,7 @@ if (!$orderId || !$itemId || !$userId) {
         <p><strong>Name:</strong> <span id="delivery-name"></span></p>
         <p><strong>Contact:</strong> <span id="delivery-contact"></span></p>
         <p><strong>Vehicle No:</strong> <span id="delivery-vehicle"></span></p>
+
         <button onclick="trackLiveLocation()">Track Live Location</button>
     </div>
 </div>

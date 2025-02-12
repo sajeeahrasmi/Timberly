@@ -1,11 +1,5 @@
 <?php
-// Mock data for designers
-$designerData = [
-    ['designer_id' => '#QA153', 'name' => 'John Doe', 'registered_on' => 'May 15, 2021', 'tele_num' => '0114879568', 'email' => 'john.doe@mymail.com'],
-    ['designer_id' => '#WE117', 'name' => 'Mike WIllis', 'registered_on' => 'February 26, 2021', 'tele_num' => '0119652354', 'email' => 'mikee.willis@wowmail.com'],
-    ['designer_id' => '#ZA193', 'name' => 'Amanda Christina', 'registered_on' => 'August 5, 2020', 'tele_num' => '0119548562', 'email' => 'mikee.willis@wowmail.com'],
-    ['designer_id' => '#KQ131', 'name' => 'George William', 'registered_on' => 'December 31, 2021', 'tele_num' => '0112659480', 'email' => 'amandachrist@omail.gov']
-];
+    include '../../api/getDesigners.php';
 ?>
 
 <!DOCTYPE html>
