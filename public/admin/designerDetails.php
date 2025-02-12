@@ -23,7 +23,7 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">designer</p>
                 <div class="designer-header">
-                    <h2><?php echo htmlspecialchars($designer['name']); ?></h2>
+                    <h2 style="margin-left: 15px"><?php echo htmlspecialchars($designer['name']); ?></h2>
                     <div>
                         <!-- <a href="./editDesigner.php?customer_id=<?php echo urlencode($designer_id);?>" class="designer-edit">Edit</a> -->
                         <a href="./editDesigner.php" class="designer-edit">Edit</a>
