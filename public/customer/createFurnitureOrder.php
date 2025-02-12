@@ -1,3 +1,14 @@
+<?php
+include '../../config/db_connection.php'; 
+
+$query = "SELECT * FROM furnitures";
+$result = mysqli_query($conn, $query);
+$furnitureData = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $furnitureData[] = $row;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,51 +22,6 @@
     <script src="../customer/scripts/header.js" defer></script>
     <script src="../customer/scripts/createDoorOrderScript.js" defer></script>
 
-    <style>
-        .image-dropdown {
-            position: relative;
-        }
-    
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-    
-        .dropdown-toggle {
-            cursor: pointer;
-            border: 1px solid #ccc;
-            padding: 5px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-    
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 10;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-            white-space: nowrap;
-        }
-    
-        .dropdown-menu img {
-            cursor: pointer;
-            margin: 5px 0;
-        }
-    
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-    
-        .dropdown img {
-            width: 100px;
-            height: auto;
-        }
-    </style>
 
 </head>
 <body>
@@ -80,25 +46,19 @@
                             <div class="form-group">
                                 <label for="category">Select Category: </label>
                                 <select id="category">
-                                    <option>Chair</option>
-                                    <option>Table</option>
-                                    <option>Bookshelf</option>
-                                    <!-- <option></option> -->
+                                    <option value="Chair">Chair</option>
+                                    <option value="Table">Table</option>
+                                    <option value="Bookshelf">Bookshelf</option>
+                                    <option value="Wardrobe">Wardrobe</option>
+                                    <option value="Stool">Stool</option>
                                 </select>
                             </div>
-                            
-                            <!-- <br> -->
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Select Design</label>
                                 <input type="radio" name="designChoice" id="selectDesign" value="select-design">
-                                <!-- <label>Input Design</label>
-                                <input type="radio" name="designChoice" id="inputDesign" value="input-design"> -->
                                 <br>
-
-                                <!-- Custom image dropdown for selecting designs -->
                                 <div id="design-options" class="image-dropdown" style="display:none;">
-                                    <!-- <label>Select a Design: </label> -->
                                     <div class="dropdown">
                                         <div class="dropdown-toggle">
                                             <img id="selected-design" src="../images/bookshelf.jpg" alt="Select Design" width="100">
@@ -106,21 +66,24 @@
                                         <div class="dropdown-menu">
                                             <img class="design-option" src="../images/chair.jpg" alt="Design 1" width="100">
                                             <img class="design-option" src="../images/table.jpg" alt="Design 2" width="100">
-                                            <!-- <img class="design-option" src="/images/design3.jpg" alt="Design 3" width="100">
-                                            <img class="design-option" src="/images/design4.jpg" alt="Design 1" width="100">
-                                            <img class="design-option" src="/images/design5.jpg" alt="Design 2" width="100">
-                                            <img class="design-option" src="/images/design6.jpg" alt="Design 3" width="100"> -->
+                        
                                         </div>
                                     </div>
+                                </div>                              
+                            </div>                    -->
+
+                            <div class="form-group">
+                                <label>Select Design</label>
+                                <div id="design-options" class="image-dropdown" style="display:none;">
+                                    <div class="dropdown">
+                                        <div class="dropdown-toggle">
+                                            <img id="selected-design" src="../images/default.jpg" alt="Select Design" width="100">
+                                        </div>
+                                        <div class="dropdown-menu"></div>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <!-- <div id="image-input" style="display:none;">
-                                    <input type="file" id="design-image" accept="image/*">
-                                    <img id="image-preview" src="" alt="Image Preview" style="display:none; max-width: 100px; margin-top: 10px;">
-                                </div> -->
-                            </div>                   
-
-                            <!-- <br> -->
 
                             <div class="form-group">
                                 <label>Select Type: </label>
@@ -214,4 +177,37 @@
     </div>
 
 </body>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const furnitureData = <?php echo json_encode($furnitureData); ?>;
+            const categorySelect = document.getElementById("category");
+            const designOptionsDiv = document.getElementById("design-options");
+            const dropdownMenu = document.querySelector(".dropdown-menu");
+            const selectedDesign = document.getElementById("selected-design");
+            
+            categorySelect.addEventListener("change", function() {
+                const selectedCategory = categorySelect.value;
+                dropdownMenu.innerHTML = ""; // Clear previous images
+                
+                furnitureData.forEach(item => {
+                    if (item.category === selectedCategory) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = item.image; // Use stored image path
+                        imgElement.alt = item.description;
+                        imgElement.width = 100;
+                        imgElement.classList.add("design-option");
+                        
+                        imgElement.addEventListener("click", function() {
+                            selectedDesign.src = item.image;
+                        });
+                        dropdownMenu.appendChild(imgElement);
+                    }
+                });
+                designOptionsDiv.style.display = "block"; // Show image options
+            });
+        });
+    </script>
+
+                            
 </html>

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("item-status").textContent = data.itemDetail.status;
             driverId = data.itemDetail.driverId;
             
-            updateButtonsBasedOnStatus("Delivered");
+            updateButtonsBasedOnStatus("Delivering");
         } else {
             alert("Failed to fetch order details.");
         }
