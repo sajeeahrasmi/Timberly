@@ -18,7 +18,7 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">supplier</p>
                 <div class="supplier-header">
-                    <!-- <h2><?php echo htmlspecialchars($supplier['name']); ?></h2> -->
+                    <!-- <h2 style="margin-left: 15px"><?php echo htmlspecialchars($supplier['name']); ?></h2> -->
                      <h2>This shows supplier name</h2>
                     <div>
                         <!-- <a href="./editSupplier.php?supplier_id=<?php echo urlencode($supplier_id);?>" class="supplier-edit">Edit</a> -->

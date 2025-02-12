@@ -18,7 +18,7 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">customer</p>
                 <div class="customer-header">
-                    <!-- <h2><?php echo htmlspecialchars($customer['name']); ?></h2> -->
+                    <!-- <h2 style="margin-left: 15px"><?php echo htmlspecialchars($customer['name']); ?></h2> -->
                      <h2>This shows customer name</h2>
                     <div>
                         <!-- <a href="./editCustomer.php?customer_id=<?php echo urlencode($customer_id);?>" class="customer-edit">Edit</a> -->

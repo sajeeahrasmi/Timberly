@@ -23,7 +23,7 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">driver</p>
                 <div class="driver-header">
-                    <h2><?php echo htmlspecialchars($driver['name']); ?></h2>
+                    <h2 style="margin-left: 15px"><?php echo htmlspecialchars($driver['name']); ?></h2>
                     <div>
                         <a href="./editDriver.php?driver_id=<?php echo urlencode($driver_id);?>" class="driver-edit">Edit</a>
                         <button class="delete-button" onclick="deleteDriver(<?php echo htmlspecialchars($driver_id); ?>)">Delete</button>
