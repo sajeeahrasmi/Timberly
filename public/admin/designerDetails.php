@@ -25,8 +25,7 @@
                 <div class="designer-header">
                     <h2 style="margin-left: 15px"><?php echo htmlspecialchars($designer['name']); ?></h2>
                     <div>
-                        <!-- <a href="./editDesigner.php?customer_id=<?php echo urlencode($designer_id);?>" class="designer-edit">Edit</a> -->
-                        <a href="./editDesigner.php" class="designer-edit">Edit</a>
+                        <a href="./editDesigner.php?designer_id=<?php echo urlencode($designer_id);?>" class="designer-edit">Edit</a>
                         <button class="delete-button" onclick="deleteDesigner(<?php echo htmlspecialchars($designer_id); ?>)">Delete</button>
                     </div>
                 </div>
@@ -36,7 +35,7 @@
                             <img src="./images/image.png" alt="designer-foto">
                             <p class="name"><?php echo htmlspecialchars($designer['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($designer['email']); ?></p>
-                            <p class="customer_id"><?php echo htmlspecialchars($designer_id); ?></p>
+                            <p class="designer_id"><?php echo htmlspecialchars($designer_id); ?></p>
                         </div>
                         <div class="designer-stats">
                             <p class="stat-title">Registered</p>
