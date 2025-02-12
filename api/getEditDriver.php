@@ -19,11 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST['name'];
     $vehicleNo = $_POST['vehicleNo'];
     $phone = $_POST['phone'];
+    $email = $_POST['email'];
     $address = $_POST['address'];
 
     $query1 = "
         UPDATE user 
-        SET name = '$name', phone = '$phone', address = '$address' 
+        SET name = '$name', phone = '$phone', address = '$address', email = '$email'
         WHERE userId = '$driver_id';
 
         UPDATE driver 
