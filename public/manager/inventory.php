@@ -210,7 +210,9 @@ require_once '../../api/auth.php';
                             <td><?php echo $item['price']; ?></td>
                             <td><?php echo $item['supplierId']; ?></td>
                             <td class="inventory-actions">
-                                <button class="edit"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="edit" onclick="handleEdit(this, 'timber')">
+        <i class="fas fa-edit"></i> Edit
+    </button>
                                 <button class="delete"  onclick="deleteTimberItem($item['id'])">
     <i class="fas fa-trash-alt"></i> Delete
 </button>
@@ -241,7 +243,9 @@ require_once '../../api/auth.php';
                             
                             
                             <td class="inventory-actions">
-                                <button class="edit"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="edit" onclick="handleEdit(this, 'lumber')">
+        <i class="fas fa-edit"></i> Edit
+    </button>
                                 <button class="delete" onclick="deleteLumberItem(<?php echo $item['id']; ?>)">
     <i class="fas fa-trash-alt"></i> Delete
 </button>
@@ -263,11 +267,93 @@ require_once '../../api/auth.php';
         let currentFilter = '';
   // Modify the delete function to handle type and id
 // Delete Timber Item
+// Add these functions to your existing JavaScript code
 
+function makeEditable(cell) {
+    const currentValue = cell.textContent;
+    cell.innerHTML = `<input type="number" class="edit-input" value="${currentValue}" style="width: 80px;">`;
+}
+
+function saveEdit(row, type) {
+    const cells = row.cells;
+    let id;
+    
+    try {
+        const deleteButton = row.querySelector('.delete');
+        const onclickAttr = deleteButton.getAttribute('onclick');
+        // Extract ID more reliably
+        id = onclickAttr.match(/\d+/)[0];
+    } catch (e) {
+        console.error('Error getting ID:', e);
+        alert('Error: Could not find item ID');
+        return;
+    }
+    
+    if (!id) {
+        alert('Error: Could not find item ID');
+        return;
+    }
+    
+    let data = {
+        id: id
+    };
+    
+    if (type === 'timber') {
+        const qtyInput = cells[1].querySelector('input');
+        data.qty = qtyInput.value;
+        cells[1].textContent = qtyInput.value;
+    } else if (type === 'lumber') {
+        const logsInput = cells[1].querySelector('input');
+        data.qty = logsInput.value;
+        cells[1].textContent = logsInput.value;
+    }
+    
+    updateInventory(type, data);
+}
+async function updateInventory(type, data) {
+    try {
+        
+        const formData = new FormData();
+        formData.append('id', data.id);
+        formData.append('type', type);
+        formData.append('quantity', data.qty);
+        
+        const response = await fetch('../../api/updateTimberInventory.php', {
+            method: 'POST',
+            body: formData  
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            alert('Update successful!');
+        } else {
+            throw new Error(result.message || 'Update failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error updating inventory: ' + error.message);
+    }
+}
+
+function handleEdit(button, type) {
+    const row = button.closest('tr');
+    const isEditing = button.textContent.includes('Save');
+    
+    if (isEditing) {
+        
+        saveEdit(row, type);
+        button.innerHTML = '<i class="fas fa-edit"></i> Edit';
+    } else {
+        
+        const editableCell = type === 'timber' ? row.cells[1] : row.cells[1]; 
+        makeEditable(editableCell);
+        button.innerHTML = '<i class="fas fa-save"></i> Save';
+    }
+}
 
 // Delete Timber Item
 async function deleteTimberItem(id) {
-    console.log('Attempting to delete lumber item with ID:', id); // Debug log
+    console.log('Attempting to delete lumber item with ID:', id);
     
     if (!confirm('Are you sure you want to delete this Timber item?')) {
         return;
@@ -383,7 +469,9 @@ async function deleteLumberItem(id) {
                 <td>${item.price}</td>
                 <td>${item.supplierId}</td>
                 <td class="inventory-actions">
-                    <button class="edit" onclick="editItem('timber', ${item.id})">Edit</button>
+                <button class="edit" onclick="handleEdit(this, 'timber')">
+    <i class="fas fa-edit"></i> Edit
+</button>
                     <button class="delete" onclick="deleteTimberItem(${item.id})">
     <i class="fas fa-trash-alt"></i> Delete
 </button>
@@ -404,7 +492,9 @@ async function deleteLumberItem(id) {
                 <td>${item.unitPrice}</td>
                 
                 <td class="inventory-actions">
-                    <button class="edit" onclick="editItem('lumber', ${item.id})">Edit</button>
+                <button class="edit" onclick="handleEdit(this, 'lumber')">
+    <i class="fas fa-edit"></i> Edit
+</button>
                     <button class="delete" onclick="deleteLumberItem(${item.id})">
     <i class="fas fa-trash-alt"></i> Delete
 </button>
@@ -438,7 +528,7 @@ async function deleteLumberItem(id) {
             }
             event.target.classList.add('active');
         }
-
+        
         
     
         renderData();
