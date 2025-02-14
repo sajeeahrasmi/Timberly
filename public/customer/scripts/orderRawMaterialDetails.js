@@ -103,30 +103,7 @@ async function updateButton() {
 
         if (statusElement.textContent === 'Pending') {
             buttonElement.onclick = function() {
-                buttonElement.onclick = async function() {
-                    const confirmation = confirm("Are you sure you want to cancel this order?");
-                    if (confirmation) {
-                        try {
-                            const response = await fetch(`../../config/customer/cancelOrder.php?orderId=${orderId}`, {
-                                method: 'POST'
-                            });
-                            const result = await response.json();
-        
-                            if (result.success) {
-                                alert("Order Cancelled Successfully");
-                                window.location.href = "http://localhost/Timberly/public/customer/createRawMaterialOrder.html";
-                                statusElement.textContent = "Cancelled";
-                                buttonElement.style.display = 'none';
-                                updateButton(); // Refresh button logic
-                            } else {
-                                alert("Failed to cancel the order. Please try again.");
-                            }
-                        } catch (error) {
-                            console.error("Error cancelling the order:", error);
-                            alert("An error occurred while cancelling the order.");
-                        }
-                    }
-                };
+                buttonElement.onclick = cancelOrder();
             };
 
             buttonAddElement.onclick = function(){
@@ -230,5 +207,30 @@ async function deleteOrderItem(itemId) {
     } catch (error) {
         console.error("Error deleting order item:", error);
         alert("An error occurred while deleting the item.");
+    }
+}
+
+async function cancelOrder(){
+    const confirmation = confirm ("Are you sure you want to cancel this order?");
+    if(confirmation){
+        try {
+            const response = await fetch(`../../config/customer/cancelOrders.php?action=cancelLumber&orderId=${orderId}`);
+
+            const text = await response.text(); 
+            console.log("Raw response:", text);
+            
+            const result = JSON.parse(text);
+
+            if (result.success) {
+                alert("Order Cancelled successfully");
+                window.location.href = `http://localhost/Timberly/public/customer/orderHistory.php`;
+            } else {
+               alert("Failed to cancel the order: " + (result.error || "Unknown error"));
+            }
+
+        } catch (error) {
+            console.error("Error cancelling the order:", error);
+            alert("An error occurred while cancelling the order.");
+        }
     }
 }

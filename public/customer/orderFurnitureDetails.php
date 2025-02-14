@@ -1,3 +1,37 @@
+<?php
+
+session_start();
+
+$orderId = isset($_GET['order_id']) ? intval($_GET['order_id']) : null;
+
+if (!isset($_SESSION['userId'])) {
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+include '../../config/db_connection.php';
+
+$query = "SELECT * FROM orderfurniture WHERE orderId = ? ";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $orderId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$query1 = "SELECT status FROM orders WHERE orderId = ?";
+$stmt1 = $conn->prepare($query1);
+$stmt1->bind_param("i", $orderId);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+$row1 = $result1->fetch_assoc();
+$status = $row1['status'] ?? 'Unknown';
+
+echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>";
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,10 +103,10 @@
             <div class="content">
                 
                 <div class="top">
-                    <h2>Order #</h2>
+                    <h2>Order # <?php echo $orderId ?></h2>
                     <div class="right-section">
-                        <p data-status="Pending" id="status">Processing</p>
-                        <button id="action-button" class="button outline">Cancel Order</button>
+                        <p data-status="Pending" id="status"><?php echo $status ?></p>
+                        <button id="action-button" class="button outline" onclick="cancelOrder(<?php echo $orderId ?>)">Cancel Order</button>
                     </div>
                 </div>
                 

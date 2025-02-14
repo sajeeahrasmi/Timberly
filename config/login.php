@@ -31,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['name'] = $row['name'];
         $_SESSION['role'] = $row['role'];
 
+        // print_r($_SESSION);
+        // die(); 
+        
         // Redirect based on role
         switch ($row['role']) {
             case 'customer':
