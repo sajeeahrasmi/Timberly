@@ -69,3 +69,10 @@ Decoded data: Array
 )
 
 Attempting to delete lumber with ID: 2
+Incoming data: {"id":4}
+Decoded data: Array
+(
+    [id] => 4
+)
+
+Attempting to delete lumber with ID: 4
