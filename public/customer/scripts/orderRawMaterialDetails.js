@@ -128,7 +128,7 @@ closePopupButton.onclick = function(){
 async function showPopup() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("popup").style.display = "block";
-  }
+}
 
 async function closePopup() {
     const type = document.getElementById("type").value;

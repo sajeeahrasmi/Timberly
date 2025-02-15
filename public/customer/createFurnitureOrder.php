@@ -65,10 +65,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                                         </div>
                                         <label><span id="productDescription"></span></label>
                                         <div class="dropdown-menu"></div>
-                                    </div>
-                                    
-                                </div>
-                                
+                                    </div>                                    
+                                </div>                                
                             </div>
 
 
@@ -189,4 +187,5 @@ while ($row = mysqli_fetch_assoc($result)) {
     </script>
 
                             
+
 </html>

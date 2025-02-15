@@ -13,21 +13,59 @@ $userId = $_SESSION['userId'];
 
 include '../../config/db_connection.php';
 
-$query = "SELECT * FROM orderfurniture WHERE orderId = ? ";
+$query = "SELECT f.description, f.category, o.id, o.type, o.qty, o.size, o.status, o.unitPrice FROM orderfurniture o JOIN furnitures f ON o.itemId = f.furnitureId WHERE o.orderId = ?;";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $orderId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$query1 = "SELECT status FROM orders WHERE orderId = ?";
+$query1 = "SELECT status, totalAmount FROM orders WHERE orderId = ?";
 $stmt1 = $conn->prepare($query1);
 $stmt1->bind_param("i", $orderId);
 $stmt1->execute();
 $result1 = $stmt1->get_result();
 $row1 = $result1->fetch_assoc();
 $status = $row1['status'] ?? 'Unknown';
+$totalAmount = $row1['totalAmount'] ?? '0';
 
 echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>";
+
+$query2 = "SELECT amount FROM payment WHERE orderId = ? ";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $orderId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$row2 = $result2->fetch_assoc();
+$paidAmount = $row2['amount'] ?? '0';
+
+$balance = $totalAmount - $paidAmount;
+
+$query3 = "SELECT 
+    u.name , 
+    u.phone , 
+    d.vehicleNo, 
+    o.driverId, 
+    o.date
+FROM orderfurniture o
+JOIN user u ON o.driverId = u.userId
+JOIN driver d ON o.driverId = d.driverId
+WHERE o.orderId = ? 
+AND o.status = 'Completed'
+ORDER BY o.date ASC 
+LIMIT 1;
+";
+$stmt3 = $conn->prepare($query3);
+$stmt3->bind_param("i", $orderId);
+$stmt3->execute();
+$result3 = $stmt3->get_result();
+$row3 = $result3->fetch_assoc();
+
+$query4 = "SELECT * FROM furnitures";
+$result4 = mysqli_query($conn, $query4);
+$furnitureData = [];
+while ($row4 = mysqli_fetch_assoc($result4)) {
+    $furnitureData[] = $row4;
+}
 
 ?>
 
@@ -114,9 +152,9 @@ echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>
                 <div class="middle">
                     <div class="card">
                         <h4>Payment Detail</h4>
-                        <p>Total: </p>
-                        <p>Paid: </p>
-                        <p>Balance: </p>
+                        <p>Total: <span><?php echo $totalAmount ?></span> </p>
+                        <p>Paid: <span><?php echo $paidAmount ?></span></p>
+                        <p>Balance: <span><?php echo $balance ?></span></p>
                         <button id="pay" class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/payment-details.html`">Pay</button>
                     </div>
                     <div class="card">
@@ -129,10 +167,9 @@ echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>
                     </div>
                     <div class="card">
                         <h4>Delivery Person</h4>
-                        <p>Name : </p>
-                        <p>Date : <input type="date" /></p>
-                        <p>Time : </p>
-                        <p>Contact : </p>
+                        <p>Name : <span><?php echo  $row3['name'] ?? '' ?></span></p>
+                        <p>Date : <span><?php echo  $row3['date'] ?? '' ?></span>   <input type="date" /></p>
+                        <p>Contact : <span><?php echo  $row3['phone'] ?? '' ?></span></p>
                     </div>
                 </div>
                 
@@ -172,57 +209,35 @@ echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Item</th>
+                                    <th>Item No</th>
                                     <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Wood Type</th>
                                     <th>Size</th>
                                     <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Unit Price</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#101</td>
-                                    <td>Mahogany Chair</td>
-                                    <td>Medium</td>
-                                    <td>2</td>
-                                    <td>Rs. 2300</td>
-                                    <td>Accepted</td>
-                                    <td>
-                                        <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.html`">View</button>
-                                       <button class="button solid" style=" padding: 10px; border-radius: 10px;">Delete</button>
-                                    
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#101</td>
-                                    <td>Mahogany Chair</td>
-                                    <td>Medium</td>
-                                    <td>2</td>
-                                    <td>Rs. 2300</td>
-                                    <td>Accepted</td>
-                                    <td>
-                                        <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.html`">View</button>
-                                       <button class="button solid" style=" padding: 10px; border-radius: 10px;">Delete</button>
-                                    
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#101</td>
-                                    <td>Mahogany Chair</td>
-                                    <td>Medium</td>
-                                    <td>2</td>
-                                    <td>Rs. 2300</td>
-                                    <td>Accepted</td>
-                                    <td>
-                                        <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.html`">View</button>
-                                       <button class="button solid" style=" padding: 10px; border-radius: 10px;">Delete</button>
-                                    
-                                    </td>
-                                </tr>
-                                
-                                
+                            <?php while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['id']); ?></td>
+                                        <?php $id = htmlspecialchars($row['id']) ?>
+                                        <td><?php echo htmlspecialchars($row['description']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['category']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['type']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['size']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['qty']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['unitPrice']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['status']); ?></td>
+                                        <td>
+                                            <button class="button outline" id="view-button" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.html?id=${<?php echo $id ?>}`">view</button>
+                                            <button class="button outline" id="delete-button" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>    
@@ -231,56 +246,70 @@ echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>
         </div>
     </div>
 
-    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <div id="overlay" class="overlay" ></div>
     <div id="popup" class="popup">
         <div class="form-content">
             <h4>Item Details</h4>
             <form>
-                <div class="form-group">
-                    <label for="category">Select Category: </label>
+            <div class="form-group">
+                <label for="category">Select Category: </label>
                     <select id="category">
-                        <option>Chair</option>
-                        <option>Table</option>
-                        <option>Bookshelf</option>
+                        <option value="Chair">Chair</option>
+                        <option value="Table">Table</option>
+                        <option value="Bookshelf">Bookshelf</option>
+                        <option value="Wardrobe">Wardrobe</option>
+                        <option value="Stool">Stool</option>
                     </select>
-                </div>
+            </div>        
+
                 <div class="form-group">
-                    <label>Select Design</label>
-                    <input type="radio" name="designChoice" id="selectDesign" value="select-design">
-                    <br>
+                    <label>Select Design </label>
                     <div id="design-options" class="image-dropdown" style="display:none;">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <img id="selected-design" src="../images/bookshelf.jpg" alt="Select Design" width="100">
+                        <div class="dropdown">  
+                            <div class="dropdown-toggle">                                        
+                                <img id="selected-design" src="../images/chair1.jpg" alt="Select Design" width="100">
                             </div>
-                            <div class="dropdown-menu">
-                                <img class="design-option" src="../images/chair.jpg" alt="Design 1" width="100">
-                                <img class="design-option" src="../images/table.jpg" alt="Design 2" width="100">
-                                </div>
-                        </div>
-                    </div>
-                </div>                   
+                            <label><span id="productDescription"></span></label>
+                            <div class="dropdown-menu"></div>
+                        </div>                                    
+                    </div>                                
+                </div>
+
                 <div class="form-group">
                     <label>Select Type: </label>
-                    <select>
+                    <select id="type">
                         <option>Jak</option>
                         <option>Mahogany</option>
-                        <option>Nedum</option>
                         <option>Teak</option>
+                        <option>Sooriyamaara</option>
+                        <option>Nedum</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" min="1">
+                    <input type="number" min="1" max="20" id="qty">
                 </div>
+
                 <div class="form-group">
-                    <label>Additional Information</label><br>
-                    <textarea></textarea>
+                    <label>Size </label>
+                    <select id="size">
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Additional Information (Mention the dimensions)</label><br>
+                     <textarea id="additionalDetails"></textarea>
                 </div>
                
             </form>
+
             <div class="add-button">
-                <button type="submit" class="button outline" onclick="closePopup()" >Add Item</button>
+                <button type="submit" class="button outline" id="add-item">Add Item</button>
+                <button id="close-popup" class="button solid" onclick="closePopup()">Close</button>
             </div>
             
         </div>
@@ -288,3 +317,58 @@ echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>
 
 </body>
 </html>
+
+<script>
+
+    let productId;
+    let descriptionGlobal;
+        document.addEventListener("DOMContentLoaded", function() {
+            const furnitureData = <?php echo json_encode($furnitureData); ?>;
+            const categorySelect = document.getElementById("category");
+            const designOptionsDiv = document.getElementById("design-options");
+            const dropdownMenu = document.querySelector(".dropdown-menu");
+            const selectedDesign = document.getElementById("selected-design");
+            const description = document.getElementById('productDescription');
+            
+            categorySelect.addEventListener("change", function() {
+                const selectedCategory = categorySelect.value;
+                dropdownMenu.innerHTML = ""; 
+                
+                furnitureData.forEach(item => {
+                    if (item.category === selectedCategory) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = item.image; 
+                        imgElement.alt = item.description;                        
+                        imgElement.width = 100;
+                        imgElement.classList.add("design-option");
+                        
+                        imgElement.addEventListener("click", function() {
+                            selectedDesign.src = item.image;
+                            description.textContent = item.description;
+                            descriptionGlobal = item.description
+                            productId = item.furnitureId;
+                            console.log(item.furnitureId+"displaying");
+                            
+
+                        });
+                        dropdownMenu.appendChild(imgElement);
+                    }
+                });
+                designOptionsDiv.style.display = "block";
+            });
+
+            const addButton = document.getElementById("add-item");
+            addButton.addEventListener("click", function() {
+            if (productId) {
+                addItem(productId, <?php echo $orderId ?>);
+            } else {
+                alert("Please select a design first!");
+            }
+            });
+
+
+        });
+    </script>
+
+                            
+

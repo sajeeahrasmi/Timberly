@@ -267,6 +267,11 @@ body, html {
         border: 2px solid var(--color-primary);
         border-radius: 2px;
     }
+
+    span{
+        font-size: 17px;
+        color: #333;
+    }
 }
 
 
