@@ -55,7 +55,6 @@ fetchAlerts();
 // Optionally, fetch alerts every 10 seconds
 setInterval(fetchAlerts, 10000); 
 
-
 function fetchOrders() {
   fetch('../../api/mockOrders.php') // Adjust path if necessary
     .then(response => response.json())
@@ -63,21 +62,49 @@ function fetchOrders() {
       const tbody = document.getElementById('orders-tbody');
       tbody.innerHTML = ''; // Clear previous entries
 
-      data
-      .filter(order => order.itemStatus === 'Making')
-      .forEach(order => {
+      // Group items by orderId
+      const orders = {};
+
+      // Filter data to show only pending items (orderStatus or itemStatus as needed)
+      const pendingOrders = data.filter(item => item.itemStatus === 'Pending'); // Change 'itemStatus' to 'orderStatus' if necessary
+
+      pendingOrders.forEach(item => {
+        if (!orders[item.orderId]) {
+          orders[item.orderId] = {
+            orderId: item.orderId,
+            customerName: item.customerName,
+            customerId: item.customerId,
+            totalAmount: item.totalAmount,
+            orderStatus: item.orderStatus,
+            items: [] // Initialize items array for the order
+          };
+        }
+
+        // Add item to the corresponding order
+        orders[item.orderId].items.push({
+          itemId: item.itemId,
+          qty: item.qty,
+          itemStatus: item.itemStatus,
+          type: item.type
+        });
+      });
+
+      // Display the orders with their items
+      Object.values(orders).forEach(order => {
         const row = document.createElement('tr');
         
         row.innerHTML = `
           <td>${order.customerId}</td>
           <td>${order.customerName}</td>
           <td>${order.orderId}</td>
-          <td>Item ID: ${order.itemId}<br>Description: ${order.description}<br>Qty: ${order.qty}<br>Size: ${order.size}<br>Unit Price: Rs.${order.unitPrice}</td>
-          <td>Rs.${order.totalAmount}</td>
-          <td>${order.itemStatus}</td>
           <td>
-            <button class="accept-btn" onclick="updateOrderStatus(${order.orderId}, 'Completed')">Accept</button>
-            <button class="reject-btn" onclick="updateOrderStatus(${order.orderId}, 'Making')">Reject</button>
+            ${order.items.map(item => `Item ID: ${item.itemId}<br>Qty: ${item.qty}<br>Type: ${item.type}`).join('<br><br>')}
+          </td>
+          <td>Rs.${order.totalAmount}</td>
+          <td>${order.orderStatus}</td>
+          <td>
+            <button class="accept-btn" onclick="updateOrderStatus(${order.orderId}, 'Not_Approved')">Accept</button>
+            <button class="reject-btn" onclick="updateOrderStatus(${order.orderId}, 'Pending')">Reject</button>
           </td>
         `;
         tbody.appendChild(row);
@@ -96,7 +123,9 @@ function updateOrderStatus(orderId, newStatus) {
   .then(data => {
       if (data.success) {
           alert(`Order ${orderId} updated to ${newStatus}`);
-          location.reload(); // Refresh orders table
+          
+          location.reload();
+          // Refresh orders table
       } else {
           alert(`Error: ${data.message}`);
       }
@@ -107,6 +136,7 @@ function updateOrderStatus(orderId, newStatus) {
 
 
 window.onload = fetchOrders;
+
 
 // Open and close modal functionality
 // Open modal when profile button is clicked

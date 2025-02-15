@@ -13,15 +13,29 @@ if (!isset($data['orderId']) || !isset($data['newStatus'])) {
 $orderId = $data['orderId'];
 $newStatus = $data['newStatus'];
 
-// Update query
-$sql = "UPDATE orderfurniture SET status = ? WHERE orderId = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("si", $newStatus, $orderId);
+// Check if new status is 'Pending'
+if ($newStatus === 'Pending') {
+    // Delete query if status is 'Pending'
+    $sql = "DELETE FROM orderlumber WHERE orderId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $orderId);
 
-if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "Order status updated"]);
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Order deleted because status is 'Pending'"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
+    }
 } else {
-    echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
+    // Update query if status is not 'Pending'
+    $sql = "UPDATE orderlumber SET status = ? WHERE orderId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $newStatus, $orderId);
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Order status updated"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
+    }
 }
 
 $stmt->close();
