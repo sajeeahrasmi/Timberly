@@ -128,3 +128,27 @@ async function deleteItem(id, orderId) {
     }
 }
 
+async function filterItems(params) {
+    const status = document.getElementById("item-status").value.toLowerCase();
+    const category = document.getElementById("item-category").value.toLowerCase();
+    const type = document.getElementById("item-type").value.toLowerCase();
+
+    const table = document.getElementById("orderDetails");
+    const rows = table.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        const statusCell = row.cells[7].textContent.toLowerCase(); 
+        const typeCell = row.cells[3].textContent.toLowerCase();
+        const categoryCell = row.cells[2].textContent.toLowerCase();
+
+        const matchesStatus = status === "" || statusCell === status;
+        const matchesCategory = category === "" || categoryCell === category;
+        const matchesType = type === "" || typeCell === type;
+
+        if (matchesStatus && matchesType && matchesCategory) {
+            row.style.display = ""; // Show the row
+        } else {
+            row.style.display = "none"; // Hide the row
+        }
+    });
+}

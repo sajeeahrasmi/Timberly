@@ -1,9 +1,95 @@
+<?php
+
+session_start();
+
+$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+if (!isset($_SESSION['userId'])) {
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+include '../../config/db_connection.php';
+
+$query = "SELECT * FROM orderfurniture  WHERE id = ?;";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$orderId = $row['orderId'] ?? '0';
+$itemId = $row['itemId'] ?? '0';
+$type = $row['type'] ?? '0';
+$qty = $row['qty'] ?? '0';
+$size = $row['size'] ?? '0';
+$details = $row['additionalDetails'] ?? '0';
+$unitPrice = $row['unitPrice'] ?? '0';
+$status = $row['status'] ?? '0';
+$driverId = $row['driverId'] ?? '0';
+$deliveryDate = $row['date'] ?? '0';
+$reviewId = $row['reviewId'] ?? '0';
+
+
+
+$query1 = "SELECT * FROM furnitures WHERE furnitureId = ?";
+$stmt1 = $conn->prepare($query1);
+$stmt1->bind_param("i", $itemId);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+$row1 = $result1->fetch_assoc();
+$description = $row1['description'] ?? 'Unknown';
+$image = $row1['image'] ?? '../images/furniture.jpg';
+$category = $row1['category'] ?? '0';
+
+
+// $query2 = "SELECT amount FROM payment WHERE orderId = ? ";
+// $stmt2 = $conn->prepare($query2);
+// $stmt2->bind_param("i", $orderId);
+// $stmt2->execute();
+// $result2 = $stmt2->get_result();
+// $row2 = $result2->fetch_assoc();
+// $paidAmount = $row2['amount'] ?? '0';
+
+// $balance = $totalAmount - $paidAmount;
+
+// $query3 = "SELECT 
+//     u.name , 
+//     u.phone , 
+//     d.vehicleNo, 
+//     o.driverId, 
+//     o.date
+// FROM orderfurniture o
+// JOIN user u ON o.driverId = u.userId
+// JOIN driver d ON o.driverId = d.driverId
+// WHERE o.orderId = ? 
+// AND o.status = 'Completed'
+// ORDER BY o.date ASC 
+// LIMIT 1;
+// ";
+// $stmt3 = $conn->prepare($query3);
+// $stmt3->bind_param("i", $orderId);
+// $stmt3->execute();
+// $result3 = $stmt3->get_result();
+// $row3 = $result3->fetch_assoc();
+
+// $query4 = "SELECT * FROM furnitures";
+// $result4 = mysqli_query($conn, $query4);
+// $furnitureData = [];
+// while ($row4 = mysqli_fetch_assoc($result4)) {
+//     $furnitureData[] = $row4;
+// }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Door/Window Track</title>
+    <title>Furniture track</title>
 
     <link rel="stylesheet" href="../customer/styles/trackOrderDetails.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
@@ -25,21 +111,20 @@
             <div class="content">  
                 
                 <div class="item-detail">
-                    <!-- <div class="item-header"> -->
-                        <h2>Order #23</h2>
-                        <h3>Item #23</h3>
-                    <!-- </div> -->
+                        <h2>Order #<?php echo $orderId ?></h2>
+                        <h3>Item #<?php echo $itemId ?></h3>
+
                     <div class="item-container">
                         <div class="item-image">
-                            <img src="../images/bookshelf.jpg" alt="Item Image">
+                            <img src="<?php echo $image ?>" alt="Item Image">
                         </div>
                         <div class="item-info">
-                            <p><strong>Description:</strong> Custom wooden door for modern homes.</p>
-                            <p><strong>Type of Wood:</strong> Teak</p>
-                            <p><strong>Dimensions:</strong> Length: 210 cm, Width: 90 cm, Thickness: 5 cm</p>
-                            <p><strong>Quantity:</strong> 2</p>
-                            <p><strong>Price:</strong> $450</p>
-                            <p><strong>Status:</strong> <span id="item-status" class="status-badge pending">Pending</span></p>
+                            <p><strong>Description:</strong> <?php echo $description ?></p>
+                            <p><strong>Type of Wood:</strong> <?php echo $type ?></p>
+                            <p><strong>Additional Details:</strong> <?php echo $details ?></p>
+                            <p><strong>Quantity:</strong> <?php echo $qty ?></p>
+                            <p><strong>Price:</strong> Rs. <?php echo $unitPrice ?></p>
+                            <p><strong>Status:</strong> <span id="item-status" class="status-badge pending"><?php echo $status ?></span></p>
                         </div>
                     </div>
                     <div class="action-buttons">
@@ -59,15 +144,36 @@
             <span class="popup-close">&times;</span>
             <h2>Edit Item Details</h2>
             <form>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Wood Type</label>
-                    <input type="text" value="Premium Oak">
+                    <input type="text" id="edit-type" value="<?php echo $type ?>">
+                </div> -->
+                <div class="form-group">
+                    <label for="type">Wood Type: </label>
+                    <select id="type">
+                        <option value="Jak">Jak</option>
+                        <option value="Mahogany">Mahogany</option>
+                        <option value="Teak">Teak</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
+                    </select>
+                </div>
+                <script>
+                    document.getElementById("type").value = "<?php echo $type ?>"; // Sets selected option dynamically
+                </script>
+
+                <div class="form-group">
+                    <label>Size</label>
+                    <input type="text" id="edit-size" value="<?php echo $size ?>">
                 </div>
                 <div class="form-group">
-                    <label>Length</label>
-                    <input type="text" value="180 cm">
+                    <label>Quantity</label>
+                    <input type="number" id="edit-qty" min = 0 max = 20 value="<?php echo $qty ?>">
                 </div>
-                <!-- Add more form fields as needed -->
+                <div class="form-group">
+                    <label>Additional Details</label>
+                    <textarea id="edit-details"><?php echo $details ?></textarea>
+                </div>
             </form>
         </div>
     </div>

@@ -19,7 +19,7 @@ $stmt->bind_param("i", $orderId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$query1 = "SELECT status, totalAmount FROM orders WHERE orderId = ?";
+$query1 = "SELECT status, totalAmount, itemQty FROM orders WHERE orderId = ?";
 $stmt1 = $conn->prepare($query1);
 $stmt1->bind_param("i", $orderId);
 $stmt1->execute();
@@ -27,6 +27,7 @@ $result1 = $stmt1->get_result();
 $row1 = $result1->fetch_assoc();
 $status = $row1['status'] ?? 'Unknown';
 $totalAmount = $row1['totalAmount'] ?? '0';
+$itemQty = $row1['itemQty'] ?? '0';
 
 echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>";
 
@@ -178,35 +179,54 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
 
                     <div class="topic">
                         <h2>Order Details</h2>
-                        <p>No. of Items: </p>
+                        <p>No. of Items: <?php echo $itemQty ?></p>
                     </div>
 
                     <div class="filter-container">
                         <div class="filter">
-                            <label for="order-status">Item Status:</label>
-                            <select id="order-status" class="filter-select">
+                            <label for="item-status">Item Status:</label>
+                            <select id="item-status" class="filter-select">
                                 <option value="">All</option>
-                                <option value="Completed">Completed</option>
-                                <option value="In Progress">In Progress</option>
                                 <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Not_Approved">Not Approved</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Not_Delivered">Not Delivered</option>
+                                <option value="Delivered">Delivered</option>
                             </select>
                         </div>
                         
                         <div class="filter">
-                            <label for="payment-status">Description</label>
-                            <select id="payment-status" class="filter-select">
+                            <label for="item-category">Category</label>
+                            <select id="item-category" class="filter-select">
                                 <option value="">All</option>
-                                <option value="Paid">Paid</option>
-                                <option value="Unpaid">Unpaid</option>
-                                <option value="Refunded">Refunded</option>
+                                <option value="Chair">Chair</option>
+                                <option value="Table">Table</option>
+                                <option value="Wardrobe">Wardrobe</option>
+                                <option value="Bookshelf">Bookshelf</option>
+                                <option value="Stool">Stool</option>
                             </select>
-                        </div>                    
-                        <button class="button filter-btn">Filter</button>
+                        </div>         
+                        
+                        <div class="filter">
+                            <label for="item-type">Wood Type</label>
+                            <select id="item-type" class="filter-select">
+                                <option value="">All</option>
+                                <option value="Jak">Jak</option>
+                                <option value="Mahogany">Mahogany</option>
+                                <option value="Teak">Teak</option>
+                                <option value="Nedum">Nedum</option>
+                                <option value="Sooriyamaara">Sooriyamaara</option>
+                            </select>
+                        </div>         
+
+                        <button class="button filter-btn" onclick="filterItems()">Filter</button>
+
                         <button id="addItem" style="margin-left: auto; padding: 8px;" class="button outline" onclick="showPopup()">Add Items</button>
                     </div>
     
                     <div class="table-container">
-                        <table class="styled-table">
+                        <table class="styled-table" id="orderDetails">
                             <thead>
                                 <tr>
                                     <th>Item No</th>
@@ -233,7 +253,7 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                         <td><?php echo htmlspecialchars($row['unitPrice']); ?></td>
                                         <td><?php echo htmlspecialchars($row['status']); ?></td>
                                         <td>
-                                            <button class="button outline" id="view-button" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.html?id=${<?php echo $id ?>}`">view</button>
+                                            <button class="button outline" id="view-button" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.php?id=${<?php echo $id ?>}`">view</button>
                                             <button class="button outline" id="delete-button" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
                                         </td>
                                     </tr>
