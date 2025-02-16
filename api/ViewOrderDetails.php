@@ -1,56 +1,44 @@
 <?php
-// Authentication check MUST be the first thing in the file
-require_once '../../api/auth.php';
-if (isset($_GET['id'])) {
-    $orderId = $_GET['id'];
+// Include the database connection (assuming it's in the same directory)
+require_once 'db.php';
 
-    // Validate the ID (e.g., ensure it's numeric or within expected format)
-    if (!is_numeric($orderId)) {
-        die("Invalid order ID.");
-    }
-}
+// Get the orderId and itemId from the URL
+$orderId = isset($_GET['orderId']) ? $_GET['orderId'] : '';
+$itemId = isset($_GET['itemId']) ? $_GET['itemId'] : '';
 
-// Include database connection
-require_once '../../api/db.php';
+// Fetch the details of the specific item from the database
+$sql = "
+    SELECT 
+        o.orderId, 
+        o.date, 
+        o.totalAmount, 
+        o.status AS orderStatus,
+        ol.itemId, 
+        u.name AS customerName, 
+        u.email,
+        u.address,
+        u.phone,
+        ol.qty, 
+        ol.status AS itemStatus, 
+        CONCAT(l.type, ' (', ol.qty, ')') AS typeQty 
+    FROM orderlumber ol
+    LEFT JOIN orders o ON ol.orderId = o.orderId
+    LEFT JOIN user u ON o.userId = u.userId
+    LEFT JOIN lumber l ON ol.itemId = l.lumberId
+    WHERE o.orderId = ? AND ol.itemId = ?";
 
-// Fetch values from the orderfurniture and orders table
-$orderId = $_GET['id'] ?? null; // Assuming you pass orderId via GET
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $orderId, $itemId);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if ($orderId) {
-    // Query to fetch order, customer, and user details
-    $query = "
-        SELECT 
-            o.orderId, 
-            o.date, 
-            oi.status, 
-            oi.unitPrice, 
-            oi.qty, 
-            (oi.unitPrice * oi.qty) AS totalAmount,
-            oi.size,
-            oi.description,
-            u.userId, 
-            u.name , 
-            u.email , 
-            u.phone ,
-            u.address 
-        FROM orderfurniture oi
-        LEFT JOIN orders o ON oi.orderId = o.orderId
-        LEFT JOIN user u ON o.userId = u.userId
-        WHERE o.orderId = ?
-    ";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $orderId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Fetch result as associative array
+$orderDetails = null;
+if ($result->num_rows > 0) {
     $orderDetails = $result->fetch_assoc();
-
-    $stmt->close();
-} else {
-    $orderDetails = null; // No order ID provided
 }
 
-// Debug: Print order details (optional)
+$stmt->close();
+$conn->close();
 
+return $orderDetails;
 ?>

@@ -1,0 +1,45 @@
+<?php
+// Include database connection
+require_once 'db.php';
+
+if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
+    $itemId = $_GET['itemId'];
+    $orderId = $_GET['orderId'];
+    
+    $conn->begin_transaction();
+
+    try {
+        // Delete the order record
+        $deleteQuery = "DELETE FROM orderlumber 
+                       WHERE itemId = ? AND orderId = ?";
+        $stmt = $conn->prepare($deleteQuery);
+        $stmt->bind_param("ii", $itemId, $orderId);
+        $stmt->execute();
+        
+        if ($stmt->affected_rows === 0) {
+            throw new Exception('Order not found or already deleted.');
+        }
+        
+        $conn->commit();
+        
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Order deleted successfully.'
+        ]);
+        
+    } catch (Exception $e) {
+        $conn->rollback();
+        echo json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ]);
+    }
+} else {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Item ID or Order ID not provided.'
+    ]);
+}
+
+$conn->close();
+?>

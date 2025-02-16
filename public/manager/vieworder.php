@@ -1,8 +1,12 @@
 <?php
 // Authentication check MUST be the first thing in the file
 require_once '../../api/auth.php';
+
 include '../../api/ViewOrderDetails.php';
-// Debug: Print order details (optional)
+
+
+
+
 
 ?>
 
@@ -14,7 +18,7 @@ include '../../api/ViewOrderDetails.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Order #<?php echo htmlspecialchars($order['id']); ?></title>
+    <title>View Order </title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -208,6 +212,36 @@ include '../../api/ViewOrderDetails.php';
             color: #2e7d32;
             border: 1px solid #2e7d32;
         }
+        .item-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    display: inline-block;
+            background-color: #895D47;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            border: 2px solid #895D47;
+}
+
+.action-btn:hover {
+    background-color: white;
+    border-radius: 25px;
+            color: #895D47;
+            border-color: #895D47;
+}
+
+.action-btn:active {
+    background-color: #895D47;
+}
+
 
         @media (max-width: 768px) {
             .order-details {
@@ -268,6 +302,7 @@ include '../../api/ViewOrderDetails.php';
     </style>
 </head>
 <body>
+    
     <div class="container">
         <div class="header-section">
             <div class="header-content">
@@ -281,13 +316,13 @@ include '../../api/ViewOrderDetails.php';
                 <div class="info-card">
                     <h2>Order Information</h2>
                     <p><strong>Date:</strong> <?php echo htmlspecialchars($orderDetails['date']); ?></p>
-                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['status']); ?></span></p>
+                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['orderStatus']); ?></span></p>
                     <p><strong>Total:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'], 2); ?></p>
                 </div>
                 
                 <div class="info-card">
                     <h2>Customer Information</h2>
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($orderDetails['name']); ?></p>
+                    <p><strong>Name:</strong> <?php echo htmlspecialchars($orderDetails['customerName']); ?></p>
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($orderDetails['email']); ?></p>
                     <p><strong>Phone:</strong> <?php echo htmlspecialchars($orderDetails['phone']); ?></p>
                     <p><strong>Address:</strong> <?php echo htmlspecialchars($orderDetails['address']); ?></p>
@@ -301,17 +336,27 @@ include '../../api/ViewOrderDetails.php';
                         <div class="item">
                            
                             <div class="item-details">
-                                <h3><?php echo htmlspecialchars($orderDetails['description']); ?></h3>
+                                <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
                                 <p>Quantity: <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
-                                <p>Price: Rs.<?php echo number_format($orderDetails['unitPrice'], 2); ?></p>
-                                <p>Size:<?php echo htmlspecialchars($orderDetails['size']); ?></p>
-                                <p>Status: <span class="status-badge"><?php echo htmlspecialchars($orderDetails['status']); ?></span></p>
+                                <p>Price: Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
+                                <p>Status: <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
+                                <div class="item-buttons">
+                                    <!-- Convert the links to buttons -->
+<button class="action-btn" id="checkStockBtn" onclick="checkStock(<?php echo $orderDetails['itemId']; ?>)">Check Stock</button>
+<button class="action-btn" id="approveBtn" onclick="approveOrder(<?php echo $orderDetails['itemId']; ?>, <?php echo $orderDetails['orderId']; ?>)">
+    Approve
+</button>
+<button class="action-btn" id="rejectBtn" onclick="rejectOrder(<?php echo $orderDetails['itemId'] ; ?> , <?php echo $orderDetails['orderId']; ?>)">Reject</button>
+
+</div>
+                    
+                                <p></p>
                             </div>
                         </div>
                   
                 </div>
                 
-                <a href="Trackorder.php?id=<?php echo $orderDetails['orderId']; ?>" class="track-order-btn">Track Order</a>
+                <a href="Trackorder.php?id=<?php echo $orderDetails['itemId']; ?>" class="track-order-btn">Track Order</a>
 
             </div>
         </div>
@@ -321,4 +366,6 @@ include '../../api/ViewOrderDetails.php';
      
 </body>
 <script src="./scripts/vieworder.js"></script>
+
+
 </html>
