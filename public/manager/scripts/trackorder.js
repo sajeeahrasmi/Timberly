@@ -63,44 +63,96 @@ function updateStatus(status) {
 
 function updateTotal() {
     let subtotal = 0;
-
-   
-    const rows = document.querySelectorAll('.order-details table tr:not(:first-child)');
-
-    rows.forEach(row => {
-        const priceText = row.cells[3].innerText.trim();
-        const price = parseFloat(priceText.replace('Rs.', '').trim()) || 0;
-        const quantityInput = row.querySelector('.quantity');
-        const quantity = parseInt(quantityInput.value) || 1;
-        if (quantity < 0) {
-            alert("Quantity must be a positive number!");
-            quantity = 1; 
-            quantityInput.value = 1; 
-        }
-        
-        subtotal += price * quantity;
-    });
-
     
-    const deliveryFeeInput = document.getElementById('deliveryFee');
+    // Select all rows in the order details table except header
+    const rows = document.querySelectorAll('.order-details table tr:not(:first-child)');
+    
+    rows.forEach(row => {
+        // Get the price from the price column (4th cell)
+        const priceText = row.cells[4].innerText.trim();
+        const qtyText = row.cells[2].querySelector('input').value.trim(); // Get the value from the quantity input
+        
+        // Parse the price (removing currency symbol and commas)
+        const price = parseFloat(priceText.replace('Rs.', '').replace(',', '').trim()) || 0;
+        const qty = parseInt(qtyText.replace(',', '').trim()) || 0;  // Parse quantity correctly
+        
+        // Add to subtotal
+        subtotal += price * qty;  // Multiply price by quantity for correct subtotal
+        
+        // For debugging
+        console.log(`Row price: ${price}, Quantity: ${qty}, Running subtotal: ${subtotal}`);
+    });
+    
+    // Get delivery fee from the input in order summary
+    const deliveryFeeInput = document.querySelector('.order-summary input[type="number"]');
     let deliveryFee = parseFloat(deliveryFeeInput.value) || 0;
-
-    // Show a message if delivery fee is negative
+    
     if (deliveryFee < 0) {
         alert("Delivery fee must be a positive number!");
-        deliveryFee = 0; // Reset to a default value
-        deliveryFeeInput.value = 0; // Update the input field
+        deliveryFee = 0;
+        deliveryFeeInput.value = 0;
     }
-
     
+    // Final total is subtotal + delivery fee
     const total = subtotal + deliveryFee;
-
     
-    document.getElementById('subtotal').innerText = 'Rs.' + subtotal.toFixed(2);
-    document.getElementById('total').innerText = 'Rs.' + total.toFixed(2);
+    // For debugging
+    console.log(`Final calculation - Subtotal: ${subtotal}, Delivery Fee: ${deliveryFee}, Total: ${total}`);
+    
+    // Update the total display - make sure the value is actually displayed
+    document.getElementById('total').innerText = total.toFixed(2);
+}
+
+// Function to update price when quantity changes
+function updatePriceOnQuantityChange(input) {
+    // Get the row containing this quantity input
+    const row = input.closest('tr');
+    
+    // Get the price from the first cell (3rd index, as the price is in the 4th column)
+    const unitPriceText = row.cells[4].innerText.trim();
+    const unitPrice = parseFloat(unitPriceText.replace('Rs.', '').replace(',', '').trim()) || 0;
+    
+    // Get the new quantity value
+    const quantity = parseInt(input.value) || 1;
+    
+    if (quantity < 0) {
+        alert("Quantity must be a positive number!");
+        input.value = 1;
+        return;
+    }
+    
+    // Calculate new total price for this item
+    const newTotalPrice = unitPrice * quantity; // Correct formula
+    
+    // Update the price cell (4th cell)
+    row.cells[3].innerText = 'Rs.' + newTotalPrice.toFixed(2);
+    
+    // For debugging
+    console.log(`Quantity changed to ${quantity}, New price: ${newTotalPrice}`);
+    
+    // Update the overall total
+    updateTotal();
 }
 
 
+// Add event listeners when the document loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to all quantity inputs
+    document.querySelectorAll('.order-details table input[type="number"]').forEach(input => {
+        input.addEventListener('change', function() {
+            updatePriceOnQuantityChange(this);
+        });
+    });
+    
+    // Add event listener to delivery fee input
+    document.querySelector('.order-summary input[type="number"]').addEventListener('change', updateTotal);
+    
+    // Calculate initial total based on current prices
+    updateTotal();
+    
+    // For debugging - log the structure of the table
+    console.log("Table structure:", document.querySelector('.order-details table'));
+});
 document.querySelectorAll('.quantity').forEach(input => {
     input.addEventListener('change', updateTotal);
 });

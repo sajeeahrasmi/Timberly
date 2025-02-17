@@ -2,18 +2,10 @@
 // Authentication check
 require_once '../../api/auth.php';
 
-// Include backend logic
-include '../../api/viewOrderDetails.php';
+
 include '../../api/trackorderdetails.php';
 
-// Calculate subtotal & total
-$subtotal = 0;
-foreach ($orderDetails as $item) {
-    $subtotal += $item['unitPrice'] * $item['qty'];
-}
-$deliveryFee = 100; // Default delivery fee
-$totalAmount = $subtotal + $deliveryFee;
-
+ 
 ?>
 
 <!DOCTYPE html>
@@ -53,23 +45,25 @@ $totalAmount = $subtotal + $deliveryFee;
                     <th>Status</th>
                     <th>Quantity</th>
                     <th>Price</th>
+                    <th>Unit Price</th>
                 </tr>
                 <?php foreach ($orderDetails as $item): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['description']); ?></td>
-                        <td><?php echo htmlspecialchars($item['status']); ?></td>
+                        <td><?php echo htmlspecialchars($item['typeQty']); ?></td>
+                        <td><?php echo htmlspecialchars($item['itemStatus']); ?></td>
                         <td>
                             <input type="number" value="<?php echo $item['qty']; ?>" min="1" >
                         </td>
-                        <td>Rs.<?php echo number_format($item['unitPrice'], 2); ?></td>
+                        <td>Rs.<?php echo number_format($item['totalAmount'], 2); ?></td>
+                        <td>Rs.<?php echo number_format($item['totalAmount']/$item['qty']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
             <div class="order-summary">
                 <h3>Order Summary</h3>
-                <p><strong>Subtotal:</strong> Rs.<?php echo number_format($subtotal, 2); ?></p>
+                <p><strong>Subtotal:</strong> Rs.<?php echo number_format($item['totalAmount'], 2); ?></p>
                 <p><strong>Delivery Fee:</strong> <input type="number" value="100" min="0" step="0.1" onchange="updateTotal()"></p>
-                <p><strong>Total:</strong> Rs.<?php echo number_format($totalAmount, 2); ?></p>
+                <p><strong>Total:</strong> Rs.<span id="total">0.00</span></p>
             </div>
                 <button class="update-total" onclick="updateTotal()">Update Total</button>
             </div>
