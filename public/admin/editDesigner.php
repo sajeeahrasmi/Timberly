@@ -19,7 +19,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="edit-designer-form" class="edit-designer-form" method="POST" action="../../api/getEditDesigner.php?designer_id=<?php echo htmlspecialchars($designer_id); ?>" onsubmit="return validateForm()">
+                        <form id="edit-designer-form" class="edit-designer-form" method="POST" action="../../api/getEditDesigner.php?designer_id=<?php echo htmlspecialchars($user_id); ?>" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -36,19 +36,6 @@
                                     class="input-field" 
                                     pattern="^[A-Za-z\s]+$" 
                                     title="Name can only contain alphabets and spaces.">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Vehicle No</label>
-                                <input 
-                                    type="text" 
-                                    id="vehicleNo" 
-                                    name="vehicleNo" 
-                                    placeholder="XX-XXXX" 
-                                    value="<?php echo htmlspecialchars($data['vehicleNo']); ?>"
-                                    required 
-                                    class="input-field" 
-                                    pattern="^[A-Za-z]{2,3}-\d{4}$" 
-                                    title="Vehicle number must follow the format. Eg: 'bd-2345' or 'bde-3456'.">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
