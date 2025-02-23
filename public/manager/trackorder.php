@@ -27,12 +27,13 @@ include '../../api/trackorderdetails.php';
         <div class="progress-container">
             <div class="progress-bar" id="progressBar">0%</div>
         </div>
-        
+      
         <div class="button-container">
-            <button onclick="updateStatus('Confirm')">Confirm</button>
-            <button onclick="updateStatus('Processing')">Processing</button>
-            <button onclick="updateStatus('Polishing')">Polishing</button>
-            <button onclick="updateStatus('Delivering')">Delivering</button>
+            <button onclick="updateStatus('Confirmed','<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>','<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>')">Confirm</button>
+            <button onclick="updateStatus('Processing','<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? '' ); ?>' ,'<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>')">Processing</button>
+            <button onclick="updateStatus('Not_Delivered','<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>','<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>')">Ready to Deliver</button>
+            <button onclick="updateStatus('Delivered','<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>','<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>')">Delivered</button>
+            <button onclick="updateStatus('Completed','<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>','<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>')">Completed</button>
         </div>
         <button class="back-btn" onclick="window.location.href = 'admin.php';">← Back</button>
 
@@ -137,5 +138,6 @@ function assignDriver() {
         </div>
     </div>
     <script src="./scripts/trackorder.js"></script>
+   
 </body>
 </html>

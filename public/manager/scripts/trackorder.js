@@ -1,5 +1,5 @@
 
-function updateStatus(status) {
+function updateStatus(status,oId,iId) {
     let progress = 0;
     let color = '';
     let hideElements = false;
@@ -10,29 +10,49 @@ function updateStatus(status) {
             color = 'white'; 
             hideElements = false;
             break;
-        case 'Confirm':
-            progress = 25; 
+        case 'Confirmed':
+            progress = 17; 
             color = 'Yellow'; 
             hideElements = false;
             break;    
         case 'Processing': 
-            progress = 50; 
+            progress = 34; 
             color = '#e74c3c';
             hideElements = false;
             break;
-        case 'Polishing': 
-            progress = 75; 
+        case 'Not_Delivered': 
+            progress = 51; 
             color = '#f39c12'; 
             hideElements = true; 
             break;
-        case 'Delivering': 
+        case 'Delivered': 
+            progress = 76; 
+            color = 'purple'; 
+            hideElements = true; 
+            break;
+        case 'Completed': 
             progress = 100; 
             color = '#2ecc71'; 
             hideElements = true; 
             break;
     }
 
-    
+    fetch('../../api/updateStatus.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `orderId=${oId}&itemId=${iId}&status=${status}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response from the backend
+        console.log(data); // Display the response for debugging
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
     document.querySelectorAll('.status').forEach(el => {
         el.innerText = status;
     });
@@ -58,6 +78,9 @@ function updateStatus(status) {
             input.removeAttribute('disabled'); 
         }
     });
+
+    
+
 }
 
 
