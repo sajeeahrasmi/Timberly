@@ -44,13 +44,16 @@ $image = $row1['image'] ?? '../images/furniture.jpg';
 $category = $row1['category'] ?? '0';
 
 
-// $query2 = "SELECT amount FROM payment WHERE orderId = ? ";
-// $stmt2 = $conn->prepare($query2);
-// $stmt2->bind_param("i", $orderId);
-// $stmt2->execute();
-// $result2 = $stmt2->get_result();
-// $row2 = $result2->fetch_assoc();
-// $paidAmount = $row2['amount'] ?? '0';
+
+$query2 = "SELECT name, phone, vehicleNo FROM user JOIN driver ON driver.driverId = user.userId WHERE user.userId = ? ";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $driverId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$row2 = $result2->fetch_assoc();
+$name = $row2['name'] ?? '';
+$phone = $row2['phone'] ?? '';
+$vehicleNo = $row2['vehicleNo'] ?? '';
 
 // $balance = $totalAmount - $paidAmount;
 
@@ -95,6 +98,7 @@ $category = $row1['category'] ?? '0';
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../customer/scripts/sidebar.js" defer></script>
     <script src="../customer/scripts/header.js" defer></script>
+    <script src="../customer/scripts/trackFurnitureOrder.js" defer></script>
 
    
 
@@ -112,7 +116,7 @@ $category = $row1['category'] ?? '0';
                 
                 <div class="item-detail">
                         <h2>Order #<?php echo $orderId ?></h2>
-                        <h3>Item #<?php echo $itemId ?></h3>
+                        <h3 >Item #<?php echo $id ?></h3>
 
                     <div class="item-container">
                         <div class="item-image">
@@ -121,6 +125,7 @@ $category = $row1['category'] ?? '0';
                         <div class="item-info">
                             <p><strong>Description:</strong> <?php echo $description ?></p>
                             <p><strong>Type of Wood:</strong> <?php echo $type ?></p>
+                            <p><strong>Size:</strong> <?php echo $size ?></p>
                             <p><strong>Additional Details:</strong> <?php echo $details ?></p>
                             <p><strong>Quantity:</strong> <?php echo $qty ?></p>
                             <p><strong>Price:</strong> Rs. <?php echo $unitPrice ?></p>
@@ -143,14 +148,10 @@ $category = $row1['category'] ?? '0';
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Edit Item Details</h2>
-            <form>
-                <!-- <div class="form-group">
-                    <label>Wood Type</label>
-                    <input type="text" id="edit-type" value="<?php echo $type ?>">
-                </div> -->
-                <div class="form-group">
+           
+               <div class="form-group">
                     <label for="type">Wood Type: </label>
-                    <select id="type">
+                    <select id="edit-type">
                         <option value="Jak">Jak</option>
                         <option value="Mahogany">Mahogany</option>
                         <option value="Teak">Teak</option>
@@ -159,22 +160,40 @@ $category = $row1['category'] ?? '0';
                     </select>
                 </div>
                 <script>
-                    document.getElementById("type").value = "<?php echo $type ?>"; // Sets selected option dynamically
+                    document.getElementById("edit-type").value = "<?php echo $type ?>"; 
                 </script>
 
                 <div class="form-group">
-                    <label>Size</label>
-                    <input type="text" id="edit-size" value="<?php echo $size ?>">
+                    <label for="size">Wood Type: </label>
+                    <select id="edit-size">
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                    </select>
                 </div>
+                <script>
+                    document.getElementById("edit-size").value = "<?php echo $size ?>"; 
+                </script>
+
                 <div class="form-group">
                     <label>Quantity</label>
                     <input type="number" id="edit-qty" min = 0 max = 20 value="<?php echo $qty ?>">
                 </div>
+                <script>
+                    document.getElementById("edit-qty").value = "<?php echo $qty ?>"; 
+                </script>
+
                 <div class="form-group">
                     <label>Additional Details</label>
                     <textarea id="edit-details"><?php echo $details ?></textarea>
                 </div>
-            </form>
+                <script>
+                    document.getElementById("edit-details").value = "<?php echo $details ?>"; 
+                </script>
+
+                <button onclick="updateItem(<?php echo $id ?>)">Update</button>
+
+           
         </div>
     </div>
 
@@ -182,10 +201,10 @@ $category = $row1['category'] ?? '0';
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Delivery Information</h2>
-            <p><strong>Driver Name:</strong> John Doe</p>
-            <p><strong>Vehicle Number:</strong> TRK-5678</p>
-            <p><strong>Expected Delivery:</strong> June 15, 2024</p>
-            <p><strong>Contact Number:</strong> +1 (555) 123-4567</p>
+            <p><strong>Driver Name:</strong> <?php echo $name ?></p>
+            <p><strong>Vehicle Number:</strong> <?php echo $vehicleNo ?></p>
+            <p><strong>Expected Delivery:</strong> <?php echo $deliveryDate ?></p>
+            <p><strong>Contact Number:</strong> <?php echo $phone ?></p>
             <button class="button outline">View Location</button>
         </div>
     </div>
@@ -194,82 +213,11 @@ $category = $row1['category'] ?? '0';
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Leave a Review</h2>
-            <div class="star-rating">
-                <span class="star" data-rating="1">★</span>
-                <span class="star" data-rating="2">★</span>
-                <span class="star" data-rating="3">★</span>
-                <span class="star" data-rating="4">★</span>
-                <span class="star" data-rating="5">★</span>
-            </div>
-            <textarea placeholder="Write your review here..." rows="4"></textarea>
-            <button class="btn btn-review">Submit Review</button>
+            <textarea placeholder="Write your review here..." id="review-text"></textarea>
+            <button class="btn btn-review" onclick="submitReview(<?php echo $orderId ?>, <?php echo $id ?>)">Submit Review</button>
         </div>
     </div>
 
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const status = document.getElementById("item-status").textContent;
-    const editBtn = document.getElementById("edit-btn");
-    const contactDesignerBtn = document.getElementById("contact-designer-btn");
-    const viewLocationBtn = document.getElementById("view-location-btn");
-    const leaveReviewBtn = document.getElementById("leave-review-btn");
 
-    const popups = {
-                edit: document.getElementById('edit-popup'),
-                delivery: document.getElementById('delivery-popup'),
-                review: document.getElementById('review-popup')
-            };
-
-    function updateButtonsBasedOnStatus(status) {
-        // Reset buttons
-        editBtn.disabled = true;
-        viewLocationBtn.disabled = true;
-        leaveReviewBtn.disabled = true;
-
-        if (status === "Pending" || status === "Confirmed") {
-            editBtn.disabled = false;
-            
-        } else if (status === "Delivering") {
-            viewLocationBtn.disabled = false;
-        } else if (status === "Completed") {
-            leaveReviewBtn.disabled = false;
-        }
-    }
-
-    // Update buttons on page load
-    updateButtonsBasedOnStatus(status);
-
-    editBtn.addEventListener('click', () => openPopup(popups.edit));
-
-    // Example: Handle location view
-    viewLocationBtn.addEventListener('click', () => openPopup(popups.delivery));
-
-    // Example: Handle review
-    leaveReviewBtn.addEventListener('click', () => openPopup(popups.review));
-
-    function closePopup(popup) {
-                popup.style.display = 'none';
-                document.getElementById("overlay").style.display = "none";
-            }
-
-            // Open popup function
-            function openPopup(popup) {
-                document.getElementById("overlay").style.display = "block";
-                popup.style.display = 'flex';
-            }
-
-            // Add close event to all popups
-            document.querySelectorAll('.popup-close').forEach(closeBtn => {
-                closeBtn.addEventListener('click', (e) => {
-                    closePopup(e.target.closest('.popup'));
-                });
-            });
-});
-
-        
-
-         
-
-</script>
 </html>

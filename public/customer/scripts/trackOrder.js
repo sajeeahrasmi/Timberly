@@ -84,12 +84,10 @@ const reviewPopup = document.getElementById('review-popup');
 
 // Enable buttons when data is loaded
 window.addEventListener('DOMContentLoaded', () => {
-    // Enable buttons (in a real app, you might want to check certain conditions first)
     editBtn.disabled = false;
     viewLocationBtn.disabled = false;
     leaveReviewBtn.disabled = false;
 
-    // Add click event listeners
     editBtn.addEventListener('click', () => openPopup('edit-popup'));
     viewLocationBtn.addEventListener('click', () => openPopup('delivery-popup'));
     leaveReviewBtn.addEventListener('click', () => openPopup('review-popup'));
@@ -225,44 +223,13 @@ function closePopup(popupId) {
     popup.style.display = 'none';
 }
 
-// Handle quantity update
-function updateQuantity() {
-    const newQty = document.getElementById('new-qty').value;
-    if (newQty && newQty > 0) {
-        // Update the quantity display
-        document.getElementById('quantity').textContent = newQty;
-        // Here you would typically make an API call to update the backend
-        closePopup('edit-popup');
-    } else {
-        alert('Please enter a valid quantity');
-    }
-}
 
-// Handle delivery tracking
+
+
 function trackLiveLocation() {
     // Placeholder function for tracking delivery
     alert('Tracking feature would be implemented here');
 }
 
-// Handle review submission
-function submitReview() {
-    const reviewText = document.getElementById('review-text').value;
-    if (reviewText.trim()) {
-        // Here you would typically make an API call to submit the review
-        alert('Thank you for your review!');
-        closePopup('review-popup');
-    } else {
-        alert('Please write a review before submitting');
-    }
-}
 
-// Example function to load delivery details (you would replace this with actual data)
-function loadDeliveryDetails() {
-    document.getElementById('delivery-name').textContent = 'John Doe';
-    document.getElementById('delivery-contact').textContent = '123-456-7890';
-    document.getElementById('delivery-vehicle').textContent = 'ABC 123';
-    document.getElementById('delivery-date').textContent = '2025-02-15';
-}
 
-// Load delivery details when the page loads
-window.addEventListener('DOMContentLoaded', loadDeliveryDetails);
