@@ -13,7 +13,15 @@ if (isset($_GET['action'])) {
         case 'deleteItem':
             deleteItem();
             break;
-      
+        
+        case 'updateItem':
+            updateItem();
+            break;
+    
+        case 'updateReview':
+            updateReview();
+            break;
+
         default:
             echo json_encode(['error' => 'Invalid action']);
     }
@@ -113,4 +121,93 @@ function deleteItem(){
 
 }
 
+function updateItem(){
+    global $conn;
+
+    $id = $_GET['Id'];
+    $type = $_GET['type'];
+    $size = $_GET['size'];
+    $qty = $_GET['qty'];
+    $details = $_GET['details'];
+
+    mysqli_begin_transaction($conn);
+
+    try {
+        
+        $query = "UPDATE orderfurniture SET type = ?, size = ?, qty = ?, additionalDetails = ? WHERE  id = ?;";
+        $stmt2 = $conn->prepare($query);
+        $stmt2->bind_param("ssisi", $type, $size, $qty, $details, $id);
+        $stmt2->execute();
+
+        if ($stmt2->affected_rows === 0) {
+            throw new Exception('Failed to update into orderfurniture table');
+        }
+
+        mysqli_commit($conn);
+
+        echo json_encode(['success' => true]);
+
+    } catch (Exception $e) {
+        mysqli_rollback($conn);
+
+        echo json_encode(['error' => $e->getMessage()]);
+        
+    }
+}
+
+function updateReview() {
+    global $conn;
+
+    $orderId = $_GET['orderId'];
+    $Id = $_GET['Id'];
+    $text = $_GET['reviewText'];
+
+    if (!$orderId || !$Id || !$text) {
+        echo json_encode(["success" => false, "message" => "Invalid parameters"]);
+        return;
+    }
+
+    mysqli_begin_transaction($conn);
+
+    try {
+        $query = "INSERT INTO review (review) VALUES (?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "s", $text);
+        $result = mysqli_stmt_execute($stmt);
+
+        if (!$result) {
+            throw new Exception("Failed to insert review");
+        }
+
+        $query1 = "SELECT reviewId FROM review WHERE review = ?";
+        $stmt1 = mysqli_prepare($conn, $query1);
+        mysqli_stmt_bind_param($stmt1, "s", $text);
+        mysqli_stmt_execute($stmt1);
+        $result1 = mysqli_stmt_get_result($stmt1);
+        $reviewData = mysqli_fetch_assoc($result1);
+        $reviewId = $reviewData['reviewId'];
+
+        if (!$reviewId) {
+            throw new Exception("Failed to retrieve review ID");
+        }
+
+        $query2 = "UPDATE orderfurniture SET reviewId = ? WHERE id = ?";
+        $stmt2 = mysqli_prepare($conn, $query2);
+        mysqli_stmt_bind_param($stmt2, "ii", $reviewId, $Id);
+        $result2 = mysqli_stmt_execute($stmt2);
+
+        if (!$result2) {
+            throw new Exception("Failed to update orderLumber with review ID");
+        }
+
+        mysqli_commit($conn);
+        echo json_encode(["success" => true]);
+
+    } catch (Exception $e) {
+        mysqli_rollback($conn);
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
+    }
+
+    mysqli_close($conn);
+}
 ?>

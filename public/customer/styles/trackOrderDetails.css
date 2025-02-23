@@ -84,7 +84,8 @@
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     font-family: Arial, sans-serif;
-
+    height: fit-content;
+   padding-bottom: 10px;
 
 }
     
