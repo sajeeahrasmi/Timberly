@@ -1,6 +1,6 @@
 <?php 
     include '../../api/getSupplierDetails.php';
-    // include '../../api/deleteSupplier.php';
+    include '../../api/deleteSupplier.php';
 ?>
 
 <!DOCTYPE html>
@@ -79,4 +79,5 @@
             </div>
         </div>
     </body>
+    <script src="./scripts/deleteSupplier.js"></script>
 </html>
