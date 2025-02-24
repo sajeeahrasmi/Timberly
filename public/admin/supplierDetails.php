@@ -1,3 +1,8 @@
+<?php 
+    include '../../api/getSupplierDetails.php';
+    // include '../../api/deleteSupplier.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -18,29 +23,23 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">supplier</p>
                 <div class="supplier-header">
-                    <!-- <h2 style="margin-left: 15px"><?php echo htmlspecialchars($supplier['name']); ?></h2> -->
-                     <h2>This shows supplier name</h2>
+                    <h2 style="margin-left: 15px"><?php echo htmlspecialchars($supplier['name']); ?></h2>
                     <div>
-                        <!-- <a href="./editSupplier.php?supplier_id=<?php echo urlencode($supplier_id);?>" class="supplier-edit">Edit</a> -->
-                        <a href="./editsupplier.php" class="supplier-edit">Edit</a>
-                        <button class="delete-button" onclick="deletesupplier(<?php echo htmlspecialchars($supplier_id); ?>)">Delete</button>
+                        <a href="./editSupplier.php?supplier_id=<?php echo urlencode($supplier_id);?>" class="supplier-edit">Edit</a>
+                        <button class="delete-button" onclick="deleteSupplier(<?php echo htmlspecialchars($supplier_id); ?>)">Delete</button>
                     </div>
                 </div>
                 <div class="page-content">
                     <div class="supplier-detail-panel">
                         <div class="supplier-info">
                             <img src="./images/image.png" alt="supplier-foto">
-                            <!-- <p class="name"><?php echo htmlspecialchars($supplier['name']); ?></p>
+                            <p class="name"><?php echo htmlspecialchars($supplier['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($supplier['email']); ?></p>
-                            <p class="supplier_id"><?php echo htmlspecialchars($supplier_id); ?></p> -->
-                            <p class="name">This shows supplier name</p>
-                            <p class="email">supplier@mail.com</p>
-                            <p class="supplier_id">supplier id shows here</p>
+                            <p class="supplier_id"><?php echo htmlspecialchars($supplier_id); ?></p>
                         </div>
                         <div class="supplier-stats">
                             <p class="stat-title">Registered</p>
-                            <!-- <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p> -->
-                             <p class="stat-value">Registered time upto now</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
                             <p class="stat-title">Last delivery</p>
                             <p class="stat-value">1 hour ago</p>
                             <p class="stat-title">Total deliveries</p>
@@ -70,11 +69,9 @@
                         <div class="contact-details">
                             <h3>Contact details</h3>
                             <p class="detail-title">Address</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($supplier['address']) ?></p> -->
-                            <p class="detail-value">supplier's address</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($supplier['address']) ?></p>
                             <p class="detail-title">Telephone number</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($supplier['phone']) ?></p> -->
-                             <p class="detail-value">supplier's telephone no</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($supplier['phone']) ?></p>
                         </div>
                     </div>
                 </div>
