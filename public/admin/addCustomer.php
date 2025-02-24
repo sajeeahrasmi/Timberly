@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-customer-form" class="add-customer-form" method="POST">
+                        <form id="add-customer-form" class="add-customer-form" method="POST" action="../../api/addCustomer.php" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="0XXXXXXXXX" required class="input-field">
+                                <input type="tel" id="phone" name="phone" placeholder="07XXXXXXXX" required class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="address">Address</label>
