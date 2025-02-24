@@ -1,6 +1,6 @@
 <?php 
     include '../../api/getCustomerDetails.php';
-    // include '../../api/deleteCustomer.php';
+    include '../../api/deleteCustomer.php';
 ?>
 
 <!DOCTYPE html>
