@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-supplier-form" class="add-supplier-form" method="POST">
+                        <form id="add-supplier-form" class="add-supplier-form" method="POST" action="../../api/addSupplier.php" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
