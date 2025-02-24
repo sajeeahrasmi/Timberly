@@ -1,3 +1,8 @@
+<?php 
+    include '../../api/getCustomerDetails.php';
+    // include '../../api/deleteCustomer.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -18,11 +23,9 @@
                 <?php include "./components/header.php" ?>
                 <p class="page-type-banner">customer</p>
                 <div class="customer-header">
-                    <!-- <h2 style="margin-left: 15px"><?php echo htmlspecialchars($customer['name']); ?></h2> -->
-                     <h2>This shows customer name</h2>
+                    <h2 style="margin-left: 15px"><?php echo htmlspecialchars($customer['name']); ?></h2>
                     <div>
-                        <!-- <a href="./editCustomer.php?customer_id=<?php echo urlencode($customer_id);?>" class="customer-edit">Edit</a> -->
-                        <a href="./editCustomer.php" class="customer-edit">Edit</a>
+                        <a href="./editCustomer.php?customer_id=<?php echo urlencode($customer_id);?>" class="customer-edit">Edit</a>
                         <button class="delete-button" onclick="deleteCustomer(<?php echo htmlspecialchars($customer_id); ?>)">Delete</button>
                     </div>
                 </div>
@@ -30,17 +33,13 @@
                     <div class="customer-detail-panel">
                         <div class="customer-info">
                             <img src="./images/image.png" alt="customer-foto">
-                            <!-- <p class="name"><?php echo htmlspecialchars($customer['name']); ?></p>
+                            <p class="name"><?php echo htmlspecialchars($customer['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($customer['email']); ?></p>
-                            <p class="customer_id"><?php echo htmlspecialchars($customer_id); ?></p> -->
-                            <p class="name">This shows customer name</p>
-                            <p class="email">customer@mail.com</p>
-                            <p class="customer_id">customer id shows here</p>
+                            <p class="customer_id"><?php echo htmlspecialchars($customer_id); ?></p>
                         </div>
                         <div class="customer-stats">
                             <p class="stat-title">Registered</p>
-                            <!-- <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p> -->
-                             <p class="stat-value">Registered time upto now</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
                             <p class="stat-title">Last delivery</p>
                             <p class="stat-value">1 hour ago</p>
                             <p class="stat-title">Total deliveries</p>
@@ -70,11 +69,9 @@
                         <div class="contact-details">
                             <h3>Contact details</h3>
                             <p class="detail-title">Address</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($customer['address']) ?></p> -->
-                            <p class="detail-value">customer's address</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($customer['address']) ?></p>
                             <p class="detail-title">Telephone number</p>
-                            <!-- <p class="detail-value"><?php echo htmlspecialchars($customer['phone']) ?></p> -->
-                             <p class="detail-value">customer's telephone no</p>
+                            <p class="detail-value"><?php echo htmlspecialchars($customer['phone']) ?></p>
                         </div>
                     </div>
                 </div>
@@ -82,4 +79,5 @@
             </div>
         </div>
     </body>
+    <script src="./scripts/deleteCustomer.js"></script>
 </html>
