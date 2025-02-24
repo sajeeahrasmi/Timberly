@@ -1,10 +1,14 @@
+<?php
+    include '../../api/getEditCustomer.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Timberly-Admin</title>
-        <link rel="stylesheet" href="./styles/addCustomer.css">
+        <link rel="stylesheet" href="./styles/editCustomer.css">
         <link rel="stylesheet" href="./styles/components/header.css">
         <link rel="stylesheet" href="./styles/components/sidebar.css">
     </head>
@@ -15,18 +19,19 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-customer-form" class="add-customer-form" method="POST" action="../../api/addCustomer.php" onsubmit="return validateForm()">
+                        <form id="edit-customer-form" class="edit-customer-form" method="POST" action="../../api/getEditCustomer.php?customer_id=<?php echo htmlspecialchars($user_id); ?>" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
                                 <label for="uploadImage" class="button solid">+</label>
                             </div>
                             <div class="form-group">
-                                <label for="name">Customer Name</label>
+                                <label for="name">Customer name</label>
                                 <input type="text" 
                                     id="name" 
                                     name="name" 
-                                    placeholder="Full name" 
+                                    placeholder="Full name"
+                                    value="<?php echo htmlspecialchars($data['name']); ?>"
                                     required 
                                     class="input-field" 
                                     pattern="^[A-Za-z\s]+$" 
@@ -37,9 +42,10 @@
                                 <input 
                                     type="email" 
                                     id="email" 
-                                    name="email"
-                                    pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$" 
-                                    placeholder="someone@mail.com" 
+                                    name="email" 
+                                    pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$"
+                                    placeholder="someone@mail.com"
+                                    value="<?php echo htmlspecialchars($data['email']); ?>"
                                     required 
                                     class="input-field">
                             </div>
@@ -49,7 +55,8 @@
                                     type="tel" 
                                     id="phone" 
                                     name="phone" 
-                                    placeholder="07XXXXXXXX" 
+                                    placeholder="07XXXXXXXX"
+                                    value="<?php echo htmlspecialchars($data['phone']); ?>"
                                     required 
                                     class="input-field" 
                                     pattern="^07\d{8}$" 
@@ -61,12 +68,13 @@
                                     type="text" 
                                     id="address" 
                                     name="address" 
-                                    placeholder="Address" 
+                                    placeholder="Address"
+                                    value="<?php echo htmlspecialchars($data['address']); ?>" 
                                     required 
                                     class="input-field">
                             </div>
                             <div class="form-buttons button-container">
-                                <button onclick="window.location.href='customers.php'" class="button outline">Cancel</button>
+                                <button onclick="window.location.href='./customers.php'" class="button outline">Cancel</button>
                                 <button type="submit" class="button solid">Submit</button>
                             </div>
                         </form>
@@ -74,6 +82,6 @@
                 </div>
             </div>
         </div>
-        <script src="./scripts/addCustomer.js"></script>
     </body>
+    <script> src="./scripts/editCustomer.js"</script>
 </html>

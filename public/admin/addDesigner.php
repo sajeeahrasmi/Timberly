@@ -15,7 +15,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">
-                        <form id="add-designer-form" class="add-designer-form" method="POST">
+                        <form id="add-designer-form" class="add-designer-form" method="POST" action="../../api/addDesigner.php" onsubmit="return validateForm()">
                             <div class="profile-picture">
                                 <i class="fa-solid fa-user-tie fa-2xl"></i>
                                 <input type="file" id="uploadImage" hidden>
@@ -23,19 +23,47 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Designer Name</label>
-                                <input type="text" id="name" name="name" placeholder="Full name" required class="input-field">
+                                <input type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="Full name" 
+                                    required 
+                                    class="input-field" 
+                                    pattern="^[A-Za-z\s]+$" 
+                                    title="Name can only contain alphabets and spaces.">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="someone@mail.com" required class="input-field">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email"
+                                    pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$" 
+                                    placeholder="someone@mail.com" 
+                                    required 
+                                    class="input-field">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="0XXXXXXXXX" required class="input-field">
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    placeholder="07XXXXXXXX" 
+                                    required 
+                                    class="input-field" 
+                                    pattern="^07\d{8}$" 
+                                    title="Phone number must start with '07' and contain exactly 10 digits.">
                             </div>
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" id="address" name="address" placeholder="Address" required class="input-field">
+                                <input 
+                                    type="text" 
+                                    id="address" 
+                                    name="address" 
+                                    placeholder="Address" 
+                                    required 
+                                    class="input-field">
                             </div>
                             <div class="form-buttons button-container">
                                 <button onclick="window.location.href='./designers.php'" class="button outline">Cancel</button>

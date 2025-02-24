@@ -4,12 +4,11 @@ include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST['name'];
-    $vehicleNo = $_POST['vehicleNo'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     
-    if (empty($name) || empty($vehicleNo) || empty($email) || empty($phone) || empty($address)) {
+    if (empty($name) || empty($email) || empty($phone) || empty($address)) {
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
         exit;
     }
@@ -22,21 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
     
-    // Insert into 'user' table
     $query = "INSERT INTO user (name, address, phone, email, role) 
-              VALUES ('$name', '$address', '$phone', '$email', 'driver')";
+              VALUES ('$name', '$address', '$phone', '$email', 'designer')";
 
     if (mysqli_query($conn, $query)) {
-        // Insert into 'driver' table
-        $query2 = "INSERT INTO driver (driverId, vehicleNo) 
-                   VALUES (LAST_INSERT_ID(), '$vehicleNo')";
-        if (mysqli_query($conn, $query2)) {
-            header("Location: ../public/admin/drivers.php");
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error creating driver: ' . mysqli_error($conn)]);
-        }
+        header("Location: ../public/admin/designers.php");
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error creating driver: ' . mysqli_error($conn)]);
+        echo json_encode(['success' => false, 'message' => 'Error creating designer: ' . mysqli_error($conn)]);
     }
 }
 ?>

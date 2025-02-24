@@ -1,6 +1,6 @@
 <?php 
     include '../../api/getDesignerDetails.php';
-    // include '../../api/deleteDesigner.php';
+    include '../../api/deleteDesigner.php';
 ?>
 
 <!DOCTYPE html>
@@ -79,4 +79,5 @@
             </div>
         </div>
     </body>
+    <script src="./scripts/deleteDesigner.js"></script>
 </html>
