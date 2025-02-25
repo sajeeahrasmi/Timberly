@@ -1,3 +1,7 @@
+<?php
+    include '../../api/fetchAdminIndex.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +24,7 @@
                     <div class="card">
                         <div class="card-stats">
                             <h6>Total Orders</h6>
-                            <p>6</p>
+                            <p><?php echo $totalOrders; ?></p>
                             <button onclick="window.location.href='orders.php'"> <i class="fa-solid fa-eye" style="margin: 7px;"></i>View Orders</button>
                         </div>
                         <i class="fa-solid fa-bag-shopping fa-2xl"></i>
@@ -28,7 +32,7 @@
                     <div class="card">
                         <div class="card-stats">
                             <h6>Total Suppliers</h6>
-                            <p>15</p>
+                            <p><?php echo $totalSuppliers; ?></p>
                             <button onclick="window.location.href='suppliers.php'"> <i class="fa-solid fa-eye" style="margin: 7px;"></i> View Suppliers</button>
                         </div>
                         <i class="fa-solid fa-user-tie fa-2xl"></i>
@@ -36,7 +40,7 @@
                     <div class="card">
                         <div class="card-stats">
                             <h6>Total Customers</h6>
-                            <p>900</p>
+                            <p><?php echo $totalCustomers; ?></p>
                             <button onclick="window.location.href='customers.php'"> <i class="fa-solid fa-eye" style="margin: 7px;"></i>View Customers</button>
                         </div>
                         <i class="fa-solid fa-cart-shopping fa-2xl"></i>
@@ -44,7 +48,7 @@
                     <div class="card">
                         <div class="card-stats">
                             <h6>Total Posts</h6>
-                            <p>100</p>
+                            <p><?php echo $totalPosts; ?></p>
                             <button onclick="window.location.href='createPost.php'"> <i class="fa-solid fa-circle-plus" style="margin: 7px;"></i>Create a Post</button>
                         </div>
                         <i class="fa-regular fa-clipboard fa-2xl"></i>
