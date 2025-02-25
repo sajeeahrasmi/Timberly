@@ -1,56 +1,5 @@
 <?php
-// Database connection placeholder
-// include('db_connection.php');
-
-// Initialize variables
-$message = '';
-
-// Handle POST requests
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $order_id = $_POST['order_id'] ?? '';
-    $products = $_POST['product'] ?? [];
-    $prices = $_POST['price'] ?? [];
-    $quantities = $_POST['quantity'] ?? [];
-
-    $productData = []; // To store processed products
-
-    $order_datetime = $_POST['order_datetime'] ?? '';
-    $customer = $_POST['customer'] ?? '';
-    $delv_address = $_POST['delv_address'] ?? '';
-    $amount = $_POST['amount'] ?? 0;
-
-    $transact_mode = $_POST['transact_mode'] ?? '';
-    $transact_date = $_POST['transact_date'] ?? '';
-    $transact_amount = $_POST['transact_amount'] ?? 0;
-
-    if (isset($_POST['save'])) {
-        // Update product logic
-        // $query = "UPDATE products SET name='$name', category='$category', description='$description', price='$price', stock='$stock', visibility='$visibility' WHERE id='$prod_id'";
-        // mysqli_query($db_connection, $query);
-
-        $message = 'Product updated successfully!';
-    } elseif (isset($_POST['delete'])) {
-        // Delete product logic
-        // $query = "DELETE FROM products WHERE id='$prod_id'";
-        // mysqli_query($db_connection, $query);
-
-        $message = 'Product deleted successfully!';
-    }
-}
-
-// Handle GET requests for initial data
-$order_id = $_GET['order_id'] ?? 'Unknown';
-$products = $_GET['product'] ?? 'Unknown';
-$prices = $_GET['price'] ?? '0';
-$quantities = $_GET['quantity'] ?? 'Unknown';
-$order_datetime = $_GET['order_datetime'] ?? 'Unknown';
-$customer = $_GET['customer'] ?? 'Unknown';
-$delv_address = $_GET['delv_address'] ?? 'Unknown';
-$amount = $_GET['amount'] ?? '0';
-
-$transact_mode = $_GET['transact_mode'] ?? 'Unknown';
-$transact_date = $_GET['transact_date'] ?? 'Unknown';
-$transact_amount = $_GET['transact_amount'] ?? '0';
+    include '../../api/getOrderDetailsByAdmin.php';
 ?>
 
 <!DOCTYPE html>
@@ -73,10 +22,10 @@ $transact_amount = $_GET['transact_amount'] ?? '0';
             <?php include "./components/header.php" ?>
             <p class="page-type-banner">order</p>
             <div class="order-header">
-                <h2><?php echo htmlspecialchars($order_id); ?></h2>
+                <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
                 <button class="delete-button">Delete</button>
             </div>
-            <p class="order-stats">August 06, 2022 | 8:12 pm | 2 items | <span class="advance-paid">Advance paid</span></p>
+            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> items | <span class="advance-paid">Advance paid</span></p>
 
             <div class="first-order-body">
                 <div class="items-section">
