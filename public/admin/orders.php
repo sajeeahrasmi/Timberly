@@ -1,10 +1,5 @@
 <?php 
-$orders = [
-    ['order_id' => '#QA123', 'date' => 'July 06, 2023', 'customer' => 'John Doe', 'amount' => '9600.00', 'payType' => 'Null', 'orderStatus' => 'Not confirmed'],
-    ['order_id' => '#WE789', 'date' => 'April 01, 2023', 'customer' => 'Mitchell Stark', 'amount' => '5200.00', 'payType' => 'Credit card', 'orderStatus' => 'Awaiting contact designer'],
-    ['order_id' => '#ZS456', 'date' => 'March 30, 2023', 'customer' => 'Mike Willis', 'amount' => '91000.00', 'payType' => 'Cash', 'orderStatus' => 'Preparing'],
-    ['order_id' => '#AX753', 'date' => 'February 28, 2023', 'customer' => 'John Doe', 'amount' => '1000.00', 'payType' => 'Cash', 'orderStatus' => 'Delivered']
-];
+    include '../../api/getOrdersByAdmin.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,18 +29,18 @@ $orders = [
                                 <th>Date</th>
                                 <th>Customer name</th>
                                 <th class="order-amount">Amount(Rs)</th>
-                                <th>Payment type</th>
+                                <th>Category</th>
                                 <th>Order status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($orders as $order): ?>
+                            <?php foreach ($orderData as $order): ?>
                             <tr onclick="window.location.href='./orderDetails.php?order_id=<?php echo urlencode($order['order_id']); ?>'">
                                 <td><?php echo htmlspecialchars($order['order_id']); ?></td>
                                 <td><?php echo htmlspecialchars($order['date']); ?></td>
-                                <td><?php echo htmlspecialchars($order['customer']); ?></td>
-                                <td class="order-amount"><?php echo htmlspecialchars($order['amount']); ?></td>
-                                <td><?php echo htmlspecialchars($order['payType']); ?></td>
+                                <td><?php echo htmlspecialchars($order['customerName']); ?></td>
+                                <td class="order-amount"><?php echo htmlspecialchars($order['totalAmount']); ?></td>
+                                <td><?php echo htmlspecialchars($order['category']); ?></td>
                                 <td class="order-status"><?php echo htmlspecialchars($order['orderStatus']); ?></td>
                             </tr>
                             <?php endforeach; ?>
