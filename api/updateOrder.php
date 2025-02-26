@@ -13,31 +13,51 @@ if (!isset($data['orderId']) || !isset($data['newStatus'])) {
 $orderId = $data['orderId'];
 $newStatus = $data['newStatus'];
 
-// Check if new status is 'Pending'
 if ($newStatus === 'Pending') {
-    // Delete query if status is 'Pending'
-    $sql = "DELETE FROM orderlumber WHERE orderId = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $orderId);
+    // Delete from both orderlumber and orderfurniture
+    $sqlLumber = "DELETE FROM orderlumber WHERE orderId = ?";
+    $sqlFurniture = "DELETE FROM orderfurniture WHERE orderId = ?";
 
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Order deleted because status is 'Pending'"]);
+    $stmtLumber = $conn->prepare($sqlLumber);
+    $stmtFurniture = $conn->prepare($sqlFurniture);
+
+    $stmtLumber->bind_param("i", $orderId);
+    $stmtFurniture->bind_param("i", $orderId);
+
+    $successLumber = $stmtLumber->execute();
+    $successFurniture = $stmtFurniture->execute();
+
+    if ($successLumber && $successFurniture) {
+        echo json_encode(["success" => true, "message" => "Orders deleted because status is 'Pending'"]);
     } else {
         echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
     }
-} else {
-    // Update query if status is not 'Pending'
-    $sql = "UPDATE orderlumber SET status = ? WHERE orderId = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $newStatus, $orderId);
 
-    if ($stmt->execute()) {
+    $stmtLumber->close();
+    $stmtFurniture->close();
+} else {
+    // Update status in both orderlumber and orderfurniture
+    $sqlLumber = "UPDATE orderlumber SET status = ? WHERE orderId = ?";
+    $sqlFurniture = "UPDATE orderfurniture SET status = ? WHERE orderId = ?";
+
+    $stmtLumber = $conn->prepare($sqlLumber);
+    $stmtFurniture = $conn->prepare($sqlFurniture);
+
+    $stmtLumber->bind_param("si", $newStatus, $orderId);
+    $stmtFurniture->bind_param("si", $newStatus, $orderId);
+
+    $successLumber = $stmtLumber->execute();
+    $successFurniture = $stmtFurniture->execute();
+
+    if ($successLumber && $successFurniture) {
         echo json_encode(["success" => true, "message" => "Order status updated"]);
     } else {
         echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
     }
+
+    $stmtLumber->close();
+    $stmtFurniture->close();
 }
 
-$stmt->close();
 $conn->close();
 ?>

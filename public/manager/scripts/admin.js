@@ -65,8 +65,11 @@ function fetchOrders() {
       // Group items by orderId
       const orders = {};
 
-      // Filter data to show only pending items (orderStatus or itemStatus as needed)
-      const pendingOrders = data.filter(item => item.itemStatus === 'Pending'); // Change 'itemStatus' to 'orderStatus' if necessary
+      // Filter data to show only pending items
+      const pendingOrders = data.filter(item => 
+        (item.productType === 'Lumber' && item.lumberStatus === 'Pending') || 
+        (item.productType === 'Furniture' && item.furnitureStatus === 'Pending')
+      );
 
       pendingOrders.forEach(item => {
         if (!orders[item.orderId]) {
@@ -76,29 +79,72 @@ function fetchOrders() {
             customerId: item.customerId,
             totalAmount: item.totalAmount,
             orderStatus: item.orderStatus,
-            items: [] // Initialize items array for the order
+            date: item.date,
+            lumberItems: [], // Initialize lumber items array
+            furnitureItems: [] // Initialize furniture items array
           };
         }
 
-        // Add item to the corresponding order
-        orders[item.orderId].items.push({
-          itemId: item.itemId,
-          qty: item.qty,
-          itemStatus: item.itemStatus,
-          type: item.type
-        });
+        // Add the item to the appropriate array based on productType
+        if (item.productType === 'Lumber') {
+          orders[item.orderId].lumberItems.push({
+            itemId: item.lumberId,
+            qty: item.lumberQty,
+            itemStatus: item.lumberStatus,
+            type: item.lumberType
+          });
+        } else if (item.productType === 'Furniture') {
+          orders[item.orderId].furnitureItems.push({
+            itemId: item.furnitureId,
+            qty: item.furnitureQty,
+            itemStatus: item.furnitureStatus,
+            type: item.furnitureWoodType,
+            size: item.furnitureSize,
+            category: item.furnitureCategory,
+            description: item.furnitureDescription
+          });
+        }
       });
 
       // Display the orders with their items
       Object.values(orders).forEach(order => {
         const row = document.createElement('tr');
         
+        // Create HTML for lumber items
+        const lumberItemsHTML = order.lumberItems.map(item => 
+          `<div class="item-details lumber">
+            <strong>Lumber:</strong><br>
+            Item ID: ${item.itemId}<br>
+            Qty: ${item.qty}<br>
+            Type: ${item.type}<br>
+            Status: ${item.itemStatus}
+          </div>`
+        ).join('');
+
+        // Create HTML for furniture items
+        const furnitureItemsHTML = order.furnitureItems.map(item => 
+          `<div class="item-details furniture">
+            <strong>Furniture:</strong><br>
+            Item ID: ${item.itemId}<br>
+            Category: ${item.category || 'N/A'}<br>
+            Description: ${item.description || 'N/A'}<br>
+            Wood Type: ${item.type}<br>
+            Size: ${item.size}<br>
+            Qty: ${item.qty}<br>
+            
+          </div>`
+        ).join('');
+
+        // Combine both types of items
+        const itemsHTML = lumberItemsHTML + furnitureItemsHTML;
+        
         row.innerHTML = `
           <td>${order.customerId}</td>
           <td>${order.customerName}</td>
           <td>${order.orderId}</td>
+          
           <td>
-            ${order.items.map(item => `Item ID: ${item.itemId}<br>Qty: ${item.qty}<br>Type: ${item.type}`).join('<br><br>')}
+            ${itemsHTML || 'No pending items found'}
           </td>
           <td>Rs.${order.totalAmount}</td>
           <td>${order.orderStatus}</td>
