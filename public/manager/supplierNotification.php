@@ -287,7 +287,7 @@ form button:hover {
 
 </head>
 <body>
-    <h1>Supplier Notification</h1>
+    <h1>Notifications</h1>
     <button class = "view-btn" onclick = "window.location.href = 'admin.php'">Back</button>
     <h2 style="text-align: center;">Pending Suppliers</h2>
     <div class="list-container">

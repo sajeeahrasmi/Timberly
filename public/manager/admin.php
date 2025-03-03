@@ -26,7 +26,7 @@ require_once '../../api/auth.php';
     <div class="top-bar">
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
-      <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i></button>
+      <button class="notification-btn" onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell"></i> <span id="notif-badge">0</span></button>
         <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
       </div>
     </div>
@@ -151,6 +151,7 @@ require_once '../../api/auth.php';
 </body>
 
 
+</style>
 </html>
 
 

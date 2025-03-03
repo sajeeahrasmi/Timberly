@@ -220,4 +220,19 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
   closeProfileModal();
 });
 
+function checkNotifications() {
+  fetch("../../api/checkNotifications.php")
+      .then(response => response.json())
+      .then(data => {
+          let badge = document.getElementById("notif-badge");
+          if (data.new_notifications > 0) {
+              badge.style.display = "block";  // Show badge if new notifications exist
+          } else {
+              badge.style.display = "none";  // Hide badge if no new notifications
+          }
+      })
+      .catch(error => console.error("Error fetching notifications:", error));
+}
 
+// Run every 5 seconds to check for new notifications
+setInterval(checkNotifications, 5000);
