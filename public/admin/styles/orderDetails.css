@@ -238,13 +238,14 @@ body,html {
 /* Transactions Section */
 .transactions-section h3 {
     font-weight: 600;
-    margin-bottom: 10px;
+    width: 60px;
 }
 
 .transaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 30px;
 }
 
 .transaction button {

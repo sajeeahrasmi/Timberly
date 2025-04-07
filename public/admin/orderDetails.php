@@ -25,7 +25,7 @@
                 <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
                 <button class="delete-button">Delete</button>
             </div>
-            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> items | <span class="advance-paid">Advance paid</span></p>
+            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> items | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
 
             <div class="first-order-body">
                 <div class="items-section">
@@ -83,8 +83,8 @@
             </div>
             <div class="second-order-body"></div>
                 <div class="transactions-section">
-                    <h3 style="margin-top: 8px; margin-bottom:15px; display: inline-block">Transactions</h3>
-                    <a href="#" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                    <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
+                    <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <div class="transaction">
                         <p>Advance payments</p>
                         <p>August 06, 2022</p>
