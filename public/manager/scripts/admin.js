@@ -191,6 +191,7 @@ window.onload = fetchOrders;
 
 function openProfileModal() {
   document.getElementById('profile-modal').style.display = 'flex';
+  
 }
 
 // Close profile modal
@@ -204,35 +205,43 @@ window.onclick = function(event) {
   }
 };
 
-
-// Handle form submission
 document.getElementById('profile-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
   const newPassword = document.getElementById('new-password').value;
   const confirmPassword = document.getElementById('confirm-password').value;
 
   if (newPassword !== confirmPassword) {
       alert("New password and confirm password do not match.");
-  } else {
-      alert("Password changed successfully!");
+      return;
   }
-  closeProfileModal();
+
+  // Create FormData object to send data via POST
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('new_password', newPassword);
+  console.log(name , email , newPassword);
+
+  // Send data to the backend using Fetch API
+  fetch('../../api/update_profile.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.userId) {
+      console.log('User ID:', data.userId);
+    }
+    if (data.success) {
+      alert(data.success);
+      closeProfileModal(); // Close modal after successful update
+    } else {
+      alert(data.error); // Show error if any
+    }
+  })
+  .catch(error => console.error('Error updating profile:', error));
 });
 
-function checkNotifications() {
-  fetch("../../api/checkNotifications.php")
-      .then(response => response.json())
-      .then(data => {
-          let badge = document.getElementById("notif-badge");
-          if (data.new_notifications > 0) {
-              badge.style.display = "block";  // Show badge if new notifications exist
-          } else {
-              badge.style.display = "none";  // Hide badge if no new notifications
-          }
-      })
-      .catch(error => console.error("Error fetching notifications:", error));
-}
-
-// Run every 5 seconds to check for new notifications
-setInterval(checkNotifications, 5000);

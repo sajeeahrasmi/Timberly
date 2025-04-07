@@ -1,6 +1,10 @@
 <?php
+
+include '../../config/login.php';
+
+
 // Authentication check MUST be the first thing in the file
-require_once '../../api/auth.php';
+
 
 // Rest of your existing PHP code follows...
 ?>
@@ -138,8 +142,8 @@ require_once '../../api/auth.php';
             <button class="profile-close-btn" onclick="closeProfileModal()"><span class="profile-close-modal">&times;</span></button>
             <h3>Manager Profile</h3>
             <form id="profile-form">
-                <input type="text" id="name" placeholder="Name" value="Rishi Rasheen" required>
-                <input type="email" id="email" placeholder="Email" value="rasheen25@gmail.com" required>
+                <input type="text" id="name" placeholder="Name"  required>
+                <input type="email" id="email" placeholder="Email" required>
                 <input type="password" id="new-password" placeholder="New Password" required>
                 <input type="password" id="confirm-password" placeholder="Confirm New Password" required>
                 <button type="submit">Save Changes</button>
