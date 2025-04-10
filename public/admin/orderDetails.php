@@ -25,38 +25,50 @@
                 <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
                 <button class="delete-button">Delete</button>
             </div>
-            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> items | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
+            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> <?php if ($order['itemQty'] == 1) {echo "item";} else {echo "items";}?> | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
 
             <div class="first-order-body">
                 <div class="items-section">
                     <h3 style="display: inline-block; margin-top: 10px">Items</h3>
                     <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <table>
+                        <?php $subtotal = 0; ?>
+                        <?php foreach ($orderItems as $item): ?>
+                            <tr>
+                                <td><a href="#"><?php echo htmlspecialchars($item['itemId']); ?></a></td>
+                                <td style="text-align: center">
+                                    <?php
+                                        if (!empty($item['description'])) {
+                                            echo htmlspecialchars($item['description']);
+                                        } else {
+                                            echo htmlspecialchars($item['type']);
+                                        }
+                                    ?>
+                                </td>
+                                <?php $unitPrice = number_format($item['unitPrice'],2) ?>
+                                <td style="text-align: right"><?php echo htmlspecialchars($unitPrice); ?></td>
+                                <td>*<?php echo htmlspecialchars($item['qty']); ?></td>
+                                <?php $price = $item['unitPrice'] * $item['qty'];
+                                $subtotal += $price;
+                                $price = number_format($price,2); ?>
+                                <td style="text-align: right"><?php echo htmlspecialchars($price); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                         <tr>
-                            <td><a href="#">#WE15936</a></td>
-                            <td>Library stool chair</td>
-                            <td>168.90</td>
-                            <td>*1</td>
-                            <td>168.90</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">#ZA15937</a></td>
-                            <td>Sleeping chair</td>
-                            <td>198.90</td>
-                            <td>*1</td>
-                            <td>198.90</td>
-                        </tr>
-                        <tr>
+                            <?php $total = $subtotal + 1300;
+                             $subtotal = number_format($subtotal,2)?>
                             <td colspan="4" class="subtotal">Subtotal</td>
-                            <td>367.80</td>
+                            <td style="text-align: right"><?php echo htmlspecialchars($subtotal); ?></td>
                         </tr>
                         <tr>
                             <td colspan="4" class="delivery">Delivery charges</td>
-                            <td>5.00</td>
+                            <td style="text-align: right">1,300.00</td>
                         </tr>
                         <tr>
                             <td colspan="4" class="total">Total(Rs)</td>
-                            <td>352.80</td>
+                            <?php $tot = $total;
+                             $total = number_format($total,2);?>
+                            <td style="text-align: right"><?php echo htmlspecialchars($total); ?></td>
                         </tr>
                     </table>
                 </div>
@@ -64,20 +76,19 @@
                 <div style="display: inline">
                     <div class="customer-section">
                         <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
-                        <a href="#" style="margin-left: 55%" class="edit-button"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                         <div class="customer-info">
                             <img src="./images/user-pic.jpg" alt="custmr-img">
                             <div>
-                                <p style="margin-bottom: 5px">Mike James Willis</p>
-                                <a href="mailto:mikee.willis@wowmail.com">mikee.willis@wowmail.com</a>
-                                <p style="color: #707070; font-size: 12px; margin-bottom: 0px">#WE15936541</p>
+                                <p style="margin-bottom: 5px"><?php echo htmlspecialchars($order['customerName']); ?></p>
+                                <a href="mailto:mikee.willis@wowmail.com"><?php echo htmlspecialchars($order['email']); ?></a>
+                                <p style="color: #707070; font-size: 12px; margin-bottom: 0px"><?php echo htmlspecialchars($order['userId']); ?></p>
                             </div>
                         </div>
                     </div>
                     <div class="delivery-address-section">
                         <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
                         <a href="#" class="edit-address"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;">MJ Willis,<br>35, Red Mosque street,<br>Colombo 11.</p>
+                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;"><?php echo htmlspecialchars($order['address']); ?></p>
                     </div>
                 </div>
             </div>
@@ -85,28 +96,45 @@
                 <div class="transactions-section">
                     <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
                     <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                    <div class="transaction">
-                        <p>Advance payments</p>
-                        <p>August 06, 2022</p>
-                        <p><span></span>Rs.100.00</p>
-                        <a href="#" class="delete-transaction"><i class="fa-solid fa-trash-can" style="color: #000000;"></i></a>
-                    </div>
-                    <p style="margin-top: 0px; margin-left: 5px; margin-bottom:0px; font-size:smaller; color:#707070">via debit card</p>
+                    <table class="transaction-table">
+                        <?php $transactionTotal = 0; ?>
+                        <?php foreach ($transactions as $transaction): ?>
+                            <tr>
+                                <td>
+                                    <div class="transaction-row">
+                                        <span class="description"><?php echo htmlspecialchars($transaction['description']) ?></span>
+                                        <span class="date"><?php echo htmlspecialchars($transaction['date']) ?></span>
+                                        <?php $transactionTotal += $transaction['amount'] ?>
+                                        <span class="amount">Rs <?php echo number_format($transaction['amount'], 2) ?></span>
+                                    </div>
+                                    <div class="payment-method">via <?php echo htmlspecialchars($transaction['paymentMethod']) ?></div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <?php if ($transactionTotal==0) {
+                                echo '<td colspan="2" class="no-transaction">No transactions have made yet</td>';
+                            }?>
+                        </tr>
+                    </table>
                 </div>
                 <div class="balance-section">
                     <h3 style="margin-top: 8px">Balance</h3>
                     <table class="balance-table">
                         <tr>
                             <td>Order Total</td>
-                            <td>$352.80</td>
+                            <td>Rs <?php echo htmlspecialchars($total); ?></td>
                         </tr>
                         <tr>
                             <td>Paid by the customer</td>
-                            <td>-$100.00</td>
+                            <?php $remainingBalance = $tot - $transactionTotal;
+                             $transactionTotal = number_format($transactionTotal , 2)?>
+                            <td>- Rs <?php echo htmlspecialchars($transactionTotal); ?></td>
                         </tr>
                         <tr style="border-top: 1px #e2d0c7 solid">
                             <td>Remaining balance</td>
-                            <td>$252.80</td>
+                            <?php $remainingBalance = number_format($remainingBalance , 2); ?>
+                            <td>Rs <?php echo htmlspecialchars($remainingBalance); ?></td>
                         </tr>
                     </table>
                 </div>

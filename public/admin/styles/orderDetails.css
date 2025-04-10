@@ -165,6 +165,37 @@ body,html {
     border-bottom: none;
 }
 
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.transaction-table td {
+    padding: 10px 0;
+    border-bottom: 0.5px solid #e2d0c7;
+}
+
+.transaction-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.payment-method {
+    margin-left: 5px;
+    margin-top: 3px;
+    font-size: smaller;
+    color: #707070;
+}
+
+/* Remove line from the last row */
+.transaction-table tr:last-child td {
+    border-bottom: none;
+}
+
 .items-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
