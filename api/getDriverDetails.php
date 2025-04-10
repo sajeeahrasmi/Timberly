@@ -2,7 +2,7 @@
 
 include 'db.php';
 
-$driver_id = $_GET['driver_id'] ?? '';
+$driver_id = $_GET['driver_id'] ?? ''; // ?? and '' i for operate on null values
 
 $query = "SELECT *, TIMESTAMPDIFF(SECOND, created_at, NOW()) AS seconds_elapsed 
           FROM driverdetails WHERE userId = '$driver_id'";

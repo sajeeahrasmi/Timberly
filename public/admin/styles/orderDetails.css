@@ -53,7 +53,7 @@ body,html {
 
 .order-stats {
     font-size: 14px;
-    margin-left: 9px;
+    margin-left: 18px !important;
     padding: 15px 0;
     border-top: 1px solid #e2d0c7;
     border-bottom: 1px solid #e2d0c7;
@@ -63,6 +63,7 @@ body,html {
     font-size: 30px;
     font-weight: 500;
     margin: 0;
+    margin-left: 15px !important;
 }
 
 .delete-button {
@@ -164,6 +165,37 @@ body,html {
     border-bottom: none;
 }
 
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.transaction-table td {
+    padding: 10px 0;
+    border-bottom: 0.5px solid #e2d0c7;
+}
+
+.transaction-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.payment-method {
+    margin-left: 5px;
+    margin-top: 3px;
+    font-size: smaller;
+    color: #707070;
+}
+
+/* Remove line from the last row */
+.transaction-table tr:last-child td {
+    border-bottom: none;
+}
+
 .items-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
@@ -237,13 +269,14 @@ body,html {
 /* Transactions Section */
 .transactions-section h3 {
     font-weight: 600;
-    margin-bottom: 10px;
+    width: 60px;
 }
 
 .transaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 30px;
 }
 
 .transaction button {

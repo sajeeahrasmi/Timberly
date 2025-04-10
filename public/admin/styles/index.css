@@ -33,12 +33,12 @@ body, html {
 }
 
 .card {
-    width: 300px;
-    height: 170px;
+    width: 450px;
+    height: 200px;
     background-color: #ffffff;
     padding: 0 20px;
     margin-left: 20px;
-    margin-right: 100px;
+    margin-right: auto;
     margin-bottom: 100px;
     border-radius: 20px;
     box-shadow: 0 4px 8px #B18068;
@@ -55,10 +55,7 @@ body, html {
 .card .card-stats h6 {
     margin-top: 4px;
     margin-bottom: 30px;
-} 
-
-.card .card-stats h6 {
-    font-size: 15px;
+    font-size: 25px;
     color: #333;
 }
 
@@ -69,14 +66,14 @@ body, html {
 }
 
 .card .card-stats button {
-    font-size: 12px;
+    font-size: 15px;
     height: 30px;
     background-color: transparent;
     color: #895D47;
     border: 1px solid #895D47;
     border-radius: 15px;
     margin-top: 10px 0px;
-    padding-right: 10px;
+    padding: 15px;
     cursor: pointer;
     transition: 0.3s;
     display: flex;
@@ -97,4 +94,11 @@ body, html {
   
 .section.active {
     display: block;
+}
+
+.bi-bag-check,
+.bi-cart3,
+.fa-clipboard,
+.fa-user-tie.fa-2xl {
+    font-size: 70px;
 }
