@@ -38,7 +38,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             
                 <div class="left">  
                     <div class="buttons">
-                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.html`">Door/Window</button>
+                        <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.php`">Door/Window</button>
                         <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.php`">Other furnitures</button>
                         <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
                     </div>

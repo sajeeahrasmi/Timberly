@@ -1,7 +1,7 @@
 let cardCounter = 0;
 let userId = 0;
 
-//getting the userId
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch("../../config/customer/customer.php")
         .then(response => {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 });
 
-//add item
+
 async function addCard(productId, description) {
     const category = document.getElementById("category").value;
     const image = document.getElementById("selected-design").value;

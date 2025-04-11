@@ -1,6 +1,7 @@
 <?php
 
 include_once '../../config/db_connection.php';
+header('Content-Type: application/json');
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
