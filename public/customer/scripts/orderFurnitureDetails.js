@@ -107,7 +107,7 @@ async function addItem(productId, orderId) {
 async function deleteItem(id, orderId) {
     const status = statusElement.textContent
     if(status !== 'Pending' && status !== 'Confirmed'){
-        alert("Cannot delete Item! djsdjsdsjhd");
+        alert("Cannot delete Item!");
         return;
     }
 
@@ -146,9 +146,9 @@ async function filterItems(params) {
         const matchesType = type === "" || typeCell === type;
 
         if (matchesStatus && matchesType && matchesCategory) {
-            row.style.display = ""; // Show the row
+            row.style.display = ""; 
         } else {
-            row.style.display = "none"; // Hide the row
+            row.style.display = "none"; 
         }
     });
 }
