@@ -23,14 +23,12 @@
             <p class="page-type-banner">order</p>
             <div class="order-header">
                 <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
-                <button class="delete-button">Delete</button>
             </div>
             <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> <?php if ($order['itemQty'] == 1) {echo "item";} else {echo "items";}?> | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
 
             <div class="first-order-body">
                 <div class="items-section">
                     <h3 style="display: inline-block; margin-top: 10px">Items</h3>
-                    <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <table>
                         <?php $subtotal = 0; ?>
                         <?php foreach ($orderItems as $item): ?>
@@ -65,10 +63,10 @@
                             <td style="text-align: right">1,300.00</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="total">Total(Rs)</td>
+                            <td colspan="4" class="total" style="font-weight: 600">Total(Rs)</td>
                             <?php $tot = $total;
                              $total = number_format($total,2);?>
-                            <td style="text-align: right"><?php echo htmlspecialchars($total); ?></td>
+                            <td style="text-align: right; font-weight: bold;"><?php echo htmlspecialchars($total); ?></td>
                         </tr>
                     </table>
                 </div>
@@ -80,14 +78,13 @@
                             <img src="./images/user-pic.jpg" alt="custmr-img">
                             <div>
                                 <p style="margin-bottom: 5px"><?php echo htmlspecialchars($order['customerName']); ?></p>
-                                <a href="mailto:mikee.willis@wowmail.com"><?php echo htmlspecialchars($order['email']); ?></a>
+                                <a href="mailto:<?php echo htmlspecialchars($order['email']); ?>"><?php echo htmlspecialchars($order['email']); ?></a>
                                 <p style="color: #707070; font-size: 12px; margin-bottom: 0px"><?php echo htmlspecialchars($order['userId']); ?></p>
                             </div>
                         </div>
                     </div>
                     <div class="delivery-address-section">
                         <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
-                        <a href="#" class="edit-address"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                         <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;"><?php echo htmlspecialchars($order['address']); ?></p>
                     </div>
                 </div>
@@ -95,7 +92,6 @@
             <div class="second-order-body"></div>
                 <div class="transactions-section">
                     <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
-                    <a href="#" class="edit-items"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
                     <table class="transaction-table">
                         <?php $transactionTotal = 0; ?>
                         <?php foreach ($transactions as $transaction): ?>
@@ -132,9 +128,9 @@
                             <td>- Rs <?php echo htmlspecialchars($transactionTotal); ?></td>
                         </tr>
                         <tr style="border-top: 1px #e2d0c7 solid">
-                            <td>Remaining balance</td>
+                            <td style="font-weight: 600">Remaining balance</td>
                             <?php $remainingBalance = number_format($remainingBalance , 2); ?>
-                            <td>Rs <?php echo htmlspecialchars($remainingBalance); ?></td>
+                            <td style="font-weight: 600">Rs <?php echo htmlspecialchars($remainingBalance); ?></td>
                         </tr>
                     </table>
                 </div>
