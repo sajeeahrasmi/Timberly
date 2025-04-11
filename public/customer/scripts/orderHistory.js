@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (category === "furniture") {
                 targetPage = "orderFurnitureDetails.php";
             } else if (category === "customisedfurniture") {
-                targetPage = "orderDoorDetails.html";
+                targetPage = "orderDoorDetails.php";
             } else {
                 alert("Unknown category!"); // Error handling
                 return;

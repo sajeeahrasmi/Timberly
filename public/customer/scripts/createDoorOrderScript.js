@@ -48,7 +48,7 @@ document.getElementById("add-item").addEventListener("click", function (e) {
         const fileInput = document.getElementById("customDesign");
         const file = fileInput.files[0];
         if (file) {
-            imagePath = URL.createObjectURL(file); // temporary path for preview
+            imagePath = URL.createObjectURL(file); 
             description = "Custom Design";
         } else {
             alert("Please upload an image.");
@@ -102,6 +102,8 @@ document.getElementById("add-item").addEventListener("click", function (e) {
     cardCounter++;
     document.getElementById("noOfItem").textContent = `${cardCounter}`;
 });
+
+
 
 document.getElementById("customDesign").addEventListener("change", function () {
     const file = this.files[0];

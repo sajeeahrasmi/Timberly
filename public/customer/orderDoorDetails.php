@@ -13,13 +13,14 @@ $userId = $_SESSION['userId'];
 
 include '../../config/db_connection.php';
 
-$query = "SELECT f.description, f.category, o.id, o.type, o.qty, o.size, o.status, o.unitPrice FROM orderfurniture o JOIN furnitures f ON o.itemId = f.furnitureId WHERE o.orderId = ?;";
+//do from here
+$query = "SELECT * FROM ordercustomizedfurniture WHERE orderId = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $orderId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$query1 = "SELECT status, totalAmount, itemQty FROM orders WHERE orderId = ?";
+$query1 = "SELECT * FROM orders WHERE orderId = ?";
 $stmt1 = $conn->prepare($query1);
 $stmt1->bind_param("i", $orderId);
 $stmt1->execute();
@@ -47,11 +48,11 @@ $query3 = "SELECT
     d.vehicleNo, 
     o.driverId, 
     o.date
-FROM orderfurniture o
+FROM ordercustomizedfurniture o
 JOIN user u ON o.driverId = u.userId
 JOIN driver d ON o.driverId = d.driverId
 WHERE o.orderId = ? 
-AND o.status = 'Completed'
+AND o.status = 'Finished'
 ORDER BY o.date ASC 
 LIMIT 1;
 ";
@@ -61,12 +62,19 @@ $stmt3->execute();
 $result3 = $stmt3->get_result();
 $row3 = $result3->fetch_assoc();
 
-$query4 = "SELECT * FROM furnitures";
-$result4 = mysqli_query($conn, $query4);
+$query5 = "SELECT * FROM furnitures";
+$result5 = mysqli_query($conn, $query5);
 $furnitureData = [];
-while ($row4 = mysqli_fetch_assoc($result4)) {
-    $furnitureData[] = $row4;
+while ($row5 = mysqli_fetch_assoc($result5)) {
+    $furnitureData[] = $row5;
 }
+
+$query4 = "SELECT * FROM measurement WHERE orderId = ? ";
+$stmt4 = $conn->prepare($query4);
+$stmt4->bind_param("i", $orderId);
+$stmt4->execute();
+$result4 = $stmt4->get_result();
+$row4 = $result4->fetch_assoc();
 
 ?>
 
@@ -76,14 +84,14 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furniture Order Details</title>
+    <title> Door Order</title>
 
     <link rel="stylesheet" href="../customer/styles/pendingDoorOrder.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../customer/scripts/sidebar.js" defer></script>
     <script src="../customer/scripts/header.js" defer></script>
-    <script src="../customer/scripts/orderFurnitureDetails.js" defer></script>
-
+    <script src="../customer/scripts/orderDoorDetails.js" defer></script>
+    
     <style>
         .image-dropdown {
             position: relative;
@@ -129,6 +137,7 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
             height: auto;
         }
     </style>
+  
 
 </head>
 <body>
@@ -160,17 +169,17 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                     </div>
                     <div class="card">
                         <h4>Measurement Person</h4>
-                        <p>Name : </p>
-                        <p>Date : <input type="date" /></p>
-                        <p>Time : </p>
-                        <p>Contact : </p>
+                        <p>Name : <span><?php echo  $row4['name'] ?? '' ?></p>
+                        <p>Date : <span><?php echo  $row4['date'] ?? '' ?><input type="date" /></p>
+                        <!-- <p>Time : </p> -->
+                        <p>Contact : <span><?php echo  $row4['contact'] ?? '' ?></p>
                         
                     </div>
                     <div class="card">
                         <h4>Delivery Person</h4>
-                        <p>Name : <span><?php echo  $row3['name'] ?? '' ?></span></p>
-                        <p>Date : <span><?php echo  $row3['date'] ?? '' ?></span>   <input type="date" /></p>
-                        <p>Contact : <span><?php echo  $row3['phone'] ?? '' ?></span></p>
+                        <p>Name : <span><?php echo  $row3['name'] ?? '' ?></p>
+                        <p>Date : <span><?php echo  $row3['date'] ?? '' ?><input type="date" /></p>
+                        <p>Contact : <span><?php echo  $row3['phone'] ?? '' ?></p>
                     </div>
                 </div>
                 
@@ -183,7 +192,7 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                     </div>
 
                     <div class="filter-container">
-                        <div class="filter">
+                    <div class="filter">
                             <label for="item-status">Item Status:</label>
                             <select id="item-status" class="filter-select">
                                 <option value="">All</option>
@@ -191,22 +200,20 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                 <option value="Approved">Approved</option>
                                 <option value="Not_Approved">Not Approved</option>
                                 <option value="Processing">Processing</option>
-                                <option value="Not_Delivered">Not Delivered</option>
+                                <option value="Finished">Finished</option>
                                 <option value="Delivered">Delivered</option>
                             </select>
                         </div>
-                        
+
                         <div class="filter">
                             <label for="item-category">Category</label>
                             <select id="item-category" class="filter-select">
                                 <option value="">All</option>
-                                <option value="Chair">Chair</option>
-                                <option value="Table">Table</option>
-                                <option value="Wardrobe">Wardrobe</option>
-                                <option value="Bookshelf">Bookshelf</option>
-                                <option value="Stool">Stool</option>
-                            </select>
-                        </div>         
+                                <option value="Door">Door</option>
+                                <option value="Window">Window</option>
+                                <option value="Transom">Transom</option>
+                                </select>
+                        </div> 
                         
                         <div class="filter">
                             <label for="item-type">Wood Type</label>
@@ -218,22 +225,20 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                 <option value="Nedum">Nedum</option>
                                 <option value="Sooriyamaara">Sooriyamaara</option>
                             </select>
-                        </div>         
-
-                        <button class="button filter-btn" onclick="filterItems()">Filter</button>
+                        </div>                    
+                        <button class="button filter-btn"  onclick="filterItems()">Filter</button>
 
                         <button id="addItem" style="margin-left: auto; padding: 8px;" class="button outline" onclick="showPopup()">Add Items</button>
                     </div>
     
+                   
                     <div class="table-container">
                         <table class="styled-table" id="orderDetails">
                             <thead>
                                 <tr>
                                     <th>Item No</th>
-                                    <th>Description</th>
                                     <th>Category</th>
                                     <th>Wood Type</th>
-                                    <th>Size</th>
                                     <th>Quantity</th>
                                     <th>Unit Price</th>
                                     <th>Status</th>
@@ -241,19 +246,17 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php while ($row = $result->fetch_assoc()) { ?>
+                                <?php while ($row = $result->fetch_assoc()) { ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($row['id']); ?></td>
-                                        <?php $id = htmlspecialchars($row['id']) ?>
-                                        <td><?php echo htmlspecialchars($row['description']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['itemId']); ?></td>
+                                        <?php $id = htmlspecialchars($row['itemId']) ?>
                                         <td><?php echo htmlspecialchars($row['category']); ?></td>
                                         <td><?php echo htmlspecialchars($row['type']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['size']); ?></td>
                                         <td><?php echo htmlspecialchars($row['qty']); ?></td>
                                         <td><?php echo htmlspecialchars($row['unitPrice']); ?></td>
                                         <td><?php echo htmlspecialchars($row['status']); ?></td>
                                         <td>
-                                            <button class="button outline" id="view-button" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.php?id=${<?php echo $id ?>}`">view</button>
+                                            <button class="button outline" id="view-button" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderDoor.php?id=${<?php echo $id ?>}&orderId=${<?php echo $orderId ?>}`">view</button>
                                             <button class="button solid" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
                                         </td>
                                     </tr>
@@ -267,33 +270,47 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
     </div>
 
     <div id="overlay" class="overlay" ></div>
+
     <div id="popup" class="popup">
         <div class="form-content">
             <h4>Item Details</h4>
             <form>
-            <div class="form-group">
-                <label for="category">Select Category: </label>
+                <div class="form-group">
+                    <label for="category">Select Category: </label>
                     <select id="category">
-                        <option value="Chair">Chair</option>
-                        <option value="Table">Table</option>
-                        <option value="Bookshelf">Bookshelf</option>
-                        <option value="Wardrobe">Wardrobe</option>
-                        <option value="Stool">Stool</option>
+                        <option value="Door">Door</option>
+                        <option value="Window">Window</option>
+                        <option value="Transom">Transom</option>
                     </select>
-            </div>        
+                </div>
+            
 
                 <div class="form-group">
-                    <label>Select Design </label>
+                    <label>Select Design</label>
+                    <input type="radio" name="designChoice" id="selectDesign" value="select-design">
+                    <label>Input Design</label>
+                    <input type="radio" name="designChoice" id="inputDesign" value="input-design">
+                    <br>
+
                     <div id="design-options" class="image-dropdown" style="display:none;">
                         <div class="dropdown">  
                             <div class="dropdown-toggle">                                        
-                                <img id="selected-design" src="../images/chair1.jpg" alt="Select Design" width="100">
+                                <img id="selected-design" src="../images/door1.jpg" alt="Select Design" width="100">
                             </div>
                             <label><span id="productDescription"></span></label>
                             <div class="dropdown-menu"></div>
                         </div>                                    
-                    </div>                                
-                </div>
+                    </div> 
+
+                    
+                    <div id="upload-design" style="display:none;">
+                        <label for="customDesign">Upload Your Design:</label>
+                        <input type="file" id="customDesign" name="customDesign" accept="image/*">
+                        <img id="imagePreview" style="display:none; width: 100px; margin-top: 10px;" />
+                    </div>
+
+                </div>                   
+
 
                 <div class="form-group">
                     <label>Select Type: </label>
@@ -306,29 +323,33 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                     </select>
                 </div>
 
+
+                <div class="form-group">
+                    <h5>Size</h5>
+                    <label>Length (m) </label>
+                    <input type="number" id="length" min = 1 max = 5>
+                    <label>Width (mm) </label>
+                    <input type="number" id="width" min = 1 max = 1500>
+                    <label>Thickness (mm) </label>
+                    <input type="number" id="thickness" min = 1 max = 50>
+                </div>
+
+
                 <div class="form-group">
                     <label>Quantity</label>
                     <input type="number" min="1" max="20" id="qty">
                 </div>
 
-                <div class="form-group">
-                    <label>Size </label>
-                    <select id="size">
-                        <option>Small</option>
-                        <option>Medium</option>
-                        <option>Large</option>
-                    </select>
-                </div>
 
                 <div class="form-group">
-                    <label>Additional Information (Mention the dimensions)</label><br>
-                     <textarea id="additionalDetails"></textarea>
+                    <label>Additional Information</label><br>
+                    <textarea id="additionalDetails"></textarea>
                 </div>
-               
+
+
             </form>
-
             <div class="add-button">
-                <button type="submit" class="button outline" id="add-item">Add Item</button>
+                <button type="submit" class="button outline" id="add-item" onclick="addItem(<?php echo $orderId ?>)">Add Item</button>
                 <button id="close-popup" class="button solid" onclick="closePopup()">Close</button>
             </div>
             
@@ -339,56 +360,74 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
 </html>
 
 <script>
-
     let productId;
     let descriptionGlobal;
-        document.addEventListener("DOMContentLoaded", function() {
-            const furnitureData = <?php echo json_encode($furnitureData); ?>;
-            const categorySelect = document.getElementById("category");
-            const designOptionsDiv = document.getElementById("design-options");
-            const dropdownMenu = document.querySelector(".dropdown-menu");
-            const selectedDesign = document.getElementById("selected-design");
-            const description = document.getElementById('productDescription');
-            
-            categorySelect.addEventListener("change", function() {
-                const selectedCategory = categorySelect.value;
-                dropdownMenu.innerHTML = ""; 
-                
-                furnitureData.forEach(item => {
-                    if (item.category === selectedCategory) {
-                        const imgElement = document.createElement("img");
-                        imgElement.src = item.image; 
-                        imgElement.alt = item.description;                        
-                        imgElement.width = 100;
-                        imgElement.classList.add("design-option");
-                        
-                        imgElement.addEventListener("click", function() {
-                            selectedDesign.src = item.image;
-                            description.textContent = item.description;
-                            descriptionGlobal = item.description
-                            productId = item.furnitureId;
-                            console.log(item.furnitureId+"displaying");
-                            
 
-                        });
-                        dropdownMenu.appendChild(imgElement);
-                    }
-                });
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectRadio = document.getElementById("selectDesign");
+        const inputRadio = document.getElementById("inputDesign");
+        const uploadDesignDiv = document.getElementById("upload-design");
+        const designOptionsDiv = document.getElementById("design-options");
+        const selectedDesign = document.getElementById("selected-design");
+        const description = document.getElementById('productDescription');
+
+        const furnitureData = <?php echo json_encode($furnitureData); ?>;
+        const categorySelect = document.getElementById("category");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+
+       
+        categorySelect.addEventListener("change", function () {
+            const selectedCategory = categorySelect.value;
+            dropdownMenu.innerHTML = "";
+
+            furnitureData.forEach(item => {
+                if (item.category === selectedCategory) {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = item.image;
+                    imgElement.alt = item.description;
+                    imgElement.width = 100;
+                    imgElement.classList.add("design-option");
+
+                    imgElement.addEventListener("click", function () {
+                        selectedDesign.src = item.image;
+                        description.textContent = item.description;
+                        descriptionGlobal = item.description;
+                        productId = item.furnitureId;
+                    });
+
+                    dropdownMenu.appendChild(imgElement);
+                }
+            });
+
+            if (selectRadio.checked) {
                 designOptionsDiv.style.display = "block";
-            });
-
-            const addButton = document.getElementById("add-item");
-            addButton.addEventListener("click", function() {
-            if (productId) {
-                addItem(productId, <?php echo $orderId ?>);
-            } else {
-                alert("Please select a design first!");
             }
-            });
-
-
         });
-    </script>
 
-                            
+       
+        selectRadio.addEventListener("change", function () {
+            if (selectRadio.checked) {
+                designOptionsDiv.style.display = "block";
+                uploadDesignDiv.style.display = "none";
+            }
+        });
 
+        inputRadio.addEventListener("change", function () {
+            if (inputRadio.checked) {
+                designOptionsDiv.style.display = "none";
+                uploadDesignDiv.style.display = "block";
+                selectedDesign.src = "../images/door1.jpg";
+                description.textContent = "";
+                productId = null;
+                descriptionGlobal = "";
+            }
+        });
+
+
+
+    });
+
+
+
+
+</script>

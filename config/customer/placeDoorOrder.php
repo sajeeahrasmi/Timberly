@@ -28,14 +28,15 @@ try {
     $orderId = $conn->insert_id;
 
     $itemStmt = $conn->prepare("
-        INSERT INTO ordercustomizedfurniture (orderId, itemId, type, length, width, thickness, qty, details, image, status) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')
+        INSERT INTO ordercustomizedfurniture (orderId, itemId, type, category,  length, width, thickness, qty, details, image, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, 'Pending')
     ");
 
     $itemCounter = 1;
 
     foreach ($items as $index => $item) {
         $type = $item['type'];
+        $category = $item['category'];
         $length = $item['length'];
         $width = $item['width'];
         $thickness = $item['thickness'];
@@ -93,7 +94,7 @@ try {
         // Log what’s being inserted
         error_log("✔ Inserting item #$index with image path: $imagePath");
 
-        $itemStmt->bind_param("iisdddiss", $orderId, $itemId, $type, $length, $width, $thickness, $qty, $additionalDetails, $imagePath);
+        $itemStmt->bind_param("iissdddiss", $orderId, $itemId, $type, $category, $length, $width, $thickness, $qty, $additionalDetails, $imagePath);
         $itemStmt->execute();
 
         if ($itemStmt->error) {
