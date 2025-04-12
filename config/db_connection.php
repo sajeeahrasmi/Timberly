@@ -2,7 +2,7 @@
 
 $host = "localhost";     
 $username = "root";      
-$password = "new_password";           
+$password = "";           
 $dbname = "timberly";     
 
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -10,6 +10,6 @@ $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
-    // echo "Connection established successfully.";
+    //echo"Connection established successfully.";
 }
 ?>

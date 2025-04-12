@@ -1,3 +1,6 @@
+<?php include '../../config/db_connection.php'; // Adjust path if needed
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
