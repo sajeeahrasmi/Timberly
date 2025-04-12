@@ -55,34 +55,6 @@ $name = $row2['name'] ?? '';
 $phone = $row2['phone'] ?? '';
 $vehicleNo = $row2['vehicleNo'] ?? '';
 
-// $balance = $totalAmount - $paidAmount;
-
-// $query3 = "SELECT 
-//     u.name , 
-//     u.phone , 
-//     d.vehicleNo, 
-//     o.driverId, 
-//     o.date
-// FROM orderfurniture o
-// JOIN user u ON o.driverId = u.userId
-// JOIN driver d ON o.driverId = d.driverId
-// WHERE o.orderId = ? 
-// AND o.status = 'Completed'
-// ORDER BY o.date ASC 
-// LIMIT 1;
-// ";
-// $stmt3 = $conn->prepare($query3);
-// $stmt3->bind_param("i", $orderId);
-// $stmt3->execute();
-// $result3 = $stmt3->get_result();
-// $row3 = $result3->fetch_assoc();
-
-// $query4 = "SELECT * FROM furnitures";
-// $result4 = mysqli_query($conn, $query4);
-// $furnitureData = [];
-// while ($row4 = mysqli_fetch_assoc($result4)) {
-//     $furnitureData[] = $row4;
-// }
 
 ?>
 
@@ -164,7 +136,7 @@ $vehicleNo = $row2['vehicleNo'] ?? '';
                 </script>
 
                 <div class="form-group">
-                    <label for="size">Wood Type: </label>
+                    <label for="size">Wood Size: </label>
                     <select id="edit-size">
                         <option value="Small">Small</option>
                         <option value="Medium">Medium</option>

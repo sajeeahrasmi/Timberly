@@ -1,3 +1,63 @@
+<?php
+
+session_start();
+
+$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+if (!isset($_SESSION['userId'])) {
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+include '../../config/db_connection.php';
+
+$query = "SELECT * FROM orderfurniture  WHERE id = ?;";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$orderId = $row['orderId'] ?? '0';
+$itemId = $row['itemId'] ?? '0';
+$type = $row['type'] ?? '0';
+$qty = $row['qty'] ?? '0';
+$size = $row['size'] ?? '0';
+$details = $row['additionalDetails'] ?? '0';
+$unitPrice = $row['unitPrice'] ?? '0';
+$status = $row['status'] ?? '0';
+$driverId = $row['driverId'] ?? '0';
+$deliveryDate = $row['date'] ?? '0';
+$reviewId = $row['reviewId'] ?? '0';
+
+
+
+$query1 = "SELECT * FROM furnitures WHERE furnitureId = ?";
+$stmt1 = $conn->prepare($query1);
+$stmt1->bind_param("i", $itemId);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+$row1 = $result1->fetch_assoc();
+$description = $row1['description'] ?? 'Unknown';
+$image = $row1['image'] ?? '../images/furniture.jpg';
+$category = $row1['category'] ?? '0';
+
+
+
+$query2 = "SELECT name, phone, vehicleNo FROM user JOIN driver ON driver.driverId = user.userId WHERE user.userId = ? ";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $driverId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$row2 = $result2->fetch_assoc();
+$name = $row2['name'] ?? '';
+$phone = $row2['phone'] ?? '';
+$vehicleNo = $row2['vehicleNo'] ?? '';
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
