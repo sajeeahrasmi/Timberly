@@ -1,6 +1,10 @@
 <?php
 
 include 'db.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -28,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
-    $query = "INSERT INTO products (type, price, description, categories, image_path) 
-              VALUES ('$materialType', '$unitPrice', '$description', '$productCategory', '$imagePath')";
+    $query = "INSERT INTO products (type, price, description, categories, image_path, review) 
+          VALUES ('$materialType', '$unitPrice', '$description', '$productCategory', '$imagePath', 'No review')";
+
     
     if (mysqli_query($conn, $query)) {
         echo json_encode(['success' => true, 'message' => 'Product created successfully']);

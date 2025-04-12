@@ -1,41 +1,41 @@
 <?php
-
-include 'db.php';
-
 header('Content-Type: application/json');
 
-$response = array(
-    'success' => false,
-    'message' => 'An error occurred.'
-);
+// Database connection
+require_once 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['timberId'])) {
-    
-    $timberId = intval($_POST['timberId']); 
+$response = ['success' => false, 'message' => 'Product deletion failed!'];
 
-    $query = "DELETE FROM timber WHERE timberid = ?";
-    if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("i", $timberId); 
+try {
+    // Get productId from POST request
+    $productId = $_POST['productId'] ?? null;
 
-        if ($stmt->execute()) {
-            if ($stmt->affected_rows > 0) {
-                $response['success'] = true;
-                $response['message'] = 'Timber item deleted successfully!';
-            } else {
-                $response['message'] = 'Timber item not found or could not be deleted.';
-            }
-        } else {
-            $response['message'] = 'Failed to execute delete query.';
+    if ($productId) {
+        // Determine which table to delete the product from based on category
+        $sql = "DELETE FROM products WHERE productId = ?";
+        
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            throw new Exception('Prepare failed: ' . $conn->error);
         }
 
-        $stmt->close(); 
+        // Bind the productId to the prepared statement
+        $stmt->bind_param("i", $productId);
+        
+        // Execute the delete query
+        $stmt->execute();
+        
+        if ($stmt->affected_rows > 0) {
+            $response['success'] = true;
+            $response['message'] = 'Product deleted successfully!';
+        } else {
+            $response['message'] = 'No product found with the given ID or the product has already been deleted.';
+        }
     } else {
-        $response['message'] = 'Failed to prepare delete statement.';
+        $response['message'] = 'Invalid product ID.';
     }
-
-    $conn->close(); 
-} else {
-    $response['message'] = 'Invalid request.';
+} catch (Exception $e) {
+    $response['message'] = $e->getMessage();
 }
 
 echo json_encode($response);

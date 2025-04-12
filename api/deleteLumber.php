@@ -5,13 +5,14 @@ include 'db.php'; // Database connection
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get JSON input
     $data = json_decode(file_get_contents('php://input'), true);
+    
 
     // Check if 'lumberId' is present in the received data
-    if (isset($data['id'])) {
-        $lumberId = intval($data['id']);
+    if (isset($data['lumberId'])) {
+        $lumberId = intval($data['lumberId']);
 
         // Prepare the query for soft delete (set is_deleted = 1)
-        $stmt = $conn->prepare("UPDATE `lumber` SET `is_deleted` = 1 WHERE `lumberId` = ?");
+        $stmt = $conn->prepare("UPDATE `lumber` SET `is_deleted` = '1' WHERE `lumberId` = ?");
         $stmt->bind_param("i", $lumberId);
 
         // Execute the query and return the result
