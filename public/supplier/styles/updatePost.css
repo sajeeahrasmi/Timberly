@@ -1,0 +1,174 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+  
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+  
+    --card-padding: 20px;
+    --padding: 10px;
+  
+    --box-shadow: 0 4px 8px var(--color-secondary);
+    --color-boxbg: rgb(200, 196, 196);
+  }
+
+  .updatePost-content {
+    display: flex; /* Changed from grid to flex to align properly */
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+    height: auto;
+    margin: 0px;
+    background-color: var(--color-white)
+}
+.updatePost-content .form-content{
+    border: 1px solid brown;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 10px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.updatePost-content .form-content .form-group {
+    box-shadow: var(--box-shadow);
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.updatePost-content .form-content .form-group label {
+    font-size: 14px;
+    color: var(--color-brown);
+    font-weight: 700;
+    width: 100px;
+}
+
+.updatePost-content .form-content .form-group input,
+.updatePost-content .form-content .form-group select,
+.updatePost-content .form-content .form-group textarea {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border 0.3s;
+    max-width: 100%;
+}
+
+.updatePost-content .form-content .form-group input:focus,
+.updatePost-content .form-content .form-group select:focus,
+.updatePost-content .form-content .form-group textarea:focus {
+    border: 1px solid var(--color-secondary);
+}
+
+.updatePost-content .form-content .form-group input::placeholder{
+    color: var(--color-brown);
+
+}
+
+.updatePost-content .form-content .form-group textarea::placeholder{
+    color: var(--color-brown);
+}
+
+.updatePost-content .form-content .form-group select {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    transition: border 0.3s;
+    max-width: 100%;
+    cursor: pointer;
+    color: var(--color-primary);
+}
+
+
+.updatePost-content .form-content .form-group input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border 0.3s;
+    max-width: 100%;
+}
+
+.updatePost-content .form-content .form-group input[type="file"]:focus {
+    border: 1px solid var(--color-secondary);
+}
+
+
+
+.updatePost-content .form-content .form-group textarea {
+    min-height: 50px;
+    resize: none;
+}
+
+.updatePost-content h1{
+    color: var(--color-brown);
+    margin-bottom: 10px;
+}
+
+.updatePost-content .form-content button {
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: var(--background-color) 0.3s ease;
+    margin-top: auto;
+}
+
+.updatePost-content .form-content button:hover {
+    background-color: var(--color-secondary);
+    transform: scale(1.05);
+    
+}
+
+.updatePost-content .form-content button:active {
+    transform: scale(0.95);
+}
+
+
+
+
+@media (max-width: 768px) {
+    .updatePost-content {
+        flex-direction: column;
+    }
+
+    .updatePost-content .form-content {
+        height: 100vh;
+    }
+
+    .updatePost-content .form-content .form-group label {
+        width: 100%;
+    }
+
+
+    .updatePost-content .form-content .form-group input,
+    .updatePost-content .form-content .form-group select,           
+    .updatePost-content .form-content .form-group textarea {
+        width: 100%;
+    }
+}
+
