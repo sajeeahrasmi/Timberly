@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             console.error('Error submitting product:', error);
-            alert('An error occurred while submitting the product.');
+            alert('An error occurred while submitting the product: ' + error.message);
         });
     }
     
@@ -572,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json();
+            //console.log(result);
 
             if (result.success) {
                 alert('Product updated successfully!');
@@ -741,6 +742,7 @@ function deleteTimber(timberId) {
 }
 
 function deleteLumber(lumberId) {
+    //console.log(lumberId)
     if (confirm('Are you sure you want to delete this lumber?')) {
         fetch('../../api/deleteLumber.php', {
             method: 'POST',
