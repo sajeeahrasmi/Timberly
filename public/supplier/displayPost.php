@@ -1,3 +1,6 @@
+<?php include '../../api/displayPost.php'; // Adjust path if needed
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

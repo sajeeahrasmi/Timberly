@@ -1,3 +1,6 @@
+<?php include '../../api/createPost.php'; // Adjust path if needed
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +24,7 @@
     <div class="createPost-content">
             <div class="form-content">
                 <h1>Create Post Details</h1>
-                <form action="create.php" method="POST" enctype="multipart/form-data">
+                <form action="createPost.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="category">Select Category:</label>
                         <select id="category" name="category" required>
