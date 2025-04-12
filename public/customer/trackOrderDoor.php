@@ -1,3 +1,64 @@
+<?php
+
+session_start();
+
+$itemId = isset($_GET['id']) ? intval($_GET['id']) : null;
+$orderId = isset($_GET['orderId']) ? intval($_GET['orderId']) : null;
+
+if (!isset($_SESSION['userId'])) {
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+include '../../config/db_connection.php';
+
+$query = "SELECT * FROM ordercustomizedfurniture  WHERE itemId = ? AND orderId = ?;";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ii", $itemId, $orderId);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$orderId = $row['orderId'] ?? '0';
+$itemId = $row['itemId'] ?? '0';
+$type = $row['type'] ?? '';
+$qty = $row['qty'] ?? '0';
+$category = $row['category'] ?? '';
+$details = $row['details'] ?? '';
+$unitPrice = $row['unitPrice'] ?? '0';
+$status = $row['status'] ?? '0';
+$driverId = $row['driverId'] ?? '0';
+$deliveryDate = $row['date'] ?? '';
+$reviewId = $row['reviewId'] ?? '0';
+$length = $row['length'] ?? '0';
+$width = $row['width'] ?? '0';
+$thickness = $row['thickness'] ?? '0';
+$image = $row['image'] ?? '../images/furniture.jpg';
+
+
+$query2 = "SELECT name, phone, vehicleNo FROM user JOIN driver ON driver.driverId = user.userId WHERE user.userId = ? ";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $driverId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$row2 = $result2->fetch_assoc();
+$name = $row2['name'] ?? '';
+$phone = $row2['phone'] ?? '';
+$vehicleNo = $row2['vehicleNo'] ?? '';
+
+$query3 = "SELECT * FROM orders WHERE orderId = ? ";
+$stmt3 = $conn->prepare($query3);
+$stmt3->bind_param("i", $orderId);
+$stmt3->execute();
+$result3 = $stmt3->get_result();
+$row3 = $result3->fetch_assoc();
+$orderStatus = $row3['status'] ?? '';
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +70,7 @@
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../customer/scripts/sidebar.js" defer></script>
     <script src="../customer/scripts/header.js" defer></script>
-
+    <script src="../customer/scripts/trackDoorOrder.js" defer></script>
    
 
 </head>
@@ -25,26 +86,28 @@
             <div class="content">  
                 
                 <div class="item-detail">
-                    <!-- <div class="item-header"> -->
-                        <h2>Order #23</h2>
-                        <h3>Item #23</h3>
-                    <!-- </div> -->
+                    
+                        <h2>Order #<?php echo $orderId ?></h2>
+                        <h3>Item #<?php echo $itemId ?></h3>
+                    
                     <div class="item-container">
                         <div class="item-image">
-                            <img src="../images/bookshelf.jpg" alt="Item Image">
+                            <img src="<?php echo $image ?>" alt="Item Image">
                         </div>
                         <div class="item-info">
-                            <p><strong>Description:</strong> Custom wooden door for modern homes.</p>
-                            <p><strong>Type of Wood:</strong> Teak</p>
-                            <p><strong>Dimensions:</strong> Length: 210 cm, Width: 90 cm, Thickness: 5 cm</p>
-                            <p><strong>Quantity:</strong> 2</p>
-                            <p><strong>Price:</strong> $450</p>
-                            <p><strong>Status:</strong> <span id="item-status" class="status-badge pending">Pending</span></p>
+                        <p><strong>Category:</strong> <?php echo $category ?></p>
+                            <p><strong>Type of Wood:</strong> <?php echo $type ?></p>
+                            <p><strong>Dimension:</strong> <?php echo $length ?> m x <?php echo $width ?> mm x <?php echo $thickness ?> mm</p>
+                            <p><strong>Additional Details:</strong> <?php echo $details ?></p>
+                            <p><strong>Quantity:</strong> <?php echo $qty ?></p>
+                            <p><strong>Price:</strong> Rs. <?php echo $unitPrice ?></p>
+                            <p><strong>Status:</strong> <span id="item-status" class="status-badge pending"><?php echo $status ?></span></p>
+                            <p><strong>Order Status:</strong> <span id="item-order-status" ><?php echo $orderStatus ?></span></p>
                         </div>
                     </div>
                     <div class="action-buttons">
                         <button id="edit-btn" class="button outline" disabled>Edit Item</button>
-                        <button id="contact-designer-btn" class="button outline" disabled>Contact Designer</button>
+                        <button id="contact-designer-btn" class="button outline"  onclick="designer(<?php echo $itemId ?>, <?php echo $orderId ?>)" disabled>Contact Designer</button>
                         <button id="view-location-btn" class="button outline" disabled>Delivery Detail</button>
                         <button id="leave-review-btn" class="button outline" disabled>Leave Review</button>
                     </div>
@@ -64,17 +127,64 @@
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Edit Item Details</h2>
-            <form>
-                <div class="form-group">
-                    <label>Wood Type</label>
-                    <input type="text" value="Premium Oak">
+           
+               <div class="form-group">
+                    <label for="type">Wood Type: </label>
+                    <select id="edit-type">
+                        <option value="Jak">Jak</option>
+                        <option value="Mahogany">Mahogany</option>
+                        <option value="Teak">Teak</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
+                    </select>
                 </div>
+                <script>
+                    document.getElementById("edit-type").value = "<?php echo $type ?>"; 
+                </script>
+
                 <div class="form-group">
                     <label>Length</label>
-                    <input type="text" value="180 cm">
+                    <input type="number" id="edit-length" min = 1 max = 5 value="<?php echo $length ?>">
                 </div>
-                <!-- Add more form fields as needed -->
-            </form>
+                <script>
+                    document.getElementById("edit-length").value = "<?php echo $length ?>"; 
+                </script> 
+
+                <div class="form-group">
+                    <label>Width</label>
+                    <input type="number" id="edit-width" min = 1 max = 1500 value="<?php echo $width ?>">
+                </div>
+                <script>
+                    document.getElementById("edit-width").value = "<?php echo $width ?>"; 
+                </script> 
+
+                <div class="form-group">
+                    <label>Thickness</label>
+                    <input type="number" id="edit-thickness" min = 1 max = 50 value="<?php echo $thickness ?>">
+                </div>
+                <script>
+                    document.getElementById("edit-thickness").value = "<?php echo $thickness ?>"; 
+                </script> 
+
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="edit-qty" min = 1 max = 20 value="<?php echo $qty ?>">
+                </div>
+                <script>
+                    document.getElementById("edit-qty").value = "<?php echo $qty ?>"; 
+                </script>
+
+                <div class="form-group">
+                    <label>Additional Details</label>
+                    <textarea id="edit-details"><?php echo $details ?></textarea>
+                </div>
+                <script>
+                    document.getElementById("edit-details").value = "<?php echo $details ?>"; 
+                </script>
+
+                <button onclick="updateItem(<?php echo $itemId ?>, <?php echo $orderId ?>)">Update</button>
+
+           
         </div>
     </div>
 
@@ -82,10 +192,10 @@
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Delivery Information</h2>
-            <p><strong>Driver Name:</strong> John Doe</p>
-            <p><strong>Vehicle Number:</strong> TRK-5678</p>
-            <p><strong>Expected Delivery:</strong> June 15, 2024</p>
-            <p><strong>Contact Number:</strong> +1 (555) 123-4567</p>
+            <p><strong>Driver Name:</strong> <?php echo $name ?></p>
+            <p><strong>Vehicle Number:</strong> <?php echo $vehicleNo ?></p>
+            <p><strong>Expected Delivery:</strong> <?php echo $deliveryDate ?></p>
+            <p><strong>Contact Number:</strong> <?php echo $phone ?></p>
             <button class="button outline">View Location</button>
         </div>
     </div>
@@ -94,89 +204,12 @@
         <div class="popup-content">
             <span class="popup-close">&times;</span>
             <h2>Leave a Review</h2>
-            <div class="star-rating">
-                <span class="star" data-rating="1">★</span>
-                <span class="star" data-rating="2">★</span>
-                <span class="star" data-rating="3">★</span>
-                <span class="star" data-rating="4">★</span>
-                <span class="star" data-rating="5">★</span>
-            </div>
-            <textarea placeholder="Write your review here..." rows="4"></textarea>
-            <button class="btn btn-review">Submit Review</button>
+            <textarea placeholder="Write your review here..." id="review-text"></textarea>
+            <button class="btn btn-review" onclick="submitReview(<?php echo $orderId ?>, <?php echo $itemId ?>)">Submit Review</button>
         </div>
-    </div>
+    </div>>
 
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const status = document.getElementById("item-status").textContent;
-    const editBtn = document.getElementById("edit-btn");
-    const contactDesignerBtn = document.getElementById("contact-designer-btn");
-    const viewLocationBtn = document.getElementById("view-location-btn");
-    const leaveReviewBtn = document.getElementById("leave-review-btn");
 
-    const popups = {
-                edit: document.getElementById('edit-popup'),
-                delivery: document.getElementById('delivery-popup'),
-                review: document.getElementById('review-popup')
-            };
 
-    function updateButtonsBasedOnStatus(status) {
-        // Reset buttons
-        editBtn.disabled = true;
-        contactDesignerBtn.disabled = true;
-        viewLocationBtn.disabled = true;
-        leaveReviewBtn.disabled = true;
-
-        if (status === "Pending" || status === "Confirmed") {
-            editBtn.disabled = false;
-            if (status === "Confirmed") {
-                contactDesignerBtn.disabled = false;
-            }
-        } else if (status === "Delivering") {
-            viewLocationBtn.disabled = false;
-        } else if (status === "Completed") {
-            leaveReviewBtn.disabled = false;
-        }
-    }
-
-    // Update buttons on page load
-    updateButtonsBasedOnStatus(status);
-
-    editBtn.addEventListener('click', () => openPopup(popups.edit));
-    // Example: Navigate to designer page
-    contactDesignerBtn.addEventListener("click", () => {
-        window.location.href = "../customer/designerPage.html";
-    });
-
-    // Example: Handle location view
-    viewLocationBtn.addEventListener('click', () => openPopup(popups.delivery));
-
-    // Example: Handle review
-    leaveReviewBtn.addEventListener('click', () => openPopup(popups.review));
-
-    function closePopup(popup) {
-                popup.style.display = 'none';
-                document.getElementById("overlay").style.display = "none";
-            }
-
-            // Open popup function
-            function openPopup(popup) {
-                document.getElementById("overlay").style.display = "block";
-                popup.style.display = 'flex';
-            }
-
-            // Add close event to all popups
-            document.querySelectorAll('.popup-close').forEach(closeBtn => {
-                closeBtn.addEventListener('click', (e) => {
-                    closePopup(e.target.closest('.popup'));
-                });
-            });
-});
-
-        
-
-         
-
-</script>
 </html>

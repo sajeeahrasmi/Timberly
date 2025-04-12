@@ -164,9 +164,12 @@ function deleteItem(){
 function updateItem(){
     global $conn;
 
-    $id = $_GET['Id'];
+    $id = $_GET['itemId'];
+    $orderId = $_GET['orderId'];
     $type = $_GET['type'];
-    $size = $_GET['size'];
+    $length = $_GET['length'];
+    $width = $_GET['width'];
+    $thickness = $_GET['thickness'];
     $qty = $_GET['qty'];
     $details = $_GET['details'];
 
@@ -174,13 +177,13 @@ function updateItem(){
 
     try {
         
-        $query = "UPDATE orderfurniture SET type = ?, size = ?, qty = ?, additionalDetails = ? WHERE  id = ?;";
+        $query = "UPDATE ordercustomizedfurniture SET type = ?, length = ?, width = ?, thickness = ?, qty = ?, details = ? WHERE  itemId = ? AND orderId = ?;";
         $stmt2 = $conn->prepare($query);
-        $stmt2->bind_param("ssisi", $type, $size, $qty, $details, $id);
+        $stmt2->bind_param("sdddisii", $type, $length, $width, $thickness, $qty, $details, $id, $orderId);
         $stmt2->execute();
 
         if ($stmt2->affected_rows === 0) {
-            throw new Exception('Failed to update into orderfurniture table');
+            throw new Exception('Failed to update into order customized furniture table');
         }
 
         mysqli_commit($conn);
@@ -231,9 +234,9 @@ function updateReview() {
             throw new Exception("Failed to retrieve review ID");
         }
 
-        $query2 = "UPDATE orderfurniture SET reviewId = ? WHERE id = ?";
+        $query2 = "UPDATE ordercustomizedfurniture SET reviewId = ? WHERE itemId = ? AND orderId = ?";
         $stmt2 = mysqli_prepare($conn, $query2);
-        mysqli_stmt_bind_param($stmt2, "ii", $reviewId, $Id);
+        mysqli_stmt_bind_param($stmt2, "iii", $reviewId, $Id, $orderId);
         $result2 = mysqli_stmt_execute($stmt2);
 
         if (!$result2) {
