@@ -22,8 +22,8 @@
                 <li><a href="./dashboard.php"><i class="fa-solid fa-house icon"></i>Dashboard</a></li>
                 <li><a href="./createPost.php"><i class="fa-solid fa-plus"></i>Create Post</a></li>
                 <li><a href="./displayPost.php"><i class="fa-solid fa-rectangle-list icon"></i>Supplier Posts</a></li>
-                <li><a href="./inventory.php"><i class="fa-solid fa-list-check" style="margin-right: 12px"></i>Supplier Orders</a></li>
-                <li><a href="./customers.php"><i class="fas fa-user"></i>User Profile</a></li>
+                <li><a href="./supplierOrders.php"><i class="fa-solid fa-list-check" style="margin-right: 12px"></i>Supplier Orders</a></li>
+                <li><a href="./userProfile.php"><i class="fas fa-user"></i>User Profile</a></li>
                 <li class="logout"><a href="#" onclick="window.location.href=`http://localhost/Timberly/config/logout.php`"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</a></li>
             </ul>
         </nav>

@@ -1,153 +1,26 @@
-/* 
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+    --color-boxbg: rgb(200, 196, 196);
 
-.body-content{
-    display: grid;
-    flex-direction: row;
-    padding: 10px;
-    gap: 10px;
-    height:95%;
-    margin: 0px;
-    background-color: var(--color-white);
-    border-radius: 40px;
+    --card-border-radius: 1rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
 
+    --card-padding: 20px;
+    --padding: 10px;
+
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.body-content .left{
-    flex: 2; 
-    border-width: 5px;
-    border-color: #000000;
-    min-height: 300px; 
-    box-shadow: var(--box-shadow);
-    display: flex;
-    flex-direction: column;
-    padding: 0px 20px;
-    width: 100%;
-}
 
-.body-content .left .buttons {
-    padding: 0px;
-    margin: 0px;
-     button {
-        background-color: transparent;
-        color: #000;
-        padding: 10px 20px;
-        border: none;
-        border-right: 3px solid var(--color-primary); 
-        cursor: pointer; 
-        font-size: 12px; 
-        transition: border-color 0.3s ease;
-    }
-    
-    button:hover {
-        border-right-color: var(--color-secondary); 
-        background-color: #ccd0d5;
-    }
-}
-
-.body-content .left .form-content{
-    background-color:var(--color-white);
-    border: 1px solid var(--color-secondary);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 10px ;
-    height: 100%;
-    overflow-y: auto;
-
-    h4{
-        text-align: left;
-        font-family: 'Arial', sans-serif;
-        color: #333;
-        margin-bottom: 10px;
-        margin: 0px 0px 10px 0px;
-        padding: 0px;
-        
-    }
-
-    .add-button{
-        display: flex;
-        justify-content: flex-end;
-        font-size: 14px;
-
-        button{
-            padding: 8px 15px;
-        }
-    }
-}
-
-.body-content .left .form-content .form-group{
-    border: 1px solid var(--color-secondary);
-    border-radius: 10px;
-    padding: 0;
-    margin-top: 0;
-    margin-bottom: 10px;
-    padding: 5px 0px 5px 5px;
-
-    label{
-        font-family: 'Arial', sans-serif;
-        font-size: 12px;
-        color: #555;
-        margin-bottom: 5px;
-        font-weight: 700;
-        margin-right: 10px;
-        text-align:end;
-        margin-right: 1px;
-    }
-
-    h5{
-        margin: 5px 0px 0px 0px ;
-        padding: 0px;
-    }
-
-    input{
-        width: 20%;
-        margin-right: 15px;
-        border-radius: 5px;
-        border: 1px solid var(--color-primary);
-    }
-
-    select, input[type="text"], textarea {
-        padding: 5px;
-        font-size: 12px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        outline: none;
-        background-color: #fff;
-        transition: border 0.3s;
-        width: 30%;
-        height: 30px;
-        border: 1px solid var(--color-primary);
-
-        &&:focus{
-            border-color: var(--color-secondary);
-        }
-    }
-
-    input[type="radio"] {
-        width: auto;
-        height: auto;
-    
-        margin: 3px 15px 3px 5px;
-        cursor: pointer;
-        border: 1px solid var(--color-primary);
-    }
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.body-content-container .body-content{
+.updatePost-content{
     display: grid;
     flex-direction: row;
     padding: 10px;
@@ -160,7 +33,7 @@
 
 }
 
-.body-content .left{
+.updatePost-content{
     flex: 2; 
     border-width: 5px;
     border-color: #000000;
@@ -202,7 +75,7 @@
     padding: 0px;
 }
 
-.body-content .left .form-content{
+.updatePost-content .form-content{
     background-color:var(--color-white);
      /* border: 1px solid var(--color-secondary); */
     padding: 30px; 
