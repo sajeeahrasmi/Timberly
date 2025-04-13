@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('create-order-modal').style.display = 'none';
     
                 
-                if (selectCategory === 'furniture') {
+                if ((selectCategory === 'Bookshelf') || (selectCategory === 'Table') || (selectCategory === 'Chair') || (selectCategory === 'Wardrobe') || (selectCategory === 'Stool')) {
                     refreshTab('furniture');
                 } else if (selectCategory === 'doorsandwindows') {
                     refreshTab('doors-and-windows');
@@ -527,8 +527,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     <option value="Nedum">Nedum</option>
                     <option value="Sooriyamaara">Sooriyamaara</option>
                 </select>
+                <label for="size">Size:</label> 
+                <select name="size">
+                    <option value="${details.size}">${details.size}</option>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                    
+                </select>
+
+                <label for="additionalDetails">Additional Details:</label>
+                <input type="text" id="additionalDetails" name="additionalDetails" value="${details.additionalDetails || ''}" required> 
+                             
                 <label for="price">Price (Rs.):</label>
-                <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>`;
+                <input type="number" id="unitPrice" name="unitPrice" value="${details.unitPrice || ''}" min="1" required>`;
         } else if (category === 'ddoorsandwindows') {
             fieldsHtml += `
                 <label for="description">Description:</label>

@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             break;
         case 'ffurniture':
         case 'ddoorsandwindows':
-            $query = "SELECT * FROM products WHERE productId = '$productName'";
+            $query = "SELECT * FROM furnitures WHERE furnitureId = '$productName'";
             break;
         default:
             $query = ''; 

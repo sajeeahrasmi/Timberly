@@ -105,22 +105,24 @@ require_once '../../api/auth.php';
 <div id="furniture" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($furnitureData as $item): ?>
-            <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ffurniture">
-            <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
-                     ? 'http://localhost/timberly/api/' . $item['image_path'] 
+            <div class="product-card" data-name="<?php echo htmlspecialchars($item['furnitureId']); ?>" id ="ffurniture">
+            <img src="<?php echo isset($item['image']) && !empty($item['image']) 
+                     ? 'http://localhost/timberly/public/images/' . $item['image'] 
                      : 'uploads/chair.jpg'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
 
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
                 
-                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
-                <p>Review: <?php echo htmlspecialchars($item['review']); ?></p>
+                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
+                <p>Category: <?php echo htmlspecialchars($item['category']); ?></p>
+                <p>Size: <?php echo htmlspecialchars($item['size']); ?></p>
+                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']); ?></p>
                 <div class="card-actions">
                 <button class="edit-btn">
         <i class="fas fa-edit"></i>
     </button>
-    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['productId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
+    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['furnitureId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
 
                 </div>
             </div>
@@ -182,7 +184,11 @@ require_once '../../api/auth.php';
             <label for="product_category">Product Category:</label>
             <select id="product_category" name="product_category" required>
                 <option value="">Select Category</option>
-                <option value="furniture">Furniture</option>
+                <option value="Bookshelf">Bookshelf</option>
+                <option value="Stool">Stool</option>
+                <option value="Chair">Chair</option>
+                <option value="Table">Table</option>
+                <option value="Wardrobe">Wardrobe</option>
                 <option value="doorsandwindows">Doors and Windows</option>
             </select>
 
@@ -195,6 +201,17 @@ require_once '../../api/auth.php';
 
             <label for="description">Description:</label>
             <input type="text" id="description" name="description"  required pattern="^[A-Za-z\s]+$" title="Description should only contain letters and spaces.">
+
+            <label for="size">Size:</label>
+            <select id="size" name="size" required>
+                <option value="">Select Size</option>
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+                
+            </select>
+            <label for="additional_details">Additional Details:</label>
+            <input type="text" id="additional_details" name="additional_details" required pattern="^[A-Za-z0-9\s]+$" title="Additional details can include letters, numbers, and spaces.">
 
             <button type="submit" >Submit </button>
         </form>
