@@ -12,28 +12,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productCategory = $_POST['product_category'];
     $unitPrice = $_POST['unit_price'];
     $description = $_POST['description'];
+    //$image = $_POST['product_image'];
+    $size = $_POST['size'];
+    $additionalDetails = $_POST['additional_details'];
     
-    // Handle image upload
-    $imagePath = '';
-    if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
-        $imageTmpName = $_FILES['product_image']['tmp_name'];
-        $imageName = basename($_FILES['product_image']['name']);
-        $imagePath = 'uploads/' . $imageName;
+   // Handle image upload
+$image = '';
 
-        // Move uploaded file to the 'uploads' directory
-        if (!move_uploaded_file($imageTmpName, '../api/' . $imagePath)) {
-            echo json_encode(['success' => false, 'message' => 'Error uploading image.']);
-            exit;
-        }
+if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
+    $imageTmpName = $_FILES['product_image']['tmp_name'];
+    $imageName = basename($_FILES['product_image']['name']);
+
+    // Path where the image will be moved (relative to this script)
+    $destinationPath = '../public/images/' . $imageName; // adjust if needed
+
+    // Path that will be stored in DB
+    $image = '../images/' . $imageName;
+
+    // Move uploaded file
+    if (!move_uploaded_file($imageTmpName, $destinationPath)) {
+        echo json_encode(['success' => false, 'message' => 'Error uploading image.']);
+        exit;
     }
+}
+
     
-    if (empty($materialType) || empty($productCategory) || empty($unitPrice) || empty($description)) {
+    if (empty($materialType) || empty($productCategory) || empty($unitPrice) || empty($description) ||  empty($image) || empty($size) || empty($additionalDetails)) {
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
         exit;
     }
     
-    $query = "INSERT INTO products (type, price, description, categories, image_path, review) 
-          VALUES ('$materialType', '$unitPrice', '$description', '$productCategory', '$imagePath', 'No review')";
+    $query = "INSERT INTO furnitures (type, unitPrice, description, category, image, size , additionalDetails) 
+          VALUES ('$materialType', '$unitPrice', '$description', '$productCategory', '$image', '$size' , '$additionalDetails')";
 
     
     if (mysqli_query($conn, $query)) {

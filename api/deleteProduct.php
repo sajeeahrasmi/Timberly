@@ -12,7 +12,7 @@ try {
 
     if ($productId) {
         // Determine which table to delete the product from based on category
-        $sql = "DELETE FROM products WHERE productId = ?";
+        $sql = "DELETE FROM furnitures WHERE furnitureId = ?";
         
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {

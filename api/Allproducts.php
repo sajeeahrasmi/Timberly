@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($lumberDataResult)) {
    
      
  // Fetch Furniture Data
- $furnitureDataQuery = "SELECT productId, description, type, price, review , image_path FROM products WHERE categories = 'furniture'";
+ $furnitureDataQuery = "SELECT furnitureId, description,category, type,size,additionalDetails, unitPrice , image FROM furnitures WHERE category in ('Chair','Table','Wardrobe','Bookshelf','Stool')";
 $furnitureDataResult = mysqli_query($conn, $furnitureDataQuery); 
 if (!$furnitureDataResult) {
     die("Error fetching furniture data: " . mysqli_error($conn)); 

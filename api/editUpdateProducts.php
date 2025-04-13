@@ -31,9 +31,9 @@ try {
 
         case 'ffurniture':
         case 'ddoorsandwindows':
-            $sql = "UPDATE products SET type = ?, price = ?, description = ?, review = 'no review' WHERE productId = ?";
-            $bindParams = [$_POST['type'], $_POST['price'], $_POST['description'], $productName];
-            $paramTypes = "sdss";
+            $sql = "UPDATE furnitures SET type = ?, unitPrice = ?, description = ?, size = ? , additionalDetails = ? WHERE furnitureId = ?";
+            $bindParams = [$_POST['type'], $_POST['unitPrice'], $_POST['description'], $_POST['size'], $_POST['additionalDetails'], $productName];
+            $paramTypes = "sdssss";
             break;
 
         default:
