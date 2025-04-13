@@ -23,8 +23,8 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="styles/displayPost.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="/Supplier/styles/displayPost.css">
 </head>
 <body>
 
@@ -32,16 +32,15 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
     <?php include 'components/header.php'; ?>
 </div>
 
-<!-- Wrap Sidebar and Body in .body-container -->
 <div class="body-container">
     <!-- Sidebar -->
     <div class="sidebar-content">
         <?php include 'components/sidebar.php'; ?>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="display-content">
-    <?php if (isset($_GET['message'])): ?>
+    <!-- Main Content -->
+    <div class="body-content">
+        <?php if (isset($_GET['message'])): ?>
             <div style="color: green; margin-bottom: 10px;"><?php echo htmlspecialchars($_GET['message']); ?></div>
         <?php endif; ?>
 

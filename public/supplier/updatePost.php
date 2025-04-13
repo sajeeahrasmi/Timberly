@@ -6,7 +6,7 @@ include '../../api/updatePost.php'; // Adjust path if needed
 <html>
 <head>
     <link rel="stylesheet" href="/Supplier/styles/index.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="/Supplier/styles/updatePost.css">
+    <link rel="stylesheet" href="styles/updatePost.css">
 </head>
 <body>
 
