@@ -333,21 +333,33 @@ include '../../api/ViewOrderDetails.php';
                 <h2>Order Items</h2>
                 <div class="order-items">
                    
-                        <div class="item">
+                        <div class="item" data-order-type="<?php echo htmlspecialchars($orderDetails['orderType']); ?>">
                            
-                            <div class="item-details">
-                                <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
-                                <p>Quantity: <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
-                                <p>Price: Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
-                                <p>Status: <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
-                                <div class="item-buttons">
-                                    <!-- Convert the links to buttons -->
-<button class="action-btn" id="checkStockBtn" onclick="checkStock(<?php echo $orderDetails['itemId']; ?>)">Check Stock</button>
-<button class="action-btn" id="approveBtn" onclick="approveOrder(<?php echo $orderDetails['itemId']; ?>, <?php echo $orderDetails['orderId']; ?>)">
-    Approve
-</button>
-<button class="action-btn" id="rejectBtn" onclick="rejectOrder(<?php echo $orderDetails['itemId'] ; ?> , <?php echo $orderDetails['orderId']; ?>)">Reject</button>
-
+                        <div class="item-details">
+    <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
+    <?php if($orderDetails['orderType'] == 'furniture'): ?>
+        <?php if(!empty($orderDetails['description'])): ?>
+            <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description']); ?></p>
+        <?php endif; ?>
+        <?php if(!empty($orderDetails['size'])): ?>
+            <p><strong>Size:</strong> <?php echo htmlspecialchars($orderDetails['size']); ?></p>
+        <?php endif; ?>
+        <?php if(!empty($orderDetails['additionalDetails'])): ?>
+            <p><strong>Additional Details:</strong> <?php echo htmlspecialchars($orderDetails['additionalDetails']); ?></p>
+        <?php endif; ?>
+    <?php endif; ?>
+    <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
+    <p><strong>Price:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
+    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
+    <div class="item-buttons">
+        <!-- Convert the links to buttons -->
+        <button class="action-btn" id="checkStockBtn" onclick="checkStock(<?php echo $orderDetails['itemId']; ?>)">Check Stock</button>
+        <button class="action-btn" id="approveBtn" onclick="approveOrder(<?php echo $orderDetails['itemId']; ?>, <?php echo $orderDetails['orderId']; ?>)">
+            Approve
+        </button>
+        <button class="action-btn" id="rejectBtn" onclick="rejectOrder(<?php echo $orderDetails['itemId'] ; ?> , <?php echo $orderDetails['orderId']; ?>)">Reject</button>
+    </div>
+    <p></p>
 </div>
                     
                                 <p></p>
@@ -356,7 +368,7 @@ include '../../api/ViewOrderDetails.php';
                   
                 </div>
                 
-                <a href="Trackorder.php?orderId=<?php echo $orderDetails['orderId']; ?>&itemId=<?php echo $orderDetails['itemId']; ?>" class="track-order-btn">Track Order</a>
+                <a href="Trackorder.php?orderId=<?php echo $orderDetails['orderId']; ?>&itemId=<?php echo $orderDetails['itemId']; ?>&type=<?php echo $orderDetails['orderType']; ?>" class="track-order-btn">Track Order</a>
 
 
             </div>
