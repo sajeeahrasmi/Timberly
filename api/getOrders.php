@@ -6,9 +6,9 @@ require_once 'db.php';
 $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : '';
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
 
-// Prepare the SQL query to fetch orders based on filters
-$sql = "SELECT 
-    o.orderId, 
+// Base query for lumber orders
+$sql_lumber = "SELECT 
+    o.orderId AS main_order_id, 
     o.date, 
     o.itemQty,
     o.totalAmount, 
@@ -19,14 +19,37 @@ $sql = "SELECT
     ol.itemId, 
     ol.qty,  
     ol.status AS itemStatus,
-    CONCAT(l.type, ' (', ol.qty, ')') AS typeQty  -- Fetch the 'type' from the lumber table
+    CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
+    '' AS description,
+    'lumber' AS orderType
 FROM orderlumber ol
 LEFT JOIN orders o ON ol.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 LEFT JOIN lumber l ON ol.itemId = l.lumberId
-WHERE ol.status != 'Pending'"; 
+WHERE ol.status != 'Pending'";
 
-// Add filters to the SQL query if necessary
+// Base query for furniture orders - using 'orf' instead of 'of' as alias
+$sql_furniture = "SELECT 
+    o.orderId AS main_order_id, 
+    o.date, 
+    o.itemQty,
+    o.totalAmount, 
+    o.status AS orderStatus, 
+    u.name AS customerName, 
+    o.userId AS customerId,
+    orf.orderId,  
+    orf.itemId, 
+    orf.qty,  
+    orf.status AS itemStatus,
+    CONCAT(orf.type, ' - ', orf.size, ' (', orf.qty, ')') AS typeQty,
+    orf.description,
+    'furniture' AS orderType
+FROM orderfurniture orf
+LEFT JOIN orders o ON orf.orderId = o.orderId  
+LEFT JOIN user u ON o.userId = u.userId
+WHERE orf.status != 'Pending'";
+
+// Add filters to the SQL queries if necessary
 $whereClauses = [];
 if ($customer_filter) {
     $whereClauses[] = "u.userId LIKE '%" . $conn->real_escape_string($customer_filter) . "%'";
@@ -37,8 +60,13 @@ if ($order_filter) {
 
 // Only append additional WHERE conditions if necessary
 if (count($whereClauses) > 0) {
-    $sql .= " AND " . implode(" AND ", $whereClauses);
+    $additional_where = " AND " . implode(" AND ", $whereClauses);
+    $sql_lumber .= $additional_where;
+    $sql_furniture .= $additional_where;
 }
+
+// Combine the results with UNION
+$sql = "($sql_lumber) UNION ($sql_furniture) ORDER BY main_order_id";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -53,18 +81,28 @@ if ($result->num_rows > 0) {
         // Set balance to 0 temporarily
         $balance = 0;
 
+        // Determine the view URL based on order type
+        $viewUrl = ($order['orderType'] == 'lumber') 
+            ? "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type=lumber"
+            : "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type=furniture";
+        
+        // Prepare the display text for the type/description column
+        $itemDisplay = $order['typeQty'];
+        if ($order['orderType'] == 'furniture' && !empty($order['description'])) {
+            $itemDisplay .= " - " . $order['description'];
+        }
+
         // Output the order details
         echo "<tr>
                 <td>{$order['customerId']}</td>
                 <td>{$order['customerName']}</td>
-                <td>{$order['orderId']}</td>
-                <td>{$order['typeQty']}</td>  <!-- Display the concatenated value -->
+                <td>{$order['main_order_id']}</td>
+                <td>{$itemDisplay}</td>
                 <td>{$totalAmount}</td>
-                <td>{$totalAmount}</td>  <!-- Adjusted: totalAmount instead of balance calculation -->
-                <td>{$balance}</td>  <!-- Balance set to 0 -->
+                <td>{$totalAmount}</td>
+                <td>{$balance}</td>
                 <td>{$order['itemStatus']}</td>
-                <td><a href='vieworder.php?orderId=" . $order['orderId'] . "&itemId=" . $order['itemId'] . "' class='view-btn'>View Order</a></td>
-
+                <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>
               </tr>";
     }
 } else {
