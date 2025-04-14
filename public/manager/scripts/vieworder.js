@@ -34,11 +34,19 @@ function checkStock(itemId) {
 }
 
 function approveOrder(itemId, orderId) {
+    // Get the order type from the page
+    const orderType = document.querySelector('[data-order-type]').getAttribute('data-order-type');
+    
     // Log the values to ensure they're being passed correctly
-    console.log('ItemID:', itemId, 'OrderID:', orderId);
+    console.log('ItemID:', itemId, 'OrderID:', orderId, 'Type:', orderType);
+    
+    // Choose the appropriate API endpoint based on order type
+    const apiEndpoint = orderType === 'furniture' 
+        ? '../../api/approvefurnitureorder.php' 
+        : '../../api/approvelumberorder.php';
     
     // Perform an AJAX request to approve the order with both IDs
-    fetch(`../../api/approvelumberorder.php?itemId=${itemId}&orderId=${orderId}`)
+    fetch(`${apiEndpoint}?itemId=${itemId}&orderId=${orderId}`)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
@@ -54,17 +62,23 @@ function approveOrder(itemId, orderId) {
         });
 }
 
-
-
 function rejectOrder(itemId, orderId) {
+    // Get the order type from the page
+    const orderType = document.querySelector('[data-order-type]').getAttribute('data-order-type');
+    
+    // Choose the appropriate API endpoint based on order type
+    const apiEndpoint = orderType === 'furniture' 
+        ? '../../api/rejectfurnitureorder.php' 
+        : '../../api/rejectlumberorder.php';
+    
     // Add confirmation before rejecting
     if (confirm('Are you sure you want to reject this order? This action cannot be undone.')) {
-        fetch(`../../api/rejectlumberorder.php?itemId=${itemId}&orderId=${orderId}`)
+        fetch(`${apiEndpoint}?itemId=${itemId}&orderId=${orderId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
                     alert('Order rejected successfully!');
-                    window.location.href = 'admin.php'; // Reload the page to reflect changes
+                    window.location.href = 'admin.php'; // Redirect to admin page
                 } else {
                     alert('Error: ' + data.message);
                 }
