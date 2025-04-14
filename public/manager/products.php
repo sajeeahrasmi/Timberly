@@ -135,22 +135,24 @@ require_once '../../api/auth.php';
 <div id="doors-and-windows" class="tab-content" style="display: none;">
     <div class="products">
         <?php foreach ($doorsAndwindowsData as $item): ?>
-            <div class="product-card" data-name="<?php echo htmlspecialchars($item['productId']); ?>" id ="ddoorsandwindows">
-            <img src="<?php echo isset($item['image_path']) && !empty($item['image_path']) 
-                     ? 'http://localhost/timberly/api/' . $item['image_path'] 
+            <div class="product-card" data-name="<?php echo htmlspecialchars($item['furnitureId']); ?>" id ="ddoorsandwindows">
+            <img src="<?php echo isset($item['image']) && !empty($item['image']) 
+                     ? 'http://localhost/timberly/public/images/' . $item['image'] 
                      : 'uploads/decorated-front-door-with-plant_23-2150562176.avif'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
 
                 <h3><?php echo htmlspecialchars($item['description']); ?></h3>
                 <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
                 
-                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
-                <p>Review: <?php echo htmlspecialchars($item['review']); ?></p>
+                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
+                <p>Category: <?php echo htmlspecialchars($item['category']); ?></p>
+                <p>Size: <?php echo htmlspecialchars($item['size']); ?></p>
+                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']); ?></p>
                 <div class="card-actions">
                 <button class="edit-btn" >
         <i class="fas fa-edit"></i>
     </button> 
-    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['productId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
+    <button class="delete-btn" onclick="deleteProduct(<?php echo $item['furnitureId']; ?>)" ><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -189,7 +191,9 @@ require_once '../../api/auth.php';
                 <option value="Chair">Chair</option>
                 <option value="Table">Table</option>
                 <option value="Wardrobe">Wardrobe</option>
-                <option value="doorsandwindows">Doors and Windows</option>
+                <option value="Door">Door</option>
+                <option value="Window">Window</option>
+                <option value="Transom">Transom</option>
             </select>
 
             

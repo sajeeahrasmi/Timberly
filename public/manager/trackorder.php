@@ -78,41 +78,61 @@ include '../../api/trackorderdetails.php';
                     <button onclick="showPopup('measurementPopup')">Update</button>
                 </div>
                 <div class="card">                            
-    <div class="driver-assignment-section">
-        <form class="driver-form" onsubmit="event.preventDefault(); assignDriver();">
+                <div class="driver-assignment-section">
+    <form class="driver-form" onsubmit="event.preventDefault(); assignDriver();">
         <select class="driver-select">
-                <option value="">Select Available Driver</option>
-                <option value="1">Driver 1 - Vehicle: ABC123</option>
-                <option value="2">Driver 2 - Vehicle: XYZ456</option>
-                <option value="3">Driver 3 - Vehicle: DEF789</option>
-            </select>
-            <button type="submit">Assign Driver</button>
-        </form>
-        <div class="assignment-details">
-            <!-- Placeholder for assignment details or status -->
-            Please select a driver to assign to the task.
-        </div>
+            <option value="">Loading drivers...</option>
+        </select>
+        <button type="submit">Assign Driver</button>
+    </form>
+    <div class="assignment-details">
+        Please select a driver to assign to the task.
     </div>
 </div>
+</div>
 <script>
+window.onload = function() {
+    fetch('../../api/getAvailableDrivers.php')
+        .then(response => response.json())
+        .then(drivers => {
+            const select = document.querySelector('.driver-select');
+            select.innerHTML = '<option value="">Select Available Driver</option>';
+            drivers.forEach(driver => {
+                const option = document.createElement('option');
+                option.value = driver.driverId;
+                option.textContent = `Driver ${driver.driverId} - Vehicle: ${driver.vehicleNo}`;
+                select.appendChild(option);
+            });
+        });
+};
+
 function assignDriver() {
-    // Select the <select> element and the assignment details div
     const driverSelect = document.querySelector('.driver-form select');
     const driverStatusDiv = document.querySelector('.assignment-details');
-    
-    // Get the selected driver value
     const selectedDriverId = driverSelect.value;
-
+    const orderId = '<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>';
+    //trim the orderId to remove any extra spaces
+    
+     // Fallback to 0 if orderId is not available
     if (!selectedDriverId) {
         driverStatusDiv.textContent = 'Please select a driver';
-        driverStatusDiv.style.color = '#f44336'; // Error text color
+        driverStatusDiv.style.color = '#f44336';
         return;
     }
 
-    // Simulate driver assignment
-    driverStatusDiv.textContent = `Driver ${selectedDriverId} assigned successfully!`;
-    driverStatusDiv.style.color = '#4CAF50'; // Success text color
-    driverSelect.disabled = true; // Disable the dropdown after selection
+    fetch('../../api/selectDriver.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `driverId=${selectedDriverId}&orderId=${orderId}`
+    })
+    .then(res => res.json())
+    .then(response => {
+        driverStatusDiv.textContent = response.message;
+        driverStatusDiv.style.color = response.status === 'success' ? '#4CAF50' : '#f44336';
+        if (response.status === 'success') {
+            driverSelect.disabled = true;
+        }
+    });
 }
 </script>
 
