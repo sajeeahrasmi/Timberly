@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($furnitureDataResult)) {
     $furnitureData[] = $row;
 }
 // Fetch Doors and Windows Data
-$doorsAndwindowsDataQuery = "SELECT productId, description, type, price, review , image_path FROM products WHERE categories = 'doorsandwindows'";
+$doorsAndwindowsDataQuery = "SELECT furnitureId, description,category, type,size,additionalDetails, unitPrice , image FROM furnitures WHERE category in ('Door','Window' , 'Transom')";
 $doorsAndwindowsDataResult = mysqli_query($conn, $doorsAndwindowsDataQuery);
 if (!$doorsAndwindowsDataResult) {
     die("Error fetching doors and windows data: " . mysqli_error($conn));

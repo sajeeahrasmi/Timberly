@@ -9,6 +9,26 @@ if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
     $conn->begin_transaction();
 
     try {
+        // ✅ Get the quantity before deleting the order
+        $qtyStmt = $conn->prepare("SELECT qty FROM orderlumber WHERE itemId = ? AND orderId = ?");
+        $qtyStmt->bind_param("ii", $itemId, $orderId);
+        $qtyStmt->execute();
+        $result = $qtyStmt->get_result();
+
+        if ($result->num_rows === 0) {
+            throw new Exception('Order not found.');
+        }
+
+        $row = $result->fetch_assoc();
+        $quantity = $row['qty'];
+        $qtyStmt->close();
+
+        // ✅ Add the quantity back to inventory
+        $updateInventory = $conn->prepare("UPDATE lumber SET qty = qty + ? WHERE lumberId = ?");
+        $updateInventory->bind_param("ii", $quantity, $itemId);
+        $updateInventory->execute();
+        $updateInventory->close();
+
         // Delete the order record
         $deleteQuery = "DELETE FROM orderlumber 
                        WHERE itemId = ? AND orderId = ?";
