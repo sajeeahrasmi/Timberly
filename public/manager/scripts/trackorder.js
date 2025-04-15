@@ -137,7 +137,7 @@ function updateTotal() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `orderId=${orderId}&itemId=${itemId}`
+        body: `orderId=${orderId}&itemId=${itemId}&dfree=${deliveryFee}`
     })
     .then(async response => {
         const text = await response.text();
