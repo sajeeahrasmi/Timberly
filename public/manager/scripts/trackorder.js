@@ -162,7 +162,7 @@ function updatePriceOnQuantityChange(input) {
     // Get the price from the first cell (3rd index, as the price is in the 4th column)
     const unitPriceText = row.cells[4].innerText.trim();
     const unitPrice = parseFloat(unitPriceText.replace('Rs.', '').replace(',', '').trim()) || 0;
-    
+   
     // Get the new quantity value
     const quantity = parseInt(input.value) || 1;
     
@@ -192,8 +192,10 @@ function updatePriceOnQuantityChange(input) {
     })
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-
+    .catch(error => {
+        alert("Not Enough Stock"); // Show the exact DB-trigger message to the user
+         // Recalculate price
+    });
 
     // Update the overall total
     updateTotal();
