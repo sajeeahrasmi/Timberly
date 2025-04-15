@@ -12,6 +12,7 @@ if (empty($orderId) || empty($itemId) || !is_numeric($qty)) {
     exit;
 }
 
+
 // Step 1: Update qty in orderlumber
 $stmt = $conn->prepare("UPDATE orderlumber SET qty = ? WHERE orderId = ? AND itemId = ?");
 $stmt->bind_param("iii", $qty, $orderId, $itemId);
