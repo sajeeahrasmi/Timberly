@@ -20,6 +20,7 @@ $sql = "
         u.phone,
         ol.qty, 
         ol.status AS itemStatus, 
+        l.unitPrice,
         CONCAT(l.type, ' (', ol.qty, ')') AS typeQty 
     FROM orderlumber ol
     LEFT JOIN orders o ON ol.orderId = o.orderId

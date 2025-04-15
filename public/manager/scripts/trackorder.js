@@ -1,5 +1,7 @@
+console.log(document.getElementById("orderId").value)
+console.log(document.getElementById("itemId").value)
 
-function updateStatus(status,oId,iId) {
+function updateStatus(status, oId, iId) {
     let progress = 0;
     let color = '';
     let hideElements = false;
@@ -48,20 +50,25 @@ function updateStatus(status,oId,iId) {
     .then(data => {
         // Handle the response from the backend
         console.log(data); // Display the response for debugging
+        
+        // Update the status text in the table
+        document.querySelectorAll('.order-details table tr').forEach(row => {
+            // Find the status cell (2nd column in each row)
+            const statusCell = row.cells && row.cells[1];
+            if (statusCell) {
+                statusCell.innerText = status;
+            }
+        });
     })
     .catch(error => {
         console.error('Error:', error);
     });
 
-    document.querySelectorAll('.status').forEach(el => {
-        el.innerText = status;
-    });
-
+    // Update progress bar immediately for better UX
     $('#progressBar').animate({ width: progress + '%' }, 500, function() {
         $(this).text(progress + '%');
     }).css('background-color', color);
 
-    
     const elementsToHide = document.querySelectorAll('.quantity, #deliveryFee');
     elementsToHide.forEach(el => {
         if (hideElements) {
@@ -70,6 +77,7 @@ function updateStatus(status,oId,iId) {
             el.classList.remove('hidden'); 
         }
     });
+    
     const quantityInputs = document.querySelectorAll('.quantity');
     quantityInputs.forEach(input => {
         if (hideElements) {
@@ -78,11 +86,7 @@ function updateStatus(status,oId,iId) {
             input.removeAttribute('disabled'); 
         }
     });
-
-    
-
 }
-
 
 function updateTotal() {
     let subtotal = 0;
@@ -124,6 +128,30 @@ function updateTotal() {
     
     // Update the total display - make sure the value is actually displayed
     document.getElementById('total').innerText = total.toFixed(2);
+    //code for send orderid for update the total in the database
+    const orderId =  document.getElementById("orderId").value;
+    const itemId =  document.getElementById("itemId").value;
+    //const quantity =  document.getElementById("quantity").value;
+    fetch('../../api/updateOrderTotal.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `orderId=${orderId}&itemId=${itemId}`
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            console.log('Response from updateOrderTotal:', data);
+        } catch (e) {
+            console.error('Failed to parse JSON. Raw response:', text);
+        }
+    })
+    .catch(error => console.error('Fetch error:', error));
+    
+    
+    
 }
 
 // Function to update price when quantity changes
@@ -152,7 +180,21 @@ function updatePriceOnQuantityChange(input) {
     
     // For debugging
     console.log(`Quantity changed to ${quantity}, New price: ${newTotalPrice}`);
-    
+    //save the new quantity to the database
+    const itemId =  document.getElementById("itemId").value;
+    const orderId =  document.getElementById("orderId").value;
+    fetch('../../api/updateqty.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `itemId=${itemId}&orderId=${orderId}&quantity=${quantity}`
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+
+
     // Update the overall total
     updateTotal();
 }

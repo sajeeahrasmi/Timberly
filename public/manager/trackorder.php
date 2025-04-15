@@ -18,6 +18,10 @@ include '../../api/trackorderdetails.php';
     <link rel="stylesheet" href="./styles/trackorder.css">
 </head>
 <body>
+<input type="hidden" id="orderId" value="<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>">
+<input type="hidden" id="itemId" value="<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>">
+
+
 <div class="header">
         <div class="container">
             <h1 id="orderTitle">Order #<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? 'N/A'); ?></h1>
@@ -53,16 +57,16 @@ include '../../api/trackorderdetails.php';
                         <td><?php echo htmlspecialchars($item['typeQty']); ?></td>
                         <td><?php echo htmlspecialchars($item['itemStatus']); ?></td>
                         <td>
-                            <input type="number" value="<?php echo $item['qty']; ?>" min="1" >
+                            <input type="number" id = 'qty' value="<?php echo $item['qty']; ?>" min="1" >
                         </td>
-                        <td>Rs.<?php echo number_format($item['totalAmount'], 2); ?></td>
-                        <td>Rs.<?php echo number_format($item['totalAmount']/$item['qty']); ?></td>
+                        <td>Rs.<?php echo number_format($item['unitPrice'] * $item['qty'], 2); ?></td>
+                        <td>Rs.<?php echo number_format($item['unitPrice']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
             <div class="order-summary">
                 <h3>Order Summary</h3>
-                <p><strong>Subtotal:</strong> Rs.<?php echo number_format($item['totalAmount'], 2); ?></p>
+                
                 <p><strong>Delivery Fee:</strong> <input type="number" value="100" min="0" step="0.1" onchange="updateTotal()"></p>
                 <p><strong>Total:</strong> Rs.<span id="total">0.00</span></p>
             </div>
