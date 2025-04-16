@@ -21,12 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // const clearCartBtn = document.getElementById('clear-cart-btn');
-    // if (clearCartBtn) {
-    //     clearCartBtn.addEventListener('click', clearCart);
-    // }
-
-    // Handle order now button
     const orderNowBtn = document.getElementById('order-now-btn');
     if (orderNowBtn) {
         orderNowBtn.addEventListener('click', processOrder);
@@ -64,36 +58,6 @@ async function updateItemQuantity(input) {
 
 }
 
-function updateItemTotal(input) {
-    const cartItem = input.closest('.cart-item');
-    const priceElement = cartItem.querySelector('.price-details .price:not(.item-total)');
-    const totalElement = cartItem.querySelector('.item-total');
-    
-    const quantity = parseInt(input.value);
-    const price = parseFloat(priceElement.textContent.replace('Rs. ', '').replace(',', ''));
-    const total = price * quantity;
-    
-    totalElement.textContent = 'Rs. ' + total.toFixed(2);
-}
-
-function updateCartTotals() {
-    let totalItems = 0;
-    let totalAmount = 0;
-    
-    document.querySelectorAll('.cart-item').forEach(item => {
-        totalItems++;
-        const itemTotal = parseFloat(item.querySelector('.item-total').textContent.replace('Rs. ', '').replace(',', ''));
-        totalAmount += itemTotal;
-    });
-    
-    document.getElementById('total-items').textContent = totalItems;
-    document.getElementById('total-amount').textContent = 'Rs. ' + totalAmount.toFixed(2);
-    
-    const orderNowBtn = document.getElementById('order-now-btn');
-    if (orderNowBtn) {
-        orderNowBtn.disabled = totalItems === 0;
-    }
-}
 
 async function removeCartItem(button) {
     if (!confirm('Are you sure you want to remove this item from your cart?')) {
@@ -182,5 +146,5 @@ function processOrder() {
         return;
     }
     
-    window.location.href = 'http://localhost/Timberly/public/customer/payment-details.html';
+    // window.location.href = 'http://localhost/Timberly/public/customer/payment-details.php?orderId=${orderId}';
 }
