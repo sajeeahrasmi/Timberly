@@ -68,7 +68,8 @@ function fetchOrders() {
       // Filter data to show only pending items
       const pendingOrders = data.filter(item => 
         (item.productType === 'Lumber' && item.lumberStatus === 'Pending') || 
-        (item.productType === 'Furniture' && item.furnitureStatus === 'Pending')
+        (item.productType === 'Furniture' && item.furnitureStatus === 'Pending') ||
+        (item.productType === 'Customized_Furniture' && item.customStatus === 'Pending')
       );
 
       pendingOrders.forEach(item => {
@@ -81,7 +82,8 @@ function fetchOrders() {
             orderStatus: item.orderStatus,
             date: item.date,
             lumberItems: [], // Initialize lumber items array
-            furnitureItems: [] // Initialize furniture items array
+            furnitureItems: [], // Initialize furniture items array
+            customItems: [] // Initialize customized furniture items array
           };
         }
 
@@ -102,6 +104,18 @@ function fetchOrders() {
             size: item.furnitureSize,
             category: item.furnitureCategory,
             description: item.furnitureDescription
+          });
+        } else if (item.productType === 'Customized_Furniture') {
+          orders[item.orderId].customItems.push({
+            itemId: item.customItemId,
+            qty: item.customQty,
+            itemStatus: item.customStatus,
+            description: item.customDescription,
+            woodType: item.customWoodType,
+            size: `${item.customLength} x ${item.customWidth}`,
+            frame: item.customFrame,
+            unitPrice: item.customUnitPrice,
+            image: item.customImage
           });
         }
       });
@@ -131,21 +145,34 @@ function fetchOrders() {
             Wood Type: ${item.type}<br>
             Size: ${item.size}<br>
             Qty: ${item.qty}<br>
+            <b>Unit Price: ${item.unitPrice || 'To be decided'}</b><br>
+          </div>`
+        ).join('');
+
+        // Create HTML for customized furniture items
+        const customItemsHTML = order.customItems.map(item => 
+          `<div class="item-details customized-furniture">
+            <strong>Customized Furniture:</strong><br>
+            Item ID: ${item.itemId}<br>
+            Description: ${item.description || 'N/A'}<br>
+            Wood Type: ${item.woodType}<br>
+            Size: ${item.size}<br>
+            Frame: ${item.frame}<br>
+            Qty: ${item.qty}<br>
+            <b>Unit Price: ${item.unitPrice || 'To be decided'}</b><br>
+            
             
           </div>`
         ).join('');
 
-        // Combine both types of items
-        const itemsHTML = lumberItemsHTML + furnitureItemsHTML;
-        
+        // Combine all items (Lumber, Furniture, Customized Furniture)
+        const itemsHTML = lumberItemsHTML + furnitureItemsHTML + customItemsHTML;
+
         row.innerHTML = `
           <td>${order.customerId}</td>
           <td>${order.customerName}</td>
           <td>${order.orderId}</td>
-          
-          <td>
-            ${itemsHTML || 'No pending items found'}
-          </td>
+          <td>${itemsHTML || 'No pending items found'}</td>
           <td>Rs.${order.totalAmount}</td>
           <td>${order.orderStatus}</td>
           <td>
@@ -158,6 +185,7 @@ function fetchOrders() {
     })
     .catch(error => console.error('Error fetching orders:', error));
 }
+
 
 function updateOrderStatus(orderId, newStatus) {
   fetch('../../api/updateOrder.php', {

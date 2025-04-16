@@ -299,10 +299,85 @@ include '../../api/ViewOrderDetails.php';
                 text-align: center;
             }
         }
+        .modal {
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+    }
+    
+    .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #895D47;
+    }
+    
+    .form-group {
+        margin: 1.5rem 0;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+    
+    .price-not-set {
+        color: #f44336;
+        font-style: italic;
+        margin-right: 10px;
+    }
+    
+    .set-price-btn {
+        padding: 0.25rem 0.75rem !important;
+        margin-top: 0 !important;
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
     </style>
 </head>
 <body>
-    
+    <!-- Modal for setting price -->
+<div id="setPriceModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Set Unit Price</h2>
+        <div class="form-group">
+            <label for="unitPrice">Unit Price (Rs.):</label>
+            <input type="number" id="unitPrice" min="0" step="0.01" placeholder="Enter unit price">
+        </div>
+        <button class="action-btn" onclick="updateUnitPrice()">Save Price</button>
+    </div>
+</div>
+
+
     <div class="container">
         <div class="header-section">
             <div class="header-content">
@@ -347,12 +422,24 @@ include '../../api/ViewOrderDetails.php';
         <?php if(!empty($orderDetails['additionalDetails'])): ?>
             <p><strong>Additional Details:</strong> <?php echo htmlspecialchars($orderDetails['additionalDetails']); ?></p>
         <?php endif; ?>
+        
+        <!-- Add unit price information and button if price is null -->
+        <p><strong>Unit Price:</strong> 
+        <?php if (empty($orderDetails['unitPrice']) || $orderDetails['unitPrice'] == 0): ?>
+                <span class="price-not-set">Price not set</span>
+                <button class="action-btn set-price-btn" onclick="showSetPriceModal(<?php echo $orderDetails['itemId']; ?> , <?php echo $orderDetails['orderId']; ?>)">Set Price</button>
+            <?php else: ?>
+                Rs.<?php echo number_format($orderDetails['unitPrice'], 2); ?>
+            
+                
+            <?php endif; ?>
+        </p>
     <?php endif; ?>
     <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
     <p><strong>Price:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
     <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
     <div class="item-buttons">
-        <!-- Convert the links to buttons -->
+        <!-- Existing buttons -->
         <button class="action-btn" id="checkStockBtn" onclick="checkStock(<?php echo $orderDetails['itemId']; ?>)">Check Stock</button>
         <button class="action-btn" id="approveBtn" onclick="approveOrder(<?php echo $orderDetails['itemId']; ?>, <?php echo $orderDetails['orderId']; ?>)">
             Approve
@@ -360,8 +447,7 @@ include '../../api/ViewOrderDetails.php';
         <button class="action-btn" id="rejectBtn" onclick="rejectOrder(<?php echo $orderDetails['itemId'] ; ?> , <?php echo $orderDetails['orderId']; ?>)">Reject</button>
     </div>
     <p></p>
-</div>
-                    
+</div>                
                                 <p></p>
                             </div>
                         </div>
