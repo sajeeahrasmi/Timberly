@@ -112,12 +112,14 @@ function updateTotal() {
     
     // Get delivery fee from the input in order summary
     const deliveryFeeInput = document.querySelector('.order-summary input[type="number"]');
+    //console.log(deliveryFeeInput.value); // Debugging line to check the value of delivery fee input
     let deliveryFee = parseFloat(deliveryFeeInput.value) || 0;
+    console.log(deliveryFee); 
     
     if (deliveryFee < 0) {
         alert("Delivery fee must be a positive number!");
         deliveryFee = 0;
-        deliveryFeeInput.value = 0;
+        deliveryFeeInput.value = 0.00;
     }
     
     // Final total is subtotal + delivery fee
@@ -297,11 +299,82 @@ function setOrderTitle(orderId) {
 
 
 $(document).ready(function() {
-    const orderId = '12345'; 
-    setOrderTitle(orderId);
-    updateStatus('Pending'); 
+    // Get the actual order ID from the hidden input field
+    const orderId = document.getElementById('orderId').value;
+    // Only set the title if it's not already set correctly
+    if (!document.getElementById('orderTitle').innerText.includes(orderId)) {
+        setOrderTitle(orderId);
+    }
+    
+    // Initialize progress bar based on current status
+    initializeProgressBar();
 });
 function goToOrders() {
     
     window.location.href = 'admin.php';
+}
+function initializeProgressBar() {
+    // Get the current status from the first row of the order details table
+    const statusCell = document.querySelector('.order-details table tr:not(:first-child) td:nth-child(2)');
+    
+    if (statusCell) {
+        const currentStatus = statusCell.innerText.trim();
+        
+        // Set progress bar without making an API call
+        let progress = 0;
+        let color = 'white';
+        
+        switch(currentStatus) {
+            case 'Pending':
+                progress = 0; 
+                color = 'white'; 
+                break;
+            case 'Confirmed':
+                progress = 17; 
+                color = 'Yellow'; 
+                break;    
+            case 'Processing': 
+                progress = 34; 
+                color = '#e74c3c';
+                break;
+            case 'Not_Delivered': 
+                progress = 51; 
+                color = '#f39c12'; 
+                break;
+            case 'Delivered': 
+                progress = 76; 
+                color = 'purple'; 
+                break;
+            case 'Completed': 
+                progress = 100; 
+                color = '#2ecc71'; 
+                break;
+        }
+        
+        // Update the progress bar
+        $('#progressBar').css({
+            'width': progress + '%',
+            'background-color': color
+        }).text(progress + '%');
+        
+        // Handle visibility of elements based on status
+        const hideElements = ['Not_Delivered', 'Delivered', 'Completed'].includes(currentStatus);
+        const elementsToHide = document.querySelectorAll('.quantity, #deliveryFee');
+        elementsToHide.forEach(el => {
+            if (hideElements) {
+                el.classList.add('hidden'); 
+            } else {
+                el.classList.remove('hidden'); 
+            }
+        });
+        
+        const quantityInputs = document.querySelectorAll('.quantity');
+        quantityInputs.forEach(input => {
+            if (hideElements) {
+                input.setAttribute('disabled', 'true'); 
+            } else {
+                input.removeAttribute('disabled'); 
+            }
+        });
+    }
 }

@@ -368,7 +368,7 @@ include '../../api/ViewOrderDetails.php';
                   
                 </div>
                 
-                <a href="Trackorder.php?orderId=<?php echo $orderDetails['orderId']; ?>&itemId=<?php echo $orderDetails['itemId']; ?>&type=<?php echo $orderDetails['orderType']; ?>" class="track-order-btn">Track Order</a>
+                <a href="trackorder.php?orderId=<?php echo $orderDetails['orderId']; ?>&itemId=<?php echo $orderDetails['itemId']; ?>&type=<?php echo $orderDetails['orderType']; ?>" class="track-order-btn">Track Order</a>
 
 
             </div>
