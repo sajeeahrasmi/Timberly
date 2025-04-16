@@ -6,14 +6,14 @@ $productDataQuery = "SELECT
                     furnitureId,
                     description,
                     category,
-                    unitPrice,
-                    availability,
-                    quantity
+                    type,
+                    size,
+                    unitPrice
                     from furnitures";
 $productDataResult = mysqli_query($conn, $productDataQuery);
 
 if (!$productDataResult) {
-    die("Error fetching product data: " . mysqli_error($conn));
+    die("Error fetching product data. " . mysqli_error($conn));
 }
 
 // Fetch all rows into an array

@@ -33,9 +33,9 @@
                             <th>Product ID</th>
                             <th>Product</th>
                             <th>Category</th>
-                            <th>Price(Rs.)</th>
-                            <th>Availability</th>
-                            <th>Quantity</th>
+                            <th>Type</th>
+                            <th>Size</th>
+                            <th>Price (Rs)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,9 +44,9 @@
                             <td><?php echo $item['furnitureId']; ?></td>
                             <td><?php echo $item['description']; ?></td>
                             <td><?php echo $item['category']; ?></td>
+                            <td><?php echo $item['type']; ?></td>
+                            <td><?php echo $item['size']; ?></td>
                             <td style="text-align: right"><?php echo $item['unitPrice']; ?></td>
-                            <td><?php echo $item['availability']; ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
