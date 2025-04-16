@@ -1,6 +1,6 @@
 console.log(document.getElementById("orderId").value)
 console.log(document.getElementById("itemId").value)
-
+console.log(document.getElementById("orderType").value)
 function updateStatus(status, oId, iId) {
     let progress = 0;
     let color = '';
@@ -38,13 +38,13 @@ function updateStatus(status, oId, iId) {
             hideElements = true; 
             break;
     }
-
+    const orderType = document.getElementById("orderType").value;
     fetch('../../api/updateStatus.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `orderId=${oId}&itemId=${iId}&status=${status}`
+        body: `orderId=${oId}&itemId=${iId}&status=${status}&orderType=${orderType}`
     })
     .then(response => response.json())
     .then(data => {
@@ -133,6 +133,8 @@ function updateTotal() {
     //code for send orderid for update the total in the database
     const orderId =  document.getElementById("orderId").value;
     const itemId =  document.getElementById("itemId").value;
+    const orderType = document.getElementById("orderType").value;
+    if (orderType != 'furniture') {
     //const quantity =  document.getElementById("quantity").value;
     fetch('../../api/updateOrderTotal.php', {
         method: 'POST',
@@ -153,7 +155,29 @@ function updateTotal() {
     .catch(error => console.error('Fetch error:', error));
     
     
-    
+}
+else if (orderType == 'furniture') {
+    fetch('../../api/updateOrderTotalFurniture.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `orderId=${orderId}&itemId=${itemId}&dfree=${deliveryFee}`
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            console.log('Response from updateOrderTotalFurniture:', data);
+        } catch (e) {
+            console.error('Failed to parse JSON. Raw response:', text);
+        }
+    })
+    .catch(error => console.error('Fetch error:', error));
+}
+{
+
+}
 }
 
 // Function to update price when quantity changes
@@ -185,12 +209,16 @@ function updatePriceOnQuantityChange(input) {
     //save the new quantity to the database
     const itemId =  document.getElementById("itemId").value;
     const orderId =  document.getElementById("orderId").value;
+    const orderType = document.getElementById("orderType").value;
+    //console.log(orderType)
+    if(orderType != 'furniture')
+    {
     fetch('../../api/updateqty.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `itemId=${itemId}&orderId=${orderId}&quantity=${quantity}`
+        body: `itemId=${itemId}&orderId=${orderId}&quantity=${quantity}&ordertype=${orderType}`
     })
     .then(response => response.json())
     .then(data => console.log(data))
@@ -198,11 +226,37 @@ function updatePriceOnQuantityChange(input) {
         alert("Not Enough Stock"); // Show the exact DB-trigger message to the user
          // Recalculate price
     });
+    updateTotal();
+}
+else if(orderType == 'furniture')
+{
+
+    fetch('../../api/updateqtyFurniture.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `itemId=${itemId}&orderId=${orderId}&quantity=${quantity}&ordertype=${orderType}`
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            console.log(data);
+        } catch (e) {
+            console.error('Invalid JSON:', text); // This will show raw response from server
+             // Show actual DB response message (if any)
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        alert('Something went wrong!');
+    });
 
     // Update the overall total
     updateTotal();
 }
-
+}
 
 // Add event listeners when the document loads
 document.addEventListener('DOMContentLoaded', function() {

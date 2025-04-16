@@ -6,6 +6,7 @@ require_once 'db.php';
 $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : '';
 $itemId = isset($_POST['itemId']) ? $_POST['itemId'] : '';
 $status = isset($_POST['status']) ? $_POST['status'] : '';
+$orderType = isset($_POST['orderType']) ? $_POST['orderType'] : '';
 
 // Update the order status in the database
 if ($status== 'Confirmed'){
@@ -16,8 +17,15 @@ if ($status== 'Confirmed'){
         $stmt->bind_param("si", $status, $orderId);
 }
 
-else{
+else if ($orderType == 'lumber'){
     $sql = "UPDATE orderlumber
+    SET status = ?
+    WHERE orderId = ? AND itemId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sii", $status, $orderId, $itemId);
+}
+else if ($orderType == 'furniture'){
+    $sql = "UPDATE orderfurniture
     SET status = ?
     WHERE orderId = ? AND itemId = ?";
     $stmt = $conn->prepare($sql);

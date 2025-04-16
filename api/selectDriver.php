@@ -5,6 +5,7 @@ if (isset($_POST['driverId'])) {
     $driverId = $_POST['driverId'];
 
     $orderId = $_POST['orderId'] ?? 0; // Fallback to 0 if orderId is not available
+    $itemId = $_POST['itemId'] ?? '';
     // Double check availability before assigning
     $stmt = $conn->prepare("SELECT available FROM driver WHERE driverId = ?");
     $stmt->bind_param("i", $driverId);
@@ -20,8 +21,8 @@ if (isset($_POST['driverId'])) {
         $update->bind_param("i", $driverId);
         $update->execute();
 
-        $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ? WHERE orderId = ?");
-        $updateOrder->bind_param("ii", $driverId, $orderId);
+        $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ? WHERE orderId = ? AND itemId = ? ");
+        $updateOrder->bind_param("iii", $driverId, $orderId, $itemId);
         $updateOrder->execute();
         echo json_encode(['status' => 'success', 'message' => 'Driver assigned successfully']);
     }

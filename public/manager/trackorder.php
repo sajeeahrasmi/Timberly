@@ -21,6 +21,7 @@ include '../../api/trackorderdetails.php';
 <input type="hidden" id="orderId" value="<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>">
 <input type="hidden" id="itemId" value="<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>">
 
+<input type="hidden" id="orderType" value="<?php echo htmlspecialchars($orderDetails[0]['orderType'] ?? ''); ?>">
 
 <div class="header">
         <div class="container">
@@ -115,6 +116,7 @@ function assignDriver() {
     const driverStatusDiv = document.querySelector('.assignment-details');
     const selectedDriverId = driverSelect.value;
     const orderId = '<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>';
+    const itemId = '<?php echo htmlspecialchars($orderDetails[0]['itemId'] ?? ''); ?>';
     //trim the orderId to remove any extra spaces
     
      // Fallback to 0 if orderId is not available
@@ -127,7 +129,7 @@ function assignDriver() {
     fetch('../../api/selectDriver.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `driverId=${selectedDriverId}&orderId=${orderId}`
+        body: `driverId=${selectedDriverId}&orderId=${orderId}&itemId=${itemId}`
     })
     .then(res => res.json())
     .then(response => {
