@@ -165,7 +165,7 @@ $row4 = $result4->fetch_assoc();
                         <p>Total: <span><?php echo $totalAmount ?></span> </p>
                         <p>Paid: <span><?php echo $paidAmount ?></span></p>
                         <p>Balance: <span><?php echo $balance ?></span></p>
-                        <button id="pay" class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/payment-details.html`">Pay</button>
+                        <button id="pay" class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/customer/payment-details.php?orderId=${<?php echo $orderId ?>}`">Pay</button>
                     </div>
                     <div class="card">
                         <h4>Measurement Person</h4>
