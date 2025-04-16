@@ -17,17 +17,21 @@ if ($newStatus === 'Pending') {
     // Delete from both orderlumber and orderfurniture
     $sqlLumber = "DELETE FROM orderlumber WHERE orderId = ?";
     $sqlFurniture = "DELETE FROM orderfurniture WHERE orderId = ?";
+    $sqlcFurniture = "DELETE FROM ordercustomizedfurniture WHERE orderId = ?";
 
     $stmtLumber = $conn->prepare($sqlLumber);
     $stmtFurniture = $conn->prepare($sqlFurniture);
-
+    $stmtcFurniture = $conn->prepare($sqlcFurniture);
+    
     $stmtLumber->bind_param("i", $orderId);
     $stmtFurniture->bind_param("i", $orderId);
-
+    $stmtcFurniture->bind_param("i", $orderId);
+    
     $successLumber = $stmtLumber->execute();
     $successFurniture = $stmtFurniture->execute();
+    $successcFurniture = $stmtcFurniture->execute();
 
-    if ($successLumber && $successFurniture) {
+    if ($successLumber && $successFurniture && $successcFurniture) {
         echo json_encode(["success" => true, "message" => "Orders deleted because status is 'Pending'"]);
     } else {
         echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
@@ -35,21 +39,26 @@ if ($newStatus === 'Pending') {
 
     $stmtLumber->close();
     $stmtFurniture->close();
+    $stmtcFurniture->close();
 } else {
     // Update status in both orderlumber and orderfurniture
     $sqlLumber = "UPDATE orderlumber SET status = ? WHERE orderId = ?";
     $sqlFurniture = "UPDATE orderfurniture SET status = ? WHERE orderId = ?";
+    $sqlcFurniture = "UPDATE ordercustomizedfurniture SET status = ? WHERE orderId = ?";
 
     $stmtLumber = $conn->prepare($sqlLumber);
     $stmtFurniture = $conn->prepare($sqlFurniture);
+    $stmtcFurniture = $conn->prepare($sqlcFurniture);
 
     $stmtLumber->bind_param("si", $newStatus, $orderId);
     $stmtFurniture->bind_param("si", $newStatus, $orderId);
+    $stmtcFurniture->bind_param("si", $newStatus, $orderId);
 
     $successLumber = $stmtLumber->execute();
     $successFurniture = $stmtFurniture->execute();
+    $successcFurniture = $stmtcFurniture->execute();
 
-    if ($successLumber && $successFurniture) {
+    if ($successLumber && $successFurniture && $successcFurniture) {
         echo json_encode(["success" => true, "message" => "Order status updated"]);
     } else {
         echo json_encode(["success" => false, "message" => "Database error: " . $conn->error]);
@@ -57,6 +66,7 @@ if ($newStatus === 'Pending') {
 
     $stmtLumber->close();
     $stmtFurniture->close();
+    $stmtcFurniture->close();
 }
 
 $conn->close();

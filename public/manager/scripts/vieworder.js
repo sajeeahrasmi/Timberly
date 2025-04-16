@@ -1,4 +1,88 @@
+// Global variables to store current item and order IDs
+let currentItemId = null;
+let currentOrderId = null;
 
+// Function to show modal for setting price
+function showSetPriceModal(itemId, orderId) {
+    currentItemId = itemId;
+    currentOrderId = orderId;
+    
+    // Show the modal
+    document.getElementById('setPriceModal').style.display = 'flex';
+    
+    // Focus on the input field
+    document.getElementById('unitPrice').focus();
+}
+
+// Function to close the modal
+function closeModal() {
+    document.getElementById('setPriceModal').style.display = 'none';
+}
+
+// Function to handle unit price update
+function updateUnitPrice() {
+    const unitPrice = document.getElementById('unitPrice').value;
+    
+    // Validate input
+    if (unitPrice === '' || isNaN(unitPrice) || parseFloat(unitPrice) < 0) {
+        alert('Please enter a valid price');
+        return;
+    }
+    
+    // Send AJAX request to update unit price
+    fetch('updateunitprice.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `itemId=${currentItemId}&orderId=${currentOrderId}&unitPrice=${unitPrice}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert('Price updated successfully');
+            // Refresh the page to show updated price
+            window.location.reload();
+        } else {
+            alert('Failed to update price: ' + (data.message || 'Unknown error'));
+        }
+    })
+    .catch(error => {
+        console.error('Error updating price:', error);
+        alert('An error occurred while updating the price');
+    });
+    
+    // Close the modal
+    closeModal();
+}
+
+// Close modal if user clicks outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('setPriceModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+};
+
+// Add keyboard support for modal (Escape key to close)
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Function to handle the existing button functionality
+function goToOrders() {
+    window.location.href = 'orders.php';
+}
+
+// Existing functions for your other buttons...
+// (checkStock, approveOrder, rejectOrder)
 
 function showSection(sectionId) {
     
@@ -89,3 +173,4 @@ function rejectOrder(itemId, orderId) {
             });
     }
 }
+

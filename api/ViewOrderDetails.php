@@ -52,6 +52,7 @@ if ($type === 'lumber') {
             orf.status AS itemStatus, 
             CONCAT(orf.type, ' (', orf.qty, ')') AS typeQty,
             orf.type,
+            orf.unitPrice,
             orf.description,
             orf.size,
             orf.additionalDetails,

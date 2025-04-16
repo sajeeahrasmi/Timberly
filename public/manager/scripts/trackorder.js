@@ -432,3 +432,63 @@ function initializeProgressBar() {
         });
     }
 }
+
+// Add this script at the bottom of your page or in a separate JS file
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all unit price input elements
+    const unitPriceInputs = document.querySelectorAll('.unitPrice-input');
+    
+    // Add event listeners to each input
+    unitPriceInputs.forEach(input => {
+        input.addEventListener('change', updateUnitPrice);
+    });
+    
+    // Function to update unit price in database
+    function updateUnitPrice(event) {
+        const input = event.target;
+        const itemId = input.getAttribute('data-item-id');
+        const newUnitPrice = input.value;
+        const orderId = document.getElementById('orderId').value; // Get order ID from the hidden input
+        
+        // Validate input
+        if (newUnitPrice === '' || isNaN(newUnitPrice)) {
+            alert('Please enter a valid price');
+            return;
+        }
+        
+        // Send AJAX request to update unit price
+        fetch('updateunitprice.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `itemId=${itemId}&unitPrice=${newUnitPrice}&orderId=${orderId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the total price cell if needed
+                const row = input.closest('tr');
+                const qtyInput = row.querySelector('#qty');
+                const qty = qtyInput ? qtyInput.value : 1;
+                const totalPriceCell = row.querySelector('td:nth-child(4)');
+                
+                if (totalPriceCell) {
+                    const totalPrice = parseFloat(newUnitPrice) * parseInt(qty);
+                    totalPriceCell.textContent = 'Rs.' + totalPrice.toFixed(2);
+                }
+                
+                // Optional: Show success message
+                console.log('Price updated successfully');
+            } else {
+                // Show error message
+                alert('Failed to update price: ' + (data.message || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error updating price:', error);
+            alert('An error occurred while updating the price');
+        });
+    }
+});
+
