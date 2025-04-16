@@ -67,7 +67,7 @@ include '../../api/trackorderdetails.php';
             <div class="order-summary">
                 <h3>Order Summary</h3>
                 
-                <p><strong>Delivery Fee:</strong> <input type="number" value="0" min="0" step="0.1" onchange="updateTotal()"></p>
+                <p><strong>Delivery Fee:</strong> <input type="number" id="deliveryFee" value="<?php echo $item['deliveryFee']; ?>" min="0" step="0.1" onchange="updateTotal()"></p>
                 <p><strong>Total:</strong> Rs.<span id="total">0.00</span></p>
             </div>
                 <button class="update-total" onclick="updateTotal()">Update Total</button>

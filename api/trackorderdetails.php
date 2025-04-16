@@ -11,6 +11,7 @@ $sql = "
     SELECT 
         o.orderId, 
         o.date, 
+        o.deliveryFee,
         o.totalAmount, 
         o.status AS orderStatus,
         ol.itemId, 
