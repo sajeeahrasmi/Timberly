@@ -1,9 +1,6 @@
 <?php 
-include '../../config/db_connection.php'; // Include your database connection
+include '../../api/displayPost.php'; // Adjust path if needed
 
-// Fetch posts from database
-$sql = "SELECT * FROM crudpost";
-$result = mysqli_query($conn, $sql);
 
 // Handle delete request
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -50,7 +47,7 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
                 <div class="metric-card">
                     <?php 
                     $image = $row['image'];
-                    $imagePath = "./Uploads/" . $image;
+                    $imagePath = "./uploads/" . $image;
                     
                     if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
                         <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
