@@ -5,6 +5,7 @@ require_once '../../api/auth.php';
 
 include '../../api/trackorderdetails.php';
 
+
  
 ?>
 
@@ -97,150 +98,14 @@ include '../../api/trackorderdetails.php';
     </div>
 </div>
 </div>
-<script>
-// Modify your window.onload function
-// Modify your window.onload function to display more driver details
-window.onload = function() {
-    // Get the assigned driver ID from hidden input
-    const assignedDriverId = document.getElementById('assignedDriverId').value;
-    const driverStatusDiv = document.querySelector('.assignment-details');
-    const driverSelect = document.querySelector('.driver-select');
-    
-    // First, fetch available drivers for the dropdown
-    fetch('../../api/getAvailableDrivers.php')
-        .then(response => response.json())
-        .then(drivers => {
-            // Populate the dropdown with available drivers
-            driverSelect.innerHTML = '<option value="">Select Available Driver</option>';
-            drivers.forEach(driver => {
-                const option = document.createElement('option');
-                option.value = driver.driverId;
-                option.textContent = `Driver ${driver.driverId} - Vehicle: ${driver.vehicleNo}`;
-                
-                // If this driver is already assigned, select it
-                if (driver.driverId == assignedDriverId) {
-                    option.selected = true;
-                }
-                
-                driverSelect.appendChild(option);
-            });
-            
-            // If a driver is already assigned, fetch and display detailed driver information
-            if (assignedDriverId && assignedDriverId !== '') {
-                fetch(`../../api/driverDetails.php?driverId=${assignedDriverId}`)
-                    .then(response => response.json())
-                    .then(driverData => {
-                        if (driverData.status === 'success') {
-                            // Create a formatted HTML display for driver details
-                            const driverInfo = `
-                                <div class="driver-info">
-                                    <h4>Assigned Driver</h4>
-                                    <p><strong>Name:</strong> ${driverData.driver.name || 'N/A'}</p>
-                                    <p><strong>Phone:</strong> ${driverData.driver.phone || 'N/A'}</p>
-                                    <p><strong>Vehicle:</strong> ${driverData.driver.vehicleNo || 'N/A'}</p>
-                                    
-                                </div>
-                            `;
-                            
-                            driverStatusDiv.innerHTML = driverInfo;
-                            
-                            // Disable the dropdown and button since a driver is already assigned
-                            driverSelect.disabled = true;
-                            document.querySelector('.driver-form button[type="submit"]').disabled = true;
-                        } else {
-                            // Basic fallback if we can't get detailed information
-                            driverStatusDiv.textContent = `Driver #${assignedDriverId} is assigned to this order.`;
-                            driverStatusDiv.style.color = '#4CAF50';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching driver details:', error);
-                        driverStatusDiv.textContent = `Driver #${assignedDriverId} is assigned, but details couldn't be loaded.`;
-                        driverStatusDiv.style.color = '#FFA500'; // Orange warning color
-                    });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching drivers:', error);
-            driverStatusDiv.textContent = 'Error loading drivers. Please try again.';
-            driverStatusDiv.style.color = '#f44336';
-        });
-};
 
-// Update the assignDriver function to also display driver details when newly assigned
-function assignDriver() {
-    const driverSelect = document.querySelector('.driver-form select');
-    const driverStatusDiv = document.querySelector('.assignment-details');
-    const selectedDriverId = driverSelect.value;
-    const orderId = document.getElementById('orderId').value;
-    const itemId = document.getElementById('itemId').value;
-    const type = document.getElementById('orderType').value;
-    
-    if (!selectedDriverId) {
-        driverStatusDiv.textContent = 'Please select a driver';
-        driverStatusDiv.style.color = '#f44336';
-        return;
-    }
 
-    fetch('../../api/selectDriver.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `driverId=${selectedDriverId}&orderId=${orderId}&itemId=${itemId}&type=${type}`
-    })
-    .then(res => res.json())
-    .then(response => {
-        if (response.status === 'success') {
-            // After successful assignment, fetch and display driver details
-            fetch(`../../api/getDriverDetails.php?driverId=${selectedDriverId}`)
-                .then(response => response.json())
-                .then(driverData => {
-                    if (driverData.status === 'success') {
-                        // Create a formatted HTML display for driver details
-                        const driverInfo = `
-                            <div class="driver-info">
-                                <h4>Assigned Driver</h4>
-                                <p><strong>Name:</strong> ${driverData.driver.name || 'N/A'}</p>
-                                <p><strong>Phone:</strong> ${driverData.driver.phone || 'N/A'}</p>
-                                <p><strong>Vehicle:</strong> ${driverData.driver.vehicleNo || 'N/A'}</p>
-                                <p><strong>Status:</strong> <span class="status-active">Active</span></p>
-                            </div>
-                        `;
-                        
-                        driverStatusDiv.innerHTML = driverInfo;
-                    } else {
-                        driverStatusDiv.textContent = `Driver #${selectedDriverId} assigned successfully.`;
-                        driverStatusDiv.style.color = '#4CAF50';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching driver details:', error);
-                    driverStatusDiv.textContent = `Driver #${selectedDriverId} assigned, but details couldn't be loaded.`;
-                    driverStatusDiv.style.color = '#FFA500'; // Orange warning color
-                });
-                
-            // Disable the dropdown and button
-            driverSelect.disabled = true;
-            document.querySelector('.driver-form button[type="submit"]').disabled = true;
-        } else {
-            driverStatusDiv.textContent = response.message || 'Error assigning driver.';
-            driverStatusDiv.style.color = '#f44336';
-        }
-    })
-    .catch(error => {
-        console.error('Error assigning driver:', error);
-        driverStatusDiv.textContent = 'Error connecting to server. Please try again.';
-        driverStatusDiv.style.color = '#f44336';
-
-    });
-}
-</script>
-
-                <div class="card">
-                    <h3>Payment Details</h3>
-                    <p>Card: **** **** **** 1234</p>
-                    <p>Expiry: 12/25</p>
-                    <p>Name on Card: John Doe</p>
-                </div>
+<div class="card">
+    <h3>Payment Details</h3>
+    <input type="hidden" id="orderId" value="<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>">
+    <p><strong>Amount Paid:</strong> <span id="amountPaid">Rs. 0.00</span></p>
+    <button onclick="updatenew()">Update Payment</button>
+</div> 
             </div>
         </div>
     </div>

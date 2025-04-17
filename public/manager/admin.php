@@ -49,7 +49,9 @@ include '../../config/login.php';
 <li><a href="#" onclick="showSection('orders-section')"><i class="fa-solid fa-chair icon"></i>Orders</a></li>
 <li><a href="#" onclick="showSection('inventory-section')"><i class="fa-solid fa-box icon"></i>Inventory</a></li>
 <li><a href="#" onclick="showSection('report-section')"><i class="fas fa-chart-line icon"></i>Reports</a></li>
-
+<li><a href="payment_notifications.php" class="nav-link" id="payment-link">
+<i class="fas fa-bell icon"></i>Payment Notifications
+    </a>
       
     </ul>
     
@@ -59,7 +61,7 @@ include '../../config/login.php';
         <button type="submit"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</button>
       </form>
     </div>
-</aside>
+</aside></li>
 
 
     

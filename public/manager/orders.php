@@ -76,8 +76,7 @@ require_once '../../api/auth.php';
                         <th>Order ID</th>
                         <th>Order Details</th>
                         <th>Total Amount</th>
-                        <th>Total Payment</th>
-                        <th>Balance</th>
+                        <th>Payment Status</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>

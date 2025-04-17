@@ -29,6 +29,17 @@ $stmt->close();
 
 // Apply delivery fee per item
 $totalAmount += $dfree * $itemCount;
+
+//have to calculate the sum of amount in payment tables for each prder id where viewed = '1' and subtract from totalamount
+$sql = "SELECT SUM(amount) as totalpaid FROM payment WHERE orderId = ? AND viewed = '1'";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $orderId);
+$stmt->execute();
+$result = $stmt->get_result();
+$result = $result->fetch_assoc();
+$totalpaid = $result['totalpaid'] ?? 0; // Default to 0 if not set
+
+$totalAmount = $totalAmount - $totalpaid; // Subtract the total paid from the total amount
  // Add the delivery fee if applicable
 $sql = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
 $stmt = $conn->prepare($sql);

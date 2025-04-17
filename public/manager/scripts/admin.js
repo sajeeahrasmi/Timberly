@@ -273,3 +273,23 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
   .catch(error => console.error('Error updating profile:', error));
 });
 
+function checkPaymentStatus() {
+  fetch('../../api/check_new_payments.php')
+    .then(response => response.json())
+    .then(data => {
+      const paymentLink = document.getElementById('payment-link');
+      
+      // If there are unpaid payments, glow the link
+      if (data.unpaidPayments > 0) {
+        paymentLink.classList.add('glow');
+      } else {
+        paymentLink.classList.remove('glow');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching payment status:', error);
+    });
+}
+
+// Poll every 5 seconds
+setInterval(checkPaymentStatus, 2000);

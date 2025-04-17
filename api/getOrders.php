@@ -13,8 +13,10 @@ $sql_lumber = "SELECT
     o.itemQty,
     o.totalAmount, 
     o.status AS orderStatus, 
+    o.paymentStatus,
     u.name AS customerName, 
     o.userId AS customerId,
+   
     ol.orderId,  
     ol.itemId, 
     '' AS unitPrice,
@@ -27,6 +29,7 @@ FROM orderlumber ol
 LEFT JOIN orders o ON ol.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 LEFT JOIN lumber l ON ol.itemId = l.lumberId
+
 WHERE ol.status != 'Pending'";
 
 // Base query for furniture orders - using 'orf' instead of 'of' as alias
@@ -35,9 +38,12 @@ $sql_furniture = "SELECT
     o.date, 
     o.itemQty,
     o.totalAmount, 
+    
     o.status AS orderStatus, 
+    o.paymentStatus,
     u.name AS customerName, 
     o.userId AS customerId,
+    
     orf.orderId,  
     orf.itemId, 
     orf.qty,
@@ -50,6 +56,7 @@ $sql_furniture = "SELECT
 FROM orderfurniture orf
 LEFT JOIN orders o ON orf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
+
 WHERE orf.status != 'Pending'";
 
 $sql_customized = "SELECT 
@@ -57,9 +64,12 @@ $sql_customized = "SELECT
     o.date, 
     o.itemQty,
     o.totalAmount, 
+    
     o.status AS orderStatus, 
+    o.paymentStatus,
     u.name AS customerName, 
     o.userId AS customerId,
+   
     ocf.orderId,  
     ocf.itemId, 
     ocf.qty, 
@@ -72,6 +82,7 @@ $sql_customized = "SELECT
 FROM ordercustomizedfurniture ocf
 LEFT JOIN orders o ON ocf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
+
 WHERE ocf.status != 'Pending'";
 
 // Add filters to the SQL queries if necessary
@@ -123,8 +134,7 @@ if ($result->num_rows > 0) {
                 <td>{$order['main_order_id']}</td>
                 <td>{$itemDisplay}</td>
                 <td>{$totalAmount}</td>
-                <td>{$totalAmount}</td>
-                <td>{$balance}</td>
+                <td>{$order['paymentStatus']}</td>
                 <td>{$order['itemStatus']}</td>
                 <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>
               </tr>";

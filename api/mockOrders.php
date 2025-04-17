@@ -1,4 +1,6 @@
 <?php
+
+
 header('Content-Type: application/json');
 
 include 'db.php';
@@ -51,7 +53,7 @@ $sql = "SELECT
         ELSE ocf.unitPrice
     END AS customUnitPrice,
     ocf.status AS customStatus,
-    ocf.deliveryId AS customDeliveryId,
+    ocf.driverId AS customDeliveryId,
     ocf.date AS customOrderDate,
     ocf.image AS customImage,
 
