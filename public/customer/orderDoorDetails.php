@@ -32,7 +32,7 @@ $itemQty = $row1['itemQty'] ?? '0';
 
 echo "<script>console.log('Order Status: " . addslashes($status) . "');</script>";
 
-$query2 = "SELECT amount FROM payment WHERE orderId = ? ";
+$query2 = "SELECT SUM(amount) AS amount FROM payment WHERE orderId = ? ";
 $stmt2 = $conn->prepare($query2);
 $stmt2->bind_param("i", $orderId);
 $stmt2->execute();

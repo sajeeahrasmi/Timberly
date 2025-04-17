@@ -24,6 +24,7 @@ $category = $orderData['category'] ?? 'Unknown';
 $status = $orderData['status'] ?? 'Unknown';
 $totalAmount = $orderData['totalAmount'] ?? 0;
 $itemQty = $orderData['itemQty'] ?? 0;
+$paymentStatus = $orderData['paymentStatus'] ?? 'Unpaid';
 
 echo "<script>console.log('Order Category: " . addslashes($category) . "');</script>";
 
@@ -73,33 +74,7 @@ $paidAmount = $rowPay['totalPaid'] ?? 0;
 
 $balance = $totalAmount - $paidAmount;
 
-// Step 3: Get delivery info if completed
-// $queryDelivery = "SELECT 
-//     u.name, 
-//     u.phone, 
-//     d.vehicleNo, 
-//     o.driverId, 
-//     o.date
-// FROM orderfurniture o
-// JOIN user u ON o.driverId = u.userId
-// JOIN driver d ON o.driverId = d.driverId
-// WHERE o.orderId = ? 
-// AND o.status = 'Completed'
-// ORDER BY o.date ASC 
-// LIMIT 1";
-// $stmtDelivery = $conn->prepare($queryDelivery);
-// $stmtDelivery->bind_param("i", $orderId);
-// $stmtDelivery->execute();
-// $resultDelivery = $stmtDelivery->get_result();
-// $rowDelivery = $resultDelivery->fetch_assoc();
 
-// Step 4: Get all furniture data
-// $queryFurniture = "SELECT * FROM furnitures";
-// $resultFurniture = mysqli_query($conn, $queryFurniture);
-// $furnitureData = [];
-// while ($rowF = mysqli_fetch_assoc($resultFurniture)) {
-//     $furnitureData[] = $rowF;
-// }
 
 ?>
 
@@ -127,7 +102,7 @@ $balance = $totalAmount - $paidAmount;
         <div id="sidebar"></div>
 
         <div class="main-content">
-    <div id="header"></div>
+        <div id="header"></div>
 
     <div class="content">                  
         <h2>Payment Details</h2>
@@ -174,9 +149,24 @@ $balance = $totalAmount - $paidAmount;
             </div>
         </div>
 
+        <div class="payment-input">
+            <label for="payAmount">Enter Payment Amount (Rs):</label>
+            <input type="number" id="payAmount" name="payAmount" min="0" placeholder="Enter amount">
+        </div>
+        
+        <div class="payment-note">
+            <p>Note:</p>
+            <ul>
+                <li>Minimum first-time payment is <strong>25% of total amount.</strong></li>
+                <li>Minimum subsequent payment is <strong>Rs 10,000</strong>.</li>
+            </ul>
+        </div>
+
         <div class="button-container">
             <button class="button outline" onclick="history.back()">Cancel Payment</button>
-            <button class="button solid" onclick="location.href='payment-method.html?order_id=<?= $orderId ?>'">Confirm Payment</button>
+            <!-- <button class="button solid" onclick="location.href='payment-method.php?order_id=<?= $orderId ?>'">Confirm Payment</button> -->
+            <!-- <button class="button solid" onclick="location.href='checkout.php?orderId=<?= $orderId ?>'">Confirm Payment</button> -->
+            <button class="button solid" onclick="processPayment()">Confirm Payment</button>
         </div>
     </div>
 </div>
@@ -185,4 +175,56 @@ $balance = $totalAmount - $paidAmount;
     </div>
 
 </body>
+
+
+<script>
+    function processPayment() {
+        const totalAmount = <?= $totalAmount ?>;
+        const paidAmount = <?= $paidAmount ?>;
+        const balance = <?= $balance ?>;
+        const paymentStatus = "<?= $paymentStatus ?>";
+        const orderStatus = "<?= $status ?>";
+        const orderId = <?= $orderId ?>;
+
+        const inputAmount = parseFloat(document.getElementById("payAmount").value);
+
+        if (isNaN(inputAmount) || inputAmount <= 0) {
+            alert("Please enter a valid payment amount.");
+            return;
+        }
+
+        let finalAmount = inputAmount;
+        const isFirstTimePayment = (paymentStatus === "Unpaid" || orderStatus === "Confirmed");
+
+        if (isFirstTimePayment) {
+            const minFirstPayment = totalAmount * 0.25;
+            if (inputAmount < minFirstPayment) {
+                // alert(`Minimum first-time payment is 25% of total: Rs ${minFirstPayment.toFixed(2)}.\nProceeding with minimum amount.`);
+                const proceed = confirm(`Minimum first-time payment is 25% of total: Rs ${minFirstPayment.toFixed(2)}.\nDo you want to proceed with this amount?`);
+                if (!proceed) {
+                    return;
+                }
+                finalAmount = minFirstPayment;
+            }
+        } else {
+            if (inputAmount < 10000) {
+                // alert("Minimum subsequent payment is Rs 10,000.\nProceeding with minimum amount.");
+                const proceed = confirm(`Minimum subsequent payment is Rs 10,000.\nProceeding with minimum amount.`);
+                if (!proceed) {
+                    return;
+                }
+                finalAmount = 10000;
+            }
+        }
+
+        if (finalAmount > balance) {
+            alert(`You cannot pay more than the remaining balance: Rs ${balance.toFixed(2)}.`);
+            return;
+        }
+
+        // Proceed to Stripe checkout with correct amount
+        window.location.href = `checkout.php?orderId=${orderId}&amount=${Math.round(finalAmount)}`;
+    }
+</script>
+
 </html>

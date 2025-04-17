@@ -52,7 +52,7 @@
     height:100%;
     margin: 0px;
     background-color: var(--color-white);
-    max-height: 89vh;
+    max-height: 90vh;
     overflow-y: auto;
   }
 
@@ -70,8 +70,9 @@
       border-radius: var(--border-radius-2);
       border: 1px solid var(--color-primary);
       margin-bottom: 20px;
-      max-height: 158.4px;
-      overflow-y: auto;
+      /* max-height: 158.4px; */
+      /* overflow-y: auto; */
+      /* min-height: 100px; */
   }
   
   .dashboard-container .main-content .content .items-list h3, .summary h3 {
@@ -157,6 +158,47 @@
     border-color: var(--color-secondary);
 }
   
+.payment-input {
+    /* margin-top: 20px; */
+    background-color: var(--color-white);
+    padding: 20px;
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.payment-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1 rem;
+    color: var(--color-primary);
+     
+}
+
+.payment-input input {
+    width: 200px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: var(--border-radius-2);
+}
+
+.payment-note {
+    margin-top: 10px;
+    background-color: #f3f3f3;
+    padding: 12px;
+    border-left: 4px solid var(--color-primary);
+    border-radius: 5px;
+    color: #333;
+    font-size: 14px;
+    max-width: 400px;
+}
+
+.payment-note p {
+    margin: 0;
+    line-height: 1.5;
+}
+
 
 
   
