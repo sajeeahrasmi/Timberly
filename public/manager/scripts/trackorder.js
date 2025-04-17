@@ -334,6 +334,7 @@ function updateDetails(type) {
         const arrivalDate = document.getElementById('arrivalDate').value;
         const arrivalTime = document.getElementById('arrivalTime').value;
         const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const orderId = document.getElementById('orderId').value;
 
         if (!name) {
             errorMessage += 'Name is required.\n';
@@ -360,21 +361,36 @@ function updateDetails(type) {
         }
 
         if (isValid) {
-            
-            document.querySelector('.card-container .card:first-child').innerHTML = ` 
-                <h3>Measurement Person Details</h3>
-                <p>Name: ${name}</p>
-                <p>Arrival Date: ${arrivalDate}</p>
-                <p>Arrival Time: ${arrivalTime}</p>
-                <p>Phone: ${phoneNumber}</p>
-                <button onclick="showPopup('measurementPopup')">Update</button>
-            `;
-            alert('Measurement details updated!');
-            closePopup('measurementPopup');
+            // Send data to PHP via AJAX
+            fetch('../../api/updateMeasurementPerson.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `orderId=${encodeURIComponent(orderId)}&name=${encodeURIComponent(name)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}&phone=${encodeURIComponent(phoneNumber)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === 'success') {
+                    alert('Measurement details saved!');
+                    closePopup('measurementPopup');
+                    document.querySelector('.card-container .card:first-child').innerHTML = ` 
+                        <h3>Measurement Person Details</h3>
+                        <p>Name: ${name}</p>
+                        <p>Arrival Date: ${arrivalDate}</p>
+                        <p>Arrival Time: ${arrivalTime}</p>
+                        <p>Phone: ${phoneNumber}</p>
+                        <button onclick="showPopup('measurementPopup')">Update</button>
+                    `;
+                } else {
+                    alert('Failed to save measurement details: ' + data);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
         } else {
             alert('Please fix the following errors:\n' + errorMessage);
         }
-    } 
+    }
 }
 
 

@@ -76,11 +76,12 @@ include '../../api/trackorderdetails.php';
             </div>
             <div class="card-container">
                 <div class="card">
-                    <h3>Measurement Person Details</h3>
-                    <p>Name: Saim Ayub</p>
-                    <p>Arrival Date: 2023-09-20</p>
-                    <p>Arrival Time: 14:00</p>
-                    <p>Phone: (123) 456-7890</p>
+                <h3>Measurement Person Details</h3>
+<p>Name: <?php echo htmlspecialchars($item['measurerName'] ?? 'N/A'); ?></p>
+<p>Arrival Date: <?php echo !empty($item['measurementDate']) ? htmlspecialchars($item['measurementDate']) : 'Not scheduled'; ?></p>
+<p>Arrival Time: <?php echo !empty($item['measurementTime']) ? htmlspecialchars($item['measurementTime']) : 'Not scheduled'; ?></p>
+<p>Phone: <?php echo htmlspecialchars($item['measurerContact'] ?? 'N/A'); ?></p>
+
                     <button onclick="showPopup('measurementPopup')">Update</button>
                 </div>
                 <div class="card">                            
@@ -243,9 +244,10 @@ function assignDriver() {
         </div>
     </div>
     
-    <div id="measurementPopup" class="popup">
+    <div id="measurementPopup" class="popup" >
         <div class="popup-content">
             <h3>Update Measurement Person Details</h3>
+            <input type="hidden" id="orderId" value="<?php echo htmlspecialchars($orderDetails[0]['orderId'] ?? ''); ?>">
             <input type="text" id="name" placeholder="Name">
             <input type="date" id="arrivalDate">
             <input type="time" id="arrivalTime">

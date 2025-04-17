@@ -19,6 +19,10 @@ $sqlLumber = "
         u.email,
         u.address,
         u.phone,
+        m.name AS measurerName,
+        m.contact AS measurerContact,
+        m.date AS measurementDate,
+        m.time AS measurementTime,
         ol.qty, 
         ol.status AS itemStatus, 
         ol.driverId,
@@ -29,6 +33,7 @@ $sqlLumber = "
     LEFT JOIN orders o ON ol.orderId = o.orderId
     LEFT JOIN user u ON o.userId = u.userId
     LEFT JOIN lumber l ON ol.itemId = l.lumberId
+    LEFT JOIN measurement m ON m.orderId = ol.orderId 
     WHERE o.orderId = ? AND ol.itemId = ?";
 
 $stmt = $conn->prepare($sqlLumber);
@@ -53,6 +58,10 @@ $sqlFurniture = "
         u.email,
         u.address,
         u.phone,
+        mf.name AS measurerName,
+        mf.contact AS measurerContact,
+        mf.date AS measurementDate,
+        mf.time AS measurementTime,
         `of`.qty, 
         `of`.status AS itemStatus, 
         `of`.unitPrice,
@@ -63,6 +72,7 @@ $sqlFurniture = "
     FROM orderfurniture `of`
     LEFT JOIN orders o ON `of`.orderId = o.orderId
     LEFT JOIN user u ON o.userId = u.userId
+    LEFT JOIN measurement mf ON mf.orderId = `of`.orderId 
     WHERE o.orderId = ? AND `of`.itemId = ?";
 
 $stmt = $conn->prepare($sqlFurniture);
@@ -85,6 +95,10 @@ $sqlCustomized = "
         u.email,
         u.address,
         u.phone,
+        mc.name AS measurerName,
+        mc.contact AS measurerContact,
+        mc.date AS measurementDate,
+        mc.time AS measurementTime,
         oc.qty, 
         oc.driverId,
         oc.status AS itemStatus, 
@@ -93,7 +107,9 @@ $sqlCustomized = "
         'customized' AS orderType
     FROM ordercustomizedfurniture oc
     LEFT JOIN orders o ON oc.orderId = o.orderId
+    LEFT JOIN measurement m ON m.orderId = oc.orderId 
     LEFT JOIN user u ON o.userId = u.userId
+    LEFT JOIN measurement mc ON mc.orderId = oc.orderId 
     WHERE o.orderId = ? AND oc.itemId = ?";
 
 $stmt = $conn->prepare($sqlCustomized);
