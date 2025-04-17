@@ -364,6 +364,7 @@ include '../../api/ViewOrderDetails.php';
     </style>
 </head>
 <body>
+    <input type="hidden" id="orderType" value="<?php echo htmlspecialchars($orderDetails['orderType'] ?? ''); ?>">
     <!-- Modal for setting price -->
 <div id="setPriceModal" class="modal" style="display: none;">
     <div class="modal-content">
@@ -412,7 +413,7 @@ include '../../api/ViewOrderDetails.php';
                            
                         <div class="item-details">
     <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
-    <?php if($orderDetails['orderType'] == 'furniture'): ?>
+    <?php if($orderDetails['orderType'] == 'furniture' || $orderDetails['orderType'] == 'customized'): ?>
         <?php if(!empty($orderDetails['description'])): ?>
             <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description']); ?></p>
         <?php endif; ?>
@@ -435,6 +436,9 @@ include '../../api/ViewOrderDetails.php';
             <?php endif; ?>
         </p>
     <?php endif; ?>
+    <?php if(($orderDetails['orderType'] == 'customized')): ?>
+            <p><strong>Frame:</strong> <?php echo htmlspecialchars($orderDetails['frame']); ?></p>
+        <?php endif; ?>
     <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
     <p><strong>Price:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
     <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>

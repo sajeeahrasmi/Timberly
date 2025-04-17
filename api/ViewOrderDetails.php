@@ -35,7 +35,7 @@ if ($type === 'lumber') {
         LEFT JOIN user u ON o.userId = u.userId
         LEFT JOIN lumber l ON ol.itemId = l.lumberId
         WHERE o.orderId = ? AND ol.itemId = ?";
-} else {
+} else if ($type === 'furniture') {
     // Fetch the details of the specific furniture item
     $sql = "
         SELECT 
@@ -61,6 +61,34 @@ if ($type === 'lumber') {
         LEFT JOIN orders o ON orf.orderId = o.orderId
         LEFT JOIN user u ON o.userId = u.userId
         WHERE o.orderId = ? AND orf.itemId = ?";
+}
+else{
+    $sql = "
+        SELECT 
+            o.orderId, 
+            o.date, 
+            o.totalAmount, 
+            o.status AS orderStatus,
+            ocf.itemId, 
+            u.name AS customerName, 
+            u.email,
+            u.address,
+            u.phone,
+            ocf.qty, 
+            ocf.status AS itemStatus, 
+            CONCAT(ocf.type, ' ', ocf.length, 'x', ocf.width, 'x', ocf.thickness, ' (', ocf.qty, ') ', ocf.category) AS typeQty,
+            ocf.type,
+            ocf.unitPrice,
+            ocf.frame,
+            
+            ocf.description AS description,
+            CONCAT(ocf.length, 'x', ocf.width, 'x', ocf.thickness) AS size,
+            NULL AS additionalDetails,
+            'customized' AS orderType
+        FROM ordercustomizedfurniture ocf
+        LEFT JOIN orders o ON ocf.orderId = o.orderId
+        LEFT JOIN user u ON o.userId = u.userId
+        WHERE o.orderId = ? AND ocf.itemId = ?";
 }
 
 $stmt = $conn->prepare($sql);

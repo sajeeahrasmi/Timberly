@@ -134,7 +134,7 @@ function updateTotal() {
     const orderId =  document.getElementById("orderId").value;
     const itemId =  document.getElementById("itemId").value;
     const orderType = document.getElementById("orderType").value;
-    if (orderType != 'furniture') {
+    if (orderType == 'lumber') {
     //const quantity =  document.getElementById("quantity").value;
     fetch('../../api/updateOrderTotal.php', {
         method: 'POST',
@@ -175,8 +175,24 @@ else if (orderType == 'furniture') {
     })
     .catch(error => console.error('Fetch error:', error));
 }
-{
-
+else if (orderType == 'customized') {
+    fetch('../../api/updateOrderTotalCustomizedFurniture.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `orderId=${orderId}&itemId=${itemId}&dfree=${deliveryFee}`
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            console.log('Response from updateOrderTotalCustomizedFurniture:', data);
+        } catch (e) {
+            console.error('Failed to parse JSON. Raw response:', text);
+        }
+    })
+    .catch(error => console.error('Fetch error:', error));
 }
 }
 
@@ -211,7 +227,7 @@ function updatePriceOnQuantityChange(input) {
     const orderId =  document.getElementById("orderId").value;
     const orderType = document.getElementById("orderType").value;
     //console.log(orderType)
-    if(orderType != 'furniture')
+    if(orderType == 'lumber')
     {
     fetch('../../api/updateqty.php', {
         method: 'POST',
@@ -226,6 +242,7 @@ function updatePriceOnQuantityChange(input) {
         alert("Not Enough Stock"); // Show the exact DB-trigger message to the user
          // Recalculate price
     });
+
     updateTotal();
 }
 else if(orderType == 'furniture')
@@ -255,6 +272,31 @@ else if(orderType == 'furniture')
 
     // Update the overall total
     updateTotal();
+}
+else if (orderType == 'customized') {
+    fetch('../../api/updateqtyCustomizedFurniture.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `itemId=${itemId}&orderId=${orderId}&quantity=${quantity}&ordertype=${orderType}`
+    })
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            console.log(data);
+        } catch (e) {
+            console.error('Invalid JSON:', text); // This will show raw response from server
+             // Show actual DB response message (if any)
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        alert('Something went wrong!');
+    });
+    updateTotal();
+
 }
 }
 
@@ -293,6 +335,7 @@ function updateDetails(type) {
         const arrivalDate = document.getElementById('arrivalDate').value;
         const arrivalTime = document.getElementById('arrivalTime').value;
         const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const orderId = document.getElementById('orderId').value;
 
         if (!name) {
             errorMessage += 'Name is required.\n';
@@ -319,21 +362,36 @@ function updateDetails(type) {
         }
 
         if (isValid) {
-            
-            document.querySelector('.card-container .card:first-child').innerHTML = ` 
-                <h3>Measurement Person Details</h3>
-                <p>Name: ${name}</p>
-                <p>Arrival Date: ${arrivalDate}</p>
-                <p>Arrival Time: ${arrivalTime}</p>
-                <p>Phone: ${phoneNumber}</p>
-                <button onclick="showPopup('measurementPopup')">Update</button>
-            `;
-            alert('Measurement details updated!');
-            closePopup('measurementPopup');
+            // Send data to PHP via AJAX
+            fetch('../../api/updateMeasurementPerson.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `orderId=${encodeURIComponent(orderId)}&name=${encodeURIComponent(name)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}&phone=${encodeURIComponent(phoneNumber)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === 'success') {
+                    alert('Measurement details saved!');
+                    closePopup('measurementPopup');
+                    document.querySelector('.card-container .card:first-child').innerHTML = ` 
+                        <h3>Measurement Person Details</h3>
+                        <p>Name: ${name}</p>
+                        <p>Arrival Date: ${arrivalDate}</p>
+                        <p>Arrival Time: ${arrivalTime}</p>
+                        <p>Phone: ${phoneNumber}</p>
+                        <button onclick="showPopup('measurementPopup')">Update</button>
+                    `;
+                } else {
+                    alert('Failed to save measurement details: ' + data);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
         } else {
             alert('Please fix the following errors:\n' + errorMessage);
         }
-    } 
+    }
 }
 
 

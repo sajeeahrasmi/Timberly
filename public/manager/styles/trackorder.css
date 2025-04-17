@@ -28,6 +28,26 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.alert-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 9999;
+    font-family: sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .container {
     max-width: 1800px; /* Set a maximum width for better alignment */
     margin: 0 auto;
@@ -276,3 +296,73 @@ th {
     border-color: #895D47; /* Green border on hover/focus */
     outline: none;
 }
+/* Add these styles to your trackorder.css file */
+
+/* Driver info card styling */
+.driver-info {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    border-left: 4px solid #895D47;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.driver-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 0 0 0 80px;
+    z-index: 0;
+}
+
+.driver-info h4 {
+    margin-top: 0;
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.driver-info p {
+    margin: 8px 0;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.driver-info p strong {
+    min-width: 80px;
+    display: inline-block;
+    color: #555;
+}
+
+.status-active {
+    background-color: #895D47;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+/* Keep the assignment details area clean */
+.assignment-details {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* No changes to the driver selection form or button */
