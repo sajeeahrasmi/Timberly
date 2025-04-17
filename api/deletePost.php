@@ -25,5 +25,5 @@ if (isset($_GET['id'])) {
 }
 
 // Close the database connection
-mysqli_close($conn);a
+mysqli_close($conn);
 ?>

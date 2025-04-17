@@ -1,5 +1,6 @@
 <?php
 include '../../config/db_connection.php'; // Ensure your database connection is working
+session_start(); // Start the session
 
 // Check if the `id` parameter is passed in the URL
 if (isset($_GET['id'])) {
