@@ -113,6 +113,7 @@ $sqlCustomized = "
     WHERE o.orderId = ? AND oc.itemId = ?";
 
 $stmt = $conn->prepare($sqlCustomized);
+
 $stmt->bind_param("ii", $orderId, $itemId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -120,6 +121,7 @@ while ($row = $result->fetch_assoc()) {
     $orderDetails[] = $row;
 }
 $stmt->close();
+
 $conn->close();
 
 // Check if there's any data

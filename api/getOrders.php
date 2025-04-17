@@ -40,8 +40,9 @@ $sql_furniture = "SELECT
     o.userId AS customerId,
     orf.orderId,  
     orf.itemId, 
-    orf.qty,  
+    orf.qty,
     orf.unitPrice,
+
     orf.status AS itemStatus,
     CONCAT(orf.type, ' - ', orf.size, ' (', orf.qty, ')') AS typeQty,
     orf.description,
@@ -72,7 +73,6 @@ FROM ordercustomizedfurniture ocf
 LEFT JOIN orders o ON ocf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 WHERE ocf.status != 'Pending'";
-
 
 // Add filters to the SQL queries if necessary
 $whereClauses = [];

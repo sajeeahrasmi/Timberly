@@ -74,8 +74,6 @@ $paidAmount = $rowPay['totalPaid'] ?? 0;
 
 $balance = $totalAmount - $paidAmount;
 
-
-
 ?>
 
 
@@ -226,5 +224,4 @@ $balance = $totalAmount - $paidAmount;
         window.location.href = `checkout.php?orderId=${orderId}&amount=${Math.round(finalAmount)}`;
     }
 </script>
-
 </html>

@@ -86,6 +86,5 @@
                 </div>
             </div>
         </div>
-        <script src="./scripts/addDriver.js"></script>
     </body>
 </html>

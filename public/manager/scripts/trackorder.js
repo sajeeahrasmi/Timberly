@@ -242,6 +242,7 @@ function updatePriceOnQuantityChange(input) {
         alert("Not Enough Stock"); // Show the exact DB-trigger message to the user
          // Recalculate price
     });
+
     updateTotal();
 }
 else if(orderType == 'furniture')

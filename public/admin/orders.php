@@ -39,6 +39,7 @@
                                 <td><?php echo htmlspecialchars($order['order_id']); ?></td>
                                 <td><?php echo htmlspecialchars($order['date']); ?></td>
                                 <td><?php echo htmlspecialchars($order['customerName']); ?></td>
+                                <?php $order['totalAmount']=number_format($order['totalAmount'] ,2)?>
                                 <td class="order-amount"><?php echo htmlspecialchars($order['totalAmount']); ?></td>
                                 <td><?php echo htmlspecialchars($order['category']); ?></td>
                                 <td class="order-status"><?php echo htmlspecialchars($order['orderStatus']); ?></td>

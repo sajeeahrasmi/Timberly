@@ -1,11 +1,5 @@
 <?php
-// Mock data for suppliers
-$productData = [
-    ['prod_id' => '#QA159', 'date' => 'May 15, 2021', 'product' => 'Square legged Table', 'category' => 'Table', 'price' => '198.90', 'quantity' => 0],
-    ['prod_id' => '#WE159', 'date' => 'February 26, 2021', 'product' => 'Triple door Cupboard', 'category' => 'Cupboard', 'price' => '298.90', 'quantity' => 2],
-    ['prod_id' => '#ZA159', 'date' => 'August 5, 2020', 'product' => 'Metalizable Pantry', 'category' => 'Pantry', 'price' => '498.90', 'quantity' => 0],
-    ['prod_id' => '#KQ159', 'date' => 'December 31, 2021', 'product' => 'Library stool chair', 'category' => 'Chair', 'price' => '158.90', 'quantity' => 3]
-];
+    include '../../api/getPostProducts.php';
 ?>
 
 <!DOCTYPE html>
@@ -37,32 +31,22 @@ $productData = [
                     <thead>
                         <tr>
                             <th>Product ID</th>
-                            <th>Date</th>
                             <th>Product</th>
                             <th>Category</th>
-                            <th>Price(Rs.)</th>
-                            <th>Availability</th>
-                            <th>Quantity</th>
+                            <th>Type</th>
+                            <th>Size</th>
+                            <th>Price (Rs)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($productData as $item): ?>
-                        <tr onclick="window.location.href='./productDetails.php?prod_id=<?php echo urlencode($item['prod_id']); ?>&date=<?php echo urlencode($item['date']); ?>&product=<?php echo urlencode($item['product']); ?>&category=<?php echo urlencode($item['category']); ?>&price=<?php echo urlencode($item['price']); ?>&quantity=<?php echo urlencode($item['quantity']); ?>';">
-                            <td><?php echo $item['prod_id']; ?></td>
-                            <td><?php echo $item['date']; ?></td>
-                            <td><?php echo $item['product']; ?></td>
+                        <tr onclick="window.location.href='./productDetails.php?furnitureId=<?php echo urlencode($item['furnitureId']); ?>'">
+                            <td><?php echo $item['furnitureId']; ?></td>
+                            <td><?php echo $item['description']; ?></td>
                             <td><?php echo $item['category']; ?></td>
-                            <td style="text-align: right;"><?php echo $item['price']; ?></td>
-                            <td>
-                                <?php 
-                                if ($item['quantity'] > 0) {
-                                    echo "In Stock";
-                                } else {
-                                    echo "Out of Stock";
-                                }
-                                ?>
-                            </td>
-                            <td><?php echo $item['quantity']; ?></td>
+                            <td><?php echo $item['type']; ?></td>
+                            <td><?php echo $item['size']; ?></td>
+                            <td style="text-align: right"><?php echo $item['unitPrice']; ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

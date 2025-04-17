@@ -4,6 +4,7 @@ require_once 'db.php';
 if (isset($_POST['driverId'])) {
     $driverId = $_POST['driverId'];
 
+
     $orderId = $_POST['orderId'] ?? 0;
     $itemId = $_POST['itemId'] ?? '';
     $type = $_POST['type'] ?? ''; 
@@ -22,7 +23,7 @@ if (isset($_POST['driverId'])) {
         $update = $conn->prepare("UPDATE driver SET available = 'NO' WHERE driverId = ?");
         $update->bind_param("i", $driverId);
         $update->execute();
-
+      
         // Determine the appropriate table based on type
         if ($type === 'lumber') {
             $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ? WHERE orderId = ? AND itemId = ?");
@@ -42,7 +43,6 @@ if (isset($_POST['driverId'])) {
 
         echo json_encode(['status' => 'success', 'message' => 'Driver assigned successfully']);
     }
-
     $stmt->close();
     $conn->close();
 } else {

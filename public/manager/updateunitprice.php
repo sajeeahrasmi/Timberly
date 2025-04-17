@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultQty = $stmtQty->get_result();
             $qty = $resultQty->fetch_assoc()['qty'] ?? 1;
             $stmtQty->close();
-
             // Get delivery fee
             $stmtFee = $conn->prepare("SELECT deliveryFee FROM orders WHERE orderId = ?");
             $stmtFee->bind_param("i", $orderId);
@@ -91,3 +90,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
+?>
+

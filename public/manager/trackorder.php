@@ -230,6 +230,7 @@ function assignDriver() {
         console.error('Error assigning driver:', error);
         driverStatusDiv.textContent = 'Error connecting to server. Please try again.';
         driverStatusDiv.style.color = '#f44336';
+
     });
 }
 </script>
