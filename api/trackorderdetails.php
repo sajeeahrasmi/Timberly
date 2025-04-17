@@ -21,6 +21,7 @@ $sqlLumber = "
         u.phone,
         ol.qty, 
         ol.status AS itemStatus, 
+        ol.driverId,
         l.unitPrice,
         CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
         'lumber' AS orderType
@@ -55,6 +56,7 @@ $sqlFurniture = "
         `of`.qty, 
         `of`.status AS itemStatus, 
         `of`.unitPrice,
+        `of`.driverId,
         CONCAT(`of`.description, ' - ', `of`.type, ' ', `of`.size, ' | ', `of`.additionalDetails) AS typeQty,
 
         'furniture' AS orderType
@@ -71,7 +73,37 @@ while ($row = $result->fetch_assoc()) {
     $orderDetails[] = $row;
 }
 $stmt->close();
+$sqlCustomized = "
+    SELECT 
+        o.orderId, 
+        oc.date, 
+        o.deliveryFee,
+        o.totalAmount, 
+        o.status AS orderStatus,
+        oc.itemId, 
+        u.name AS customerName, 
+        u.email,
+        u.address,
+        u.phone,
+        oc.qty, 
+        oc.driverId,
+        oc.status AS itemStatus, 
+        oc.unitPrice,
+        CONCAT(oc.type, ' - ', oc.category,' - ', oc.length, ' x ', oc.width, ' x ', oc.thickness) AS typeQty,
+        'customized' AS orderType
+    FROM ordercustomizedfurniture oc
+    LEFT JOIN orders o ON oc.orderId = o.orderId
+    LEFT JOIN user u ON o.userId = u.userId
+    WHERE o.orderId = ? AND oc.itemId = ?";
 
+$stmt = $conn->prepare($sqlCustomized);
+$stmt->bind_param("ii", $orderId, $itemId);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $orderDetails[] = $row;
+}
+$stmt->close();
 $conn->close();
 
 // Check if there's any data

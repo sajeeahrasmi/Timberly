@@ -2,6 +2,7 @@
 let currentItemId = null;
 let currentOrderId = null;
 
+
 // Function to show modal for setting price
 function showSetPriceModal(itemId, orderId) {
     currentItemId = itemId;
@@ -28,6 +29,8 @@ function updateUnitPrice() {
         alert('Please enter a valid price');
         return;
     }
+
+    const type = document.getElementById('orderType').value;
     
     // Send AJAX request to update unit price
     fetch('updateunitprice.php', {
@@ -35,7 +38,7 @@ function updateUnitPrice() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `itemId=${currentItemId}&orderId=${currentOrderId}&unitPrice=${unitPrice}`
+        body: `itemId=${currentItemId}&orderId=${currentOrderId}&unitPrice=${unitPrice}&type=${type}`
     })
     .then(response => {
         if (!response.ok) {
@@ -118,24 +121,33 @@ function checkStock(itemId) {
 }
 
 function approveOrder(itemId, orderId) {
-    // Get the order type from the page
-    const orderType = document.querySelector('[data-order-type]').getAttribute('data-order-type');
+    const orderType = document.getElementById('orderType').value;
     
-    // Log the values to ensure they're being passed correctly
     console.log('ItemID:', itemId, 'OrderID:', orderId, 'Type:', orderType);
-    
-    // Choose the appropriate API endpoint based on order type
-    const apiEndpoint = orderType === 'furniture' 
-        ? '../../api/approvefurnitureorder.php' 
-        : '../../api/approvelumberorder.php';
-    
-    // Perform an AJAX request to approve the order with both IDs
+
+    let apiEndpoint;
+
+    switch (orderType) {
+        case 'furniture':
+            apiEndpoint = '../../api/approvefurnitureorder.php';
+            break;
+        case 'customized':
+            apiEndpoint = '../../api/approvecustomizedorder.php';
+            break;
+        case 'lumber':
+            apiEndpoint = '../../api/approvelumberorder.php';
+            break;
+        default:
+            alert('Unknown order type.');
+            return;
+    }
+
     fetch(`${apiEndpoint}?itemId=${itemId}&orderId=${orderId}`)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
                 alert('Order approved successfully!');
-                location.reload();  // Reload the page to show the updated status
+                location.reload();
             } else {
                 alert('Error: ' + data.message);
             }
@@ -147,22 +159,32 @@ function approveOrder(itemId, orderId) {
 }
 
 function rejectOrder(itemId, orderId) {
-    // Get the order type from the page
-    const orderType = document.querySelector('[data-order-type]').getAttribute('data-order-type');
-    
-    // Choose the appropriate API endpoint based on order type
-    const apiEndpoint = orderType === 'furniture' 
-        ? '../../api/rejectfurnitureorder.php' 
-        : '../../api/rejectlumberorder.php';
-    
-    // Add confirmation before rejecting
+    const orderType = document.getElementById('orderType').value;
+
+    let apiEndpoint;
+
+    switch (orderType) {
+        case 'furniture':
+            apiEndpoint = '../../api/rejectfurnitureorder.php';
+            break;
+        case 'customized':
+            apiEndpoint = '../../api/rejectcustomizedorder.php';
+            break;
+        case 'lumber':
+            apiEndpoint = '../../api/rejectlumberorder.php';
+            break;
+        default:
+            alert('Unknown order type.');
+            return;
+    }
+
     if (confirm('Are you sure you want to reject this order? This action cannot be undone.')) {
         fetch(`${apiEndpoint}?itemId=${itemId}&orderId=${orderId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
                     alert('Order rejected successfully!');
-                    window.location.href = 'admin.php'; // Redirect to admin page
+                    window.location.href = 'admin.php';
                 } else {
                     alert('Error: ' + data.message);
                 }
@@ -173,4 +195,5 @@ function rejectOrder(itemId, orderId) {
             });
     }
 }
+
 

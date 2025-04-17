@@ -31,6 +31,13 @@ else if ($orderType == 'furniture'){
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sii", $status, $orderId, $itemId);
 }
+else{
+    $sql = "UPDATE ordercustomizedfurniture
+    SET status = ?
+    WHERE orderId = ? AND itemId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sii", $status, $orderId, $itemId);
+}
 
 
 if ($stmt->execute()) {

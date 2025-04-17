@@ -17,6 +17,7 @@ $sql_lumber = "SELECT
     o.userId AS customerId,
     ol.orderId,  
     ol.itemId, 
+    '' AS unitPrice,
     ol.qty,  
     ol.status AS itemStatus,
     CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
@@ -40,6 +41,7 @@ $sql_furniture = "SELECT
     orf.orderId,  
     orf.itemId, 
     orf.qty,  
+    orf.unitPrice,
     orf.status AS itemStatus,
     CONCAT(orf.type, ' - ', orf.size, ' (', orf.qty, ')') AS typeQty,
     orf.description,
@@ -48,6 +50,29 @@ FROM orderfurniture orf
 LEFT JOIN orders o ON orf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 WHERE orf.status != 'Pending'";
+
+$sql_customized = "SELECT 
+    o.orderId AS main_order_id, 
+    o.date, 
+    o.itemQty,
+    o.totalAmount, 
+    o.status AS orderStatus, 
+    u.name AS customerName, 
+    o.userId AS customerId,
+    ocf.orderId,  
+    ocf.itemId, 
+    ocf.qty, 
+    
+    ocf.unitPrice, 
+    ocf.status AS itemStatus,
+    CONCAT(ocf.type, ' ', ocf.length, 'x', ocf.width, 'x', ocf.thickness, ' ' , ocf.category ,' (', ocf.qty, ')' ) AS typeQty,
+    ocf.description AS description,
+    'customized' AS orderType
+FROM ordercustomizedfurniture ocf
+LEFT JOIN orders o ON ocf.orderId = o.orderId  
+LEFT JOIN user u ON o.userId = u.userId
+WHERE ocf.status != 'Pending'";
+
 
 // Add filters to the SQL queries if necessary
 $whereClauses = [];
@@ -63,10 +88,11 @@ if (count($whereClauses) > 0) {
     $additional_where = " AND " . implode(" AND ", $whereClauses);
     $sql_lumber .= $additional_where;
     $sql_furniture .= $additional_where;
+    $sql_customized .= $additional_where;
 }
 
 // Combine the results with UNION
-$sql = "($sql_lumber) UNION ($sql_furniture) ORDER BY main_order_id";
+$sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized)  ORDER BY main_order_id";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -82,9 +108,7 @@ if ($result->num_rows > 0) {
         $balance = 0;
 
         // Determine the view URL based on order type
-        $viewUrl = ($order['orderType'] == 'lumber') 
-            ? "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type=lumber"
-            : "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type=furniture";
+        $viewUrl = "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type={$order['orderType']}";
         
         // Prepare the display text for the type/description column
         $itemDisplay = $order['typeQty'];
