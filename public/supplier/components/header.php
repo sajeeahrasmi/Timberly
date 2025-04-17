@@ -1,13 +1,35 @@
 <?php
 
 include_once '../../config/db_connection.php'; // Include your database connection file
-// Start session only if not already started
+// Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+
 // Use supplier name from session or fallback to default
-$supplierName = isset($_SESSION['supplier_name']) ? $_SESSION['supplier_name'] : 'Supplier';
+// $supplierName = isset($_SESSION['supplier_name']) ? $_SESSION['supplier_name'] : 'Supplier';
+// 
+// Check if user is logged in
+if (!isset($_SESSION['userId'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+// Fetch user name directly (not using prepared statement)
+$sql = "SELECT name FROM user WHERE userId = $userId";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+    $userName = $row['name'];
+} else {
+    $userName = "Supplier";
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,13 +45,13 @@ $supplierName = isset($_SESSION['supplier_name']) ? $_SESSION['supplier_name'] :
 </head>
 <body>
     <header class="top-bar">
-        <h1>Welcome, <?php echo htmlspecialchars($supplierName); ?>!</h1>
+        <h1>Welcome,  <?php echo $_SESSION['name']; ?>!</h1>
         <div class="user-profile">
             <span><i class="fa-regular fa-bell" style="transition: 0.3s;"></i></span>
             <a href="./userProfile.php">
                 <span style="display: flex;">
                     <i class="fa-regular fa-user"></i>
-                    <h5><?php echo htmlspecialchars($supplierName); ?></h5>
+                    <h5><?php echo $_SESSION['name']; ?></h5>
                 </span>
             </a>
         </div>
