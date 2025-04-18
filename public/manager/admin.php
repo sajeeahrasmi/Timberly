@@ -73,7 +73,7 @@ include '../../config/login.php';
             <div class="metric-card">
     <h3>Total Revenue</h3>
     <div class="metric-content">
-        <span class="metric-value">Rs.25,000</span> 
+        <span class="metric-value">Rs.0.00</span> 
         <i class="fas fa-dollar-sign"></i>
     </div>
     <button onclick="showSection('report-section')">
@@ -97,7 +97,7 @@ include '../../config/login.php';
             <div class="metric-card">
                 <h3>Total Posts</h3>
                 <div class="metric-content">
-                    <span class="metric-value">100</span>
+                <span class="metric-value" id="furniture-count">0</span>
                     <i class="fas fa-clipboard"></i>
                 </div>
                 <button onclick="showSection('products-section'); showTab('furniture')";>

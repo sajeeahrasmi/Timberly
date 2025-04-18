@@ -293,3 +293,55 @@ function checkPaymentStatus() {
 
 // Poll every 5 seconds
 setInterval(checkPaymentStatus, 2000);
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('../../api/fetchRevenue.php')
+    .then(response => response.json())
+    .then(data => {
+      const revenue = data.revenue || 0;
+      const revenueElement = document.querySelector(".metric-value");
+      revenueElement.textContent = `Rs.${parseFloat(revenue).toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+    })
+    .catch(error => {
+      console.error("Error fetching revenue:", error);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('../../api/fOrdersCount.php') // adjust path as needed
+    .then(response => response.json())
+    .then(data => {
+      console.log("Order count data:", data);
+
+      const orderCount = data.order_count || 0;
+      const orderCountElement = document.querySelectorAll(".metric-card")[1] // or a more specific selector
+        .querySelector(".metric-value");
+
+      if (orderCountElement) {
+        orderCountElement.textContent = orderCount;
+      } else {
+        console.error("Order count element not found.");
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching order count:", error);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('../../api/fFurnitureCount.php')
+    .then(response => response.json())
+    .then(data => {
+      console.log("Furniture count data:", data);
+      const count = data.furniture_count || 0;
+      const furnitureElement = document.querySelector("#furniture-count");
+      if (furnitureElement) {
+        furnitureElement.textContent = count;
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching furniture count:", error);
+    });
+});
+

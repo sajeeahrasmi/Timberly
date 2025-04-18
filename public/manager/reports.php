@@ -27,11 +27,11 @@ require_once '../../api/auth.php';
           <div class="metric-card">
             <h3>Total Revenue</h3>
             <div class="metric-content">
-              <span class="metric-value">Rs.25,000</span> 
+
               <i class="fas fa-dollar-sign"></i>
             </div>
             <button onclick="generateRevenueReport()">
-              <i class="fas fa-file-invoice-dollar"></i>
+              
               Generate Revenue Report
             </button>
           </div>
@@ -39,7 +39,7 @@ require_once '../../api/auth.php';
           <div class="metric-card">
             <h3>Total Orders</h3>
             <div class="metric-content">
-              <span class="metric-value">1,500</span>
+              
               <i class="fas fa-shopping-bag"></i>
             </div>
             <button onclick="generateOrderReport()">
@@ -69,6 +69,8 @@ require_once '../../api/auth.php';
   </div>
 
   <script>
+ 
+
     function drawRevenueChart(data) {
   const ctx = document.getElementById('revenueChart').getContext('2d');
 
