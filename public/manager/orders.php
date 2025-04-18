@@ -41,6 +41,34 @@ require_once '../../api/auth.php';
             color:#895D47;
             border : 2px solid #895D47;
         }
+        .filter-form select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23895D47' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.filter-form select:focus {
+    border-color: #895D47;
+    outline: none;
+    box-shadow: 0 0 5px rgba(137, 93, 71, 0.5);
+}
+.filter-form input,
+.filter-form select {
+    height: 40px;
+    width : 170px;
+}
+
+
     </style>
 </head>
 <body>
@@ -61,6 +89,21 @@ require_once '../../api/auth.php';
                     id="order_filter"
                     placeholder="Search by Order ID"
                 >
+                <select name="status_filter" id="status_filter">
+            <option value="">By Order Status</option>
+            <option value="Processing">Processing</option>
+            
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+        </select>
+
+        <!-- Payment Status Filter -->
+        <select name="payment_status_filter" id="payment_status_filter">
+        <option value="">By Payment Status</option>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+            <option value="Partially_Paid">Partially_Paid</option>
+        </select>
                 <button type="submit">Filter</button>
                 <button type="button" id="clearFilters" class="button">Clear Filters</button>
             </form>
@@ -97,14 +140,19 @@ require_once '../../api/auth.php';
         document.getElementById('clearFilters').addEventListener('click', function() {
             document.getElementById('customer_filter').value = '';
             document.getElementById('order_filter').value = '';
+            document.getElementById('status_filter').value = '';
+            document.getElementById('payment_status_filter').value = '';
             updateTable();
         });
 
         function updateTable() {
             const customerFilter = document.getElementById('customer_filter').value;
             const orderFilter = document.getElementById('order_filter').value;
-
-            fetch(`../../api/getOrders.php?customer_filter=${encodeURIComponent(customerFilter)}&order_filter=${encodeURIComponent(orderFilter)}`)
+            const statusFilter = document.getElementById('status_filter').value;
+            const paymentStatusFilter = document.getElementById('payment_status_filter').value;
+            console.log(statusFilter);
+            console.log(paymentStatusFilter);
+            fetch(`../../api/getOrders.php?customer_filter=${encodeURIComponent(customerFilter)}&order_filter=${encodeURIComponent(orderFilter)}&status_filter=${encodeURIComponent(statusFilter)}&payment_status_filter=${encodeURIComponent(paymentStatusFilter)}`)
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('ordersTableBody').innerHTML = html;

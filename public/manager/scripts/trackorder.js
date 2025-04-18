@@ -27,6 +27,12 @@ function updateStatus(status, oId, iId) {
             color = '#f39c12'; 
             hideElements = true; 
             break;
+        case 'Finished':
+            progress = 51;
+            color = '#f39c12';
+            hideElements = true;
+            break;
+            
         case 'Delivered': 
             progress = 76; 
             color = 'purple'; 
@@ -453,6 +459,11 @@ function initializeProgressBar() {
                 progress = 51; 
                 color = '#f39c12'; 
                 break;
+            case 'Finished':
+                progress = 51;
+                color = '#f39c12';
+                break;
+                
             case 'Delivered': 
                 progress = 76; 
                 color = 'purple'; 

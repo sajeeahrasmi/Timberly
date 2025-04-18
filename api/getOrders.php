@@ -5,7 +5,8 @@ require_once 'db.php';
 // Get the filter values from the query parameters
 $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : '';
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
-
+$status_filter = isset($_GET['status_filter']) ? $_GET['status_filter'] : '';
+$payment_status_filter = isset($_GET['payment_status_filter']) ? $_GET['payment_status_filter'] : '';
 // Base query for lumber orders
 $sql_lumber = "SELECT 
     o.orderId AS main_order_id, 
@@ -93,6 +94,13 @@ if ($customer_filter) {
 if ($order_filter) {
     $whereClauses[] = "o.orderId LIKE '%" . $conn->real_escape_string($order_filter) . "%'";
 }
+if ($status_filter) {
+    $whereClauses[] = "o.status = '" . $conn->real_escape_string($status_filter) . "'";
+}
+if ($payment_status_filter) {
+    $whereClauses[] = "o.paymentStatus = '" . $conn->real_escape_string($payment_status_filter) . "'";
+}
+
 
 // Only append additional WHERE conditions if necessary
 if (count($whereClauses) > 0) {
@@ -127,6 +135,15 @@ if ($result->num_rows > 0) {
             $itemDisplay .= " - " . $order['description'];
         }
 
+        $iStatus = $order['itemStatus'];
+        if ($totalAmount == 0 && $order['itemStatus'] =='Delivered')
+        {
+            $iStatus = 'Completed';
+        }
+        else
+        {
+            $iStatus = $order['itemStatus'];
+        }
         // Output the order details
         echo "<tr>
                 <td>{$order['customerId']}</td>
@@ -135,7 +152,7 @@ if ($result->num_rows > 0) {
                 <td>{$itemDisplay}</td>
                 <td>{$totalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
-                <td>{$order['itemStatus']}</td>
+                <td>{$iStatus}</td>
                 <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>
               </tr>";
     }
