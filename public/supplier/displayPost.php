@@ -96,7 +96,6 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
                     <?php 
                     $image = $row['image'];
                     $imagePath = "./uploads/" . $image;
-                    $imagePath = "./uploads/" . $image;
                     
                     if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
                         <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
