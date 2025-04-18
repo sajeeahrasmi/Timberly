@@ -1,6 +1,9 @@
 <?php
 include '../../config/db_connection.php'; // Ensure this file contains a working database connection.
 session_start();
+// Debug: log to check what was inserted
+error_log("Inserted post for supplierId: " . $_SESSION['userId']);
+
 
 if (isset($_POST['submit'])) {
     // Collect form data
@@ -21,7 +24,9 @@ if (isset($_POST['submit'])) {
 
     // Handle image upload
     $image = $_FILES['image']['name'];
+    // $target = "uploads/" . basename($image);
     $target = "uploads/" . basename($image);
+
 
     // Ensure uploads directory exists and is writable
     if (!is_dir('uploads/')) {
@@ -45,7 +50,8 @@ if (isset($_POST['submit'])) {
 
     if ($result) {
         // Redirect to display page after successful insertion
-        header("Location: displayPost.php");
+        // header("Location: displayPost.php");
+        header("Location: ../supplier/displayPost.php");
         exit();
     } else {
         echo "Error: " . mysqli_error($conn);

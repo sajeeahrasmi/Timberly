@@ -1,9 +1,38 @@
 <?php 
-include '../../config/db_connection.php'; // Include your database connection
+include '../../config/db_connection.php'; // Ensure you have the correct database connection
+session_start();
 
-// Fetch posts from database
-$sql = "SELECT * FROM crudpost";
-$result = mysqli_query($conn, $sql);
+if (!isset($_SESSION['userId'])) {
+    header("Location: /Supplier/login.php"); // Redirect to login if not logged in
+    exit();
+}
+
+// Check if the user is a supplier
+if ($_SESSION['role'] !== 'supplier') {
+    header("Location: /Supplier/login.php"); // Redirect to login if not a supplier
+    exit();
+}
+
+// Check if the user is logged in and has the role of 'supplier'
+if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
+    header("Location: /Supplier/login.php"); // Redirect to login if not logged in or not a supplier
+    exit();
+}
+
+//display any PHP errors
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
+$sql = "SELECT * FROM crudpost"; // Query to get posts
+$posts = "SELECT * FROM crudpost WHERE supplierId = '{$_SESSION['userId']}'";
+
+$result = mysqli_query($conn, $posts);
+
+if (!$result) {
+    die("Error fetching posts: " . mysqli_error($conn));
+}
+
 
 // Handle delete request
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -12,7 +41,7 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
     $delete_sql = "DELETE FROM crudpost WHERE id = $post_id";
     if (mysqli_query($conn, $delete_sql)) {
         // Redirect to prevent re-execution on refresh
-        header("Location: displayPost.php?message=Post deleted successfully");
+        header("Location: displayPost.php");
         exit();
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
@@ -46,11 +75,27 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
         <?php endif; ?>
 
         <div class="metric-grid">
+        <?php
+        // After your query execution
+        $result = mysqli_query($conn, $posts);
+
+            // Debug the result
+            if (mysqli_num_rows($result) > 0) {
+            // Get the first row to inspect columns
+            $first_row = mysqli_fetch_assoc($result);
+    
+            // Reset the result pointer
+            mysqli_data_seek($result, 0);
+        } else {
+            echo "<p>No posts found for this supplier.</p>";
+        }
+        ?>
+
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <div class="metric-card">
                     <?php 
                     $image = $row['image'];
-                    $imagePath = "./Uploads/" . $image;
+                    $imagePath = "./uploads/" . $image;
                     
                     if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
                         <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
