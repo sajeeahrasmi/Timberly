@@ -29,13 +29,10 @@ $posts = "SELECT * FROM crudpost WHERE supplierId = '{$_SESSION['userId']}'";
 
 $result = mysqli_query($conn, $posts);
 
-// if (!$result) {
-//     die("Error fetching posts: " . mysqli_error($conn));
-// }
-
-if($result){
-    echo "Data fetched successfully";
+if (!$result) {
+    die("Error fetching posts: " . mysqli_error($conn));
 }
+
 
 // Handle delete request
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -44,7 +41,7 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
     $delete_sql = "DELETE FROM crudpost WHERE id = $post_id";
     if (mysqli_query($conn, $delete_sql)) {
         // Redirect to prevent re-execution on refresh
-        header("Location: displayPost.php?message=Post deleted successfully");
+        header("Location: displayPost.php");
         exit();
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
@@ -79,14 +76,20 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
 
         <div class="metric-grid">
         <?php
-if (!$result) {
-    echo "<p style='color:red;'>No result found. Check SQL or database connection.</p>";
-} elseif (mysqli_num_rows($result) ==0) {
-    echo "<p style='color:orange;'>No posts available to display.</p>";
-} else {
-    echo "<p style='color:green;'>Posts fetched successfully.</p>";
-}
-?>
+        // After your query execution
+        $result = mysqli_query($conn, $posts);
+
+            // Debug the result
+            if (mysqli_num_rows($result) > 0) {
+            // Get the first row to inspect columns
+            $first_row = mysqli_fetch_assoc($result);
+    
+            // Reset the result pointer
+            mysqli_data_seek($result, 0);
+        } else {
+            echo "<p>No posts found for this supplier.</p>";
+        }
+        ?>
 
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <div class="metric-card">
