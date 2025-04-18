@@ -1,5 +1,4 @@
 <?php 
-<<<<<<< HEAD
 include '../../config/db_connection.php'; // Ensure you have the correct database connection
 session_start();
 
@@ -33,9 +32,6 @@ $result = mysqli_query($conn, $posts);
 if (!$result) {
     die("Error fetching posts: " . mysqli_error($conn));
 }
-=======
-include '../../api/displayPost.php'; // Adjust path if needed
->>>>>>> 29e8e3b22c320caf7d4bbb376029a424c10c05c7
 
 
 // Handle delete request
