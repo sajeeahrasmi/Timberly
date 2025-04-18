@@ -92,12 +92,12 @@ try {
                     if ($userType === 'supplier') {
                         echo "<script>
                             alert('Your account is pending approval.');
-                            window.location.href = '../public/landingPage.html';
+                            window.location.href = '../public/landingPage.php';
                         </script>";
                     } else {
                         // For customer, direct redirect
                         echo "<script>
-                            window.location.href = '../public/landingPage.html';
+                            window.location.href = '../public/landingPage.php';
                         </script>";
                     }
                     exit();
