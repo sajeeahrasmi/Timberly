@@ -33,9 +33,12 @@
                             <tr>
                                 <th>Product ID</th>
                                 <th>Type</th>
+                                <th style="text-align: right">Length(cm)</th>
+                                <th style="text-align: right">Width(cm)</th>
+                                <th style="text-align: right">Thickness(mm)</th>
                                 <th>Quantity</th>
                                 <th>Availability</th>
-                                <th>Unit price (Rs)</th>
+                                <th style="text-align: right">Unit price (Rs)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,7 +47,10 @@
                             <tr onclick="window.location.href='./lumberDetails.php?lumberId=<?php echo urlencode($item['lumberId']); ?>'">
                                 <td><?php echo $item['lumberId']; ?></td>
                                 <td><?php echo $item['type']; ?></td>
-                                <td><?php echo $item['qty']; ?></td>
+                                <td style="text-align: right"><?php echo $item['length']?></td>
+                                <td style="text-align: right"><?php echo $item['width']?></td>
+                                <td style="text-align: right"><?php echo $item['thickness']?></td>
+                                <td style="text-align: right"><?php echo $item['qty']; ?></td>
                                 <td>
                                     <?php 
                                     if ($item['qty'] > 0) {
@@ -54,7 +60,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td style="text-align: right; padding-right: 100px"><?php echo $item['unitPrice']; ?></td>
+                                <td style="text-align: right"><?php echo $item['unitPrice']; ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

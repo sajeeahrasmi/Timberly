@@ -53,9 +53,10 @@
 
                             <label>Type</label>
                             <select name="type" required>
-                                <option value="Teak" <?php if ($product['type'] === 'Teak') echo 'selected'; ?>>Teak</option>
                                 <option value="Jak" <?php if ($product['type'] === 'Jak') echo 'selected'; ?>>Jak</option>
                                 <option value="Mahogani" <?php if ($product['type'] === 'Mahogani') echo 'selected'; ?>>Mahogani</option>
+                                <option value="Teak" <?php if ($product['type'] === 'Teak') echo 'selected'; ?>>Teak</option>
+                                <option value="Nedum" <?php if ($lumber['type'] === 'Nedum') echo 'selected'; ?>>Nedum</option>
                                 <option value="Sooriyamaara" <?php if ($product['type'] === 'Sooriyamaara') echo 'selected'; ?>>Sooriyamaara</option>
                             </select>
 
