@@ -13,7 +13,9 @@ require_once '../../api/auth.php';
     <link rel="stylesheet" href="./styles/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
 </head>
 <body>
 <div class="content">
@@ -48,46 +50,7 @@ require_once '../../api/auth.php';
           
         </div>
 
-        <div class="report-details">
-          <div class="report-section">
-            <h2>Inventory Summary</h2>
-            <table class="styled-table">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Total Items</th>
-                  <th>In Stock</th>
-                  <th>Low Stock</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Furniture</td>
-                  <td>250</td>
-                  <td>180</td>
-                  <td>70</td>
-                </tr>
-                <tr>
-                  <td>Raw Materials</td>
-                  <td>500</td>
-                  <td>350</td>
-                  <td>150</td>
-                </tr>
-                <tr>
-                  <td>Doors</td>
-                  <td>100</td>
-                  <td>80</td>
-                  <td>20</td>
-                </tr>
-                <tr>
-                  <td>Windows</td>
-                  <td>75</td>
-                  <td>60</td>
-                  <td>15</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <
 
           <div class="report-section">
             <div class="titleRevenue"><h2>Revenue Breakdown</h2></div>
@@ -96,29 +59,29 @@ require_once '../../api/auth.php';
                 <tr>
                   <th>Category</th>
                   <th>Total Sales</th>
-                  <th>% of Total Revenue</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Furniture</td>
                   <td>Rs.12,500</td>
-                  <td>50%</td>
+                 
                 </tr>
                 <tr>
                   <td>Doors</td>
                   <td>Rs.6,250</td>
-                  <td>25%</td>
+                  
                 </tr>
                 <tr>
                   <td>Windows</td>
                   <td>Rs.3,750</td>
-                  <td>15%</td>
+                  
                 </tr>
                 <tr>
                   <td>Raw Materials</td>
                   <td>Rs.2,500</td>
-                  <td>10%</td>
+                 
                 </tr>
               </tbody>
             </table>
@@ -134,15 +97,45 @@ require_once '../../api/auth.php';
       
     }
 
-    function generateOrderReport() {
-      alert('Generating comprehensive order report...');
-      
+    async function generateOrderReport() {
+  try {
+    const response = await fetch('../../api/reportOrder.php');
+    const data = await response.json();
+
+    const completedOrders = data.filter(order => order.status === 'Completed');
+
+    if (completedOrders.length === 0) {
+      alert('No completed orders found.');
+      return;
     }
 
-    function generateProductReport() {
-      alert('Generating product category breakdown...');
-      
-    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("Completed Orders Report", 14, 15);
+
+    // Convert data into rows for the table
+    const tableData = completedOrders.map(order => [
+      order.orderId,
+      order.customer,
+      order.total,
+      order.date
+    ]);
+
+    doc.autoTable({
+      head: [['Order ID', 'Customer', 'Total', 'Date']],
+      body: tableData,
+      startY: 20
+    });
+
+    doc.save("CompletedOrdersReport.pdf");
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to generate report.');
+  }
+}
+
+
   </script>
 </body>
 </html>
