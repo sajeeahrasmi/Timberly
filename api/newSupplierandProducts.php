@@ -65,3 +65,11 @@ $suppliers = getSuppliersFromDatabase(); // Fetch suppliers from the database
         ]
     ];
     
+
+
+
+
+
+
+   
+       

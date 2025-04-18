@@ -309,9 +309,10 @@ form button:hover {
 
 <<div class="list-container">
     <?php foreach ($products as $product): ?>
-        <?php if ($product['status'] === 'Not Approved'): ?>
+        <?php if ($product['Approved'] === '0'): ?>
             <div class="list-item">
-                <span><?php echo $product['name']; ?></span>
+                <span><?php echo $product['category']; ?></span>
+                <span><?php echo $product['type']; ?></span>
                 <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
             </div>
         <?php endif; ?>
@@ -325,10 +326,10 @@ form button:hover {
             <h3>Supplier Details</h3>
             <div id="supplierDetails"></div>
             <form method="POST">
-                <input type="hidden" id="supplier_id" name="supplier_id">
-                <button type="submit" onclick ="approveProduct()" name="approve_supplier">Approve</button>
-                <button type="submit"  onclick ="rejectProduct()"  name="reject_supplier">Reject</button>
-            </form>
+    <input type="hidden" id="supplier_id" name="supplier_id">
+    <button type="button" onclick="approveSupplier(event)" name="approve_supplier">Approve</button>
+    <button type="button" onclick="rejectSupplier(event)" name="reject_supplier">Reject</button>
+</form>
         </div>
     </div>
 
@@ -347,75 +348,133 @@ form button:hover {
     </div>
 
     <script>
-        const suppliers = <?php echo json_encode($suppliers); ?>;
-       function showSupplierDetails(supplierId) {
-    console.log(supplierId); // Log supplierId for debugging
-    const suppliers = <?php echo json_encode($suppliers); ?>; // JSON encode PHP array to JavaScript
-
-    // Ensure you are comparing the correct data type (strings or numbers)
-    const supplier = suppliers.find(s => s.userId == supplierId); // Use == to compare both string and number types
-    if (supplier) {
-    document.getElementById('supplierDetails').innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <p><strong>Name:</strong> ${supplier.name}</p>
-                <p><strong>Address:</strong> ${supplier.address}</p>
-                <p><strong>Contact:</strong> ${supplier.phone}</p>
-                <p><strong>Email:</strong> ${supplier.email}</p>
-            </div>
-            <img src="./images/download.png" alt="Mock Supplier Image" style="margin-right: 100px; margin-top: -20px; border: 5px solid #895D47 ;">
-        </div>
-    `;
-    document.getElementById('supplier_id').value = supplier.id; // Set hidden input value
-    document.getElementById('supplierModal').classList.add('active'); // Show modal
-} else {
-    alert('Supplier not found');
-}
-      }
-
-
-        function showProductDetails(productId) {
+        //showProductDetails function
+        function showProductDetails(id) {
+            //get product details from database
             const products = <?php echo json_encode($products); ?>;
-            const product = products.find(p => p.id === productId);
-            document.getElementById('productDetails').innerHTML = `
-                <p><strong>Name:</strong> ${product.name}</p>
-                <p><strong>Details:</strong> ${product.details}</p>
-               
-                <p><strong>Supplier:</strong> ${product.supplier_id}</p>
-                <p><strong>Supplier Address:</strong> ${product.supplier_address}</p> <!-- Added Supplier Address -->
-        <p><strong>Unit Price:</strong> Rs.${product.unit_price.toFixed(2)}</p> <!-- Added Unit Price -->
-                
-                
-                <img src="./images/log.jpeg" alt="${product.name}" ">
-            `;
-            document.getElementById('product_id').value = product.id;
-            document.getElementById('productModal').classList.add('active');
+            const product = products.find(p => p.id == id);
+            if (product) {
+                document.getElementById('productDetails').innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p><strong>Category:</strong> ${product.category}</p>
+                            <p><strong>Type:</strong> ${product.type}</p>
+                            <p><strong>Price:</strong> ${product.price}</p>
+                            <p><strong>Description:</strong> ${product.description}</p>
+                        </div>
+                        
+                    </div>
+                `;
+                document.getElementById('product_id').value = product.id;
+                document.getElementById('productModal').classList.add('active');
+            } else {
+                alert('Product not found');
+            }
         }
+        //showProductDetails function
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
+      const suppliers = <?php echo json_encode($suppliers); ?>;
+        
+        function showSupplierDetails(supplierId) {
+    console.log(supplierId); // Log supplierId for debugging
+    const suppliers = <?php echo json_encode($suppliers); ?>;
+
+    // Find the supplier
+    const supplier = suppliers.find(s => s.userId == supplierId);
+    if (supplier) {
+        document.getElementById('supplierDetails').innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p><strong>Name:</strong> ${supplier.name}</p>
+                    <p><strong>Address:</strong> ${supplier.address}</p>
+                    <p><strong>Contact:</strong> ${supplier.phone}</p>
+                    <p><strong>Email:</strong> ${supplier.email}</p>
+                </div>
+            </div>
+        `;
+        // Use userId instead of id
+        document.getElementById('supplier_id').value = supplier.userId;
+        document.getElementById('supplierModal').classList.add('active');
+    } else {
+        alert('Supplier not found');
+    }
+}
+
+function approveSupplier(event) {
+    event.preventDefault();
+    
+    const userId = document.getElementById('supplier_id').value;
+    console.log("Approving supplier with ID:", userId);
+    
+    // Make sure userId is sent as a number if that's what your database expects
+    const userIdNum = parseInt(userId, 10);
+    
+    fetch('../../api/approvesupllieruser.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userIdNum,
+            status: 'Approved'
+        })
+    })
+    .then(response => {
+        console.log("Response status:", response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Response data:", data);
+        if (data.success) {
+            alert('Supplier Approved');
+            closeModal('supplierModal');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
         }
-        function approveProduct() {
-        
-        
-        // You can handle product approval logic here
-        alert('Approving ');
-        
-        // If you want to submit the form after approval (for example, send POST request):
-        // document.getElementById('approvalForm').submit();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error approving supplier: ' + error);
+    });
+}
+function rejectSupplier(event) {
+    event.preventDefault(); // Prevent form submission
+    
+    const userId = document.getElementById('supplier_id').value;
+    console.log("Rejecting supplier with ID:", userId);
+    
+    // Create FormData object instead of JSON
+    const formData = new FormData();
+    formData.append('userId', userId);
+    
+    
+    fetch('../../api/rejectsupplieruser.php', {
+        method: 'POST',
+        body: formData // Send as form data instead of JSON
+    })
+    .then(response => response.json())  
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            alert('Supplier Rejected');
+            closeModal('supplierModal');
+            // Reload page to show updated list
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error rejecting supplier: ' + error);
+    });
+}
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
 
-        closeModal('supplierModal'); // Close the modal after approval
-    }
 
-    function rejectProduct() {
-        
-
-        // You can handle product rejection logic here
-        alert('Rejecting product');
-        
-        // Close the modal after rejection
-        closeModal('supplierModal');
-    }
     </script>
 </body>
 </html>
