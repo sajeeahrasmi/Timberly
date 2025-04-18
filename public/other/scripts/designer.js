@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
      orders = [
         {
             id: 1,
-            customerName: "Amal Perera",
+            orderId: "13",
+            itemIds: ["1", "2"],
             items: ["Mahogany Door", "Mahogany Window"],
         },
         {
             id: 2,
-            customerName: "Simal Nimal",
+            orderId: "45",
+            itemIds: ["1"],
             items: ["Teak Table"],
         },
     ];
@@ -28,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const ordersList = document.getElementById('ordersList');
             ordersList.innerHTML = orders.map(order => `
                 <div class="order-item" onclick="selectOrder(${order.id})">
-                    <h3>${order.customerName}</h3>
+                    <h3>${order.orderId}</h3>
+                    
                     <p>Items: ${order.items.join(', ')}</p>
                 </div>
             `).join('');
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="back-button" onclick="initializeOrders()">
                     <i class="fas fa-arrow-left"></i> Back to Orders
                 </button>
-                <h4>${currentOrder.customerName}'s Items</h4>
+                <h4>Order ${currentOrder.orderId} Items</h4>
                 ${currentOrder.items.map((item, index) => `
                     <div class="order-item" onclick="selectItem(${index})">
                         <h5>${item}</h5>
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatMessages.innerHTML = `
                 <div class="order-details">
                     <h3>Item Details</h3>
-                    <p>Customer: ${currentOrder.customerName}</p>
+                    <p>Customer: ${currentOrder.orderId}</p>
                     <p>Item: ${currentItem}</p>
                 </div>
             `;

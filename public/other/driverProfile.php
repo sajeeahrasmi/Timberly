@@ -52,7 +52,6 @@ $email = $row1['email'] ?? '';
             <div class="profile-card view-mode" id="viewProfile">
                 <h2>Personal Details</h2>
                 <div class="profile-info">
-                    <!-- <p><strong>Driver ID:</strong> <span>#123</span></p> -->
                     <p><strong>Name:</strong> <span><?php echo $name; ?></span></p>
                     <p><strong>Email:</strong> <span><?php echo $email; ?></span></p>
                     <p><strong>Phone:</strong> <span><?php echo $phone; ?></span></p>
