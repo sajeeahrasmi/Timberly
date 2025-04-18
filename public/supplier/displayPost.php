@@ -1,6 +1,41 @@
 <?php 
-include '../../api/displayPost.php'; // Adjust path if needed
+include '../../config/db_connection.php'; // Ensure you have the correct database connection
+session_start();
 
+if (!isset($_SESSION['userId'])) {
+    header("Location: /Supplier/login.php"); // Redirect to login if not logged in
+    exit();
+}
+
+// Check if the user is a supplier
+if ($_SESSION['role'] !== 'supplier') {
+    header("Location: /Supplier/login.php"); // Redirect to login if not a supplier
+    exit();
+}
+
+// Check if the user is logged in and has the role of 'supplier'
+if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
+    header("Location: /Supplier/login.php"); // Redirect to login if not logged in or not a supplier
+    exit();
+}
+
+//display any PHP errors
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
+$sql = "SELECT * FROM crudpost"; // Query to get posts
+$posts = "SELECT * FROM crudpost WHERE supplierId = '{$_SESSION['userId']}'";
+
+$result = mysqli_query($conn, $posts);
+
+// if (!$result) {
+//     die("Error fetching posts: " . mysqli_error($conn));
+// }
+
+if($result){
+    echo "Data fetched successfully";
+}
 
 // Handle delete request
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -43,6 +78,16 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
         <?php endif; ?>
 
         <div class="metric-grid">
+        <?php
+if (!$result) {
+    echo "<p style='color:red;'>No result found. Check SQL or database connection.</p>";
+} elseif (mysqli_num_rows($result) ==0) {
+    echo "<p style='color:orange;'>No posts available to display.</p>";
+} else {
+    echo "<p style='color:green;'>Posts fetched successfully.</p>";
+}
+?>
+
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <div class="metric-card">
                     <?php 
