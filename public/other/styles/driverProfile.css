@@ -32,20 +32,33 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .header {
     background-color: var(--color-white);
     padding: var(--card-padding);
-    border-radius: var(--card-border-radius);
+    /* border-radius: var(--card-border-radius); */
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.container .header .logo{
+    display: flex;
+    align-items: center; 
+    gap: 0.8rem;
+    padding: 0; 
+    color: #895D47; 
+    max-height: 50px;
+    margin: 0%;
+
+    
 }
 
 .header-buttons {
@@ -86,14 +99,14 @@ body {
 }
 
 .profile-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .profile-card {
     background-color: var(--color-white);
     padding: var(--card-padding);
-    border-radius: var(--card-border-radius);
+    border-radius: var(--border-radius-2);
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
 }

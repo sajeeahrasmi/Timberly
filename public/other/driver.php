@@ -1,4 +1,27 @@
+<?php
 
+session_start();
+
+if (!isset($_SESSION['userId'])) {
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+echo "<script> console.log({$userId})</script>";
+echo "<script> console.log('this is user')</script>";
+
+include '../../config/db_connection.php';
+
+$query1 = "SELECT * FROM user WHERE userId = ?";
+$stmt1 = $conn->prepare($query1);
+$stmt1->bind_param("i", $userId);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+$row1 = $result1->fetch_assoc();
+$name = $row1['name'] ?? 'Driver';
+
+?>
 
 
 <!DOCTYPE html>
@@ -12,9 +35,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Driver Dashboard</h1>
+            <div class="logo">
+                <img src="../images/final_logo.png" alt="Logo" style="height: 200px; margin: 0%; padding: 0%;"  />
+            </div>
+            <h1>Welcome  <?php echo $name; ?> !</h1>
             <div class="header-buttons">
-                <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/driverProfile.html`">Profile</button>
+                <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/driverProfile.php`">Profile</button>
                 <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/config/logout.php`">Logout</button>
             </div>
         </div>
@@ -45,6 +71,21 @@
                 <div class="delivery-actions">
                     <button class="button outline" onclick="showCustomerDetails(12345)">Customer Details</button>
                     <button class="button solid" id="delivery-btn-12345" onclick="handleDelivery(12345)">Start Delivery</button>
+                </div>
+            </div>
+            <div class="delivery-item">
+                <div class="delivery-info">
+                    <h4>Order Details</h4>
+                    <p><strong>Order ID:</strong> #12346</p>
+                    <p><strong>Items:</strong> 2</p>
+                    <div class="items-list">
+                        <p>- Item #123: Nedum Table</p>
+                        <p>- Item #456: Mahogany Main Door</p>
+                    </div>
+                </div>
+                <div class="delivery-actions">
+                    <button class="button outline" onclick="showCustomerDetails(12346)">Customer Details</button>
+                    <button class="button solid" id="delivery-btn-12346" onclick="handleDelivery(12346)">Start Delivery</button>
                 </div>
             </div>
             <div class="delivery-item">
