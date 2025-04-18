@@ -1,11 +1,5 @@
 <?php
-// Mock data for suppliers
-$rawData = [
-    ['raw_id' => '#QA159', 'date' => 'May 15, 2021', 'product' => 'Mahogani', 'category' => 'Timber', 'u_price' => '15.90', 'quantity' => 0],
-    ['raw_id' => '#WE159', 'date' => 'February 26, 2021', 'product' => 'Thekka', 'category' => 'Lumber', 'u_price' => '8.90', 'quantity' => 2],
-    ['raw_id' => '#ZA159', 'date' => 'August 5, 2020', 'product' => 'Kaluwara', 'category' => 'Timber', 'u_price' => '28.90', 'quantity' => 0],
-    ['raw_id' => '#KQ159', 'date' => 'December 31, 2021', 'product' => 'Thekka', 'category' => 'Timber', 'u_price' => '20.90', 'quantity' => 3]
-];
+ include '../../api/getPostRawLumber.php';
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +11,7 @@ $rawData = [
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./styles/postRaw.css">
+        <link rel="stylesheet" href="./styles/postRawLumber.css">
         <link rel="stylesheet" href="./styles/components/header.css">
         <link rel="stylesheet" href="./styles/components/sidebar.css">
     </head>
@@ -33,40 +27,40 @@ $rawData = [
                         <h2>Raw Materials</h2>
                         <a href="./createPost.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Create a post</a>
                     </div>
+                    <h3><span class="active-category">Lumber </span> |<span class="passive-category"><a href="postRawTimber.php">Timber</a></span></h3>
                     <table class="product-table">
                         <thead>
                             <tr>
                                 <th>Product ID</th>
-                                <th>Date</th>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Unit price (Rs)</th>
-                                <th>Availability</th>
+                                <th>Type</th>
+                                <th style="text-align: right">Length(cm)</th>
+                                <th style="text-align: right">Width(cm)</th>
+                                <th style="text-align: right">Thickness(mm)</th>
                                 <th>Quantity</th>
+                                <th>Availability</th>
+                                <th style="text-align: right">Unit price (Rs)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($rawData as $item): ?>
+                            <?php foreach ($productData as $item): ?>
 
-                            <tr onclick="window.location.href='./rawDetails.php?raw_id=<?php echo urlencode($item['raw_id']); ?>'">
-
-                            
-
-                                <td><?php echo $item['raw_id']; ?></td>
-                                <td><?php echo $item['date']; ?></td>
-                                <td><?php echo $item['product']; ?></td>
-                                <td><?php echo $item['category']; ?></td>
-                                <td style="text-align: right"><?php echo $item['u_price']; ?></td>
+                            <tr onclick="window.location.href='./lumberDetails.php?lumberId=<?php echo urlencode($item['lumberId']); ?>'">
+                                <td><?php echo $item['lumberId']; ?></td>
+                                <td><?php echo $item['type']; ?></td>
+                                <td style="text-align: right"><?php echo $item['length']?></td>
+                                <td style="text-align: right"><?php echo $item['width']?></td>
+                                <td style="text-align: right"><?php echo $item['thickness']?></td>
+                                <td style="text-align: right"><?php echo $item['qty']; ?></td>
                                 <td>
                                     <?php 
-                                    if ($item['quantity'] > 0) {
+                                    if ($item['qty'] > 0) {
                                         echo "In Stock";
                                     } else {
                                         echo "Out of Stock";
                                     }
                                     ?>
                                 </td>
-                                <td><?php echo $item['quantity']; ?></td>
+                                <td style="text-align: right"><?php echo $item['unitPrice']; ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -20,7 +20,7 @@
         <?php include "./components/sidebar.php" ?>
         <div class="main-content">
             <?php include "./components/header.php" ?>
-            <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="postRaw.php">Raw materials</a></span></h3>
+            <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="postRawLumber.php">Raw materials</a></span></h3>
             <div class="product-display-box">
                 <p>posts</p>
                 <div class="content-header">

@@ -1,48 +1,47 @@
 <?php
-    include 'db.php';
+    include('db.php');
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // Initialize variables
     $message = '';
 
-    if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['furnitureId'])) {
-        $furnitureId = mysqli_real_escape_string($conn, $_GET['furnitureId']);
-        $query = "SELECT * FROM furnitures WHERE furnitureId = ?";
+    // Handle POST requests
+    if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['lumberId'])) {
+        $lumberId = mysqli_real_escape_string($conn, $_GET['lumberId']);
+        $query = "SELECT * FROM lumber WHERE lumberId = ?";
         
         // Use prepared statement
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "s", $furnitureId);
+        mysqli_stmt_bind_param($stmt, "s", $lumberId);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         
         if (!$result) {
-            $message = 'Error fetching furniture data: ' . mysqli_error($conn);
+            $message = 'Error fetching lumber data: ' . mysqli_error($conn);
         } else {
-            $product = mysqli_fetch_assoc($result);
-            if (!$product) {
-                $message = 'Product not found';
+            $lumber = mysqli_fetch_assoc($result);
+            if (!$lumber) {
+                $message = 'Lumber not found';
             }
         }
     }    
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_GET['furnitureId'])) {
-        $furnitureId = mysqli_real_escape_string($conn, $_GET['furnitureId']);
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_GET['lumberId'])) {
+        $lumberId = mysqli_real_escape_string($conn, $_GET['lumberId']);
         
         // Handle delete operation
         if (isset($_POST['delete'])) {
             // First get the current image path to delete the file
-            $query = "SELECT image FROM furnitures WHERE furnitureId = ?";
+            $query = "SELECT image_path FROM lumber WHERE lumberId = ?";
             $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "s", $furnitureId);
+            mysqli_stmt_bind_param($stmt, "s", $lumberId);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $currentProduct = mysqli_fetch_assoc($result);
             
             // Delete the product
-            $deleteQuery = "DELETE FROM furnitures WHERE furnitureId = ?";
+            $deleteQuery = "DELETE FROM lumber WHERE lumberId = ?";
             $stmt = mysqli_prepare($conn, $deleteQuery);
-            mysqli_stmt_bind_param($stmt, "s", $furnitureId);
+            mysqli_stmt_bind_param($stmt, "s", $lumberId);
             $deleteResult = mysqli_stmt_execute($stmt);
             
             if ($deleteResult) {
@@ -52,20 +51,20 @@
                 }
                 $message = "Product deleted successfully!";
                 // Redirect to products list after deletion
-                header("Location: ../public/admin/postProducts.php");
+                header("Location: ../public/admin/postRawLumber.php");
                 exit;
             } else {
-                $message = "Error deleting product: " . mysqli_error($conn);
+                $message = "Error deleting lumber: " . mysqli_error($conn);
             }
         }
         
         // Handle save operation
         if (isset($_POST['save'])) {
-            $description = trim($_POST['name']);
-            $category = trim($_POST['category']);
             $type = trim($_POST['type']);
-            $size = trim($_POST['size']);
-            $additionalDetails = trim($_POST['additionalDetails']);
+            $length = trim($_POST['length']);
+            $width = trim($_POST['width']);
+            $thickness = trim($_POST['thickness']);
+            $qty = trim($_POST['qty']);
             $unitPrice = trim($_POST['unitPrice']);
             
             // Handle image upload
@@ -92,9 +91,9 @@
                         if (in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
                             if (move_uploaded_file($_FILES["newImage"]["tmp_name"], $targetFile)) {
                                 // Delete old image if exists
-                                $query = "SELECT image FROM furnitures WHERE furnitureId = ?";
+                                $query = "SELECT image_path FROM lumber WHERE lumberId = ?";
                                 $stmt = mysqli_prepare($conn, $query);
-                                mysqli_stmt_bind_param($stmt, "s", $furnitureId);
+                                mysqli_stmt_bind_param($stmt, "s", $lumberId);
                                 mysqli_stmt_execute($stmt);
                                 $result = mysqli_stmt_get_result($stmt);
                                 $currentProduct = mysqli_fetch_assoc($result);
@@ -120,16 +119,16 @@
             
             // Update product in database
             if (empty($message)) {
-                $query = "UPDATE furnitures SET 
-                    description = ?, 
-                    category = ?, 
+                $query = "UPDATE lumber SET 
                     type = ?, 
-                    size = ?, 
-                    additionalDetails = ?, 
+                    length = ?, 
+                    width = ?, 
+                    thickness = ?, 
+                    qty = ?, 
                     unitPrice = ?";
                 
-                $params = [$description, $category, $type, $size, $additionalDetails, $unitPrice];
-                $types = "sssssd"; // string, string, string, string, string, double
+                $params = [$type, $length, $width, $thickness, $qty, $unitPrice];
+                $types = "sdddid"; // string, double, double, double, int, double
                 
                 if (!empty($imageUpdate)) {
                     $query .= ", image = ?";
@@ -137,8 +136,8 @@
                     $types .= "s";
                 }
                 
-                $query .= " WHERE furnitureId = ?";
-                $params[] = $furnitureId;
+                $query .= " WHERE lumberId = ?";
+                $params[] = $lumberId;
                 $types .= "s";
                 
                 $stmt = mysqli_prepare($conn, $query);
@@ -149,14 +148,14 @@
                     $message = "Product updated successfully!";
                     
                     // // Refresh product data
-                    $query = "SELECT * FROM furnitures WHERE furnitureId = ?";
+                    $query = "SELECT * FROM lumber WHERE lumberId = ?";
                     $stmt = mysqli_prepare($conn, $query);
-                    mysqli_stmt_bind_param($stmt, "s", $furnitureId);
+                    mysqli_stmt_bind_param($stmt, "s", $lumberId);
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
                     $product = mysqli_fetch_assoc($result);
 
-                    header("Location: ../public/admin/productDetails.php?furnitureId=$furnitureId&message=" . urlencode($message));
+                    header("Location: ../public/admin/lumberDetails.php?lumberId=$lumberId&message=" . urlencode($message));
                     exit;
                 } else {
                     $message = "Error updating product: " . mysqli_error($conn);
