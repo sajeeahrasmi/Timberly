@@ -1,5 +1,6 @@
 <?php
     include '../../api/getProductDetails.php';
+    $message = isset($_GET['message']) ? urldecode($_GET['message']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@
                             </div>
                             <div class="button-group">
                                 <button type="submit" name="save">Save</button>
-                                <button type="submit" name="delete" class="delete-button">Delete</button>
+                                <button onclick="confirmDelete()" name="delete" class="delete-button">Delete</button>
                             </div>
                         </div>
 

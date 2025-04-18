@@ -156,7 +156,7 @@
                     $result = mysqli_stmt_get_result($stmt);
                     $product = mysqli_fetch_assoc($result);
 
-                    header("Location: ../public/admin/productDetails.php?furnitureId=" . $furnitureId);
+                    header("Location: ../public/admin/productDetails.php?furnitureId=$furnitureId&message=" . urlencode($message));
                     exit;
                 } else {
                     $message = "Error updating product: " . mysqli_error($conn);
