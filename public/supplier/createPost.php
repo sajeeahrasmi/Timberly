@@ -23,21 +23,16 @@
             transition: 0.3s;
             font-size: 1.5rem;
             font-weight: bold;
-            color:#895D47; 
         }
 
         .card:hover {
-            background-color: #B18068;
+            background-color: #e1e1e1;
             border-color: #999;
-            color: #fff;
-            
-
         }
 
         .card.active {
-            border-color: #B18068;
-            background-color: #B18068;
-            color : #fff;
+            border-color: #007BFF;
+            background-color: #d8eaff;
         }
 
         .category-form {
@@ -84,12 +79,12 @@
                 <div class="form-group">
                     <label>Diameter(mm):</label>
                     <input type="number" name="diameter" min="0" required>
-                    <label>Quantity:</label>
-                    <input type="number" name="quantity" min="0" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Price:</label>
+                    <label>Quantity:</label>
+                    <input type="number" name="quantity" min="1" required>
+                    <label>Price per Unit:</label>
                     <input type="number" name="unitprice" min="1" required>
                 </div>
 
@@ -131,7 +126,7 @@
                 <div class="form-group">
                     <label>Quantity:</label>
                     <input type="number" name="quantity" min="1" required>
-                    <label>Price per Unit(LKR):</label>
+                    <label>Price per Unit:</label>
                     <input type="number" name="unitprice" min="1" required>
                 </div>
 
