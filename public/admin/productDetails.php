@@ -37,10 +37,10 @@
                             <h3>Basic Information</h3>
                             
                             <label>Name</label>
-                            <input type="text" name="name" value="<?php echo htmlspecialchars($product['description']); ?>">
+                            <input type="text" name="name" value="<?php echo htmlspecialchars($product['description']); ?>" required>
 
                             <label>Category</label>
-                            <select name="category">
+                            <select name="category" required>
                                 <option value="Bookshelf" <?php if ($product['category'] === 'Bookshelf') echo 'selected'; ?>>Bookshelf</option>
                                 <option value="Chair" <?php if ($product['category'] === 'Chair') echo 'selected'; ?>>Chair</option>
                                 <option value="Stool" <?php if ($product['category'] === 'Stool') echo 'selected'; ?>>Stool</option>
@@ -52,7 +52,7 @@
                             </select>
 
                             <label>Type</label>
-                            <select name="type">
+                            <select name="type" required>
                                 <option value="Teak" <?php if ($product['type'] === 'Teak') echo 'selected'; ?>>Teak</option>
                                 <option value="Jak" <?php if ($product['type'] === 'Jak') echo 'selected'; ?>>Jak</option>
                                 <option value="Mahogani" <?php if ($product['type'] === 'Mahogani') echo 'selected'; ?>>Mahogani</option>
@@ -60,7 +60,7 @@
                             </select>
 
                             <label>Size</label>
-                            <select name="size">
+                            <select name="size" required>
                                 <option value="small" <?php if ($product['size'] === 'small') echo 'selected'; ?>>Small</option>
                                 <option value="medium" <?php if ($product['size'] === 'medium') echo 'selected'; ?>>Medium</option>
                                 <option value="large" <?php if ($product['size'] === 'large') echo 'selected'; ?>>Large</option>
@@ -75,7 +75,7 @@
                         <div class="form-section">
                             <h3>Pricing</h3>
                             <label>Price</label>
-                            <input type="number" step="1" name="unitPrice" value="<?php echo htmlspecialchars($product['unitPrice']); ?>">
+                            <input type="number" step="1" min="0" name="unitPrice" value="<?php echo htmlspecialchars($product['unitPrice']); ?>" required>
                         </div>
 
                         <div class="form-section">
