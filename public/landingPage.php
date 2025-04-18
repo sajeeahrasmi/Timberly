@@ -32,7 +32,7 @@
         <div class="hero-content">
             <h1>Crafted with Nature's Finest</h1>
             <p>Discover our collection of handcrafted wooden furniture, where traditional craftsmanship meets contemporary design.</p>
-            <a href="products.html" class="cta-button">Explore Collection</a>
+            <a href="products.php" class="cta-button">Explore Collection</a>
         </div>
     </section>
 
