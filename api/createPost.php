@@ -18,7 +18,8 @@ if (isset($_POST['submit'])) {
 
 
     // Check for empty fields
-    if (empty($category) || empty($type) || empty($length) || empty($width) || empty($height) || empty($quantity) || empty($price)) {
+    // if (empty($category) || empty($type) || empty($length) || empty($width) || empty($height) || empty($quantity) || empty($price)) {
+        if (empty($category) || empty($type) || empty($length) || empty($quantity) || empty($price)) {
         die("All fields are required.");
     }
 
