@@ -1,38 +1,9 @@
 <?php 
-include '../../config/db_connection.php'; // Ensure you have the correct database connection
-session_start();
+include '../../config/db_connection.php'; // Include your database connection
 
-if (!isset($_SESSION['userId'])) {
-    header("Location: /Supplier/login.php"); // Redirect to login if not logged in
-    exit();
-}
-
-// Check if the user is a supplier
-if ($_SESSION['role'] !== 'supplier') {
-    header("Location: /Supplier/login.php"); // Redirect to login if not a supplier
-    exit();
-}
-
-// Check if the user is logged in and has the role of 'supplier'
-if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
-    header("Location: /Supplier/login.php"); // Redirect to login if not logged in or not a supplier
-    exit();
-}
-
-//display any PHP errors
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-
-$sql = "SELECT * FROM crudpost"; // Query to get posts
-$posts = "SELECT * FROM crudpost WHERE supplierId = '{$_SESSION['userId']}'";
-
-$result = mysqli_query($conn, $posts);
-
-if (!$result) {
-    die("Error fetching posts: " . mysqli_error($conn));
-}
-
+// Fetch posts from database
+$sql = "SELECT * FROM crudpost";
+$result = mysqli_query($conn, $sql);
 
 // Handle delete request
 if (isset($_GET['delete']) && isset($_GET['id'])) {
