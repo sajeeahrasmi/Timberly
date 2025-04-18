@@ -33,17 +33,21 @@
                             <tr>
                                 <th>Product ID</th>
                                 <th>Type</th>
+                                <th>Diameter(cm)</th>
+                                <th>SupplierId</th>
                                 <th>Quantity</th>
                                 <th>Availability</th>
-                                <th>Unit price (Rs)</th>
+                                <th style="text-align: right">Unit price (Rs)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($productData as $item): ?>
 
-                            <tr onclick="window.location.href='./lumberDetails.php?timberId=<?php echo urlencode($item['timberId']); ?>'">
+                            <tr onclick="window.location.href='./timberDetails.php?timberId=<?php echo urlencode($item['timberId']); ?>'">
                                 <td><?php echo $item['timberId']; ?></td>
                                 <td><?php echo $item['type']; ?></td>
+                                <td><?php echo $item['diameter']?></td>
+                                <td><?php echo $item['supplierId']?></td>
                                 <td><?php echo $item['qty']; ?></td>
                                 <td>
                                     <?php 
@@ -54,7 +58,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td style="text-align: right; padding-right: 100px"><?php echo $item['price']; ?></td>
+                                <td style="text-align: right"><?php echo $item['price']; ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
