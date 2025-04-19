@@ -8,19 +8,19 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']); // Ensure the ID is an integer
 
     // Fetch the post details from the database
-    $sql = "SELECT * FROM crudpost WHERE id = $id";
+    $sql = "SELECT * FROM pendinglumber WHERE id = $id";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         // Assign values to variables
-        $category = $row['category'];
-        $type = $row['type'];
+        // $category = $row['category'];
+        // $type = $row['type'];
         $length = $row['length'];
         $width = $row['width'];
-        $height = $row['height'];
+        $thickness = $row['thickness'];
         $quantity = $row['quantity'];
-        $price = $row['price'];
+        $price = $row['unitprice'];
         $info = $row['info'];
         $image = $row['image'];
     } else {
@@ -36,11 +36,11 @@ if (isset($_GET['id'])) {
 
 // Handle form submission for updating the post
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $category = mysqli_real_escape_string($conn, $_POST['category']);
-    $type = mysqli_real_escape_string($conn, $_POST['type']);
+    // $category = mysqli_real_escape_string($conn, $_POST['category']);
+    // $type = mysqli_real_escape_string($conn, $_POST['type']);
     $length = mysqli_real_escape_string($conn, $_POST['length']);
     $width = mysqli_real_escape_string($conn, $_POST['width']);
-    $height = mysqli_real_escape_string($conn, $_POST['height']);
+    $thickness = mysqli_real_escape_string($conn, $_POST['thickness']);
     $quantity = mysqli_real_escape_string($conn, $_POST['quantity']);
     $info = mysqli_real_escape_string($conn, $_POST['info']);
 
@@ -51,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Update the record in the database
-    $sql = "UPDATE crudpost 
-            SET category = '$category', type = '$type', length = '$length', 
-                width = '$width', height = '$height', quantity = '$quantity', price = '$price',
+    $sql = "UPDATE pendinglumber 
+            SET length = '$length', 
+                width = '$width', thickness = '$thickness', quantity = '$quantity', unitprice = '$price',
                 info = '$info', image = '$image' 
             WHERE id = $id";
 
