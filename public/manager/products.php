@@ -54,7 +54,7 @@ require_once '../../api/auth.php';
                 
                     <h3><?php echo htmlspecialchars($item['type']); ?></h3>
                         
-                        <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> cm</p>
+                        <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> mm</p>
                         <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                         <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
                         <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
@@ -82,9 +82,9 @@ require_once '../../api/auth.php';
                      : 'uploads/log.jpeg'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
                         <h3><?php echo htmlspecialchars($item['type']); ?></h3>
-                        <p>Length: <?php echo htmlspecialchars($item['length']); ?> cm</p>
-                        <p>Width: <?php echo htmlspecialchars($item['width']); ?> cm</p>
-                        <p>Thickness: <?php echo htmlspecialchars($item['thickness']); ?> cm</p>
+                        <p>Length: <?php echo htmlspecialchars($item['length']); ?> m</p>
+                        <p>Width: <?php echo htmlspecialchars($item['width']); ?> mm</p>
+                        <p>Thickness: <?php echo htmlspecialchars($item['thickness']); ?> mm</p>
                         <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
                         <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
                         <div class="card-actions">

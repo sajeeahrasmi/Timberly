@@ -4,14 +4,14 @@ $username = "root";
 $password = "";
 $database = "Timberly";
 
-// Connect to the database
+
 $conn = new mysqli($servername, $username, $password, $database);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize response
+
 $response = [
     "lengths" => [],
     "widths" => [],
@@ -21,14 +21,13 @@ $response = [
     "lumberId" => null
 ];
 
-// Get parameters from the request
+
 $type = $_GET['type'] ?? null;
 $length = $_GET['length'] ?? null;
 $width = $_GET['width'] ?? null;
 $thickness = $_GET['thickness'] ?? null;
 
 if ($type && !$length) {
-    // Fetch lengths based on type
     $stmt = $conn->prepare("SELECT DISTINCT length FROM lumber WHERE type = ?");
     $stmt->bind_param("s", $type);
     $stmt->execute();
@@ -38,7 +37,6 @@ if ($type && !$length) {
         $response["lengths"][] = $row['length'];
     }
 } elseif ($type && $length && !$width) {
-    // Fetch widths based on type and length
     $stmt = $conn->prepare("SELECT DISTINCT width FROM lumber WHERE type = ? AND length = ?");
     $stmt->bind_param("sd", $type, $length);
     $stmt->execute();
@@ -48,7 +46,6 @@ if ($type && !$length) {
         $response["widths"][] = $row['width'];
     }
 } elseif ($type && $length && $width && !$thickness) {
-    // Fetch thicknesses based on type, length, and width
     $stmt = $conn->prepare("SELECT DISTINCT thickness FROM lumber WHERE type = ? AND length = ? AND width = ?");
     $stmt->bind_param("sdd", $type, $length, $width);
     $stmt->execute();
@@ -58,7 +55,6 @@ if ($type && !$length) {
         $response["thicknesses"][] = $row['thickness'];
     }
 } elseif ($type && $length && $width && $thickness) {
-    // Fetch quantity based on all parameters
     $stmt = $conn->prepare("SELECT qty, unitPrice, lumberId FROM lumber WHERE type = ? AND length = ? AND width = ? AND thickness = ?");
     $stmt->bind_param("sddd", $type, $length, $width, $thickness);
     $stmt->execute();

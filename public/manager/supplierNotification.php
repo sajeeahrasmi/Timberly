@@ -8,6 +8,9 @@ require_once '../../api/auth.php';
     include '../../api/newSupplierandProducts.php';
 ?>
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,12 +310,12 @@ form button:hover {
 
 <h2 style="text-align: center;">Pending Products</h2>
 
-<<div class="list-container">
+<div class="list-container">
     <?php foreach ($products as $product): ?>
-        <?php if ($product['Approved'] === '0'): ?>
+        <?php if ($product['status'] === '0'): ?>
             <div class="list-item">
                 <span><?php echo $product['category']; ?></span>
-                <span><?php echo $product['type']; ?></span>
+                <span><?php echo $product['name']; ?></span>
                 <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
             </div>
         <?php endif; ?>
@@ -417,6 +420,7 @@ function approveSupplier(event) {
         body: JSON.stringify({
             userId: userIdNum,
             status: 'Approved'
+            
         })
     })
     .then(response => {
@@ -474,6 +478,119 @@ function closeModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
 }
 
+function showProductDetails(id) {
+    const products = <?php echo json_encode($products); ?>;
+    const product = products.find(p => p.id == id);
+
+    if (product) {
+        let additionalDetails = '';
+
+        if (product.category === 'timber') {
+            additionalDetails = `
+                <p><strong>Diameter:</strong> ${product.diameter}mm</p>
+            `;
+        } else if (product.category === 'lumber') {
+            additionalDetails = `
+                <p><strong>Length:</strong> ${product.length}m</p>
+                <p><strong>Width:</strong> ${product.width}mm</p>
+                <p><strong>Thickness:</strong> ${product.thickness}mm</p>
+            `;
+        }
+
+        document.getElementById('productDetails').innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <p><strong>Type:</strong> ${product.name}</p>
+                    <p><strong>Price: Rs:</strong> ${product.unit_price}</p>
+                    <p><strong>Description:</strong> ${product.details}</p>
+                    <p><strong>Quantity:</strong> ${product.quantity}</p>
+                    <p><strong>Post Date:</strong> ${product.postdate}</p>
+                    ${additionalDetails}
+                </div>
+                <img src="../${product.image}" alt="${product.name}" >
+            </div>
+        `;
+
+        document.getElementById('product_id').value = product.id;
+        document.getElementById('productModal').classList.add('active');
+    } else {
+        alert('Product not found');
+    }
+}
+
+function approveProduct() {
+    event.preventDefault();
+    
+    const productId = document.getElementById('product_id').value;
+    const products = <?php echo json_encode($products); ?>;
+    const product = products.find(p => p.id == productId);
+    
+    console.log("Approving product with ID:", productId, "Category:", product.category);
+    
+    // Create FormData object
+    const formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('category', product.category);
+    formData.append('action', 'approve');
+    formData.append('imagePath', product.image); 
+    
+    fetch('../../api/handleproductapproval.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Response data:", data);
+        if (data.success) {
+            alert('Product Approved Successfully');
+            closeModal('productModal');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error approving product: ' + error);
+    });
+}
+
+function rejectProduct() {
+    event.preventDefault();
+    
+    const productId = document.getElementById('product_id').value;
+    const products = <?php echo json_encode($products); ?>;
+    const product = products.find(p => p.id == productId);
+    
+    console.log("Rejecting product with ID:", productId, "Category:", product.category);
+    
+    // Create FormData object
+    const formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('category', product.category);
+    formData.append('action', 'reject');
+    
+    fetch('../../api/handleproductapproval.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Response data:", data);
+        if (data.success) {
+            alert('Product Rejected');
+            closeModal('productModal');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error rejecting product: ' + error);
+    });
+}
 
     </script>
 </body>

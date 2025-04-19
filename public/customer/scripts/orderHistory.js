@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Determine target page based on category
             let targetPage;
             if (category === "lumber") {
-                targetPage = "orderRawMaterialDetails.html";
+                targetPage = "orderRawMaterialDetails.php";
             } else if (category === "furniture") {
                 targetPage = "orderFurnitureDetails.php";
             } else if (category === "customisedfurniture") {

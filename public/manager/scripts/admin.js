@@ -345,3 +345,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function checkNotifications() {
+  fetch('../../api/check_notifi.php')
+      .then(res => res.json())
+      .then(data => {
+          const icon = document.getElementById('notificationIcon');
+          if (data.hasPending) {
+              icon.classList.add('glow');
+          } else {
+              icon.classList.remove('glow');
+          }
+      });
+}
+
+// Run on load
+checkNotifications();
+
+// Optional: run every 30 seconds
+setInterval(checkNotifications, 2000);

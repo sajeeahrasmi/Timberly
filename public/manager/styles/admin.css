@@ -739,3 +739,18 @@ body {
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* CSS for the glow */
+.glow {
+  animation: glowEffect 1.5s ease-in-out infinite alternate;
+  color: #f39c12;
+}
+
+@keyframes glowEffect {
+  from {
+    text-shadow: 0 0 5px #f39c12, 0 0 10px #f39c12;
+  }
+  to {
+    text-shadow: 0 0 15px #f1c40f, 0 0 20px #f1c40f;
+  }
+}

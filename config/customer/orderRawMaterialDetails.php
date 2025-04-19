@@ -19,9 +19,6 @@ if (isset($_GET['action'])) {
             deleteItem();
             break;
 
-        case 'otherFunction1':
-            otherFunction1();
-            break;
 
       
         default:
@@ -35,7 +32,6 @@ if (isset($_GET['action'])) {
 function addItem() {
     global $conn;
 
-    // Get input values
     $type = $_GET['type'];
     $length = $_GET['length'];
     $width = $_GET['width'];
@@ -45,17 +41,14 @@ function addItem() {
     $userId = $_GET['userId'];
     $lumberId = $_GET['lumberId'];
 
-    // Validate input
     if (empty($type) || empty($length) || empty($width) || empty($thickness) || empty($qty)) {
         echo json_encode(['error' => 'Invalid or missing input']);
         return;
     }
 
-    // Start the transaction
     mysqli_begin_transaction($conn);
 
     try {
-        // Update the first table (e.g., 'orders')
         $query1 = "UPDATE orders SET itemQty = itemQty + 1 WHERE userId = $userId AND orderId = $orderId;";
         $result1 = mysqli_query($conn, $query1);
 
@@ -63,7 +56,6 @@ function addItem() {
             throw new Exception('Failed to update orders table');
         }
 
-        // Insert into the second table (e.g., 'orderlumber')
         $query2 = "INSERT INTO orderlumber (orderId, itemId, qty, status) VALUES ($orderId, $lumberId, $qty, 1)";
         $result2 = mysqli_query($conn, $query2);
 
@@ -71,18 +63,13 @@ function addItem() {
             throw new Exception('Failed to insert into orderlumber table');
         }
 
-        // Commit the transaction if all queries succeed
         mysqli_commit($conn);
 
-        // Send success response
         echo json_encode(['success' => true]);
 
     } catch (Exception $e) {
-        // Roll back the transaction if any query fails
         mysqli_rollback($conn);
 
-        // Send error response
-        // echo json_encode(['error' => $e->getMessage()]);
         echo json_encode(['error' => "Already Added. Update quantity."]);
     }
 }
@@ -122,7 +109,7 @@ function deleteItem(){
     mysqli_begin_transaction($conn);
 
     try {
-        // Update the first table (e.g., 'orders')
+        
         $query1 = "UPDATE orders SET itemQty = itemQty - 1 WHERE userId = $userId AND orderId = $orderId;";
         $result1 = mysqli_query($conn, $query1);
 
@@ -154,10 +141,5 @@ function deleteItem(){
 
 
 
-function otherFunction1() {
-    global $conn;
 
-    // Your logic for another function
-    echo json_encode(['message' => 'This is another function']);
-}
 ?>

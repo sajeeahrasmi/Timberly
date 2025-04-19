@@ -1,99 +1,8 @@
-let userId = 0;
-let orderId = 0;
+
 let orderStatus = "";
 let totalAmount = 0;
 let count = 0;
-
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("../../config/customer/customer.php")
-  .then(response => {
-      if (!response.ok) {
-          throw new Error("Failed to fetch customer data.");
-      }
-      return response.json();
-  })
-  .then(data => {
-      userId = data.userId;
-      console.log(userId);
-      fetchOrderDetails();
-      
-  })
-  .catch(error => {
-      console.error("Error:", error);
-      alert("Session expired. Please log in again.");
-      window.location.href = "../../public/login.html"
-  });
-
-
-});
-
-
-async function fetchOrderDetails() {
-  try {
-      console.log(userId);
-      const response = await fetch(`../../config/customer/fetchlastorder.php?userId=${userId}`);
-      const data = await response.json();
-
-      if (data.success) {
-          const tableBody = document.querySelector("#orderDetails tbody");
-          tableBody.innerHTML = ""; // Clear existing rows
-
-          data.items.forEach(item => {
-              const row = document.createElement("tr");
-              orderId = item.orderId;
-              console.log(orderId);
-              fetchOrderStatus();
-              document.getElementById("orderID").textContent = `Order # ${item.orderId}`;
-
-            totalAmount = totalAmount + item.qty * item.unitPrice;
-            document.getElementById("payment-total").textContent = `Total: ${totalAmount}`
-            count = count + 1;
-
-              row.innerHTML = `
-                  <td>${item.orderId}</td>
-                  <td>${item.itemId}</td>
-                  <td>${item.type}</td>
-                  <td>${item.qty}</td>
-                  <td>${item.unitPrice}</td>
-                  <td>${item.status}</td>
-                  <td>
-                    <button class="button outline" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href='http://localhost/Timberly/public/customer/trackOrderMaterials.php?orderId=${item.orderId}&itemId=${item.itemId}&userId=${userId}'">View</button>
-                    <button class="button solid delete-btn" style=" padding: 10px; border-radius: 10px;">Delete</button>
-                                    
-                </td>
-              `;
-
-            const deleteButton = row.querySelector(".delete-btn");
-            deleteButton.addEventListener("click", () => deleteOrderItem(item.itemId));
-
-
-              tableBody.appendChild(row);
-          });
-
-          document.getElementById("noOfItems").textContent = `No.of Items: ${count}`
-       
-      } else {
-          alert("Failed to fetch order details. Please try again.");
-      }
-  } catch (error) {
-      console.error("Error fetching order details:", error);
-      alert("An error occurred while fetching order details.");
-  }
-}
-
-
-async function fetchOrderStatus(){
-    const response = await fetch(`../../config/customer/orderRawMaterialDetails.php?action=getStatus&orderId=${orderId}&userId=${userId}`);
-    const data = await response.json();
-
-    if(data.success){
-        orderStatus = `${data.status}`;
-        document.getElementById("status").textContent = orderStatus;
-        console.log(orderStatus);
-    }
-
-    updateButton();
-}
+let lumberQty = 0;
 
     
 async function updateButton() {
@@ -103,7 +12,7 @@ async function updateButton() {
 
         if (statusElement.textContent === 'Pending') {
             buttonElement.onclick = function() {
-                buttonElement.onclick = cancelOrder();
+                // buttonElement.onclick = cancelOrder();
             };
 
             buttonAddElement.onclick = function(){
@@ -114,7 +23,7 @@ async function updateButton() {
            buttonAddElement.disabled = true;
            buttonElement.style.display = 'none';
         }
-    }
+}
 
        
 const popupMessage = document.getElementById('popup-message');
@@ -130,7 +39,7 @@ async function showPopup() {
     document.getElementById("popup").style.display = "block";
 }
 
-async function closePopup() {
+async function closePopup(userId, orderId) {
     const type = document.getElementById("type").value;
     const length = document.getElementById("length").value;
     const width = document.getElementById("width").value;
@@ -139,6 +48,11 @@ async function closePopup() {
 
     if (!type || !length || !width || !thickness || !qty) {
         alert("Please fill out all fields before adding to the selection.");
+        return;
+    }
+
+    if (qty > lumberQty) {
+        alert(`Please select quantity less than ${lumberQty} .`);
         return;
     }
 
@@ -177,8 +91,8 @@ document.getElementById("filter").addEventListener("click", () => {
     const rows = table.querySelectorAll("tbody tr");
 
     rows.forEach(row => {
-        const statusCell = row.cells[5].textContent.toLowerCase(); // Column for Status
-        const typeCell = row.cells[2].textContent.toLowerCase(); // Column for Type
+        const statusCell = row.cells[4].textContent.toLowerCase(); // Column for Status
+        const typeCell = row.cells[1].textContent.toLowerCase(); // Column for Type
 
         const matchesStatus = itemStatus === "" || statusCell === itemStatus;
         const matchesType = woodType === "" || typeCell === woodType;
@@ -191,7 +105,8 @@ document.getElementById("filter").addEventListener("click", () => {
     });
 });
 
-async function deleteOrderItem(itemId) {
+async function deleteItem(itemId, orderId, userId) {
+    
     try {
         const response = await fetch(`../../config/customer/orderRawMaterialDetails.php?action=deleteItem&orderId=${orderId}&itemId=${itemId}&userId=${userId}`);
 
@@ -199,8 +114,6 @@ async function deleteOrderItem(itemId) {
 
         if (data.success) {
             alert("Item deleted successfully");
-            // Reload the order details table
-            fetchOrderDetails();
         } else {
             alert("Failed to delete the item: " + data.error);
         }
@@ -210,27 +123,152 @@ async function deleteOrderItem(itemId) {
     }
 }
 
-async function cancelOrder(){
+
+
+async  function cancelOrder(orderId){
     const confirmation = confirm ("Are you sure you want to cancel this order?");
     if(confirmation){
         try {
             const response = await fetch(`../../config/customer/cancelOrders.php?action=cancelLumber&orderId=${orderId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
             const text = await response.text(); 
             console.log("Raw response:", text);
-            
-            const result = JSON.parse(text);
+
+
+            const result = JSON.parse(text); 
 
             if (result.success) {
                 alert("Order Cancelled successfully");
                 window.location.href = `http://localhost/Timberly/public/customer/orderHistory.php`;
             } else {
-               alert("Failed to cancel the order: " + (result.error || "Unknown error"));
+                alert("Failed to cancel the order: " + (result.error || "Unknown error"));
             }
 
         } catch (error) {
             console.error("Error cancelling the order:", error);
             alert("An error occurred while cancelling the order.");
         }
+    }
+}
+
+async function updateLengths() {
+    const type = document.getElementById("type").value;
+    const lengthSelect = document.getElementById("length");
+    const widthSelect = document.getElementById("width");
+    const thicknessSelect = document.getElementById("thickness");
+
+    // Clear dependent dropdowns
+    lengthSelect.innerHTML = '<option value="">--Select Length--</option>';
+    widthSelect.innerHTML = '<option value="">--Select Width--</option>';
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
+
+    if (type) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}`);
+            const data = await response.json();
+
+            // Populate the length dropdown
+            data.lengths.forEach(length => {
+                const option = document.createElement("option");
+                option.value = length;
+                option.textContent = length;
+                lengthSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching lengths:", error);
+        }
+    }
+}
+
+async function updateWidths() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const widthSelect = document.getElementById("width");
+    const thicknessSelect = document.getElementById("thickness");
+
+    // Clear dependent dropdown
+    widthSelect.innerHTML = '<option value="">--Select Width--</option>';
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
+
+    if (type && length) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}`);
+            const data = await response.json();
+
+            // Populate the width dropdown
+            data.widths.forEach(width => {
+                const option = document.createElement("option");
+                option.value = width;
+                option.textContent = width;
+                widthSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching widths:", error);
+        }
+    }
+}
+
+async function updateThicknesses() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const thicknessSelect = document.getElementById("thickness");
+
+    // Clear thickness dropdown
+    thicknessSelect.innerHTML = '<option value="">--Select Thickness--</option>';
+
+    if (type && length && width) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}`);
+            const data = await response.json();
+
+            // Populate the thickness dropdown
+            data.thicknesses.forEach(thickness => {
+                const option = document.createElement("option");
+                option.value = thickness;
+                option.textContent = thickness;
+                thicknessSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error fetching thicknesses:", error);
+        }
+    }
+}
+
+
+async function updateQty() {
+    const type = document.getElementById("type").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const thickness = document.getElementById("thickness").value;
+    const qtyLabel = document.getElementById("qty");
+    const priceLabel = document.getElementById("price");
+
+    qtyLabel.value = 1;
+
+    if (type && length && width && thickness) {
+        try {
+            const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
+            const data = await response.json();
+
+            console.log("Response Data:", data); 
+
+            if (data.qtys && data.price) {
+                priceLabel.textContent = `Unit Price: ${data.price}`;
+                qtyLabel.max = data.qtys;
+                lumberQty = data.qtys;
+            } else {
+                priceLabel.textContent = "Price: Not Available";
+                qtyLabel.max = 1;
+            }
+        } catch (error) {
+            console.error("Error fetching quantity:", error);
+            qtyLabel.textContent = "Qty: Error";
+        }
+    } else {
+        qtyLabel.textContent = "Qty: Select all options";
     }
 }
