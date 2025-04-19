@@ -136,8 +136,6 @@
   }
 
   .metric-card .metric-details .buttons button:hover{
-    background-color: var(--color-secondary);
-    color: var(--color-white);
     transform: translateY(-5px);
     transition: linear all 0.5s;
   }

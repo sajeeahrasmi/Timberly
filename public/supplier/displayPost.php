@@ -93,15 +93,19 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
 
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <div class="metric-card">
-                    <?php 
-                    $image = $row['image'];
-                    $imagePath = ".supplier/uploads/" . $image;
-                    
-                    if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
-                        <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
-                    <?php } else { ?>
-                        <p>No image available or unsupported format.</p>
-                    <?php } ?>
+                <?php 
+                            // Get image path from the database
+                            $image = $row['image']; // Image filename from the database
+                            $imagePath = "./Uploads/" . $image; // Correct the image path here
+                            
+                            // Debugging output
+                             //echo "Image Path: " . $imagePath . "<br>"; // Debugging line to see the image path
+                            // Check if image exists and is either JPG or PNG
+                            if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
+                                <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
+                            <?php } else { ?>
+                                <p>No image available or unsupported image format.</p>
+                            <?php } ?>
 
                     <div class="metric-details">
                         <h3>Post Id: <?php echo $row['id']; ?></h3>
@@ -109,7 +113,7 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
                         <h6>Type: <?php echo $row['type']; ?></h6>
                         <h6>Length: <?php echo $row['length']; ?> m</h6>
                         <h6>Width: <?php echo $row['width']; ?> mm</h6>
-                        <h6>Height: <?php echo $row['thickness']; ?> mm</h6>
+                        <h6>Thickness: <?php echo $row['thickness']; ?> mm</h6>
                         <h6>Quantity: <?php echo $row['quantity']; ?></h6>
                         <h6>Price per Unit: <?php echo $row['unitprice']; ?></h6>
                         <h6>Additional Information: <?php echo $row['info']; ?></h6>
