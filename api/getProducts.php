@@ -1,42 +1,61 @@
 <?php
-    // Enable error reporting for debugging
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+header('Content-Type: application/json');
 
-    // Set header to return JSON
-    header('Content-Type: application/json');
+include 'db.php';
 
-    // Include database connection
-    include 'db.php'; // Make sure this file exists and connects to $conn
+$query = "
+    SELECT 
+        f.furnitureId,
+        f.description,
+        f.image,
+        f.category,
+        f.type,
+        f.size,
+        f.additionalDetails,
+        f.unitPrice,
+        r.review
+    FROM furnitures f
+    LEFT JOIN orderfurniture ofr ON f.furnitureId = ofr.itemId
+    LEFT JOIN review r ON ofr.reviewId = r.reviewId
+";
 
-    // Your SQL query to fetch product details
-    $query = "SELECT
-        furnitureId,
-        description,
-        image,
-        category,
-        type,
-        size,
-        additionalDetails,
-        unitPrice
-    FROM furnitures";
+$result = mysqli_query($conn, $query);
 
-    // Execute query
-    $result = mysqli_query($conn, $query);
+if (!$result) {
+    http_response_code(500);
+    echo json_encode(["error" => mysqli_error($conn)]);
+    exit;
+}
 
-    // Handle query failure
-    if (!$result) {
-        http_response_code(500);
-        echo json_encode(["error" => mysqli_error($conn)]);
-        exit;
+// Process and group reviews by furnitureId
+$products = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $id = $row['furnitureId'];
+
+    // Initialize product if not set
+    if (!isset($products[$id])) {
+        $products[$id] = [
+            "furnitureId" => $row["furnitureId"],
+            "description" => $row["description"],
+            "image" => $row["image"],
+            "category" => $row["category"],
+            "type" => $row["type"],
+            "size" => $row["size"],
+            "additionalDetails" => $row["additionalDetails"],
+            "unitPrice" => $row["unitPrice"],
+            "reviews" => []
+        ];
     }
 
-    // Collect data
-    $products = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $products[] = $row;
+    // Append review if present
+    if (!empty($row["review"])) {
+        $products[$id]["reviews"][] = $row["review"];
     }
+}
 
-    // Output JSON
-    echo json_encode($products);
+// Re-index to simple array
+echo json_encode(array_values($products));
 ?>

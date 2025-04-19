@@ -88,31 +88,47 @@
     }
 
     function showProductDetails(id) {
-      const product = products.find(p => p.furnitureId == id);
-      if (!product) return;
+        const product = products.find(p => p.furnitureId == id);
+        if (!product) return;
 
-      const modal = document.getElementById('productModal');
-      const container = modal.querySelector('.product-details-container');
+        const modal = document.getElementById('productModal');
+        const container = modal.querySelector('.product-details-container');
 
-      container.innerHTML = `
-        <div class="product-image-section">
-          <img src="${product.image}" alt="${product.description}" class="product-details-image" />
-        </div>
-        <div class="product-details-info">
-          <h2 class="product-details-title">${product.description}</h2>
-          <p class="product-details-price">Rs.${product.unitPrice}</p>
-          <div class="product-specs">
-            <h3>Specifications</h3>
-            <div class="spec-item"><span>Category</span><span>${product.category}</span></div>
-            <div class="spec-item"><span>Type</span><span>${product.type}</span></div>
-            <div class="spec-item"><span>Size</span><span>${product.size}</span></div>
-            <div class="spec-item"><span>Additional</span><span>${product.additionalDetails ?? 'None'}</span></div>
-          </div>
-          <button class="view-details-btn">Add to Cart</button>
-        </div>
-      `;
+        // Build reviews HTML
+        const reviewsHTML = product.reviews && product.reviews.length > 0
+            ? product.reviews.map(review => `
+                <div class="review-item">
+                <p>${review}</p>
+                </div>
+            `).join('')
+            : `<p>No reviews yet.</p>`;
 
-      modal.style.display = 'block';
+        container.innerHTML = `
+            <div class="product-image-section">
+            <img src="${product.image}" alt="${product.description}" class="product-details-image" />
+            </div>
+            <div class="product-details-info">
+            <h2 class="product-details-title">${product.description}</h2>
+            <p class="product-details-price">Rs.${product.unitPrice}</p>
+
+            <div class="product-specs">
+                <h3>Specifications</h3>
+                <div class="spec-item"><span>Category</span><span>${product.category}</span></div>
+                <div class="spec-item"><span>Type</span><span>${product.type}</span></div>
+                <div class="spec-item"><span>Size</span><span>${product.size}</span></div>
+                <div class="spec-item"><span>Additional</span><span>${product.additionalDetails ?? 'None'}</span></div>
+            </div>
+
+            <button class="view-details-btn">Add to Cart</button>
+
+            <div class="reviews-section">
+                <h3>Customer Reviews</h3>
+                ${reviewsHTML}
+            </div>
+            </div>
+        `;
+
+        modal.style.display = 'block';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
