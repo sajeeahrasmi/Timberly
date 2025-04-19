@@ -83,7 +83,7 @@ function cancelLumber() {
     }
 
     $orderId = $_GET['orderId'];
-    error_log("Received orderId: " . $orderId); // Log for debugging
+    error_log("Received orderId: " . $orderId); 
 
     mysqli_begin_transaction($conn);
 
@@ -111,7 +111,7 @@ function cancelLumber() {
 
     } catch (Exception $e) {
         mysqli_rollback($conn);
-        error_log("Error cancelling order: " . $e->getMessage()); // Log error
+        error_log("Error cancelling order: " . $e->getMessage()); 
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
 

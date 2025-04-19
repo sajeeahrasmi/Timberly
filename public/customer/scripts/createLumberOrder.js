@@ -84,7 +84,7 @@ async function updateThicknesses() {
     }
 }
 
-
+let lumberQty = 0;
 async function updateQty() {
     const type = document.getElementById("type").value;
     const length = document.getElementById("length").value;
@@ -93,7 +93,6 @@ async function updateQty() {
     const qtyLabel = document.getElementById("qty");
     const priceLabel = document.getElementById("price");
 
-    // Reset the label text
     qtyLabel.value = 1;
 
     if (type && length && width && thickness) {
@@ -101,12 +100,12 @@ async function updateQty() {
             const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
             const data = await response.json();
 
-            console.log("Response Data:", data); // Log response for debugging
+            console.log("Response Data:", data); 
 
-            // Update the quantity label
             if (data.qtys && data.price) {
                 priceLabel.textContent = `Unit Price: ${data.price}`;
                 qtyLabel.max = data.qtys;
+                lumberQty = data.qtys;
             } else {
                 priceLabel.textContent = "Price: Not Available";
                 qtyLabel.max = 1;
@@ -136,19 +135,21 @@ async function addCard() {
         return;
     }
 
+    if (qty > lumberQty) {
+        alert(`Please select quantity less than ${lumberQty} .`);
+        return;
+    }
+
     try {
-        // Fetch the lumber ID from the database
         const response = await fetch(`../../config/customer/lumber.php?type=${type}&length=${length}&width=${width}&thickness=${thickness}`);
         const data = await response.json();
 
         if (data.qtys && data.price) {
-            // Create a new card
             const cardGrid = document.querySelector(".order-list");
             const card = document.createElement("div");
             card.classList.add("product");
             cardIdCounter = cardIdCounter + 1;
 
-            // Generate content for the card
             card.innerHTML = `
                 <h6><strong>Lumber ID:</strong> <span id="ItemLumberid"> ${data.lumberId}</span></h6>
                 <p><strong>Quantity:</strong> <span id="itemQty"> ${qty}</span></p>
@@ -177,8 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then(data => {
-            // Populate the customer's name
-            // document.getElementById("customer-name").textContent = data.name;
             userId = data.userId;
             console.log(userId)
         })
@@ -205,14 +204,12 @@ async function placeOrder() {
 
         const totalAmount = items.reduce((sum, item) => sum + item.qty * item.price, 0);
 
-        // Example order data (userId can be dynamic)
         const orderData = {
-            userId: userId, // Replace with logged-in user's ID
+            userId: userId, 
             itemQty: items.length,
             totalAmount: totalAmount
         };
 
-        // Send order data to the server
         const response = await fetch('../../config/customer/placeLumberOrder.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -223,8 +220,8 @@ async function placeOrder() {
 
         if (result.success) {
             alert("Order placed successfully!");
-            window.location.href = `http://localhost/Timberly/public/customer/orderRawMaterialDetails.html`;
-            // document.querySelector(".card-grid").innerHTML = ""; // Clear selected items
+            window.location.href = `http://localhost/Timberly/public/customer/orderHistory.php`;
+            
         } else {
             alert("Failed to place the order. Please try again.");
         }
