@@ -67,7 +67,7 @@
       card.className = 'product-card';
 
       card.innerHTML = `
-        <img src="${product.image}" alt="${product.description}" class="product-image" />
+        <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-image" />
         <div class="product-info">
           <h3 class="product-title">${product.description}</h3>
           <p class="product-price">Rs. ${product.unitPrice ?? 'N/A'}</p>
@@ -105,7 +105,7 @@
 
         container.innerHTML = `
             <div class="product-image-section">
-            <img src="${product.image}" alt="${product.description}" class="product-details-image" />
+            <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-details-image" />
             </div>
             <div class="product-details-info">
             <h2 class="product-details-title">${product.description}</h2>
