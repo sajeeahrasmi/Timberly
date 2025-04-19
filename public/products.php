@@ -159,7 +159,11 @@
             if (res.ok && data.success) {
                 alert('Item added to cart!');
             } else {
-                alert(data.error || 'Failed to add to cart');
+                if (res.status === 401) {
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Failed to add to cart');
+                }
             }
             } catch (err) {
             console.error(err);
