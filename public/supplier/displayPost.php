@@ -24,8 +24,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-$sql = "SELECT * FROM crudpost"; // Query to get posts
-$posts = "SELECT * FROM crudpost WHERE supplierId = '{$_SESSION['userId']}'";
+$sql = "SELECT * FROM pendinglumber"; // Query to get posts
+$posts = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}'";
 
 $result = mysqli_query($conn, $posts);
 
@@ -38,7 +38,7 @@ if (!$result) {
 if (isset($_GET['delete']) && isset($_GET['id'])) {
     $post_id = $_GET['id'];
 
-    $delete_sql = "DELETE FROM crudpost WHERE id = $post_id";
+    $delete_sql = "DELETE FROM pendinglumber WHERE id = $post_id";
     if (mysqli_query($conn, $delete_sql)) {
         // Redirect to prevent re-execution on refresh
         header("Location: displayPost.php");
@@ -95,7 +95,7 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
                 <div class="metric-card">
                     <?php 
                     $image = $row['image'];
-                    $imagePath = "./uploads/" . $image;
+                    $imagePath = ".supplier/uploads/" . $image;
                     
                     if (file_exists($imagePath) && in_array(strtolower(pathinfo($imagePath, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) { ?>
                         <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
@@ -105,13 +105,13 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
 
                     <div class="metric-details">
                         <h3>Post Id: <?php echo $row['id']; ?></h3>
-                        <h6>Category: <?php echo $row['category']; ?></h6>
+                        <h6>Category: <?php echo !empty($row['category']) ? htmlspecialchars($row['category']) : 'lumber'; ?></h6>
                         <h6>Type: <?php echo $row['type']; ?></h6>
                         <h6>Length: <?php echo $row['length']; ?> m</h6>
                         <h6>Width: <?php echo $row['width']; ?> mm</h6>
-                        <h6>Height: <?php echo $row['height']; ?> mm</h6>
+                        <h6>Height: <?php echo $row['thickness']; ?> mm</h6>
                         <h6>Quantity: <?php echo $row['quantity']; ?></h6>
-                        <h6>Price per Unit: <?php echo $row['price']; ?></h6>
+                        <h6>Price per Unit: <?php echo $row['unitprice']; ?></h6>
                         <h6>Additional Information: <?php echo $row['info']; ?></h6>
 
                         <div class="buttons">
