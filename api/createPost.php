@@ -11,6 +11,7 @@ if (!isset($_SESSION['userId'])) {
 $supplierId = $_SESSION['userId'];
 $postdate = date("Y-m-d");
 $is_approved = '0'; // Default pending state
+$is_approved = '0'; // Default pending state
 
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
@@ -65,7 +66,7 @@ if (isset($_POST['submit'])) {
 
     // Execute & handle result
     if ($stmt->execute()) {
-        echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
+        echo "<script>alert('Post submitted successfully!'); window.location.href = '\supplier\displayPost.php';</script>";
     } else {
         echo "Error: " . $stmt->error;
     }
