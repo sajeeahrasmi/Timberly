@@ -44,7 +44,7 @@ $email = $row1['email'] ?? '';
             <h1><?php echo $name; ?>'s Profile</h1>
             <div class="header-buttons">
                 <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/driver.php`">Dashboard</button>
-                <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/public/landingPage.html`">Logout</button>
+                <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/public/landingPage.php`">Logout</button>
             </div>
         </div>
 

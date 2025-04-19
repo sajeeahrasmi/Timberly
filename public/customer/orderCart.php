@@ -91,7 +91,7 @@ $totalAmount = 0;
                         <div class="empty-cart">
                             <i class="fa fa-shopping-cart"></i>
                             <p>Your cart is empty</p>
-                            <button class="button solid" onclick="window.location.href='http://localhost/Timberly/public/products.html'">Shop Now</button>
+                            <button class="button solid" onclick="window.location.href='http://localhost/Timberly/public/products.php'">Shop Now</button>
                         </div>
                         <?php 
                         }
@@ -106,7 +106,7 @@ $totalAmount = 0;
                             <p>Total: <span class="total-amount" id="total-amount">Rs. <?php echo number_format($totalAmount, 2); ?></span></p>
                         </div>
                         <div class="button-container">
-                            <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/products.html'">Continue Shopping</button>
+                            <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/products.php'">Continue Shopping</button>
                             <button class="button solid" id="order-now-btn" <?php echo ($totalItems == 0) ? 'disabled' : ''; ?>>Order Now</button>
                         </div>
                     </div>

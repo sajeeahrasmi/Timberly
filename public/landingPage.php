@@ -1,3 +1,7 @@
+<?php 
+    include '../api/getLandingPage.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +32,7 @@
         <div class="hero-content">
             <h1>Crafted with Nature's Finest</h1>
             <p>Discover our collection of handcrafted wooden furniture, where traditional craftsmanship meets contemporary design.</p>
-            <a href="products.html" class="cta-button">Explore Collection</a>
+            <a href="products.php" class="cta-button">Explore Collection</a>
         </div>
     </section>
 
@@ -38,33 +42,17 @@
             <p>Discover our most popular handcrafted furniture</p>
         </div>
         <div class="featured-grid">
+            <?php foreach ($productData as $item): ?>
             <div class="featured-item">
                 <div class="placeholder-img">
-                    <img src="./images/table.jpg" style="width: 100%; height: 100%;" >
+                    <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="Featured Item" style="width: 100%; height: 100%;">
                 </div>
                 <div class="featured-overlay">
-                    <h3>Artisan Dining Table</h3>
-                    <p>Solid oak with natural finish</p>
+                    <h3><?php echo htmlspecialchars($item['description'])?></h3>
+                    <p><?php echo htmlspecialchars($item['facts'])?></p>
                 </div>
             </div>
-            <div class="featured-item">
-                <div class="placeholder-img">
-                    <img src="./images/chair.jpg" style="width: 100%; height: 100%;" >
-                </div>
-                <div class="featured-overlay">
-                    <h3>Modern Lounge Chair</h3>
-                    <p>Walnut frame with leather upholstery</p>
-                </div>
-            </div>
-            <div class="featured-item">
-                <div class="placeholder-img">
-                    <img src="./images/bookshelf.jpg" style="width: 100%; height: 100%;">
-                </div>
-                <div class="featured-overlay">
-                    <h3>Geometric Bookshelf</h3>
-                    <p>Modular design in teak wood</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 

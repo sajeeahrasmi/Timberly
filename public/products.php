@@ -23,7 +23,7 @@
     <header class="header">
         <a href="#" class="logo"><img src="./images/final_logo.png" style="width: 200px; height: 200px;"></a>
         <nav class="nav-links">
-            <a href="landingPage.html">Home</a>
+            <a href="landingPage.php">Home</a>
         </nav>
         <div class="user-actions">
             
