@@ -11,7 +11,6 @@ if (!isset($_SESSION['userId'])) {
 $supplierId = $_SESSION['userId'];
 $postdate = date("Y-m-d");
 $is_approved = '0'; // Default pending state
-$is_approved = '0'; // Default pending state
 
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
