@@ -72,7 +72,7 @@
                     <div class="buttons">
                         <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createDoorOrder.php`" >Door/Window</button>
                         <button onclick="window.location.href=`http://localhost/Timberly/public/customer/createFurnitureOrder.php`">Other furnitures</button>
-                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.html`">Raw Materials</button>
+                        <button style="background-color: #B18068;" onclick="window.location.href=`http://localhost/Timberly/public/customer/createRawMaterialOrder.php`">Raw Materials</button>
                     </div>
                     <div class="form-content">
                         <h4>Item Details</h4>
