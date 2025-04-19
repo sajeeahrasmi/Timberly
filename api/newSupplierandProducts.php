@@ -17,59 +17,62 @@ $suppliers = getSuppliersFromDatabase(); // Fetch suppliers from the database
 
     // Mock product data based on suppliers
  
-    $products = [
-        [
-            'id' => 1,
-            'name' => 'Nedum',
-            'supplier_id' => 304,
-            'supplier_address' => '123 Mathara Rd, Mathara', // Added supplier address
-            'unit_price' => 1250.50, // Added unit price
-            'status' => 'Not Approved',
-            'details' => 'Nice Product'
-        ],
-        [
-            'id' => 2,
-            'name' => 'Sooriyam',
-            'supplier_id' => 203,
-            'supplier_address' => '123 Ambillawtta Rd, Boralasgamuwa', // Added supplier address
-            'unit_price' => 1833.75, // Added unit price
-            'status' => 'Not Approved',
-            'details' => 'Good Product'
-        ],
-        [
-            'id' => 3,
-            'name' => 'Teak',
-            'supplier_id' => 201,
-            'supplier_address' => '456 Kabes Rd, Kurunegala', // Added supplier address
-            'unit_price' => 3000.00, // Added unit price
-            'status' => 'Not Approved',
-            'details' => 'Great Product'
-        ],
-        [
-            'id' => 4,
-            'name' => 'Jak',
-            'supplier_id' => 206,
-            'supplier_address' => '456 Timbirigasyaya,Colombo', // Added supplier address
-            'unit_price' => 22.10, // Added unit price
-            'status' => 'Not Approved',
-            'details' => 'Nice Product'
-        ],
-        [
-            'id' => 5,
-            'name' => 'Product 5',
-            'supplier_id' => 302,
-            'supplier_address' => '789 Supplier Rd, Village, Country', // Added supplier address
-            'unit_price' => 15.50, // Added unit price
-            'status' => 'Approved',
-            'details' => 'Bad Product'
-        ]
-    ];
     
+function getPendingProductsFromDatabase() {
+    include 'db.php';
 
+    $products = [];
 
+    // Fetch from pendingtimber
+    $sqlTimber = "SELECT * FROM pendingtimber WHERE is_approved = '0'";
+    $resultTimber = $conn->query($sqlTimber);
 
+    while ($row = $resultTimber->fetch_assoc()) {
+        $products[] = [
+            'id' => $row['timberId'],
+            'name' => $row['type'],
+            'category' => 'timber',
+            'supplier_id' => $row['supplierId'],
+            'unit_price' => $row['unitprice'], // Timber has no unit price
+            'status' => $row['is_approved'],
+            'details' => $row['info'],
+            'type' => 'timber',
+            'image' => $row['image'],
+            'postdate' => $row['postdate'],
+            'quantity' => $row['quantity'],
+            
+                'diameter' => $row['diameter']
+            
+        ];
+    }
 
+    // Fetch from pendinglumber
+    $sqlLumber = "SELECT * FROM pendinglumber WHERE is_approved = '0'";
+    $resultLumber = $conn->query($sqlLumber);
 
+    while ($row = $resultLumber->fetch_assoc()) {
+        $products[] = [
+            'id' => $row['lumberId'],
+            'name' => $row['type'],
+            'supplier_id' => $row['supplierId'],
+            'unit_price' => $row['unitprice'],
+            'status' =>  $row['is_approved'],
+            'details' => $row['info'],
+            'category' => 'lumber',
+            //'type' => $row['type'],
+            'image' => $row['image'],
+            'postdate' => $row['postdate'],
+            'quantity' => $row['quantity'],
+            
+                'length' => $row['length'],
+                'width' => $row['width'],
+                'thickness' => $row['thickness']
+            
+        ];
+    }
 
-   
-       
+    $conn->close();
+    return $products;
+}
+
+$products = getPendingProductsFromDatabase();
