@@ -83,14 +83,14 @@
 
                 <div class="form-group">
                     <label>Diameter(mm):</label>
-                    <input type="number" name="length" min="0" required>
+                    <input type="number" name="diameter" min="0" required>
                     <label>Quantity:</label>
                     <input type="number" name="quantity" min="0" required>
                 </div>
 
                 <div class="form-group">
                     <label>Price:</label>
-                    <input type="number" name="price" min="1" required>
+                    <input type="number" name="unitprice" min="1" required>
                 </div>
 
                 <div class="form-group">
@@ -125,14 +125,14 @@
                     <label>Width(mm):</label>
                     <input type="number" name="width" min="0" required>
                     <label>Thickness(mm):</label>
-                    <input type="number" name="height" min="0" required>
+                    <input type="number" name="thickness" min="0" required>
                 </div>
 
                 <div class="form-group">
                     <label>Quantity:</label>
                     <input type="number" name="quantity" min="1" required>
                     <label>Price per Unit(LKR):</label>
-                    <input type="number" name="price" min="1" required>
+                    <input type="number" name="unitprice" min="1" required>
                 </div>
 
                 <div class="form-group">
