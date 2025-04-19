@@ -19,7 +19,10 @@ body {
     color: var(--text-color);
 }
 
-
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 
 .user-actions {
     display: flex;
@@ -204,7 +207,8 @@ body {
     color: #ecc94b;
 }
 
-.view-details-btn {
+.view-details-btn,
+.add-to-cart-btn {
     width: 100%;
     padding: 0.75rem;
     background-color: var(--primary-color);
@@ -214,7 +218,8 @@ body {
     cursor: pointer;
 }
 
-.view-details-btn:hover {
+.view-details-btn:hover,
+.add-to-cart-btn:hover {
     background-color: var(--accent-color);
 }
 
@@ -316,7 +321,11 @@ margin-bottom: 0.5rem;
 }
 
 .reviews-section {
-margin-top: 2rem;
+margin-bottom: 1.5rem;
+}
+
+.product-specs h3 {
+    margin-bottom: 1rem;
 }
 
 .review-item {

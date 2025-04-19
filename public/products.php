@@ -31,8 +31,6 @@
 
     <div class="filters">
       <button class="filter-btn active" data-category="all">All</button>
-      <button class="filter-btn" data-category="Door">Doors</button>
-      <button class="filter-btn" data-category="Window">Windows</button>
       <button class="filter-btn" data-category="Chair">Chair</button>
       <button class="filter-btn" data-category="Table">Table</button>
       <button class="filter-btn" data-category="Wardrobe">Wardrobe</button>
@@ -105,26 +103,30 @@
 
         container.innerHTML = `
             <div class="product-image-section">
-            <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-details-image" />
+                <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-details-image" />
             </div>
             <div class="product-details-info">
-            <h2 class="product-details-title">${product.description}</h2>
-            <p class="product-details-price">Rs.${product.unitPrice}</p>
+                <h2 class="product-details-title">${product.description}</h2>
+                <p class="product-details-price">Rs.${product.unitPrice}</p>
 
-            <div class="product-specs">
-                <h3>Specifications</h3>
-                <div class="spec-item"><span>Category</span><span>${product.category}</span></div>
-                <div class="spec-item"><span>Type</span><span>${product.type}</span></div>
-                <div class="spec-item"><span>Size</span><span>${product.size}</span></div>
-                <div class="spec-item"><span>Additional</span><span>${product.additionalDetails ?? 'None'}</span></div>
-            </div>
-
-            <button class="view-details-btn">Add to Cart</button>
-
-            <div class="reviews-section">
-                <h3>Customer Reviews</h3>
-                ${reviewsHTML}
-            </div>
+                <div class="product-specs">
+                    <h3>Specifications</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item"><span>Category</span></div>
+                        <div class="spec-item">${product.category}<span></div>
+                        <div class="spec-item"><span>Type</span></div>
+                        <div class="spec-item">${product.type}</span></div>
+                        <div class="spec-item"><span>Size</span></div>
+                        <div class="spec-item">${product.size}</span></div>
+                        <div class="spec-item"><span>Additional</span></div>
+                        <div class="spec-item">${product.additionalDetails}</span></div>
+                    </div>
+                </div>
+                <div class="reviews-section">
+                    <h3>Customer Reviews</h3>
+                    ${reviewsHTML}
+                </div>
+                <button class="add-to-cart-btn" data-id="${product.furnitureId}">Add to Cart</button>
             </div>
         `;
 
@@ -142,9 +144,35 @@
         });
       });
 
-      document.addEventListener('click', e => {
+      document.addEventListener('click', async e => {
         if (e.target.classList.contains('view-details-btn') && e.target.dataset.id) {
-          showProductDetails(parseInt(e.target.dataset.id));
+            showProductDetails(parseInt(e.target.dataset.id));
+        }
+
+        if (e.target.classList.contains('add-to-cart-btn') && e.target.dataset.id) {
+            const productId = parseInt(e.target.dataset.id);
+            try {
+            const res = await fetch('../api/addToCart.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                alert('Item added to cart!');
+            } else {
+                if (res.status === 401) {
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Failed to add to cart');
+                }
+            }
+            } catch (err) {
+            console.error(err);
+            alert('Something went wrong while adding to cart.');
+            }
         }
       });
 
