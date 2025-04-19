@@ -117,7 +117,7 @@
                 <div class="spec-item"><span>Additional</span><span>${product.additionalDetails ?? 'None'}</span></div>
             </div>
 
-            <button class="view-details-btn">Add to Cart</button>
+            <button class="add-to-cart-btn" data-id="${product.furnitureId}">Add to Cart</button>
 
             <div class="reviews-section">
                 <h3>Customer Reviews</h3>
@@ -140,9 +140,31 @@
         });
       });
 
-      document.addEventListener('click', e => {
+      document.addEventListener('click', async e => {
         if (e.target.classList.contains('view-details-btn') && e.target.dataset.id) {
-          showProductDetails(parseInt(e.target.dataset.id));
+            showProductDetails(parseInt(e.target.dataset.id));
+        }
+
+        if (e.target.classList.contains('add-to-cart-btn') && e.target.dataset.id) {
+            const productId = parseInt(e.target.dataset.id);
+            try {
+            const res = await fetch('../api/addToCart.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                alert('Item added to cart!');
+            } else {
+                alert(data.error || 'Failed to add to cart');
+            }
+            } catch (err) {
+            console.error(err);
+            alert('Something went wrong while adding to cart.');
+            }
         }
       });
 
