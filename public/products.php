@@ -103,26 +103,30 @@
 
         container.innerHTML = `
             <div class="product-image-section">
-            <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-details-image" />
+                <img src="${product.image.replace('../', '')}" alt="${product.description}" class="product-details-image" />
             </div>
             <div class="product-details-info">
-            <h2 class="product-details-title">${product.description}</h2>
-            <p class="product-details-price">Rs.${product.unitPrice}</p>
+                <h2 class="product-details-title">${product.description}</h2>
+                <p class="product-details-price">Rs.${product.unitPrice}</p>
 
-            <div class="product-specs">
-                <h3>Specifications</h3>
-                <div class="spec-item"><span>Category</span><span>${product.category}</span></div>
-                <div class="spec-item"><span>Type</span><span>${product.type}</span></div>
-                <div class="spec-item"><span>Size</span><span>${product.size}</span></div>
-                <div class="spec-item"><span>Additional</span><span>${product.additionalDetails ?? 'None'}</span></div>
-            </div>
-
-            <button class="add-to-cart-btn" data-id="${product.furnitureId}">Add to Cart</button>
-
-            <div class="reviews-section">
-                <h3>Customer Reviews</h3>
-                ${reviewsHTML}
-            </div>
+                <div class="product-specs">
+                    <h3>Specifications</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item"><span>Category</span></div>
+                        <div class="spec-item">${product.category}<span></div>
+                        <div class="spec-item"><span>Type</span></div>
+                        <div class="spec-item">${product.type}</span></div>
+                        <div class="spec-item"><span>Size</span></div>
+                        <div class="spec-item">${product.size}</span></div>
+                        <div class="spec-item"><span>Additional</span></div>
+                        <div class="spec-item">${product.additionalDetails}</span></div>
+                    </div>
+                </div>
+                <div class="reviews-section">
+                    <h3>Customer Reviews</h3>
+                    ${reviewsHTML}
+                </div>
+                <button class="add-to-cart-btn" data-id="${product.furnitureId}">Add to Cart</button>
             </div>
         `;
 

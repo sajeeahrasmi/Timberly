@@ -19,7 +19,10 @@ body {
     color: var(--text-color);
 }
 
-
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 
 .user-actions {
     display: flex;
@@ -318,7 +321,11 @@ margin-bottom: 0.5rem;
 }
 
 .reviews-section {
-margin-top: 2rem;
+margin-bottom: 1.5rem;
+}
+
+.product-specs h3 {
+    margin-bottom: 1rem;
 }
 
 .review-item {
