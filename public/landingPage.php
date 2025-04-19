@@ -168,7 +168,7 @@
     function redirectToDashboard(role) {
         switch (role) {
             case "customer":
-                window.location.href = "../../Timberly/public/customer/customerDashboard.html";
+                window.location.href = "../../Timberly/public/customer/customerDashboard.php";
                 break;
             case "manager":
                 window.location.href = "../../Timberly/public/manager/admin.php";

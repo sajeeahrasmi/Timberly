@@ -31,8 +31,6 @@
 
     <div class="filters">
       <button class="filter-btn active" data-category="all">All</button>
-      <button class="filter-btn" data-category="Door">Doors</button>
-      <button class="filter-btn" data-category="Window">Windows</button>
       <button class="filter-btn" data-category="Chair">Chair</button>
       <button class="filter-btn" data-category="Table">Table</button>
       <button class="filter-btn" data-category="Wardrobe">Wardrobe</button>

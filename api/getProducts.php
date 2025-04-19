@@ -19,6 +19,7 @@ $query = "
     FROM furnitures f
     LEFT JOIN orderfurniture ofr ON f.furnitureId = ofr.itemId
     LEFT JOIN review r ON ofr.reviewId = r.reviewId
+    WHERE f.category NOT IN ('Door', 'Window', 'Transom')
 ";
 
 $result = mysqli_query($conn, $query);
