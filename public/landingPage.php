@@ -45,11 +45,13 @@
             <?php foreach ($productData as $item): ?>
             <div class="featured-item">
                 <div class="placeholder-img">
-                    <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="Featured Item" style="width: 100%; height: 100%;">
+                    <?php 
+                    $originalPath = $item['image'];
+                    $cleanedPath = str_replace('../','',$originalPath);?>
+                    <img src="<?php echo htmlspecialchars($cleanedPath); ?>" alt="Featured Item" style="width: 100%; height: 100%;">
                 </div>
                 <div class="featured-overlay">
                     <h3><?php echo htmlspecialchars($item['description'])?></h3>
-                    <p><?php echo htmlspecialchars($item['facts'])?></p>
                 </div>
             </div>
             <?php endforeach; ?>
