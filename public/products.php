@@ -31,9 +31,6 @@
 
     <div class="filters">
       <button class="filter-btn active" data-category="all">All</button>
-      <button class="filter-btn" data-category="dining">Dining</button>
-      <button class="filter-btn" data-category="seating">Seating</button>
-      <button class="filter-btn" data-category="storage">Storage</button>
       <button class="filter-btn" data-category="Door">Doors</button>
       <button class="filter-btn" data-category="Window">Windows</button>
       <button class="filter-btn" data-category="Chair">Chair</button>
@@ -41,6 +38,9 @@
       <button class="filter-btn" data-category="Wardrobe">Wardrobe</button>
       <button class="filter-btn" data-category="Bookshelf">Bookshelf</button>
       <button class="filter-btn" data-category="Stool">Stool</button>
+      <button class="filter-btn" data-category="dining">Dining</button>
+      <button class="filter-btn" data-category="seating">Seating</button>
+      <button class="filter-btn" data-category="storage">Storage</button>
     </div>
 
     <div class="products-grid" id="productsGrid"></div>
