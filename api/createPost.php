@@ -43,16 +43,20 @@ if (isset($_POST['submit'])) {
         );
 
     } elseif ($category === "Lumber") {
+        // Lumber specific fields
+        $type = isset($_POST['type']) ? $_POST['type'] : null;
         $length = isset($_POST['length']) ? $_POST['length'] : null;
         $width = isset($_POST['width']) ? $_POST['width'] : null;
         $thickness = isset($_POST['thickness']) ? $_POST['thickness'] : null;
-
+    
         $stmt = $conn->prepare("INSERT INTO pendinglumber 
             (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("siiiisssiss", 
+        
+        $stmt->bind_param("siiiiississ", 
             $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
         );
+    
 
     } else {
         echo "Invalid category.";
@@ -61,7 +65,7 @@ if (isset($_POST['submit'])) {
 
     // Execute & handle result
     if ($stmt->execute()) {
-        echo "<script>alert('Post submitted successfully!'); window.location.href = '\supplier\displayPost.php';</script>";
+        echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
     } else {
         echo "Error: " . $stmt->error;
     }
