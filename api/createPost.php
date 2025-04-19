@@ -1,61 +1,72 @@
 <?php
-include '../../config/db_connection.php'; // Ensure this file contains a working database connection.
+include '../../config/db_connection.php';
 session_start();
-// Debug: log to check what was inserted
-error_log("Inserted post for supplierId: " . $_SESSION['userId']);
 
+// Check supplier session
+if (!isset($_SESSION['userId'])) {
+    echo "Error: Supplier not logged in.";
+    exit();
+}
+
+$supplierId = $_SESSION['userId'];
+$postdate = date("Y-m-d");
+$is_approved = "0"; // Default pending state
 
 if (isset($_POST['submit'])) {
-    // Collect form data
     $category = $_POST['category'];
     $type = $_POST['type'];
-    $length = $_POST['length'];
-    $width = $_POST['width'];
-    $height = $_POST['height'];
     $quantity = $_POST['quantity'];
-    $price = $_POST['price'];
+    $price = $_POST['unitprice'];
     $info = $_POST['info'];
+    $image = $_FILES['image'];
 
+    // Image Upload
+    $targetDir = "../Supplier/uploads/";
+    $imageName = time() . "_" . basename($image["name"]);
+    $targetFile = $targetDir . $imageName;
 
-    // Check for empty fields
-    // if (empty($category) || empty($type) || empty($length) || empty($width) || empty($height) || empty($quantity) || empty($price)) {
-        if (empty($category) || empty($type) || empty($length) || empty($quantity) || empty($price)) {
-        die("All fields are required.");
-    }
-
-    // Handle image upload
-    $image = $_FILES['image']['name'];
-    // $target = "uploads/" . basename($image);
-    $target = "uploads/" . basename($image);
-
-
-    // Ensure uploads directory exists and is writable
-    if (!is_dir('uploads/')) {
-        mkdir('uploads', 0777, true);  // Create uploads directory if not exists
-    }
-
-    if (!is_writable('uploads/')) {
-        die("Uploads directory is not writable.");
-    }
-
-    // Move the uploaded file
-    if (!move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        die("Failed to upload image.");
-    }
-
-    // Insert data into the database
-    $sql = "INSERT INTO `crudpost` (`category`, `type`, `length`, `width`, `height`, `quantity`, `price`, `info`, `image`, `supplierId`) 
-            VALUES ('$category', '$type', '$length', '$width', '$height', '$quantity', '$price', '$info', '$image', '{$_SESSION['userId']}')";
-
-    $result = mysqli_query($conn, $sql);
-
-    if ($result) {
-        // Redirect to display page after successful insertion
-        // header("Location: displayPost.php");
-        header("Location: ../supplier/displayPost.php");
+    if (!move_uploaded_file($image["tmp_name"], $targetFile)) {
+        echo "Image upload failed.";
         exit();
-    } else {
-        echo "Error: " . mysqli_error($conn);
     }
+
+    $imagePath = "/Supplier/uploads/" . $imageName;
+
+    if ($category === "Timber") {
+        $diameter = isset($_POST['diameter']) ? $_POST['diameter'] : null;
+
+        $stmt = $conn->prepare("INSERT INTO pendingtimber 
+            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("siiisssss", 
+            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+        );
+
+    } elseif ($category === "Lumber") {
+        $length = isset($_POST['length']) ? $_POST['length'] : null;
+        $width = isset($_POST['width']) ? $_POST['width'] : null;
+        $thickness = isset($_POST['thickness']) ? $_POST['thickness'] : null;
+
+        $stmt = $conn->prepare("INSERT INTO pendinglumber 
+            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("siiiisssiss", 
+            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+        );
+
+    } else {
+        echo "Invalid category.";
+        exit();
+    }
+
+    // Execute & handle result
+    if ($stmt->execute()) {
+        echo "<script>alert('Post submitted successfully!'); window.location.href = '/Supplier/displayPost.php';</script>";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 }
 ?>
