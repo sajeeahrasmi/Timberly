@@ -23,6 +23,10 @@ if (isset($_GET['action'])) {
             clearCart();
             break;
 
+        case 'placeOrder':
+            placeOrder();
+            break;
+
         default:
             echo json_encode(['error' => 'Invalid action']);
     }
@@ -154,4 +158,63 @@ function clearCart(){
     }
 
 }
+
+function placeOrder() {
+    global $conn;
+
+    $userId = $_GET['userId'];
+    $itemQty = $_GET['itemQty'];
+    $totalAmount = $_GET['totalAmount'];
+
+    mysqli_begin_transaction($conn);
+
+    try {
+        $query = "SELECT c.*, f.*
+                  FROM cart c 
+                  JOIN furnitures f ON c.productId = f.furnitureId 
+                  WHERE c.userId = ? AND c.selectToOrder = 'yes' ";;
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 0) {
+            echo json_encode(['success' => false, 'message' => 'No items selected.']);
+            return;
+        }
+
+        $orderQuery = "INSERT INTO orders (userId, itemQty, totalAmount, status, date, category) VALUES (?, ?, ?, 'Pending', NOW(), 'Furniture')";
+        $orderStmt = $conn->prepare($orderQuery);
+        $orderStmt->bind_param("iid", $userId, $itemQty, $totalAmount);
+        $orderStmt->execute();
+        $orderId = $orderStmt->insert_id;
+
+        $insertFurnitureQuery = "INSERT INTO orderfurniture (orderId, itemId, type, qty, size, additionalDetails, unitPrice, status) 
+                                 VALUES (?, ?, ?, ?, ?, ?,?, 'Pending')";
+        $insertStmt = $conn->prepare($insertFurnitureQuery);
+
+        while ($row = $result->fetch_assoc()) {
+            $insertStmt->bind_param(
+                "iisiisd",
+                $orderId,
+                $row['productId'],
+                $row['type'],
+                $row['qty'],
+                $row['size'],
+                $row['additionalDetails'],
+                $row['unitPrice']
+            );
+            $insertStmt->execute();
+        }
+
+        mysqli_commit($conn);
+
+        echo json_encode(['success' => true, 'orderId' => $orderId]);
+
+    } catch (Exception $e) {
+        mysqli_rollback($conn);
+        echo json_encode(['success' => false, 'message' => 'Error placing order: ' . $e->getMessage()]);
+    }
+}
+
 ?>

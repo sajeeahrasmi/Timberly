@@ -62,7 +62,7 @@ async function addCard(productId, description) {
     }
 }
 
-//place order
+
 async function placeOrder() {
     try {
         const cardElements = document.querySelectorAll(".product");

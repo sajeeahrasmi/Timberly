@@ -76,6 +76,21 @@ try {
         $stmtFull->execute();
     }
 
+    $queryCat = "SELECT category FROM orders WHERE orderId = ?";
+    $stmtCat = $conn->prepare($stmtCat);
+    $stmtCat->bind_param("i", $orderId);
+    $stmtCat->execute();
+    $resultCat = $stmtCat->get_result();
+    $rowCat = $resultCat->fetch_assoc();
+    $category = $rowCat['category'];
+
+    if($category === 'Furniture'){
+        $query = "UPDATE orderfurniture SET status = 'Approved' WHERE orderId = ? AND status = 'Pending'";
+        $stmt = $conn->prepare($update);
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+    }
+
     $conn->commit();
 
 } catch (Exception $e) {
@@ -133,7 +148,7 @@ try {
             <p><strong>Date:</strong> <?= htmlspecialchars($paymentDate) ?></p>
             <!-- <p><strong>Payment Method:</strong> <?= htmlspecialchars($paymentMode) ?></p> -->
         </div>
-        <p>✅ Thanks for your order!</p>
+        <p>Thanks for your order!</p>
         <button onclick="window.location.href='orderHistory.php'" class="button">Go to Order History</button>
     </div>
 </body>
