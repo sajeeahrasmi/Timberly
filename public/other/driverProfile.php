@@ -66,6 +66,11 @@ $address = $user['address'];
             <div class="profile-card edit-mode" id="editProfile">
                 <h2>Edit Profile</h2>
                 <form id="profileForm" method="POST" action="updateDriverProfile.php">
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="<?php echo $name; ?>" required readonly>
+                    </div>                  
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
