@@ -33,14 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'uwpawan@gmail.com';         // your Gmail
-        $mail->Password   = '';           // Gmail App Password
+        $mail->Username   = 'mra802086@gmail.com';         // your Gmail
+        $mail->Password   = 'jplrhlkqfacsnhkh';           // Gmail App Password
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
         // Set From and To
-        $mail->setFrom('uwpawan@gmail.com', 'Timberly Contact Form');
-        $mail->addAddress('uwpawan@gmail.com');           // Your receiving email
+        $mail->setFrom('mra802086@gmail.com', 'Timberly Contact Form');
+        $mail->addAddress('mra802086@gmail.com');           // Your receiving email
         $mail->addReplyTo($email, $name);                 // User reply-to
 
         // Email content
