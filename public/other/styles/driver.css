@@ -48,6 +48,12 @@ body {
     width: 100%;
 }
 
+.header h1 {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin: 0;
+}
+
 .container .header .logo{
     display: flex;
     align-items: center; 
@@ -70,6 +76,8 @@ body {
     grid-template-columns: 300px 250px;
     gap: 20px;
     margin-bottom: 20px;
+    padding: var(--padding);
+    color: var(--color-primary);
 }
 
 .delivery-list {
