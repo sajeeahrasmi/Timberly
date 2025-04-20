@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['userId'])) {
@@ -8,24 +7,28 @@ if (!isset($_SESSION['userId'])) {
 }
 
 $userId = $_SESSION['userId'];
-echo "<script> console.log({$userId})</script>";
-echo "<script> console.log('this is user')</script>";
 
+// Database connection
 include '../../config/db_connection.php';
 
-$query1 = "SELECT * FROM user WHERE userId = ?";
-$stmt1 = $conn->prepare($query1);
-$stmt1->bind_param("i", $userId);
-$stmt1->execute();
-$result1 = $stmt1->get_result();
-$row1 = $result1->fetch_assoc();
-$name = $row1['name'] ?? 'Driver';
-$address = $row1['address'] ?? '';
-$phone = $row1['phone'] ?? '';
-$email = $row1['email'] ?? '';
+// Fetch user details for the profile
+$query = "SELECT * FROM user WHERE userId = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
+if (!$user) {
+    echo "<script>alert('User not found'); window.location.href='../../public/login.html';</script>";
+    exit();
+}
+
+$name = $user['name'];
+$email = $user['email'];
+$phone = $user['phone'];
+$address = $user['address'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,12 +42,12 @@ $email = $row1['email'] ?? '';
     <div class="container">
         <div class="header">
             <div class="logo">
-                <img src="../images/final_logo.png" alt="Logo" style="height: 200px; margin: 0%; padding: 0%;"  />
+                <img src="../images/final_logo.png" alt="Logo" style="height: 200px; margin: 0%; padding: 0%;" />
             </div>
             <h1><?php echo $name; ?>'s Profile</h1>
             <div class="header-buttons">
-                <button class="button outline" onclick="window.location.href=`http://localhost/Timberly/public/other/driver.php`">Dashboard</button>
-                <button class="button solid" onclick="window.location.href=`http://localhost/Timberly/public/landingPage.php`">Logout</button>
+                <button class="button outline" onclick="window.location.href='driver.php'">Dashboard</button>
+                <button class="button solid" onclick="window.location.href='../../config/logout.php'">Logout</button>
             </div>
         </div>
 
@@ -62,17 +65,15 @@ $email = $row1['email'] ?? '';
 
             <div class="profile-card edit-mode" id="editProfile">
                 <h2>Edit Profile</h2>
-                <form id="profileForm" onsubmit="updateProfile(event)">
+                <form id="profileForm" method="POST" action="updateDriverProfile.php">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="phone">Phone:</label>
                         <input type="tel" id="phone" name="phone" value="<?php echo $phone; ?>" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="address">Address:</label>
                         <textarea id="address" name="address" required><?php echo $address; ?></textarea>
