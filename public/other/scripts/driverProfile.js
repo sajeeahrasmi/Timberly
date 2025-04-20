@@ -1,17 +1,6 @@
-
-
 function showEditMode() {
     document.getElementById('viewProfile').style.display = 'none';
     document.getElementById('editProfile').style.display = 'block';
-
-    // Pre-fill form with current values
-    const currentEmail = document.querySelector('.profile-info span:nth-of-type(3)').textContent;
-    const currentPhone = document.querySelector('.profile-info span:nth-of-type(4)').textContent;
-    const currentAddress = document.querySelector('.profile-info span:nth-of-type(5)').textContent;
-
-    document.getElementById('email').value = currentEmail;
-    document.getElementById('phone').value = currentPhone;
-    document.getElementById('address').value = currentAddress;
 }
 
 function cancelEdit() {
@@ -22,19 +11,38 @@ function cancelEdit() {
 function updateProfile(event) {
     event.preventDefault();
 
-    // Get updated values
+    const userId = document.getElementById('userId').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
     const address = document.getElementById('address').value;
 
-    // Update the view mode with new values
-    document.querySelector('.profile-info span:nth-of-type(3)').textContent = email;
-    document.querySelector('.profile-info span:nth-of-type(4)').textContent = phone;
-    document.querySelector('.profile-info span:nth-of-type(5)').textContent = address;
+    const data = { userId, email, phone, address };
 
-    // Show success message
-    alert('Profile updated successfully!');
+    // Log data to check it
+    console.log(data);
 
-    // Switch back to view mode
-    cancelEdit();
+    fetch('updateDriverProfile.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Profile updated successfully!");
+            // Update the profile info on the page
+            document.querySelector("#viewProfile span:nth-child(1)").innerText = email;
+            document.querySelector("#viewProfile span:nth-child(2)").innerText = phone;
+            document.querySelector("#viewProfile span:nth-child(3)").innerText = address;
+
+            // Redirect to profile page after successful update
+            window.location.href = "driverProfile.php";  // Adjust the redirect to the correct URL if needed
+        } else {
+            alert(data.error || "An error occurred while updating the profile.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while updating the profile.');
+    });
 }
