@@ -117,7 +117,6 @@ function deleteItem(){
             throw new Exception('Failed to update orders table');
         }
 
-        // Insert into the second table (e.g., 'orderlumber')
         $query2 = "DELETE FROM orderLumber WHERE orderId = $orderId AND itemId = $itemId";
         $result2 = mysqli_query($conn, $query2);
 
@@ -125,14 +124,35 @@ function deleteItem(){
             throw new Exception('Failed to delete item.');
         }
 
-        // Commit the transaction if all queries succeed
+        $sumQuery = "SELECT SUM(ol.qty * l.unitPrice) AS newTotal
+            FROM orderLumber ol
+            JOIN lumber l ON ol.itemId = l.lumberId
+            WHERE ol.orderId = ?
+        ";
+        $sumStmt = $conn->prepare($sumQuery);
+        $sumStmt->bind_param("i", $orderId);
+        $sumStmt->execute();
+        $sumResult = $sumStmt->get_result();
+        $row = $sumResult->fetch_assoc();
+        $newTotal = $row['newTotal'];
+
+        if ($newTotal === null) {
+            throw new Exception("Could not calculate new total");
+        }
+
+        $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
+        $updateStmt = $conn->prepare($updateOrderQuery);
+        $updateStmt->bind_param("di", $newTotal, $orderId);
+
+        if (!$updateStmt->execute()) {
+            throw new Exception("Failed to update total amount");
+        }
+
         mysqli_commit($conn);
 
-        // Send success response
         echo json_encode(['success' => true]);
 
     } catch (Exception $e) {
-        // Roll back the transaction if any query fails
         mysqli_rollback($conn);
         echo json_encode(['error' => "Couldn't delete item."]);
     }
