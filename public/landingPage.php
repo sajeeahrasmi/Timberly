@@ -87,15 +87,15 @@
             <h2>Get in Touch</h2>
             <p>Have a question? We'd love to hear from you.</p>
         </div>
-        <form class="contact-form">
+        <form class="contact-form" action="../api/sendEmail.php" method="POST">
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Your Name">
+                <input type="text" name="name" class="form-input" placeholder="Your Name" required>
             </div>
             <div class="form-group">
-                <input type="email" class="form-input" placeholder="Your Email">
+                <input type="email" name="email" class="form-input" placeholder="Your Email" required>
             </div>
             <div class="form-group">
-                <textarea class="form-input" rows="5" placeholder="Your Message"></textarea>
+                <textarea name="message" class="form-input" rows="5" placeholder="Your Message" required></textarea>
             </div>
             <button type="submit" class="cta-button">Send Message</button>
         </form>
