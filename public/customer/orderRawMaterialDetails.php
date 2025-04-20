@@ -13,7 +13,7 @@ $userId = $_SESSION['userId'];
 
 include '../../config/db_connection.php';
 
-$query = "SELECT * FROM orderlumber o JOIN lumber l ON o.itemId = l.lumberId WHERE o.orderId = ?;";
+$query = "SELECT o.*, l.type, l.unitPrice FROM orderlumber o JOIN lumber l ON o.itemId = l.lumberId WHERE o.orderId = ?;";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $orderId);
 $stmt->execute();
