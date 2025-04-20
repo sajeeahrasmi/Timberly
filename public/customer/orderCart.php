@@ -21,6 +21,22 @@ $result = $stmt->get_result();
 
 $totalItems = 0;
 $totalAmount = 0;
+
+$query2 = "SELECT 
+    COUNT(*) AS selectedItemCount,
+    SUM(c.qty * f.unitPrice) AS totalSelectedAmount
+    FROM cart c
+    JOIN furnitures f ON c.productId = f.furnitureId
+    WHERE c.userId = ? AND c.selectToOrder = 'yes';
+    ";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $userId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$row2 = $result2->fetch_assoc();
+$selectedItemCount = $row2['selectedItemCount'] ?? '';
+$totalSelectedAmount = $row2['totalSelectedAmount'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -102,12 +118,13 @@ $totalAmount = 0;
                         <div class="order-summary">
                             <h3>Order Summary</h3>
                             <hr>
-                            <p>No. of items: <span id="total-items"><?php echo $totalItems; ?></span></p>
-                            <p>Total: <span class="total-amount" id="total-amount">Rs. <?php echo number_format($totalAmount, 2); ?></span></p>
+                            <p>No. of items: <span id="total-items"><?php echo $selectedItemCount; ?></span></p>
+                            <p>Total: <span class="total-amount" id="total-amount">Rs. <?php echo number_format($totalSelectedAmount, 2); ?></span></p>
                         </div>
                         <div class="button-container">
                             <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/products.php'">Continue Shopping</button>
-                            <button class="button solid" id="order-now-btn" <?php echo ($totalItems == 0) ? 'disabled' : ''; ?>>Order Now</button>
+                            <!-- <button class="button solid" id="order-now-btn" <?php echo ($totalItems == 0) ? 'disabled' : ''; ?> onclick="processOrder(<?php echo $userId; ?>,<?php echo $selectedItemCount; ?>, <?php echo number_format($totalSelectedAmount, 2); ?> )">Order Now</button> -->
+                            <button class="button solid" id="order-now-btn" <?php echo ($totalItems == 0) ? 'disabled' : ''; ?> onclick="processOrder(<?php echo $userId; ?>, <?php echo $selectedItemCount; ?>, <?php echo floatval($totalSelectedAmount); ?>)">Order Now</button>
                         </div>
                     </div>
                 </div>

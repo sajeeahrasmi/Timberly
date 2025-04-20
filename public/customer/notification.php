@@ -11,7 +11,7 @@ $userId = $_SESSION['userId'];
 
 include '../../config/db_connection.php';
 
-$queryCat = "SELECT * FROM customernotification WHERE userId = ?";
+$queryCat = "SELECT * FROM customernotification WHERE userId = ? AND view = 'no'";
 $stmtCat = $conn->prepare($queryCat);
 $stmtCat->bind_param("i", $userId);
 $stmtCat->execute();

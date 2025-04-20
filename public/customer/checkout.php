@@ -34,7 +34,7 @@ require __DIR__ . "/vendor/autoload.php";
 $checkout_session = \Stripe\Checkout\Session::create([
     "mode" => "payment",
     "success_url" => "http://localhost/Timberly/public/customer/success.php?orderId=$orderId&amount=$amount",
-    "cancel_url" => "http://localhost/Timberly/public/customer/customerDashboard.php",
+    "cancel_url" => "http://localhost/Timberly/public/customer/orderHistory.php",
     "line_items" => [
         [
             "quantity" => 1,

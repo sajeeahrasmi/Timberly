@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const orderNowBtn = document.getElementById('order-now-btn');
-    if (orderNowBtn) {
-        orderNowBtn.addEventListener('click', processOrder);
-    }
+    // const orderNowBtn = document.getElementById('order-now-btn');
+    // if (orderNowBtn) {
+    //     orderNowBtn.addEventListener('click', processOrder);
+    // }
 });
 
 async function updateItemQuantity(input) {
@@ -137,14 +137,37 @@ async  function clearCart(userId) {
     }
 }
 
-function processOrder() {
-    // Check if any items are selected
-    const selectedItems = document.querySelectorAll('.select-to-order:checked');
+async function processOrder(userId, itemQty, totalAmount) {
+    console.log(userId);
+    console.log("hello");
+   const selectedItems = document.querySelectorAll('.select-to-order:checked');
     
     if (selectedItems.length === 0) {
         alert('Please select at least one item to order');
         return;
     }
+
+    try{
+        const response = await fetch(`../../config/customer/orderCart.php?action=placeOrder&userId=${userId}&itemQty=${itemQty}&totalAmount=${totalAmount}`);
+        const data = await response.json();
+       
+
+        if(data.success){
+            // alert('Checked to order!');
+            const orderId = data.orderId;
+            window.location.href = `http://localhost/Timberly/public/customer/payment-details.php?orderId=${orderId}`;
+
+        }else{
+            alert('Failed to order ' + data.message);
+             
+        }   
+
+    }catch (error){
+        console.error('Error:', error);
+        alert('An error occurred while ordering');
+        
+    }
+
     
-    // window.location.href = 'http://localhost/Timberly/public/customer/payment-details.php?orderId=${orderId}';
+    
 }
