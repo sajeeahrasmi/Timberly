@@ -1,3 +1,20 @@
+<?php
+//het the order id and item id from the url
+$orderId = $_GET['orderId'];
+$itemId = $_GET['itemId'];
+//get userId from session
+
+
+//display the order id and item id in the page
+
+echo "Order ID: " . $orderId . "<br>";
+echo "Item ID: " . $itemId . "<br>";
+//echo "User ID: " . $userId . "<br>";
+
+include '../../config/db_connection.php';
+include '../../config/customer/getcdetails.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,19 +39,58 @@
 
             <div class="content">                  
                 <div class="product-list">
-                    <h2>Order #</h2>
-                    <div class="product" onclick="openChat('Product 1')">
-                        <img src="../images/chair.jpg" alt="Product 1">
-                        <p>Product 01: Description</p>
-                    </div>
-                    <div class="product" onclick="openChat('Product 2')">
-                        <img src="../images/chair.jpg" alt="Product 2">
-                        <p>Product 02: Description</p>
-                    </div>
-                    <div class="product" onclick="openChat('Product 3')">
-                        <img src="../images/chair.jpg" alt="Product 3">
-                        <p>Product 03: Description</p>
-                    </div>
+                    <h2>Order # <?php echo $orderId; ?></h2>
+                    <h3>Item # <?php echo $itemId; ?></h3>
+                    
+                   
+
+                   
+                    
+                    <?php
+                    $query = "SELECT * FROM ordercustomizedfurniture WHERE orderId = ? AND itemId = ?";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("ii", $orderId, $itemId);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    $type = $row['type'] ?? 'N/A';
+                    $details = $row['details'] ?? 'N/A';
+                    $category = $row['category'] ?? 'N/A';
+                    $image = $row['image'] ?? '../images/furniture.jpg';
+                    ?>
+                    <div class="product-list-item">
+                        <div class="product-image">
+                            
+                            <img src="<?php echo $image; ?>" alt="Product Image" style="width: 100px; height: 100px;">
+                            
+                            <div class="product-details">
+                                <h4>Product Type: <?php echo $type; ?></h4>
+                                <p>Details: <?php echo $details; ?></p>
+                                <p>Category: <?php echo $category; ?></p>
+
+
+
+</div>
+</div>
+
+
+<button class="chat-button" style = "background-color: #895D47; /* Green */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+   
+    margin: -4px -3px;
+    cursor: pointer;
+}" onclick="openChat(<?php echo $itemId; ?>,<?php echo $orderId; ?>)">Chat with Designer</button>
+</div>
+
+
+
                     
                 </div>
                 
@@ -47,8 +103,9 @@
                         <input type="text" id="chat-message" placeholder="Type a message...">
                         
                         <label for="image-upload" class="upload-button"><span><i class="fa-solid fa-camera"></i></span></label>
-                        <input type="file" id="image-upload" accept="image/*" style="display:none" onchange="uploadImage(event)">
-                        <button onclick="sendMessage()">Send</button>
+                        <input type="file" id="image-upload" accept="image/*" data-item-id="<?php echo $itemId; ?>" 
+                        data-order-id="<?php echo $orderId; ?>" style="display:none" onchange="uploadImage(event)">
+                        <button onclick="sendMessage(<?php echo $itemId; ?>,<?php echo $orderId; ?>)">Send</button>
                     </div>
                 </div>
                 

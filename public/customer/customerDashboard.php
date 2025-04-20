@@ -59,9 +59,9 @@ $query3 = "SELECT
         
         UNION
         
-        SELECT MAX(of.date) AS latest_date
+        SELECT MAX(ofr.date) AS latest_date
         FROM orders o
-        JOIN orderfurniture of ON o.orderId = of.orderId
+        JOIN orderfurniture ofr ON o.orderId = ofr.orderId
         WHERE o.userId = ?
         
         UNION

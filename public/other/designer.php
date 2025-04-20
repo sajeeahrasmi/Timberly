@@ -63,22 +63,23 @@ $name = $row1['name'] ?? 'Driver';
                         <input type="file" style="display: none" accept="image/*" onchange="handleFileUpload(event)">
                     </label>
                     <input type="text" placeholder="Type your message..." id="messageInput">
-                    <button class="button solid" onclick="sendMessage()">Send</button>
+                    <button class="button solid" onclick="sendMessage(<?php echo $userId; ?>)">Send</button>
                 </div>
             </div>
 
-            <div class="input-image">
-                <h2>Input image</h2>
-                <h4>Order ID: </h4>
-                <h4>Item ID:</h4>
+            <div class="input-image" id="chatDetails">
+    <h2>Input Image</h2>
+    <h4>Order ID: <span id="orderId"></span></h4>
+    <h4>Item ID: <span id="itemId"></span></h4>
 
-                <label for="imageUpload" class="image-upload-box">
-                <img id="previewImage" src="../images/upload.jpg" alt="Click to upload" />
-                <input type="file" id="imageUpload" accept="image/*" hidden onchange="previewImage(event)" />
-                </label>
-                <br><br>
-            <button class="button solid">Update</button>
-            </div>
+    <label for="imageUpload" class="image-upload-box">
+        <img id="previewImage" src="../images/upload.jpg" alt="Click to upload" />
+        <input type="file" id="imageUpload" accept="image/*" hidden onchange="previewImage(event)" />
+    </label>
+    <br><br>
+    <button class="button solid">Update</button>
+</div>
+
         </div>
     </div>
 
