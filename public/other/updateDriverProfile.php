@@ -9,6 +9,7 @@ if (!isset($_SESSION['userId'])) {
 $userId = $_SESSION['userId'];
 
 // Get the updated profile data
+$name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $phone = $_POST['phone'] ?? '';
 $address = $_POST['address'] ?? '';
@@ -18,9 +19,9 @@ if ($email && $phone && $address) {
     include '../../config/db_connection.php';
 
     // Prepare the update query
-    $query = "UPDATE user SET email = ?, phone = ?, address = ? WHERE userId = ?";
+    $query = "UPDATE user SET name = ?, email = ?, phone = ?, address = ? WHERE userId = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssi", $email, $phone, $address, $userId);
+    $stmt->bind_param("ssssi", $name, $email, $phone, $address, $userId);
 
     // Execute the query and check if it was successful
     if ($stmt->execute()) {
