@@ -117,7 +117,7 @@ async function updateItem(itemId, orderId){
     }
 }
 
-async function designer(itemId, orderId){
+async function designer(itemId, orderId , userId){
     location.reload();
     window.location.href = `http://localhost/Timberly/public/customer/contactDesigner.php?itemId=${itemId}&orderId=${orderId}`;
 }
