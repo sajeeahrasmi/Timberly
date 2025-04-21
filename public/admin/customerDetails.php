@@ -32,7 +32,15 @@
                 <div class="page-content">
                     <div class="customer-detail-panel">
                         <div class="customer-info">
-                            <img src="./images/image.png" alt="customer-foto">
+                            <?php
+                            $imagePath = '../../images/' . $customer['image'];
+                            if (!empty($customer['image']) && file_exists($imagePath)): ?>
+                                <img src="<?php echo $imagePath; ?>" alt="customer-photo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                            <?php else: ?>
+                                <div class="customer-default-icon">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                </div>
+                            <?php endif; ?>
                             <p class="name"><?php echo htmlspecialchars($customer['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($customer['email']); ?></p>
                             <p class="customer_id"><?php echo htmlspecialchars($customer_id); ?></p>

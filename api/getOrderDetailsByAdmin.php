@@ -53,22 +53,11 @@
         ";
 
     // Query to fetch transaction details
-    $transactionDataQuery = "
-        SELECT
-            transactionId,
-            amount,
-            date,
-            description,
-            paymentMethod
-        FROM
-            transactions
-        WHERE
-            orderId = '$order_id'
-        ";
+    $paymentDataQuery = "SELECT * FROM payment WHERE orderId = '$order_id'";
 
     $orderDetailsDataResult = mysqli_query($conn, $orderDetailsDataQuery);
     $orderItemsDataResult = mysqli_query($conn, $orderItemsDataQuery);
-    $transactionDataResult = mysqli_query($conn, $transactionDataQuery);
+    $paymentDataResult = mysqli_query($conn, $paymentDataQuery);
 
     if (!$orderDetailsDataResult || !$orderItemsDataResult) {
         die("Error fetching order data: " . mysqli_error($conn));
@@ -90,7 +79,7 @@
         } elseif ($category == 'Lumber') {
             $query = "SELECT * FROM lumber WHERE lumberId = '$itemId'";
         } elseif ($category == 'CustomisedFurniture') {
-            $query = "SELECT * FROM customizedfurniture WHERE itemId = '$itemId'";
+            $query = "SELECT * FROM ordercustomizedfurniture WHERE itemId = '$itemId'";
         }
 
         $result = mysqli_query($conn, $query);
@@ -102,24 +91,24 @@
     }
     $orderItems = $orderItemDetails;
 
-    $transactions = [];
-    while ($transaction = mysqli_fetch_assoc($transactionDataResult)) {
-        $transactions[] = $transaction;
+    $payments = [];
+    while ($payment = mysqli_fetch_assoc($paymentDataResult)) {
+        $payments[] = $payment;
     }
-    // Format the date for each transaction
-    foreach ($transactions as $index => $transaction) {
-        $datefromdb = $transaction['date'];
+    // Format the date for each payment
+    foreach ($payments as $index => $payment) {
+        $datefromdb = $payment['date'];
         
         // Convert the datetime string to a Unix timestamp
         $timestamp = strtotime($datefromdb);
         
         if ($timestamp !== false) {
             // Format the date and time as "Month day, Year, hh:mm AM/PM"
-            $formattedDate = date('F d, Y, h:i A', $timestamp);
-            $transactions[$index]['date'] = $formattedDate; // Assign formatted date to the 'date' field
+            $formattedDate = date('F d, Y', $timestamp);
+            $payments[$index]['date'] = $formattedDate; // Assign formatted date to the 'date' field
         } else {
             // In case of invalid date format
-            $transactions[$index]['date'] = 'Invalid Date';
+            $payments[$index]['date'] = 'Invalid Date';
         }
     }
     $order = mysqli_fetch_assoc($orderDetailsDataResult);
