@@ -51,7 +51,7 @@ FROM orderlumber o
 JOIN user u ON o.driverId = u.userId
 JOIN driver d ON o.driverId = d.driverId
 WHERE o.orderId = ? 
-AND o.status = 'Completed'
+AND o.date IS NOT NULL
 ORDER BY o.date ASC 
 LIMIT 1;
 ";
@@ -113,15 +113,18 @@ $row3 = $result3->fetch_assoc();
                         <h4>Measurement Person</h4>
                         <p>Name : </p>
                         <p>Date : <input type="date" /></p>
-                        <p>Time : </p>
                         <p>Contact : </p>
                         
                     </div>
                     <div class="card">
                         <h4>Delivery Person</h4>
                         <p>Name : <span><?php echo  $row3['name'] ?? '' ?></span></p>
-                        <p>Date : <span><?php echo  $row3['date'] ?? '' ?></span>   <input type="date" /></p>
+                        <p>
+                            Date : <span id="currentDateDriver"><?php echo  $row3['date'] ?? '' ?></span>
+                            <input type="date" id="newDateInputDriver" />
+                        </p>
                         <p>Contact : <span><?php echo  $row3['phone'] ?? '' ?></span></p>
+                        <button class="button outline" onclick="changeDate(<?php echo  $orderId ?>)">Change Date</button>
                     </div>
                 </div>
                 
