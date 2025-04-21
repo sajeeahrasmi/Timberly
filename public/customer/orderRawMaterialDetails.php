@@ -141,7 +141,7 @@ $row3 = $result3->fetch_assoc();
                                 <option value="Declined">Declined</option>
                                 <option value="Accepted">Accepted</option>
                                 <option value="Processing">Processing</option>
-                                <option value="Not_Delivered">Not_Delivered</option>
+                                <option value="Finished">Finished</option>
                                 <option value="Delivered">Delivered</option>
              
                             </select>

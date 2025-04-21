@@ -163,7 +163,7 @@ $vehicleNo = $row2['vehicleNo'] ?? '';
                     document.getElementById("edit-details").value = "<?php echo $details ?>"; 
                 </script>
 
-                <button onclick="updateItem(<?php echo $id ?>)">Update</button>
+                <button onclick="updateItem(<?php echo $id ?>, <?php echo $orderId ?>)">Update</button>
 
            
         </div>

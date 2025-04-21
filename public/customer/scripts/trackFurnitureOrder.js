@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (status === "Pending" || status === "Approved") {
             editBtn.disabled = false;
             
-        } else if (status === "Not_Delivered") {
+        } else if (status === "Finished") {
             viewLocationBtn.disabled = false;
         } else if (status === "Delivered") {
             leaveReviewBtn.disabled = false;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 });
 
-async function updateItem(Id){
+async function updateItem(Id, orderId){
     const type = document.getElementById("edit-type").value; 
     const size = document.getElementById("edit-size").value; 
     const qty = document.getElementById("edit-qty").value; 
@@ -67,7 +67,7 @@ async function updateItem(Id){
     console.log(type + " "+ size+" "+qty+ " "+ details+ " "+Id)
     
     try{
-        const response = await fetch(`../../config/customer/updateFurnitureOrder.php?action=updateItem&Id=${Id}&type=${type}&qty=${qty}&size=${size}&details=${details}`);
+        const response = await fetch(`../../config/customer/updateFurnitureOrder.php?action=updateItem&Id=${Id}&type=${type}&qty=${qty}&size=${size}&details=${details}&orderId=${orderId}`);
         const data = await response.json();
 
         if(data.success){

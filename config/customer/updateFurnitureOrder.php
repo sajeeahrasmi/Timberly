@@ -108,14 +108,31 @@ function deleteItem(){
             throw new Exception('Failed to delete item.');
         }
 
-        // Commit the transaction if all queries succeed
-        mysqli_commit($conn);
+        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM orderfurniture WHERE orderId = ?";
+        $sumStmt = $conn->prepare($sumQuery);
+        $sumStmt->bind_param("i", $orderId);
+        $sumStmt->execute();
+        $sumResult = $sumStmt->get_result();
+        $row = $sumResult->fetch_assoc();
+        $newTotal = $row['newTotal'];
 
-        // Send success response
+        if ($newTotal === null) {
+            throw new Exception("Could not calculate new total");
+        }
+
+        $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
+        $updateStmt = $conn->prepare($updateOrderQuery);
+        $updateStmt->bind_param("di", $newTotal, $orderId);
+
+        if (!$updateStmt->execute()) {
+            throw new Exception("Failed to update total amount");
+        }
+
+       mysqli_commit($conn);
+
         echo json_encode(['success' => true]);
 
     } catch (Exception $e) {
-        // Roll back the transaction if any query fails
         mysqli_rollback($conn);
         echo json_encode(['error' => "Couldn't delete item."]);
     }
@@ -130,6 +147,7 @@ function updateItem(){
     $size = $_GET['size'];
     $qty = $_GET['qty'];
     $details = $_GET['details'];
+    $orderId = $_GET['orderId'];
 
     mysqli_begin_transaction($conn);
 
@@ -142,6 +160,26 @@ function updateItem(){
 
         if ($stmt2->affected_rows === 0) {
             throw new Exception('Failed to update into orderfurniture table');
+        }
+
+        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM orderfurniture WHERE orderId = ?";
+        $sumStmt = $conn->prepare($sumQuery);
+        $sumStmt->bind_param("i", $orderId);
+        $sumStmt->execute();
+        $sumResult = $sumStmt->get_result();
+        $row = $sumResult->fetch_assoc();
+        $newTotal = $row['newTotal'];
+
+        if ($newTotal === null) {
+            throw new Exception("Could not calculate new total");
+        }
+
+        $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
+        $updateStmt = $conn->prepare($updateOrderQuery);
+        $updateStmt->bind_param("di", $newTotal, $orderId);
+
+        if (!$updateStmt->execute()) {
+            throw new Exception("Failed to update total amount");
         }
 
         mysqli_commit($conn);

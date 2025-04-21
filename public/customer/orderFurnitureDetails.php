@@ -191,7 +191,7 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                 <option value="Approved">Approved</option>
                                 <option value="Not_Approved">Not Approved</option>
                                 <option value="Processing">Processing</option>
-                                <option value="Not_Delivered">Not Delivered</option>
+                                <option value="Finished">Finished</option>
                                 <option value="Delivered">Delivered</option>
                             </select>
                         </div>
