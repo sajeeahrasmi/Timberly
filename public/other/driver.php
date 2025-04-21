@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+include 'getCurrentDeliveries.php';
+
+
 
 if (!isset($_SESSION['userId'])) {
     echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
@@ -61,21 +64,33 @@ $totalDeliveries = $stats['totalDeliveries'];
         <div class="delivery-list">
             <h2>Current Deliveries</h2>
             <!-- Sample Delivery Item - replace with dynamic content later -->
-            <div class="delivery-item">
-                <div class="delivery-info">
-                    <h4>Order Details</h4>
-                    <p><strong>Order ID:</strong> #12345</p>
-                    <p><strong>Items:</strong> 3</p>
-                    <div class="items-list">
-                        <p>- Item #123: Mahogany Chair</p>
-                        <p>- Item #456: Teak Pantry</p>
-                    </div>
-                </div>
-                <div class="delivery-actions">
-                    <button class="button outline" onclick="showCustomerDetails(12345)">Customer Details</button>
-                    <button class="button solid" id="delivery-btn-12345" onclick="handleDelivery(12345)">Start Delivery</button>
-                </div>
-            </div>
+            <?php
+            // Fetch current deliveries from the database
+            $deliveries = getCurrentDeliveries($conn, $userId);
+
+            if (empty($deliveries)) {
+                echo "<p>No pending deliveries assigned to you.</p>";
+            } else {
+                foreach ($deliveries as $orderId => $items) {
+                    echo '<div class="delivery-item">';
+                    echo '<div class="delivery-info">';
+                    echo "<h4>Order Details</h4>";
+                    echo "<p><strong>Order ID:</strong> #$orderId</p>";
+                    echo "<p><strong>Items:</strong> " . count($items) . "</p>";
+                    echo '<div class="items-list">';
+                    foreach ($items as $item) {
+                        echo "<p>- Item #{$item['itemId']}: {$item['description']} ({$item['type']})</p>";
+                    }
+                    echo '</div></div>';
+                    echo '<div class="delivery-actions">';
+                    echo "<button class='button outline' onclick='showCustomerDetails($orderId)'>Customer Details</button>";
+                    echo "<button class='button solid' id='delivery-btn-$orderId' onclick='handleDelivery($orderId)'>Start Delivery</button>";
+                    echo '</div></div>';
+                }
+            }
+            ?>
+            
+            
 
             <!-- You can duplicate this block for other hardcoded or dynamic deliveries -->
 
@@ -97,14 +112,15 @@ $totalDeliveries = $stats['totalDeliveries'];
 
     <!-- Customer Modal -->
     <div id="customerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('customerModal')">&times;</span>
-            <h2>Customer Details</h2>
-            <div class="customer-details" id="customerDetailsContent">
-                <!-- Populated via JavaScript -->
-            </div>
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('customerModal')">&times;</span>
+        <h2>Customer Details</h2>
+        <div class="customer-details" id="customerDetailsContent">
+            <!-- Populated via JavaScript -->
         </div>
     </div>
+</div>
+
 
     <script src="scripts/driver.js"></script>
 </body>
