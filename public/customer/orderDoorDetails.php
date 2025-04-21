@@ -52,10 +52,23 @@ FROM ordercustomizedfurniture o
 JOIN user u ON o.driverId = u.userId
 JOIN driver d ON o.driverId = d.driverId
 WHERE o.orderId = ? 
-AND o.status = 'Finished'
 ORDER BY o.date ASC 
 LIMIT 1;
 ";
+// $query3 = "SELECT 
+//     u.name , 
+//     u.phone , 
+//     d.vehicleNo, 
+//     o.driverId, 
+//     o.date
+// FROM ordercustomizedfurniture o
+// JOIN user u ON o.driverId = u.userId
+// JOIN driver d ON o.driverId = d.driverId
+// WHERE o.orderId = ? 
+// AND o.status = 'Finished'
+// ORDER BY o.date ASC 
+// LIMIT 1;
+// ";
 $stmt3 = $conn->prepare($query3);
 $stmt3->bind_param("i", $orderId);
 $stmt3->execute();
@@ -170,16 +183,23 @@ $row4 = $result4->fetch_assoc();
                     <div class="card">
                         <h4>Measurement Person</h4>
                         <p>Name : <span><?php echo  $row4['name'] ?? '' ?></p>
-                        <p>Date : <span><?php echo  $row4['date'] ?? '' ?><input type="date" /></p>
-                        <!-- <p>Time : </p> -->
+                        <p>
+                            Date : <span id="currentDate"><?php echo  $row4['date'] ?? '' ?></span>
+                            <input type="date" id="newDateInput" />
+                        </p>
                         <p>Contact : <span><?php echo  $row4['contact'] ?? '' ?></p>
-                        
+                        <button class="button outline" onclick="changeDateM(<?php echo  $orderId ?>,<?php echo  $row4['date'] ?? '' ?>)">Change Date</button>
                     </div>
                     <div class="card">
                         <h4>Delivery Person</h4>
                         <p>Name : <span><?php echo  $row3['name'] ?? '' ?></p>
-                        <p>Date : <span><?php echo  $row3['date'] ?? '' ?><input type="date" /></p>
+                        <!-- <p>Date : <span><?php echo  $row3['date'] ?? '' ?><input type="date" /></p> -->
+                        <p>
+                            Date : <span id="currentDateDriver"><?php echo  $row3['date'] ?? '' ?></span>
+                            <input type="date" id="newDateInputDriver" />
+                        </p>
                         <p>Contact : <span><?php echo  $row3['phone'] ?? '' ?></p>
+                        <button class="button outline" onclick="changeDate(<?php echo  $orderId ?>)">Change Date</button>
                     </div>
                 </div>
                 
@@ -257,7 +277,7 @@ $row4 = $result4->fetch_assoc();
                                         <td><?php echo htmlspecialchars($row['status']); ?></td>
                                         <td>
                                             <button class="button outline" id="view-button" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderDoor.php?id=${<?php echo $id ?>}&orderId=${<?php echo $orderId ?>}`">view</button>
-                                            <button class="button solid" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
+                                            <button class="delete-button" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
                                         </td>
                                     </tr>
                                 <?php } ?>

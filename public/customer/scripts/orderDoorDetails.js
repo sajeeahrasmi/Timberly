@@ -1,5 +1,7 @@
 const statusElement = document.getElementById('status');
 const buttonAddItem = document.getElementById('addItem');
+const cancelbutton = document.getElementById('action-button');
+// const deletebutton = document.getElementById('delete-button');
 
 document.addEventListener('DOMContentLoaded', function() {   
     function updateButton() {
@@ -8,13 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
             buttonAddItem.disabled = true;
 
         } else if (statusElement.textContent === 'Processing') {
-            buttonElement.style.display = 'none';
             buttonAddItem.style.display = 'none';
             buttonAddItem.disabled = true;
+            cancelbutton.style.display = 'none';
+            document.querySelectorAll('.delete-button').forEach(btn => {
+                btn.style.display = 'none';
+            });
 
         } else {
             buttonPay.disabled = false;
-            buttonElement.textContent = 'Cancel Order';
         }
     }
 
@@ -229,5 +233,78 @@ async function addItem(orderId) {
     } catch (error) {
         console.error("Error adding item:", error);
         alert("An error occurred while adding the item.");
+    }
+}
+
+
+async function changeDateM(orderId) {
+    const currentDateStr = document.getElementById("currentDate").textContent.trim();
+    const newDateStr = document.getElementById("newDateInput").value;
+
+    if (!newDateStr) {
+        alert("Please select a date.");
+        return;
+    }
+
+    const currentDate = new Date(currentDateStr);
+    const newDate = new Date(newDateStr);
+
+    const timeDiff = newDate - currentDate;
+    const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+    if (dayDiff <= 0 || dayDiff > 3) {
+        alert("New date must be within 3 days after the current date.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`../../config/customer/changeDate.php?action=updateMeasurementDate&orderId=${orderId}&newDate=${newDateStr}`);
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Measurement date successfully updated.");
+            location.reload();
+        } else {
+            alert(data.message || "Date change not allowed or failed.");
+        }
+    } catch (error) {
+        console.error("Error updating date:", error);
+        alert("An error occurred while updating the date.");
+    }
+}
+
+async function changeDate(orderId) {
+    const currentDateStr = document.getElementById("currentDateDriver").textContent.trim();
+    const newDateStr = document.getElementById("newDateInputDriver").value;
+
+    if (!newDateStr) {
+        alert("Please select a date.");
+        return;
+    }
+
+    const currentDate = new Date(currentDateStr);
+    const newDate = new Date(newDateStr);
+
+    const timeDiff = newDate - currentDate;
+    const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+    if (dayDiff <= 0 || dayDiff > 3) {
+        alert("New date must be within 3 days after the current date.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`../../config/customer/changeDate.php?action=updateDoorDriverDate&orderId=${orderId}&newDate=${newDateStr}&oldDate=${currentDateStr}`);
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Delivery date successfully updated.");
+            location.reload();
+        } else {
+            alert(data.message || "Date change not allowed or failed.");
+        }
+    } catch (error) {
+        console.error("Error updating date:", error);
+        alert("An error occurred while updating the date.");
     }
 }
