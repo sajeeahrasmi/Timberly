@@ -10,6 +10,7 @@ if (!isset($_SESSION['userId'])) {
 $userId = $_SESSION['userId'];
 echo "<script> console.log({$userId})</script>";
 echo "<script> console.log('this is user')</script>";
+//get the orderId and itemId
 
 include '../../config/db_connection.php';
 
@@ -77,7 +78,7 @@ $name = $row1['name'] ?? 'Driver';
         <input type="file" id="imageUpload" accept="image/*" hidden onchange="previewImage(event)" />
     </label>
     <br><br>
-    <button class="button solid">Update</button>
+    <button id="updateImageBtn" class="button solid" onclick="uploadCustomizedImage()" disabled>Update</button>
 </div>
 
         </div>

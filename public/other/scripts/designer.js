@@ -91,7 +91,6 @@ function selectOrder(orderId) {
                 <h5>${item.label} (Item ID: ${item.itemId})</h5>
             </div>
         `).join('')}
-        
     `;
 }
 
@@ -100,30 +99,26 @@ function selectItem(itemIndex) {
     const chatHeader = document.getElementById('customerName');
     chatHeader.textContent = `Chat about ${currentItem.label}`;
     
-    // Load chat messages specific to the selected item
-    loadChatMessages(currentOrder.orderId, currentItem.itemId);
-
-    const chatMessages = document.getElementById('chatMessages');
+    // Update the orderId and itemId displays
     document.getElementById('orderId').textContent = currentOrder.orderId;
     document.getElementById('itemId').textContent = currentItem.itemId;
-
-    // Display item details in the chat header
-    chatMessages.innerHTML = `
-        <div class="order-details">
-            <h3>Item Details</h3>
-            <p>Customer: ${currentOrder.orderId}</p>
-            <p>Item: ${currentItem.label}</p>
-            <p>Item ID: ${currentItem.itemId}</p>
-        </div>
-    `;
+    
+    // Load chat messages specific to the selected item
+    loadChatMessages(currentOrder.orderId, currentItem.itemId);
 }
-
 
 // Send a new message to the backend
 async function sendMessage(userId) {
+    // Check if an order and item are selected
+    if (!currentOrder || !currentItem) {
+        alert('Please select an order and item first.');
+        return;
+    }
+
     const input = document.getElementById('messageInput');
     const message = input.value.trim();
-    
+    console.log(currentOrder.orderId)
+    console.log(currentItem.itemId)
     // Validate message
     if (message) {
         try {
@@ -131,7 +126,7 @@ async function sendMessage(userId) {
                 method: 'POST',
                 body: JSON.stringify({
                     message,
-                    orderId: currentOrder.orderId, // Always use currentOrder and currentItem
+                    orderId: currentOrder.orderId,
                     itemId: currentItem.itemId,
                     userId
                 }),
@@ -144,6 +139,8 @@ async function sendMessage(userId) {
                 
                 // Reload chat messages for the correct order and item
                 loadChatMessages(currentOrder.orderId, currentItem.itemId);
+            } else {
+                console.error('Failed to send message:', result.message);
             }
         } catch (error) {
             console.error('Failed to send message:', error);
@@ -152,10 +149,17 @@ async function sendMessage(userId) {
 }
 
 function handleFileUpload(event) {
+    // Check if an order and item are selected
+    if (!currentOrder || !currentItem) {
+        alert('Please select an order and item first.');
+        return;
+    }
+
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = async function(e) {
+            // Display the image in chat
             const chatMessages = document.getElementById('chatMessages');
             const messageElement = document.createElement('div');
             messageElement.className = 'message sent';
@@ -165,7 +169,77 @@ function handleFileUpload(event) {
             messageElement.appendChild(img);
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // TODO: Send the image to the server
+            // You would need to implement this part to send the image
+            // to your backend and associate it with the current order and item
         };
         reader.readAsDataURL(file);
     }
+}
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}// Update the previewImage function to store the file for later upload
+let fileToUpload = null;
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        // Store the file for later upload
+        fileToUpload = file;
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        
+        // Enable the update button
+        document.getElementById('updateImageBtn').disabled = false;
+    }
+}
+
+// Add this function to handle the image upload when the Update button is clicked
+function uploadCustomizedImage() {
+    // Check if we have a file to upload
+    if (!fileToUpload || !currentOrder || !currentItem) {
+        alert('Please select an image and ensure an order/item is selected.');
+        return;
+    }
+    
+    // Create form data
+    const formData = new FormData();
+    formData.append('image', fileToUpload);
+    formData.append('orderId', currentOrder.orderId);
+    formData.append('itemId', currentItem.itemId);
+    
+    // Send to server
+    fetch('../../config/customer/upload_customized_image.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            alert('Image uploaded successfully!');
+            document.getElementById('updateImageBtn').disabled = true;
+        } else {
+            alert('Failed to upload image: ' + result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error uploading image:', error);
+        alert('Error uploading image. Please try again.');
+    });
 }

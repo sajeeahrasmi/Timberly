@@ -21,8 +21,24 @@ if (($message || $imagePath) && $orderId && $itemId && $userId && $sessionId) {
     // Determine message type
     $messageType = $imagePath ? 'image' : 'text';
     $finalMessage = $imagePath ?? $message;
+    //first need to enter to the designerchat table then detch the sessionId and do the rest
+    $query = "INSERT INTO designerchat (orderId, itemId) VALUES (?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $orderId, $itemId);
+    $stmt->execute();
+    
+    //get session id based on orderId and itemId
+    $query = "SELECT sessionId FROM designerchat WHERE orderId = ? AND itemId = ? ORDER BY sessionId DESC LIMIT 1";
+    $stmt = $conn->prepare($query);
 
-    // Insert into designerchatmessages
+    $stmt->bind_param("ii", $orderId, $itemId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $sessionId = $row['sessionId'];
+    
+
+    // I    nsert into designerchatmessages
     $query = "INSERT INTO designerchatmessages (sessionId, message, messageType) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iss", $sessionId, $finalMessage, $messageType);
