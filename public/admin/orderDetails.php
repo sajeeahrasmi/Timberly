@@ -34,7 +34,7 @@
                         <?php foreach ($orderItems as $item): ?>
                             <tr>
                                 <td><a href="#"><?php echo htmlspecialchars($item['itemId']); ?></a></td>
-                                <td style="text-align: center">
+                                <td style="text-align: left">
                                     <?php
                                         if (!empty($item['description'])) {
                                             echo htmlspecialchars($item['description']);
@@ -93,22 +93,20 @@
                 <div class="transactions-section">
                     <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
                     <table class="transaction-table">
-                        <?php $transactionTotal = 0; ?>
-                        <?php foreach ($transactions as $transaction): ?>
+                        <?php $paymentsTotal = 0; ?>
+                        <?php foreach ($payments as $payment): ?>
                             <tr>
                                 <td>
                                     <div class="transaction-row">
-                                        <span class="description"><?php echo htmlspecialchars($transaction['description']) ?></span>
-                                        <span class="date"><?php echo htmlspecialchars($transaction['date']) ?></span>
-                                        <?php $transactionTotal += $transaction['amount'] ?>
-                                        <span class="amount">Rs <?php echo number_format($transaction['amount'], 2) ?></span>
+                                        <span class="date"><?php echo htmlspecialchars($payment['date']) ?></span>
+                                        <?php $paymentTotal += $payment['amount'] ?>
+                                        <span class="amount">Rs <?php echo number_format($payment['amount'], 2) ?></span>
                                     </div>
-                                    <div class="payment-method">via <?php echo htmlspecialchars($transaction['paymentMethod']) ?></div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         <tr>
-                            <?php if ($transactionTotal==0) {
+                            <?php if ($paymentTotal==0) {
                                 echo '<td colspan="2" class="no-transaction">No transactions have made yet</td>';
                             }?>
                         </tr>
@@ -123,9 +121,9 @@
                         </tr>
                         <tr>
                             <td>Paid by the customer</td>
-                            <?php $remainingBalance = $tot - $transactionTotal;
-                             $transactionTotal = number_format($transactionTotal , 2)?>
-                            <td>- Rs <?php echo htmlspecialchars($transactionTotal); ?></td>
+                            <?php $remainingBalance = $tot - $paymentTotal;
+                             $paymentTotal = number_format($paymentTotal , 2)?>
+                            <td>- Rs <?php echo htmlspecialchars($paymentTotal); ?></td>
                         </tr>
                         <tr style="border-top: 1px #e2d0c7 solid">
                             <td style="font-weight: 600">Remaining balance</td>
