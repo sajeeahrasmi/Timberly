@@ -1,52 +1,66 @@
 let currentDeliveryId = null;
 
-
-const customerData = {
-    '12345': {
-        name: "Amal Perera",
-        address: "New Lane Road, Colombo",
-        phone: "+94 74-567-8900"
-    },
-    '12346': {
-        name: "Amal Perera",
-        address: "New Lane Road, Colombo",
-        phone: "+94 74-567-8900"
-    }
-};
-
 function handleDelivery(orderId) {
-    const btn = document.getElementById(`delivery-btn-${orderId}`);
-    
-    if (btn.textContent === 'Start Delivery') {
-        // Start delivery
-        currentDeliveryId = orderId;
-        btn.textContent = 'End Delivery';
-        btn.classList.remove('solid');
-        btn.classList.add('outline');
-    } else {
-        // End delivery - show OTP modal
-        showOtpModal(orderId);
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser");
+        return;
     }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+        // Set the currently active delivery
+        currentDeliveryId = orderId;
+
+        // Send location to backend
+        fetch('startDelivery.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                orderId: orderId,
+                location: locationLink
+            })
+        })
+            .then(response => response.text())
+            .then(text => {
+                console.log("Raw backend response:", text);
+
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (err) {
+                    console.error("Failed to parse JSON:", err);
+                    alert("Error: Invalid JSON from backend");
+                    return;
+                }
+
+                if (data.success) {
+                    alert("Delivery started successfully. Notification sent to customer.");
+                    const btn = document.getElementById(`delivery-btn-${orderId}`);
+                    btn.disabled = true;
+                    btn.innerText = "Delivery Started";
+                } else {
+                    alert("Failed to start delivery: " + data.message);
+                    console.error("Backend response error:", data);
+                }
+            })
+            .catch(error => {
+                console.error("Error sending delivery start:", error);
+                alert("Error starting delivery. See console for details.");
+            });
+
+    }, function (error) {
+        alert("Unable to get your location");
+        console.error("Geolocation error:", error);
+    });
 }
 
-function showOtpModal(orderId) {
-    document.getElementById('otpModal').style.display = 'block';
-}
-
-// function showCustomerDetails(orderId) {
-//     const customer = customerData[orderId];
-//     const content = document.getElementById('customerDetailsContent');
-    
-//     content.innerHTML = `
-//         <p><strong>Name:</strong> ${customer.name}</p>
-//         <p><strong>Address:</strong> ${customer.address}</p>
-//         <p><strong>Phone:</strong> ${customer.phone}</p>
-//     `;
-    
-//     document.getElementById('customerModal').style.display = 'block';
-// }
 function showCustomerDetails(orderId) {
-    if (!orderId) return; // 🔒 Prevent undefined requests
+    if (!orderId) return;
 
     fetch(`getCustomerDetails.php?orderId=${orderId}`)
         .then(res => res.json())
@@ -67,11 +81,9 @@ function showCustomerDetails(orderId) {
         })
         .catch(error => {
             console.error('Error fetching customer details:', error);
+            alert('Failed to fetch customer details.');
         });
 }
-
-
-
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
@@ -79,20 +91,16 @@ function closeModal(modalId) {
 
 function verifyOTP() {
     const otp = document.getElementById('otp').value;
-    
+
     if (otp.length === 6) {
         alert("Delivery completed successfully!");
-        
-        // Remove the delivered order from the list
+
         const deliveryItem = document.getElementById(`delivery-btn-${currentDeliveryId}`).closest('.delivery-item');
         if (deliveryItem) {
             deliveryItem.remove();
         }
-        
-        // Reset current delivery
+
         currentDeliveryId = null;
-        
-        // Close modal and reset form
         closeModal('otpModal');
         document.getElementById('otp').value = '';
     } else {
@@ -101,8 +109,8 @@ function verifyOTP() {
 }
 
 // Close modals when clicking outside
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
         closeModal(event.target.id);
     }
-}
+};
