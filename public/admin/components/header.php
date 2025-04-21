@@ -13,8 +13,8 @@
     <header class="top-bar">
         <h1>Welcome Admin</h1>
         <div class="user-profile">
-            <span><i class="fa-regular fa-bell" style="transition: 0.3s;"></i></span>
-            <span style="display: flex;"><i class="fa-regular fa-user"></i><h5>Admin</h5></span>
+            <span onclick="window.location.href='./notifications.php'" style="cursor: pointer;"><i class="fa-regular fa-bell" style="transition: 0.3s;"></i></span>
+            <span onclick="window.location.href='./adminProfile.php'" style="display: flex;"><i class="fa-regular fa-user"></i><h5>Admin</h5></span>
         </div>
     </header>
 </body>
