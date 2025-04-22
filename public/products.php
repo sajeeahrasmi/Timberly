@@ -164,7 +164,7 @@
                 alert('Item added to cart!');
             } else {
                 if (res.status === 401) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login.php';
                 } else {
                     alert(data.error || 'Failed to add to cart');
                 }

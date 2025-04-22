@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
-    header("Location: ../../public/login.html"); // Redirect to login if not logged in
+    header("Location: ../../public/login.php"); // Redirect to login if not logged in
     exit;
 }
 

@@ -5,7 +5,7 @@ session_start();
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 if (!isset($_SESSION['userId'])) {
-    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.php';</script>";
     exit();
 }
 
