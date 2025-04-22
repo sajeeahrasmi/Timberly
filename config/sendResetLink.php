@@ -2,12 +2,12 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
-require 'db_connection.php'; // your DB connection file
+require 'db_connection.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $token = bin2hex(random_bytes(50));
-    $expires = date("Y-m-d H:i:s", strtotime('+4 hour'));
+    $expires = date("Y-m-d H:i:s", strtotime('+4 hour')); // I put 4h because of however it has made the expiry time lesser than NOW time
 
     // Update token and expiry in DB
     $stmt = $conn->prepare("UPDATE user SET reset_token=?, token_expiry=? WHERE email=?");
