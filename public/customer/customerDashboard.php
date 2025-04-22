@@ -27,7 +27,7 @@ $stmtOrder->execute();
 $resultOrder = $stmtOrder->get_result();
 $order = $resultOrder->fetch_assoc();
 
-$orderId = $order['orderId'];
+$orderId = $order['orderId'] ?? 0;
 $totalAmount = $order['totalAmount']?? 0;
 $category = $order['category']?? 0;
 
@@ -47,7 +47,7 @@ $stmtm->bind_param("i", $userId);
 $stmtm->execute();
 $resultm = $stmtm->get_result();
 $latestMeasurement = $resultm->fetch_assoc();
-$dateMeasurement = $latestMeasurement['date'] ?? '';
+$dateMeasurement = $latestMeasurement['date'] ?? null;
 
 $query3 = "SELECT 
         MAX(latest_date) AS driverDate
@@ -172,7 +172,8 @@ while ($row = $resultNot->fetch_assoc()) {
                             </div>
                             <div>
                                 <h4>Measurement Appointment</h4>
-                                <p>Scheduled for <?php echo $dateMeasurement ?></p>
+                                <!-- <p>Scheduled for <span id="mDate"><?php echo $dateMeasurement ?></span></p> -->
+                                 <p>Scheduled for <span id="mDate"><?php echo date("Y-m-d", strtotime($dateMeasurement)); ?></span></p>
                             </div>
                         </div>
                         <div class="event-card" id="delivery-event">
@@ -181,15 +182,18 @@ while ($row = $resultNot->fetch_assoc()) {
                             </div>
                             <div>
                                 <h4>Delivery Scheduled</h4>
-                                <p>Expected on <?php echo $driverDate ?></p>
+                                <!-- <p>Expected on <span id="dDate"><?php echo $driverDate ?></span></p> -->
+                                 <p>Expected on <span id="mDate"><?php echo date("Y-m-d", strtotime($driverDate)); ?></span></p>                               
                             </div>
                         </div>
                     </div>
 
+
+
                     
                      <div class="recent-order">
                         <h2>Recent Order Details</h2>
-                        <table class="order-details-table">
+                        <!-- <table class="order-details-table">
                             <thead>
                                 <tr>
                                     <th>Item ID</th>
@@ -212,7 +216,35 @@ while ($row = $resultNot->fetch_assoc()) {
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>
-                        </table>
+                        </table> -->
+                        <?php if ($orderItems->num_rows > 0): ?>
+                            <table class="order-details-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item ID</th>
+                                        <th>Description</th>
+                                        <th>Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = $orderItems->fetch_assoc()): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($row['itemId']) ?></td>
+                                            <td><?= htmlspecialchars($row['description']) ?></td>
+                                            <td><?= htmlspecialchars($row['type']) ?></td>
+                                            <td><?= htmlspecialchars($row['qty']) ?></td>
+                                            <td>Rs <?= htmlspecialchars($row['unitPrice']) ?></td>
+                                            <td><?= htmlspecialchars($row['status']) ?></td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p>No order items available.</p>
+                        <?php endif; ?>
 
 
                     </div>
@@ -225,7 +257,7 @@ while ($row = $resultNot->fetch_assoc()) {
                 <div class="right">
                     <!-- <h1>Calender</h1> -->
                     <div class="right-top">
-                        <div class="wrapper">
+                        <!-- <div class="wrapper">
                             <header>
                                 <p class="current-date"></p>
                                 <div class="icons">
@@ -245,7 +277,28 @@ while ($row = $resultNot->fetch_assoc()) {
                                 </ul>
                                 <ul class="days"></ul>
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="wrapper">
+  <header>
+    <p class="current-date"></p>
+    <div class="icons">
+      <span id="prev">&lt;</span>
+      <span id="next">&gt;</span>
+    </div>
+  </header>
+  <div class="calendar">
+    <ul class="weeks">
+      <li>Sun</li>
+      <li>Mon</li>
+      <li>Tue</li>
+      <li>Wed</li>
+      <li>Thu</li>
+      <li>Fri</li>
+      <li>Sat</li>
+    </ul>
+    <ul class="days"></ul>
+  </div>
+</div>
 
                         
                     </div>

@@ -1,15 +1,8 @@
 <?php
-//het the order id and item id from the url
+
 $orderId = $_GET['orderId'];
 $itemId = $_GET['itemId'];
-//get userId from session
 
-
-//display the order id and item id in the page
-
-echo "Order ID: " . $orderId . "<br>";
-echo "Item ID: " . $itemId . "<br>";
-//echo "User ID: " . $userId . "<br>";
 
 include '../../config/db_connection.php';
 include '../../config/customer/getcdetails.php';

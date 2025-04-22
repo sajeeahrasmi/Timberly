@@ -686,10 +686,12 @@ function updatenew() {
 function assignDriver() {
     const driverSelect = document.querySelector('.driver-form select');
     const driverStatusDiv = document.querySelector('.assignment-details');
+    const date = document.getElementById('driverDate').value;
     const selectedDriverId = driverSelect.value;
     const orderId = document.getElementById('orderId').value;
     const itemId = document.getElementById('itemId').value;
     const type = document.getElementById('orderType').value;
+       console.log('Date:', date);
     
     if (!selectedDriverId) {
         driverStatusDiv.textContent = 'Please select a driver';

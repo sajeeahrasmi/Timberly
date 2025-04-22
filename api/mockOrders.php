@@ -41,7 +41,7 @@ $sql = "SELECT
     /* Customized furniture specific data */
     ocf.orderId AS customOrderId,
     ocf.itemId AS customItemId,
-    ocf.description AS customDescription,
+    ocf.details AS customDescription,
     ocf.type AS customWoodType,
     ocf.length AS customLength,
     ocf.width AS customWidth,

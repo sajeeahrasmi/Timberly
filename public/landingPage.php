@@ -180,10 +180,10 @@
                 window.location.href = "../../Timberly/public/admin/index.php";
                 break;
             case "driver":
-                window.location.href = "../../Timberly/public/other/driver.html";
+                window.location.href = "../../Timberly/public/other/driver.php";
                 break;
             case "designer":
-                window.location.href = "../../Timberly/public/other/designer.html";
+                window.location.href = "../../Timberly/public/other/designer.php";
                 break;
             default:
                 alert("Unknown role. Please contact support.");

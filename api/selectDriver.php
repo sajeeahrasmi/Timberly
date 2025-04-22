@@ -8,6 +8,7 @@ if (isset($_POST['driverId'])) {
     $orderId = $_POST['orderId'] ?? 0;
     $itemId = $_POST['itemId'] ?? '';
     $type = $_POST['type'] ?? ''; 
+    $date = $_POST['date'] ?? '';
 
     // Double check availability before assigning
     $stmt = $conn->prepare("SELECT available FROM driver WHERE driverId = ?");
@@ -26,11 +27,11 @@ if (isset($_POST['driverId'])) {
       
         // Determine the appropriate table based on type
         if ($type === 'lumber') {
-            $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ? WHERE orderId = ? AND itemId = ?");
+            $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ?  , date = ? WHERE orderId = ? AND itemId = ?");
         } elseif ($type === 'furniture') {
-            $updateOrder = $conn->prepare("UPDATE orderfurniture SET driverId = ? WHERE orderId = ? AND itemId = ?");
+            $updateOrder = $conn->prepare("UPDATE orderfurniture SET driverId = ?  , date = ? WHERE orderId = ? AND itemId = ?");
         } elseif ($type === 'customized') {
-            $updateOrder = $conn->prepare("UPDATE ordercustomizedfurniture SET driverId = ? WHERE orderId = ? AND itemId = ?");
+            $updateOrder = $conn->prepare("UPDATE ordercustomizedfurniture SET driverId = ? , date = ?  WHERE orderId = ? AND itemId = ?");
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid order type']);
             $stmt->close();
@@ -38,7 +39,7 @@ if (isset($_POST['driverId'])) {
             exit;
         }
 
-        $updateOrder->bind_param("iii", $driverId, $orderId, $itemId);
+        $updateOrder->bind_param("iiis", $driverId,$date, $orderId, $itemId );
         $updateOrder->execute();
 
         echo json_encode(['status' => 'success', 'message' => 'Driver assigned successfully']);

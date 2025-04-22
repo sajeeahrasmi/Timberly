@@ -93,7 +93,7 @@ $vehicleNo = $row2['vehicleNo'] ?? '';
                             <p><strong>Dimensions:</strong> <span id="dimensions"><?php echo $length ?> m x <?php echo $width ?> mm x <?php echo $thickness ?> mm</span></p>
                             <p><strong>Quantity:</strong> <span id="quantity"><?php echo $qty ?></span></p>
                             <p><strong>Price:</strong><span id="price"><?php echo $unitPrice ?></span></p>
-                            <p><strong>Status:</strong> <span id="item-status" class="status-badge">Delivered</span></p>
+                            <p><strong>Status:</strong> <span id="item-status" class="status-badge"><?php echo $status ?></span></p>
                         </div>
                     </div>
                     <div class="action-buttons">

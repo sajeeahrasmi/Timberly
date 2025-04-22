@@ -78,7 +78,7 @@ $sql_customized = "SELECT
     ocf.unitPrice, 
     ocf.status AS itemStatus,
     CONCAT(ocf.type, ' ', ocf.length, 'x', ocf.width, 'x', ocf.thickness, ' ' , ocf.category ,' (', ocf.qty, ')' ) AS typeQty,
-    ocf.description AS description,
+    ocf.details AS description,
     'customized' AS orderType
 FROM ordercustomizedfurniture ocf
 LEFT JOIN orders o ON ocf.orderId = o.orderId  
