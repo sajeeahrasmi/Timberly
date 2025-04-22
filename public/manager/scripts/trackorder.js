@@ -5,7 +5,7 @@ function updateStatus(status, oId, iId) {
     let progress = 0;
     let color = '';
     let hideElements = false;
-
+ 
     switch(status) {
         case 'Pending':
             progress = 0; 
@@ -585,6 +585,9 @@ window.onload = function() {
         const assignedDriverId = document.getElementById('assignedDriverId').value;
     const driverStatusDiv = document.querySelector('.assignment-details');
     const driverSelect = document.querySelector('.driver-select');
+    //const orderId = document.getElementById('orderId').value;
+    const itemId = document.getElementById('itemId').value;
+    const type = document.getElementById('orderType').value;
     
     // First, fetch available drivers for the dropdown
     fetch('../../api/getAvailableDrivers.php')
@@ -607,10 +610,22 @@ window.onload = function() {
             
             // If a driver is already assigned, fetch and display detailed driver information
             if (assignedDriverId && assignedDriverId !== '') {
-                fetch(`../../api/driverDetails.php?driverId=${assignedDriverId}`)
+                const itemId = document.getElementById('itemId').value;
+                const type = document.getElementById('orderType').value;
+                const orderId = document.getElementById('orderId').value;
+                fetch(`../../api/driverDetails.php?driverId=${assignedDriverId}&type=${type}&orderId=${orderId}&itemId=${itemId}`)
                     .then(response => response.json())
                     .then(driverData => {
                         if (driverData.status === 'success') {
+                            let formattedDate = 'Not scheduled';
+                            if (driverData.driver.date) {
+                                const dateObj = new Date(driverData.driver.date);
+                                formattedDate = dateObj.toLocaleDateString('en-US', {
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric'
+                                });
+                            }
                             // Create a formatted HTML display for driver details
                             const driverInfo = `
                                 <div class="driver-info">
@@ -618,6 +633,7 @@ window.onload = function() {
                                     <p><strong>Name:</strong> ${driverData.driver.name || 'N/A'}</p>
                                     <p><strong>Phone:</strong> ${driverData.driver.phone || 'N/A'}</p>
                                     <p><strong>Vehicle:</strong> ${driverData.driver.vehicleNo || 'N/A'}</p>
+                                    <p><strong>Delivery Date:</strong> ${formattedDate}</p>
                                     
                                 </div>
                             `;
@@ -702,16 +718,34 @@ function assignDriver() {
     fetch('../../api/selectDriver.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `driverId=${selectedDriverId}&orderId=${orderId}&itemId=${itemId}&type=${type}`
+        body: `driverId=${selectedDriverId}&orderId=${orderId}&itemId=${itemId}&type=${type}&date=${date}`
     })
     .then(res => res.json())
     .then(response => {
         if (response.status === 'success') {
             // After successful assignment, fetch and display driver details
-            fetch(`../../api/getDriverDetails.php?driverId=${selectedDriverId}`)
+            console.log(type,orderId)
+            fetch(`../../api/driverDetails.php?driverId=${selectedDriverId}type=${type}orderId=${orderId}itemId=${itemId}`)
                 .then(response => response.json())
                 .then(driverData => {
                     if (driverData.status === 'success') {
+                        let formattedDate = 'Not scheduled';
+                        if (driverData.driver.date) {
+                            const dateObj = new Date(driverData.driver.date);
+                            formattedDate = dateObj.toLocaleDateString('en-US', {
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric'
+                            });
+                        } else {
+                            // If date is not returned by API, use the one we just submitted
+                            const dateObj = new Date(date);
+                            formattedDate = dateObj.toLocaleDateString('en-US', {
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric'
+                            });
+                        }
                         // Create a formatted HTML display for driver details
                         const driverInfo = `
                             <div class="driver-info">
@@ -719,13 +753,28 @@ function assignDriver() {
                                 <p><strong>Name:</strong> ${driverData.driver.name || 'N/A'}</p>
                                 <p><strong>Phone:</strong> ${driverData.driver.phone || 'N/A'}</p>
                                 <p><strong>Vehicle:</strong> ${driverData.driver.vehicleNo || 'N/A'}</p>
-                                <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+                                <p><strong>Delivery Date:</strong> ${formattedDate}</p>
+                                
                             </div>
                         `;
                         
                         driverStatusDiv.innerHTML = driverInfo;
                     } else {
-                        driverStatusDiv.textContent = `Driver #${selectedDriverId} assigned successfully.`;
+                        // Even if details aren't available, show at least the scheduled date
+                        const dateObj = new Date(date);
+                        const formattedDate = dateObj.toLocaleDateString('en-US', {
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric'
+                        });
+                        
+                        driverStatusDiv.innerHTML = `
+                            <div class="driver-info">
+                                <h4>Assigned Driver</h4>
+                                <p>Driver #${selectedDriverId} assigned successfully.</p>
+                                <p><strong>Delivery Date:</strong> ${formattedDate}</p>
+                            </div>
+                        `;
                         driverStatusDiv.style.color = '#4CAF50';
                     }
                 })

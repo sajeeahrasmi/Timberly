@@ -8,7 +8,13 @@ if (isset($_POST['driverId'])) {
     $orderId = $_POST['orderId'] ?? 0;
     $itemId = $_POST['itemId'] ?? '';
     $type = $_POST['type'] ?? ''; 
-    $date = $_POST['date'] ?? '';
+    $date = $_POST['date'] ?? null;
+
+    if (!$date || !strtotime($date)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid or missing date']);
+        exit;
+    }
+    
 
     // Double check availability before assigning
     $stmt = $conn->prepare("SELECT available FROM driver WHERE driverId = ?");
@@ -39,7 +45,7 @@ if (isset($_POST['driverId'])) {
             exit;
         }
 
-        $updateOrder->bind_param("iiis", $driverId,$date, $orderId, $itemId );
+        $updateOrder->bind_param("isii", $driverId,$date, $orderId, $itemId );
         $updateOrder->execute();
 
         echo json_encode(['status' => 'success', 'message' => 'Driver assigned successfully']);
