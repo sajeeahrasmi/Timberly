@@ -32,7 +32,9 @@
                 <div class="page-content">
                     <div class="driver-detail-panel">
                         <div class="driver-info">
-                            <img src="./images/image.png" alt="driver-foto">
+                            <div class="customer-default-icon">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
                             <p class="name"><?php echo htmlspecialchars($driver['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($driver['email']); ?></p>
                             <p class="driver_id"><?php echo htmlspecialchars($driver_id); ?></p>

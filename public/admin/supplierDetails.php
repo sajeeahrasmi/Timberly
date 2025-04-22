@@ -32,7 +32,9 @@
                 <div class="page-content">
                     <div class="supplier-detail-panel">
                         <div class="supplier-info">
-                            <img src="./images/image.png" alt="supplier-foto">
+                            <div class="customer-default-icon">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
                             <p class="name"><?php echo htmlspecialchars($supplier['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($supplier['email']); ?></p>
                             <p class="supplier_id"><?php echo htmlspecialchars($supplier_id); ?></p>
