@@ -110,7 +110,7 @@
                         <div class="card-stats">
                             <h6>Total Posts</h6>
                             <p><?php echo $totalPosts; ?></p>
-                            <button onclick="window.location.href='createPost.php'"> <i class="fa-solid fa-circle-plus" style="margin: 7px;"></i>Create a Post</button>
+                            <button onclick="window.location.href='postProducts.php'"> <i class="fa-solid fa-eye" style="margin: 7px;"></i>View Posts</button>
                         </div>
                         <i class="fa-light fa-clipboard"></i>
                     </div>
