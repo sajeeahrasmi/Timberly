@@ -25,7 +25,7 @@
 
             <div class="form-group buttons">
                 <button type="submit" class="button solid">Login</button>
-                <a href="registration.html" class="button outline">Sign Up</a>
+                <a href="registration.php" class="button outline">Sign Up</a>
             </div>
             <p class="links-to"><a href="forgotPassword.php">Forgot password?</a> | <a href="landingPage.php">Let's ride Home</a></p>
         </form>

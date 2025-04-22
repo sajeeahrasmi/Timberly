@@ -2,12 +2,12 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
-require 'db_connection.php'; // your DB connection file
+require 'db_connection.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $token = bin2hex(random_bytes(50));
-    $expires = date("Y-m-d H:i:s", strtotime('+4 hour'));
+    $expires = date("Y-m-d H:i:s", strtotime('+4 hour')); // I put 4h because of however it has made the expiry time lesser than NOW time
 
     // Update token and expiry in DB
     $stmt = $conn->prepare("UPDATE user SET reset_token=?, token_expiry=? WHERE email=?");
@@ -16,7 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Check if user exists
     if ($stmt->affected_rows === 0) {
-        echo "Email not found.";
+        echo "<script>
+                alert('Email not found.');
+                window.location.href='../public/login.php';
+            </script>";
         exit;
     }
 
@@ -41,9 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->Body    = "Click the link to reset your password: <a href='$reset_link'>$reset_link</a>";
 
         $mail->send();
-        echo "Reset link sent! Check your email.";
+        echo "<script>
+                alert('Reset link sent! Check your email.');
+            </script>";
     } catch (Exception $e) {
-        echo "Mailer Error: {$mail->ErrorInfo}";
+        echo "<script>
+            alert('Mailer Error: {$mail->ErrorInfo}');
+            window.location.href='login.php';
+            </script>";
     }
 }
 ?>

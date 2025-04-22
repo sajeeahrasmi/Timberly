@@ -1,9 +1,5 @@
 <?php
-// Database connection details
-$host = "localhost";
-$dbname = "Timberly";
-$username = "root";
-$password = "";
+    include 'db_connection.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -12,7 +8,7 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Sanitize inputs
         $username = htmlspecialchars(trim($_POST['username']));
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $fullname = htmlspecialchars(trim($_POST['fullname']));
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $phone = htmlspecialchars(trim($_POST['phone']));

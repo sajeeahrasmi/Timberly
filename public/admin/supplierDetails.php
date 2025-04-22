@@ -1,4 +1,5 @@
-<?php 
+<?php
+    include '../..api/auth.php';
     include '../../api/getSupplierDetails.php';
     include '../../api/deleteSupplier.php';
 ?>

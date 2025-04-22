@@ -36,6 +36,7 @@ body,html {
     margin-top: 50px;
     width: 90%;
     padding: 30px;
+    padding-bottom: 18px !important;
     border-radius: 0.8rem;
     box-shadow: 0 2px 5px #B18068;
 }
@@ -90,5 +91,31 @@ tbody tr {
 
 .awaiting {
     color: red;
+    font-weight: bold;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 4px;
+    background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #ccc;
+}
+
+.pagination a.active {
+    background-color: #895D47;
+    color: white;
     font-weight: bold;
 }

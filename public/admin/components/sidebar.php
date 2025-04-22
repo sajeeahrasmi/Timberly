@@ -34,6 +34,4 @@
 </body>
 </html>
 
-<script src="../scripts/components/sidebar.js" defer></script>
-
 
