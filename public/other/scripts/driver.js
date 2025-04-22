@@ -11,10 +11,11 @@ function handleDelivery(orderId) {
         const longitude = position.coords.longitude;
         const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-        // Set the currently active delivery
         currentDeliveryId = orderId;
+        console.log("Current Delivery ID:", currentDeliveryId);
+        console.log("Location Link:", locationLink);
+        
 
-        // Send location to backend
         fetch('startDelivery.php', {
             method: 'POST',
             headers: {
@@ -25,45 +26,82 @@ function handleDelivery(orderId) {
                 location: locationLink
             })
         })
-            .then(response => response.text())
-            .then(text => {
-                console.log("Raw backend response:", text);
+        .then(response => response.text())
+        .then(text => {
+            console.log("Raw backend response:", text);
 
-                let data;
-                try {
-                    data = JSON.parse(text);
-                } catch (err) {
-                    console.error("Failed to parse JSON:", err);
-                    alert("Error: Invalid JSON from backend");
-                    return;
-                }
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (err) {
+                console.error("Failed to parse JSON:", err);
+                alert("Error: Invalid JSON from backend");
+                return;
+            }
 
-                if (data.success) {
-                    alert("Delivery started successfully. Notification sent to customer.");
+            if (data.success) {
+                alert("Delivery started successfully. Notification sent to customer.");
 
-                    const btn = document.getElementById(`delivery-btn-${orderId}`);
-                    btn.disabled = true;
-                    btn.innerText = "Delivery Started";
+                const btn = document.getElementById(`delivery-btn-${orderId}`);
+                btn.disabled = false;
+                btn.innerText = "End Delivery";
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-success');
+                btn.innerHTML = `<i class="fas fa-check"></i> End Delivery`;
 
-                    // Add 'View Route' button
-                    const viewRouteBtn = document.createElement('button');
-                    viewRouteBtn.textContent = 'View Route';
-                    viewRouteBtn.classList.add('view-route-btn');
-                    viewRouteBtn.onclick = function () {
-                        openMapWindow(orderId);
-                    };
+                // On End Delivery click
+                btn.onclick = function () {
+                    fetch('generateAndSendOTP.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ orderId: orderId })
+                    })
+                    .then(res => res.text())
+                    .then(text => {
+                        console.log("Raw OTP response:", text);
+                
+                        // let data;
+                        // try {
+                        //     data = JSON.parse(text);
+                        // } catch (err) {
+                        //     console.error("OTP JSON parse error:", err);
+                        //     alert("Something went wrong while sending OTP.");
+                        //     return;
+                        // }
+                
+                        if (data.success) {
+                            alert("OTP sent to customer.");
+                            document.getElementById('otpModal').style.display = 'block';
+                        } else {
+                            alert("Failed to send OTP: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error generating OTP:", error);
+                        alert("Something went wrong while sending OTP.");
+                    });
+                };
+                
 
-                    btn.parentNode.appendChild(viewRouteBtn);
-
-                } else {
-                    alert("Failed to start delivery: " + data.message);
-                    console.error("Backend response error:", data);
-                }
-            })
-            .catch(error => {
-                console.error("Error sending delivery start:", error);
-                alert("Error starting delivery. See console for details.");
-            });
+                // Add View Route button
+                const viewRouteBtn = document.createElement('button');
+                viewRouteBtn.textContent = 'View Route';
+                viewRouteBtn.classList.add('view-route-btn');
+                viewRouteBtn.onclick = function () {
+                    openMapWindow(orderId);
+                };
+                btn.parentNode.appendChild(viewRouteBtn);
+            } else {
+                alert("Failed to start delivery: " + data.message);
+                console.error("Backend response error:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Error sending delivery start:", error);
+            alert("Error starting delivery. See console for details.");
+        });
 
     }, function (error) {
         alert("Unable to get your location");
@@ -104,10 +142,7 @@ function openMapWindow(orderId) {
             if (data.success) {
                 const deliveryLocation = encodeURIComponent(data.deliveryLocation);
                 const startingLocation = encodeURIComponent("Colombo");
-
                 const mapUrl = `https://www.google.com/maps/dir/?api=1&origin=${startingLocation}&destination=${deliveryLocation}&travelmode=driving`;
-
-                // Open map in a new window
                 window.open(mapUrl, "_blank", "width=800,height=600");
             } else {
                 alert("Failed to get delivery location: " + data.message);
@@ -119,30 +154,49 @@ function openMapWindow(orderId) {
         });
 }
 
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
-
 function verifyOTP() {
     const otp = document.getElementById('otp').value;
 
-    if (otp.length === 6) {
-        alert("Delivery completed successfully!");
+    if (otp.length === 6 && currentDeliveryId) {
+        fetch('verifyOTP.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                orderId: currentDeliveryId,
+                otp: otp
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("Delivery completed successfully!");
 
-        const deliveryItem = document.getElementById(`delivery-btn-${currentDeliveryId}`).closest('.delivery-item');
-        if (deliveryItem) {
-            deliveryItem.remove();
-        }
+                const deliveryItem = document.getElementById(`delivery-btn-${currentDeliveryId}`).closest('.delivery-item');
+                if (deliveryItem) deliveryItem.remove();
 
-        currentDeliveryId = null;
-        closeModal('otpModal');
-        document.getElementById('otp').value = '';
+                currentDeliveryId = null;
+                closeModal('otpModal');
+                document.getElementById('otp').value = '';
+            } else {
+                alert("OTP verification failed: " + data.message);
+            }
+        })
+        .catch(err => {
+            console.error("OTP verify error:", err);
+            alert("Something went wrong during OTP verification.");
+        });
+
     } else {
         alert("Please enter a valid 6-digit OTP");
     }
 }
 
-// Close modals when clicking outside
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
 window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
         closeModal(event.target.id);
