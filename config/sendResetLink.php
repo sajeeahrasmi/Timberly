@@ -16,7 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Check if user exists
     if ($stmt->affected_rows === 0) {
-        echo "Email not found.";
+        echo "<script>
+                alert('Email not found.');
+                window.location.href='../public/login.php';
+            </script>";
         exit;
     }
 
@@ -41,9 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->Body    = "Click the link to reset your password: <a href='$reset_link'>$reset_link</a>";
 
         $mail->send();
-        echo "Reset link sent! Check your email.";
+        echo "<script>
+                alert('Reset link sent! Check your email.');
+            </script>";
     } catch (Exception $e) {
-        echo "Mailer Error: {$mail->ErrorInfo}";
+        echo "<script>
+            alert('Mailer Error: {$mail->ErrorInfo}');
+            window.location.href='login.php';
+            </script>";
     }
 }
 ?>

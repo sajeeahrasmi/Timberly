@@ -30,9 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param("i", $userId);
         $stmt->execute();
 
-        echo "Password has been reset successfully.";
+        echo "<script>
+                alert('Password has been reset successfully.');
+                window.location.href='../public/login.php';
+            </script>";
     } else {
-        echo "Invalid or expired token.";
+        echo "<script>
+                alert('Invalid or expired token.');
+                window.location.href='../public/login.php';
+            </script>";
     }
 }
 ?>
