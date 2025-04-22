@@ -32,7 +32,9 @@
                 <div class="page-content">
                     <div class="designer-detail-panel">
                         <div class="designer-info">
-                            <img src="./images/image.png" alt="designer-foto">
+                            <div class="customer-default-icon">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
                             <p class="name"><?php echo htmlspecialchars($designer['name']); ?></p>
                             <p class="email"><?php echo htmlspecialchars($designer['email']); ?></p>
                             <p class="designer_id"><?php echo htmlspecialchars($designer_id); ?></p>

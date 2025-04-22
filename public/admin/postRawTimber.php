@@ -25,7 +25,6 @@
                     <p>posts</p>
                     <div class="content-header">
                         <h2>Raw Materials</h2>
-                        <a href="./createPost.php"><i class="fa-solid fa-circle-plus" style="margin-right: 8px"></i>Create a post</a>
                     </div>
                     <h3><span class="passive-category"><a href="postRawLumber.php">Lumber</a></span> |<span class="active-category">Timber</span></h3>
                     <table class="product-table">

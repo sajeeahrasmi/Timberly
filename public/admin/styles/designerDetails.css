@@ -200,3 +200,21 @@ table td {
     color: #bd7049;
     font-size: 12px;
 }
+
+.customer-default-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #b0826a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    margin: 30px auto 20px auto; /* added auto margin to center horizontally */
+}
+
+.customer-default-icon i {
+    color: #b0826a; /* brown icon */
+    font-size: 48px;
+}
