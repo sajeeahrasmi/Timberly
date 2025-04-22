@@ -1,13 +1,15 @@
 <?php
-session_start();
+session_start(); // ✅ This is required to use $_SESSION
 header('Content-Type: application/json');
+require '../../config/db_connection.php'; // Adjust this path as needed
+
 
 if (!isset($_SESSION['userId']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized or invalid request']);
     exit();
 }
 
-include '../../config/db_connection.php';
+
 
 $driverId = $_SESSION['userId'];
 
