@@ -81,7 +81,7 @@ else{
             ocf.unitPrice,
             ocf.frame,
             
-            ocf.description AS description,
+            ocf.details AS description,
             CONCAT(ocf.length, 'x', ocf.width, 'x', ocf.thickness) AS size,
             NULL AS additionalDetails,
             'customized' AS orderType

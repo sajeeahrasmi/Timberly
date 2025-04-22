@@ -91,11 +91,15 @@ include '../../api/trackorderdetails.php';
         <select class="driver-select">
             <option value="">Loading drivers...</option>
         </select>
+        <input type="date" id="driverDate" placeholder="Select a date" style="margin-top: 10px; padding: 5px; width: 30%;">
+
         <button type="submit">Assign Driver</button>
+        
     </form>
     <div class="assignment-details">
         Please select a driver to assign to the task.
     </div>
+    
 </div>
 </div>
 

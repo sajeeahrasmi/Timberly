@@ -3,8 +3,6 @@
 session_start();
 include 'getCurrentDeliveries.php';
 
-
-
 if (!isset($_SESSION['userId'])) {
     echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
     exit();
@@ -63,9 +61,7 @@ $totalDeliveries = $stats['totalDeliveries'];
 
         <div class="delivery-list">
             <h2>Current Deliveries</h2>
-            <!-- Sample Delivery Item - replace with dynamic content later -->
             <?php
-            // Fetch current deliveries from the database
             $deliveries = getCurrentDeliveries($conn, $userId);
 
             if (empty($deliveries)) {
@@ -89,13 +85,10 @@ $totalDeliveries = $stats['totalDeliveries'];
                 }
             }
             ?>
-            
-            
-
-            <!-- You can duplicate this block for other hardcoded or dynamic deliveries -->
-
         </div>
     </div>
+
+    
 
     <!-- OTP Modal -->
     <div id="otpModal" class="modal">
@@ -112,15 +105,14 @@ $totalDeliveries = $stats['totalDeliveries'];
 
     <!-- Customer Modal -->
     <div id="customerModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('customerModal')">&times;</span>
-        <h2>Customer Details</h2>
-        <div class="customer-details" id="customerDetailsContent">
-            <!-- Populated via JavaScript -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('customerModal')">&times;</span>
+            <h2>Customer Details</h2>
+            <div class="customer-details" id="customerDetailsContent">
+                <!-- Populated via JavaScript -->
+            </div>
         </div>
     </div>
-</div>
-
 
     <script src="scripts/driver.js"></script>
 </body>

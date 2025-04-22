@@ -397,10 +397,27 @@ body, html {
       }
   }
 
-
-
-
 }
+
+.measurement-date {
+  background-color: #ffc107;
+  color: black;
+  border-radius: 50%;
+}
+
+.delivery-date {
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+}
+
+/* When both classes apply */
+.measurement-date.delivery-date {
+  background: linear-gradient(135deg, #ffc107 50%, #28a745 50%);
+  color: white;
+}
+
+
 
 
 
