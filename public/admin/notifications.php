@@ -1,1 +1,4 @@
-<?echo "Not yet implemented!"?>
+<?php
+    include '../..api/auth.php';
+    echo "Not yet implemented!"
+?>

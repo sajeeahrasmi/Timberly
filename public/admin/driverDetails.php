@@ -1,4 +1,5 @@
-<?php 
+<?php
+    include '../..api/auth.php';
     include '../../api/getDriverDetails.php';
     include '../../api/deleteDriver.php';
 ?>

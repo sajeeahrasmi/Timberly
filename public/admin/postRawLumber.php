@@ -1,5 +1,6 @@
 <?php
- include '../../api/getPostRawLumber.php';
+    include '../..api/auth.php';
+    include '../../api/getPostRawLumber.php';
 ?>
 
 <!DOCTYPE html>

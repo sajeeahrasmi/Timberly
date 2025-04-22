@@ -1,4 +1,5 @@
 <?php
+    include '../..api/auth.php';
     include '../../api/getEditDesigner.php';
 ?>
 
