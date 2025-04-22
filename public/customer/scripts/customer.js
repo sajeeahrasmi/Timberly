@@ -13,6 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
             console.error("Error:", error);
             alert("Session expired. Please log in again.");
-            window.location.href = "../../login.html";
+            window.location.href = "../../login.php";
         });
 });

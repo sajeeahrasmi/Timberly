@@ -22,7 +22,7 @@
             <a href="#values">About</a>
             <a href="#contact">Contact</a>
         </nav>
-        <button class="btn" id="loginBtn" onclick="window.location.href=`http://localhost/Timberly/public/login.html`">
+        <button class="btn" id="loginBtn" onclick="window.location.href=`http://localhost/Timberly/public/login.php`">
             <i class="fa-regular fa-user"></i>
             Login
         </button>
@@ -161,7 +161,7 @@
     function setLoginButton() {
         userBtn.innerHTML = `<i class="fa-regular fa-user"></i> Login`;
         userBtn.onclick = () => {
-            window.location.href = "../public/login.html";
+            window.location.href = "../public/login.php";
         };
     }
 

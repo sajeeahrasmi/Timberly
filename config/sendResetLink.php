@@ -1,0 +1,49 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '../vendor/autoload.php';
+require 'db_connection.php'; // your DB connection file
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST['email'];
+    $token = bin2hex(random_bytes(50));
+    $expires = date("Y-m-d H:i:s", strtotime('+4 hour'));
+
+    // Update token and expiry in DB
+    $stmt = $conn->prepare("UPDATE user SET reset_token=?, token_expiry=? WHERE email=?");
+    $stmt->bind_param("sss", $token, $expires, $email);
+    $stmt->execute();
+
+    // Check if user exists
+    if ($stmt->affected_rows === 0) {
+        echo "Email not found.";
+        exit;
+    }
+
+    $reset_link = "http://localhost/timberly/public/resetPassword.php?token=" . $token;
+
+    // Send mail
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mra802086@gmail.com';  // Your admin email
+        $mail->Password = 'jplrhlkqfacsnhkh'; // App password (not Gmail login!)
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        $mail->setFrom('mra802086@gmail.com', 'Timberly Admin');
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Password Reset Link';
+        $mail->Body    = "Click the link to reset your password: <a href='$reset_link'>$reset_link</a>";
+
+        $mail->send();
+        echo "Reset link sent! Check your email.";
+    } catch (Exception $e) {
+        echo "Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+?>

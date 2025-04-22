@@ -26,7 +26,10 @@
 }
 
 body {
-    background-color: var(--color-background);
+    background-image: url('images/login-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -117,4 +120,8 @@ input:focus {
 .button.solid:hover {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
+}
+
+.links-to {
+    font-size: 14px;
 }

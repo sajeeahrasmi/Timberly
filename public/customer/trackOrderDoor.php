@@ -6,7 +6,7 @@ $itemId = isset($_GET['id']) ? intval($_GET['id']) : null;
 $orderId = isset($_GET['orderId']) ? intval($_GET['orderId']) : null;
 
 if (!isset($_SESSION['userId'])) {
-    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.php';</script>";
     exit();
 }
 

@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             default:
                 echo "<script>
                     alert('Invalid user role');
-                    window.location.href='../public/login.html';
+                    window.location.href='../public/login.php';
                 </script>";
                 break;
         }
     } else {
         echo "<script>
             alert('Invalid username or password');
-            window.location.href='../public/login.html';
+            window.location.href='../public/login.php';
         </script>";
     }
     $stmt->close();

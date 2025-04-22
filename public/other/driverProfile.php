@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['userId'])) {
-    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.html';</script>";
+    echo "<script>alert('Session expired. Please log in again.'); window.location.href='../../public/login.php';</script>";
     exit();
 }
 
@@ -20,7 +20,7 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 if (!$user) {
-    echo "<script>alert('User not found'); window.location.href='../../public/login.html';</script>";
+    echo "<script>alert('User not found'); window.location.href='../../public/login.php';</script>";
     exit();
 }
 
