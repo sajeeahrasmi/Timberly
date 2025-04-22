@@ -40,9 +40,21 @@ function handleDelivery(orderId) {
 
                 if (data.success) {
                     alert("Delivery started successfully. Notification sent to customer.");
+
                     const btn = document.getElementById(`delivery-btn-${orderId}`);
                     btn.disabled = true;
                     btn.innerText = "Delivery Started";
+
+                    // Add 'View Route' button
+                    const viewRouteBtn = document.createElement('button');
+                    viewRouteBtn.textContent = 'View Route';
+                    viewRouteBtn.classList.add('view-route-btn');
+                    viewRouteBtn.onclick = function () {
+                        openMapWindow(orderId);
+                    };
+
+                    btn.parentNode.appendChild(viewRouteBtn);
+
                 } else {
                     alert("Failed to start delivery: " + data.message);
                     console.error("Backend response error:", data);
@@ -82,6 +94,28 @@ function showCustomerDetails(orderId) {
         .catch(error => {
             console.error('Error fetching customer details:', error);
             alert('Failed to fetch customer details.');
+        });
+}
+
+function openMapWindow(orderId) {
+    fetch(`getDeliveryMapData.php?orderId=${orderId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const deliveryLocation = encodeURIComponent(data.deliveryLocation);
+                const startingLocation = encodeURIComponent("Colombo");
+
+                const mapUrl = `https://www.google.com/maps/dir/?api=1&origin=${startingLocation}&destination=${deliveryLocation}&travelmode=driving`;
+
+                // Open map in a new window
+                window.open(mapUrl, "_blank", "width=800,height=600");
+            } else {
+                alert("Failed to get delivery location: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error getting delivery location:", error);
+            alert("Error loading map");
         });
 }
 
