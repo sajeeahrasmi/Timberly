@@ -18,8 +18,10 @@
     </head>
     <body>
         <div class="dashboard-container">
-            <?php include "./components/sidebar.php" ?>
-            <div class="main-content">
+            <div style="position: fixed">
+                <?php include "./components/sidebar.php" ?>
+            </div>
+            <div class="main-content" style="margin-left: 300px">
                 <?php include "./components/header.php" ?>
                 <div class="content">
                     <form id="edit-product-form" method="POST" action="../../api/getProductDetails.php?furnitureId=<?php echo htmlspecialchars($furnitureId); ?>" enctype="multipart/form-data">

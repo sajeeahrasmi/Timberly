@@ -14,8 +14,10 @@
     </head>
     <body>
         <div class="dashboard-container">
-            <?php include "./components/sidebar.php" ?>
-            <div class="page-content">
+            <div style="position: fixed">
+                <?php include "./components/sidebar.php" ?>
+            </div>
+            <div class="page-content" style="margin-left: 300px">
                 <?php include "./components/header.php" ?>
                 <div class="main-content">
                     <div class="card">

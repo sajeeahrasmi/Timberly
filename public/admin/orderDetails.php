@@ -18,79 +18,81 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <?php include "./components/sidebar.php" ?>
-        <div class="main-content">
-            <?php include "./components/header.php" ?>
-            <p class="page-type-banner">order</p>
-            <div class="order-header">
-                <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
+            <div style="position: fixed">
+                <?php include "./components/sidebar.php" ?> 
             </div>
-            <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> <?php if ($order['itemQty'] == 1) {echo "item";} else {echo "items";}?> | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
-
-            <div class="first-order-body">
-                <div class="items-section">
-                    <h3 style="display: inline-block; margin-top: 10px">Items</h3>
-                    <table>
-                        <?php $subtotal = 0; ?>
-                        <?php foreach ($orderItems as $item): ?>
-                            <tr>
-                                <td><a href="#"><?php echo htmlspecialchars($item['itemId']); ?></a></td>
-                                <td style="text-align: left">
-                                    <?php
-                                        if (!empty($item['description'])) {
-                                            echo htmlspecialchars($item['description']);
-                                        } else {
-                                            echo htmlspecialchars($item['type']);
-                                        }
-                                    ?>
-                                </td>
-                                <?php $unitPrice = number_format($item['unitPrice'],2) ?>
-                                <td style="text-align: right"><?php echo htmlspecialchars($unitPrice); ?></td>
-                                <td>*<?php echo htmlspecialchars($item['qty']); ?></td>
-                                <?php $price = $item['unitPrice'] * $item['qty'];
-                                $subtotal += $price;
-                                $price = number_format($price,2); ?>
-                                <td style="text-align: right"><?php echo htmlspecialchars($price); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        <tr>
-                            <?php $total = $subtotal + 1300;
-                             $subtotal = number_format($subtotal,2)?>
-                            <td colspan="4" class="subtotal">Subtotal</td>
-                            <td style="text-align: right"><?php echo htmlspecialchars($subtotal); ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="delivery">Delivery charges</td>
-                            <td style="text-align: right">1,300.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="total" style="font-weight: 600">Total(Rs)</td>
-                            <?php $tot = $total;
-                             $total = number_format($total,2);?>
-                            <td style="text-align: right; font-weight: bold;"><?php echo htmlspecialchars($total); ?></td>
-                        </tr>
-                    </table>
+            <div class="main-content" style="margin-left: 300px">
+                <?php include "./components/header.php" ?>
+                <p class="page-type-banner">order</p>
+                <div class="order-header">
+                    <h2><?php echo htmlspecialchars($order['order_id']); ?></h2>
                 </div>
-            
-                <div style="display: inline">
-                    <div class="customer-section">
-                        <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
-                        <div class="customer-info">
-                            <img src="./images/user-pic.jpg" alt="custmr-img">
-                            <div>
-                                <p style="margin-bottom: 5px"><?php echo htmlspecialchars($order['customerName']); ?></p>
-                                <a href="mailto:<?php echo htmlspecialchars($order['email']); ?>"><?php echo htmlspecialchars($order['email']); ?></a>
-                                <p style="color: #707070; font-size: 12px; margin-bottom: 0px"><?php echo htmlspecialchars($order['userId']); ?></p>
+                <p class="order-stats"><?php echo htmlspecialchars($order['date']); ?> | <?php echo htmlspecialchars($order['itemQty']); ?> <?php if ($order['itemQty'] == 1) {echo "item";} else {echo "items";}?> | <span class="advance-paid"><?php echo htmlspecialchars($order['orderStatus']); ?></span></p>
+
+                <div class="first-order-body">
+                    <div class="items-section">
+                        <h3 style="display: inline-block; margin-top: 10px">Items</h3>
+                        <table>
+                            <?php $subtotal = 0; ?>
+                            <?php foreach ($orderItems as $item): ?>
+                                <tr>
+                                    <td><a href="#"><?php echo htmlspecialchars($item['itemId']); ?></a></td>
+                                    <td style="text-align: left">
+                                        <?php
+                                            if (!empty($item['description'])) {
+                                                echo htmlspecialchars($item['description']);
+                                            } else {
+                                                echo htmlspecialchars($item['type']);
+                                            }
+                                        ?>
+                                    </td>
+                                    <?php $unitPrice = number_format($item['unitPrice'],2) ?>
+                                    <td style="text-align: right"><?php echo htmlspecialchars($unitPrice); ?></td>
+                                    <td>*<?php echo htmlspecialchars($item['qty']); ?></td>
+                                    <?php $price = $item['unitPrice'] * $item['qty'];
+                                    $subtotal += $price;
+                                    $price = number_format($price,2); ?>
+                                    <td style="text-align: right"><?php echo htmlspecialchars($price); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <tr>
+                                <?php $total = $subtotal + 1300;
+                                $subtotal = number_format($subtotal,2)?>
+                                <td colspan="4" class="subtotal">Subtotal</td>
+                                <td style="text-align: right"><?php echo htmlspecialchars($subtotal); ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="delivery">Delivery charges</td>
+                                <td style="text-align: right">1,300.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="total" style="font-weight: 600">Total(Rs)</td>
+                                <?php $tot = $total;
+                                $total = number_format($total,2);?>
+                                <td style="text-align: right; font-weight: bold;"><?php echo htmlspecialchars($total); ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                
+                    <div style="display: inline">
+                        <div class="customer-section">
+                            <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
+                            <div class="customer-info">
+                                <img src="./images/user-pic.jpg" alt="custmr-img">
+                                <div>
+                                    <p style="margin-bottom: 5px"><?php echo htmlspecialchars($order['customerName']); ?></p>
+                                    <a href="mailto:<?php echo htmlspecialchars($order['email']); ?>"><?php echo htmlspecialchars($order['email']); ?></a>
+                                    <p style="color: #707070; font-size: 12px; margin-bottom: 0px"><?php echo htmlspecialchars($order['userId']); ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="delivery-address-section">
-                        <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
-                        <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;"><?php echo htmlspecialchars($order['address']); ?></p>
+                        <div class="delivery-address-section">
+                            <h3 style="display: inline-block; margin-top: 0px">Delivery address</h3>
+                            <p style="color: #707070; margin-top: 0; margin-bottom:0px; margin-left: 5px; font-size: small;"><?php echo htmlspecialchars($order['address']); ?></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="second-order-body"></div>
+                <div class="second-order-body"></div>
                 <div class="transactions-section">
                     <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
                     <table class="transaction-table">
@@ -123,7 +125,7 @@
                         <tr>
                             <td>Paid by the customer</td>
                             <?php $remainingBalance = $tot - $paymentTotal;
-                             $paymentTotal = number_format($paymentTotal , 2)?>
+                            $paymentTotal = number_format($paymentTotal , 2)?>
                             <td>- Rs <?php echo htmlspecialchars($paymentTotal); ?></td>
                         </tr>
                         <tr style="border-top: 1px #e2d0c7 solid">

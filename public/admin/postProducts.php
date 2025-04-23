@@ -18,8 +18,10 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <?php include "./components/sidebar.php" ?>
-        <div class="main-content">
+        <div style="position: fixed">
+            <?php include "./components/sidebar.php" ?> 
+        </div>
+        <div class="main-content" style="margin-left: 300px">
             <?php include "./components/header.php" ?>
             <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="postRawLumber.php">Raw materials</a></span></h3>
             <div class="product-display-box">

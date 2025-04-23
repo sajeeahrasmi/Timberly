@@ -47,8 +47,10 @@ if (!$result) {
     </head>
     <body>
         <div class="dashboard-container">
-            <?php include "./components/sidebar.php" ?>
-            <div class="main-content">
+            <div style="position: fixed">
+                <?php include "./components/sidebar.php" ?> 
+            </div>
+            <div class="main-content" style="margin-left: 300px">
                 <?php include "./components/header.php" ?>
                 <div class="orders-display-box" style="margin-left: 15px">
                     <h2>Notifications</h2>
