@@ -1,67 +1,63 @@
 <?php
 header('Content-Type: application/json');
-require '../db/dbConnection.php';
+require '../../config/db_connection.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($data['orderId'])) {
-    echo json_encode(['success' => false, 'message' => 'Missing orderId']);
+// Validate input
+if (!isset($data['orderId']) || !isset($data['otp'])) {
+    echo json_encode(['success' => false, 'message' => 'Missing orderId or OTP']);
     exit;
 }
 
 $orderId = intval($data['orderId']);
+$enteredOtp = $data['otp'];
 $customerId = null;
 
-// Search in multiple order tables
-$tables = ['orders', 'orderfurniture', 'ordercustomizedfurniture', 'orderlumber'];
-foreach ($tables as $table) {
-    $stmt = $conn->prepare("SELECT userId FROM `$table` WHERE orderId = ?");
-    if (!$stmt) continue;
+// Step 1: Get customerId from the orderId
+$stmt = $conn->prepare("SELECT userId FROM orders WHERE orderId = ?");
+$stmt->bind_param('i', $orderId);
+$stmt->execute();
+$stmt->bind_result($uid);
 
-    $stmt->bind_param('i', $orderId);
-    $stmt->execute();
-    $stmt->bind_result($uid);
-
-    if ($stmt->fetch()) {
-        $check = $conn->prepare("SELECT id FROM user WHERE id = ? AND role = 'customer'");
-        $check->bind_param("i", $uid);
-        $check->execute();
-        $check->store_result();
-
-        if ($check->num_rows > 0) {
-            $customerId = $uid;
-            $check->close();
-            $stmt->close();
-            break;
-        }
-
-        $check->close();
-    }
-
-    $stmt->close();
+if ($stmt->fetch()) {
+    $customerId = $uid;
 }
+$stmt->close();
 
 if (!$customerId) {
-    echo json_encode(['success' => false, 'message' => 'Customer not found']);
+    echo json_encode(['success' => false, 'message' => 'Customer not found for orderId']);
     exit;
 }
 
-// Generate random 6-digit OTP
-$otp = random_int(100000, 999999);
-$message = "Your delivery OTP is: $otp";
+// Step 2: Get the latest OTP notification for the customer
+$stmt = $conn->prepare("
+    SELECT message 
+    FROM customerNotification 
+    WHERE userId = ? AND fromWhom = 'Driver'
+    ORDER BY notificationId DESC 
+    LIMIT 1
+");
+$stmt->bind_param('i', $customerId);
+$stmt->execute();
+$stmt->bind_result($message);
 
-// Insert into customerNotification table
-$insert = $conn->prepare("INSERT INTO customerNotification (customerId, sender, message, orderId) VALUES (?, 'driver', ?, ?)");
-if ($insert) {
-    $insert->bind_param("isi", $customerId, $message, $orderId);
-    if ($insert->execute()) {
-        echo json_encode(['success' => true, 'otp' => $otp]); // Just for debug; remove `otp` later
+if ($stmt->fetch()) {
+    // Step 3: Extract OTP from message using regex
+    preg_match('/\d{6}/', $message, $matches);
+    if (!empty($matches)) {
+        $storedOtp = $matches[0];
+        if ($enteredOtp == $storedOtp) {
+            echo json_encode(['success' => true, 'message' => 'OTP verified']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Incorrect OTP']);
+        }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to send notification']);
+        echo json_encode(['success' => false, 'message' => 'OTP not found in message']);
     }
-    $insert->close();
 } else {
-    echo json_encode(['success' => false, 'message' => 'DB Insert failed']);
+    echo json_encode(['success' => false, 'message' => 'No OTP notification found']);
 }
 
+$stmt->close();
 $conn->close();
