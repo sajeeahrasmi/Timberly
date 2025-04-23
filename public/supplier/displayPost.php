@@ -64,16 +64,17 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
             <?php
             // Function to display a post card
             function displayPostCard($row, $type) {
-                $image = $row['image'];
-                $imagePath = "/Supplier/uploads/" . $image;
+                $imagePath= $row['image'];
+                //$imagePath = "/Supplier/uploads/" . $image;
                 $fileExt = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
                 $allowedExts = ['jpg', 'jpeg', 'png'];
                 $category = $type; // 'lumber' or 'timber'
+                //echo $imagePath;
                 ?>
 
                 <div class="metric-card">
-                    <?php if (!empty($image) && in_array($fileExt, $allowedExts)): ?>
-                        <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
+                    <?php if (!empty($imagePath) && in_array($fileExt, $allowedExts)): ?>
+                        <img src="../<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
                     <?php else: ?>
                         <p>No image available or unsupported image format.</p>
                     <?php endif; ?>

@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $info = mysqli_real_escape_string($conn, $_POST['info']);
 
     if (!empty($_FILES['image']['name'])) {
-        $image = 'uploads/' . basename($_FILES['image']['name']);
+        $image = '/Supplier/uploads/' . basename($_FILES['image']['name']);
         move_uploaded_file($_FILES['image']['tmp_name'], $image);
     }
 
