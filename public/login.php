@@ -1,234 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Timberly</title>
-<style>
-:root {
-  --color-primary: #895D47;
-  --color-secondary: #B18068;
-  --color-danger: #ff7782;
-  --color-success: #41f1b6;
-  --color-warning: #ffbb55;
-  --color-white: #fff;
-  --color-background: #f6f6f9;
-  --card-border-radius: 2rem;
-  --border-radius-1: 0.4rem;
-  --border-radius-2: 0.8rem;
-  --border-radius-3: 1.2rem;
-  --card-padding: 40px;
-  --padding: 10px;
-  --box-shadow: 0 4px 8px var(--color-secondary);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-image: url('login-background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.container {
-  background-color: var(--color-white);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
-  padding: var(--card-padding);
-  width: 100%;
-  max-width: 900px;
-  display: flex;
-  align-items: center;
-}
-
-.left-side {
-  flex: 1;
-  padding-right: 30px;
-}
-
-.right-side {
-  flex: 1;
-  padding-left: 30px;
-  border-left: 1px solid #eee;
-}
-
-.login-logo {
-  width: 200px;
-  height: 60px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  color: var(--color-primary);
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-.left-side p {
-  color: var(--color-secondary);
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-label {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius-1);
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-}
-
-.buttons {
-  display: flex;
-  justify-content: right;
-  margin-top: 10px;
-}
-
-.button {
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  text-align: center;
-  margin-left: 5px;
-}
-
-.button.outline {
-  background-color: transparent;
-  color: var(--color-primary);
-  border-color: none;
-}
-
-.button.outline:hover {
-  border-radius: 50px;
-  background-color:rgba(137, 93, 71, 0.12);
-}
-
-.button.solid {
-  border-radius: 50px;
-  background-color: var(--color-primary);
-  color: white;
-  border-color: var(--color-primary);
-}
-
-.button.solid:hover {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.links-to {
-  font-size: 14px;
-  margin-top: 15px;
-  text-align: left;
-}
-
-.links-to a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.links-to a:hover {
-  text-decoration: underline;
-}
-
-.guest-text {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #5f6368;
-}
-
-.guest-text a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.guest-text a:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .left-side {
-    padding-right: 0;
-    margin-bottom: 30px;
-  }
-  
-  .right-side {
-    padding-left: 0;
-    border-left: none;
-    border-top: 1px solid #eee;
-    padding-top: 30px;
-    width: 100%;
-  }
-}
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="left-side">
-    <img src="final_logo.png" alt="Timberly" class="login-logo">
-    <h2 style="margin-left: 20px">Sign in</h2>
-    <p style="margin-left: 20px">Use your timberly user account</p>
-  </div>
-  
-  <div class="right-side">
-    <form id="loginForm" action="../config/login.php" method="POST">
-      <div class="form-group">
-        <input type="text" placeholder="Username" id="username" name="username" required>
-      </div>
-      
-      <div class="form-group">
-        <input type="password" placeholder="Password" id="password" name="password" required>
-      </div>
-      
-      <p class="links-to"><a href="forgotPassword.php">Forgot password?</a> | <a href="landingPage.php">Home</a></p>
-      
-      <div class="buttons">
-        <a href="registration.php" class="button outline">Create account</a>
-        <button type="submit" class="button solid">Login</button>
-      </div>
-    </form>
-  </div>
-</div>
-</body>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Timberly</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="left-side">
+                <img src="final_logo.png" alt="Timberly" class="login-logo">
+                <h2 style="margin-left: 20px">Sign in</h2>
+                <p style="margin-left: 20px">Use your timberly user account</p>
+            </div>
+        
+            <div class="right-side">
+                <form id="loginForm" action="../config/login.php" method="POST">
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" id="password" name="password" required>
+                    </div>
+                    
+                    <p class="links-to"><a href="forgotPassword.php">Forgot password?</a> | <a href="landingPage.php">Home</a></p>
+                    
+                    <div class="buttons">
+                        <a href="registration.php" class="button outline">Create account</a>
+                        <button type="submit" class="button solid">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
