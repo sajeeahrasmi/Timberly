@@ -73,6 +73,9 @@
                     <select name="type" required>
                         <option value="Jak">Jak</option>
                         <option value="Teak">Teak</option>
+                        <option value="Mahogani">Mahogani</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
                     </select>
                 </div>
 
@@ -109,8 +112,11 @@
                 <div class="form-group">
                     <label for="type">Select Type:</label>
                     <select name="type" required>
+                    <option value="Jak">Jak</option>
+                        <option value="Teak">Teak</option>
                         <option value="Mahogani">Mahogani</option>
-                        <option value="Cinamond">Cinamond</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
                     </select>
                 </div>
 

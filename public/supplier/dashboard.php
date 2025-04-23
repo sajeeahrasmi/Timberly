@@ -71,7 +71,6 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                         <th>No. of Items</th>
                         <th>Date</th>
                         <th>Post Status</th>
-                        <th>Payment Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -83,8 +82,7 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                             <td><?= htmlspecialchars($order['type']) ?></td>
                             <td><?= htmlspecialchars($order['quantity']) ?></td>
                             <td><?= date("d/m/Y", strtotime($order['postdate'])) ?></td>
-                            <td class="po">Successful</td>
-                            <td class="py">Complete</td>
+                            <td class="po"><?= ($order['is_approved'] = '1') ? 'Approved' : 'Pending' ?></td>
                             <td>
                                 <span style="cursor:pointer"><i class="fa-solid fa-eye"></i></span>
                             </td>
