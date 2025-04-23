@@ -118,7 +118,7 @@ require_once '../../api/auth.php';
                         <th>Customer Name</th>
                         <th>Order ID</th>
                         <th>Order Details</th>
-                        <th>Total Amount</th>
+                        <th>Amount To Pay</th>
                         <th>Payment Status</th>
                         <th>Status</th>
                         <th>Action</th>
