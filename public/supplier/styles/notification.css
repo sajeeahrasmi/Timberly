@@ -1,0 +1,81 @@
+/* Overlay with blur background */
+.notification-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Card Style */
+.notification-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.notification-card h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #222;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Notification List */
+.notification-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.notification-card li {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f1f5f9;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+/* Close Button */
+.notification-card button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.notification-card button:hover {
+    background-color: #218838;
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
