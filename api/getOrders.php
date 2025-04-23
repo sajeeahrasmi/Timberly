@@ -123,8 +123,9 @@ if ($result->num_rows > 0) {
         // Calculate total amount (totalAmount = qty * unitPrice)
         $totalAmount = $order['totalAmount']; 
         
+        
         // Set balance to 0 temporarily
-        $balance = 0;
+        
 
         // Determine the view URL based on order type
         $viewUrl = "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type={$order['orderType']}";
@@ -150,6 +151,7 @@ if ($result->num_rows > 0) {
                 <td>{$order['customerName']}</td>
                 <td>{$order['main_order_id']}</td>
                 <td>{$itemDisplay}</td>
+                
                 <td>{$totalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
                 <td>{$iStatus}</td>

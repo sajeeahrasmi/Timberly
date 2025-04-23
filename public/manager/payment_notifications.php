@@ -7,8 +7,10 @@ include '../../api/getPdetails.php'?>
     <meta charset="UTF-8">
     <title>Payment Notifications</title>
     <style>
+
+    
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Arial', sans-serif;
         background-color: #f9f9f9;
         color: #333;
         padding: 40px;

@@ -29,7 +29,7 @@ function getPendingProductsFromDatabase() {
 
     while ($row = $resultTimber->fetch_assoc()) {
         $products[] = [
-            'id' => $row['timberId'],
+            'id' => $row['id'],
             'name' => $row['type'],
             'category' => 'timber',
             'supplier_id' => $row['supplierId'],
@@ -52,7 +52,7 @@ function getPendingProductsFromDatabase() {
 
     while ($row = $resultLumber->fetch_assoc()) {
         $products[] = [
-            'id' => $row['lumberId'],
+            'id' => $row['id'],
             'name' => $row['type'],
             'supplier_id' => $row['supplierId'],
             'unit_price' => $row['unitprice'],

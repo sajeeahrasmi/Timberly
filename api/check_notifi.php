@@ -4,10 +4,10 @@ include 'db.php'; // your database connection
 $response = ['hasPending' => false];
 
 // Query 1: Pending Lumber
-$lumber = $conn->query("SELECT lumberId FROM pendinglumber WHERE is_approved = '0' LIMIT 1");
+$lumber = $conn->query("SELECT id FROM pendinglumber WHERE is_approved = '0' LIMIT 1");
 
 // Query 2: Pending Tibre
-$tibre = $conn->query("SELECT timberId FROM pendingtimber WHERE is_approved = '0' LIMIT 1");
+$tibre = $conn->query("SELECT id FROM pendingtimber WHERE is_approved = '0' LIMIT 1");
 
 // Query 3: Unapproved Suppliers
 $suppliers = $conn->query("SELECT userId FROM user WHERE role = 'supplier' AND status = 'Not Approved' LIMIT 1");

@@ -30,7 +30,7 @@ include '../../config/login.php';
     <div class="top-bar">
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
-      <button class="notification-btn"  onclick="window.location.href='supplierNotification.php';"><i class="fas fa-bell" id="notificationIcon" ></i> <span id="notif-badge">0</span></button>
+      <button  id="notificationIcon" class="notification-btn"  onclick="window.location.href='supplierNotification.php';"><i  class="fas fa-bell" id="notificationIcon" ></i> <span id="notif-badge">0</span></button>
         <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
       </div>
     </div>
