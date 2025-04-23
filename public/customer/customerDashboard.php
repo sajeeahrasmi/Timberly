@@ -41,13 +41,18 @@ $paidAmount = $paidData['paidAmount'] ?? 0;
 
 $balance = $totalAmount - $paidAmount;
  
-$querym = "SELECT m.*  FROM orders o JOIN measurement m ON o.orderId = m.orderId WHERE o.userId = ? ORDER BY m.date DESC LIMIT 1";
+$querym = "SELECT m.*  FROM orders o JOIN measurement m ON o.orderId = m.orderId WHERE o.userId = ? AND m.date IS NOT NULL ORDER BY m.date DESC LIMIT 1";
 $stmtm = $conn->prepare($querym);
 $stmtm->bind_param("i", $userId);
 $stmtm->execute();
 $resultm = $stmtm->get_result();
 $latestMeasurement = $resultm->fetch_assoc();
-$dateMeasurement = $latestMeasurement['date'] ?? null;
+// $dateMeasurement = $latestMeasurement['date'] ?? null;
+$dateMeasurement = null;
+if ($resultm && $resultm->num_rows > 0) {
+    $latestMeasurement = $resultm->fetch_assoc();
+    $dateMeasurement = $latestMeasurement['date'] ?? null;
+}
 
 $query3 = "SELECT 
         MAX(latest_date) AS driverDate

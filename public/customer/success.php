@@ -77,7 +77,7 @@ try {
     }
 
     $queryCat = "SELECT category FROM orders WHERE orderId = ?";
-    $stmtCat = $conn->prepare($stmtCat);
+    $stmtCat = $conn->prepare($queryCat);
     $stmtCat->bind_param("i", $orderId);
     $stmtCat->execute();
     $resultCat = $stmtCat->get_result();

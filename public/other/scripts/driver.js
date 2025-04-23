@@ -88,7 +88,7 @@ function handleDelivery(orderId) {
                 // Add View Route button
                 const viewRouteBtn = document.createElement('button');
                 viewRouteBtn.textContent = 'View Route';
-                viewRouteBtn.classList.add('view-route-btn');
+                viewRouteBtn.classList.add('button', 'outline', 'view-route-btn');
                 viewRouteBtn.onclick = function () {
                     openMapWindow(orderId);
                 };

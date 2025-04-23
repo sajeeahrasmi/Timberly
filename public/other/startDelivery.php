@@ -46,7 +46,7 @@ $insertStmt->execute();
 $message = "Delivery has started. Track the location here: $location";
 $fromWhom = "Driver";
 
-$notifStmt = $conn->prepare("INSERT INTO customerNotification (userId, fromId, fromWhom, message, view) VALUES (?, ?, ?, ?, 0)");
+$notifStmt = $conn->prepare("INSERT INTO customerNotification (userId, fromId, fromWhom, message, view) VALUES (?, ?, ?, ?, 'no')");
 $notifStmt->bind_param("iiss", $customerId, $driverId, $fromWhom, $message);
 $notifStmt->execute();
 
