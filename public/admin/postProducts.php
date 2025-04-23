@@ -18,8 +18,10 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <?php include "./components/sidebar.php" ?>
-        <div class="main-content">
+        <div style="position: fixed">
+            <?php include "./components/sidebar.php" ?> 
+        </div>
+        <div class="main-content" style="margin-left: 300px">
             <?php include "./components/header.php" ?>
             <h3><span class="active-category">Products</span> |<span class="passive-category"><a href="postRawLumber.php">Raw materials</a></span></h3>
             <div class="product-display-box">
@@ -51,6 +53,21 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <?php if ($page > 1): ?>
+                        <a href="?page=<?php echo $page - 1; ?>">&laquo; Prev</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <a href="?page=<?php echo $i; ?>" class="<?php echo ($i === $page) ? 'active' : ''; ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    <?php endfor; ?>
+
+                    <?php if ($page < $totalPages): ?>
+                        <a href="?page=<?php echo $page + 1; ?>">Next &raquo;</a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

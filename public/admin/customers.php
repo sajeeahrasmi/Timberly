@@ -18,8 +18,10 @@
     </head>
     <body>
     <div class="dashboard-container">
-        <?php include "./components/sidebar.php" ?>
-        <div class="main-content">
+        <div style="position: fixed">
+            <?php include "./components/sidebar.php" ?>
+        </div>
+        <div class="main-content" style="margin-left: 300px">
             <?php include "./components/header.php" ?>
             <div class="customers-display-box">
                 <div style="display: flex;
