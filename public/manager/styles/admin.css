@@ -588,7 +588,7 @@ body {
 /* Styling when the link is highlighted (glowing effect) */
 #payment-link.glow {
   box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.8);
-  color: red;
+  color: #de5f4d;
 }
 
 /* Add these styles to your admin.css file */
@@ -741,16 +741,15 @@ body {
 }
 
 /* CSS for the glow */
-.glow {
+.notif-badge glow {
   animation: glowEffect 1.5s ease-in-out infinite alternate;
-  color: #f39c12;
-}
+  color: #de5f4d;}
 
 @keyframes glowEffect {
   from {
-    text-shadow: 0 0 5px #f39c12, 0 0 10px #f39c12;
+    text-shadow: 0 0 5px #de5f4d, 0 0 10px #de5f4d;
   }
   to {
-    text-shadow: 0 0 15px #f1c40f, 0 0 20px #f1c40f;
+    text-shadow: 0 0 15px #de5f4d, 0 0 20px #de5f4d;
   }
 }
