@@ -1,96 +1,73 @@
 <?php
-session_start();
 include '../../config/db_connection.php';
+session_start();
 if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
     header("Location: ../login.php");
     exit();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Post Approval Status</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f3f3f3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #approval-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        .card h3 {
-            margin-bottom: 15px;
-            color: green;
-        }
-        .card p {
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/notification.css">
+    <title>Notifications</title>
 </head>
 <body>
 
-<div id="approval-container"></div>
+<div class="header-content">
+    <?php include 'components/header.php'; ?>
+</div>
 
+<div class="body-container">
+    <div class="sidebar-content">
+        <?php include 'components/sidebar.php'; ?>
+    </div>
+
+    <div class="body-content" id="main-content">
+        <div id="notification-overlay" class="notification-overlay hidden">
+            <div class="notification-card">
+                <h2>🔔 Notifications</h2>
+                <ul id="notification-list"></ul>
+                <button onclick="closeNotification()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-function createCard(postId, type) {
-    const card = document.createElement('div');
-    card.className = 'card';
+function openNotification(posts) {
+    const overlay = document.getElementById("notification-overlay");
+    const list = document.getElementById("notification-list");
+    const mainContent = document.getElementById("main-content");
 
-    const title = document.createElement('h3');
-    title.textContent = '🎉 Post Approved!';
+    list.innerHTML = "";
+    posts.forEach(post => {
+        const item = document.createElement("li");
+        item.textContent = `✅ ${post.type} post with ID ${post.postId} has been approved.`;
+        list.appendChild(item);
+    });
 
-    const message = document.createElement('p');
-    message.textContent = `Your ${type} post with ID: ${postId} has been approved.`;
-
-    card.appendChild(title);
-    card.appendChild(message);
-
-    return card;
+    overlay.classList.remove("hidden");
+    mainContent.classList.add("blurred");
 }
 
-function checkApprovalStatus() {
-    fetch('check_approval.php')
-        .then(response => response.json())
-        .then(data => {
-            const container = document.getElementById('approval-container');
-            container.innerHTML = '';
+function closeNotification() {
+    document.getElementById("notification-overlay").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("blurred");
+    window.location.href = "dashboard.php"; // Redirect to the same page to refresh the notifications
+}
 
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('../../api/checkApproval.php')
+        .then(res => res.json())
+        .then(data => {
             if (data.approved && data.posts.length > 0) {
-                data.posts.forEach(post => {
-                    const card = createCard(post.postId, post.type);
-                    container.appendChild(card);
-                });
-            } else {
-                const msg = document.createElement('p');
-                msg.textContent = "No approved posts yet.";
-                msg.style.textAlign = 'center';
-                container.appendChild(msg);
+                openNotification(data.posts);
             }
         })
-        .catch(err => {
-            console.error('Polling error:', err);
-        });
-}
-
-checkApprovalStatus();
-setInterval(checkApprovalStatus, 5000); // Check every 5 seconds
+        .catch(err => console.error("Error fetching approval status:", err));
+});
 </script>
 
 </body>
