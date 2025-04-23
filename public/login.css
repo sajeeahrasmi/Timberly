@@ -26,7 +26,7 @@
 }
 
 body {
-    background-image: url('images/login-background.jpg');
+    background-image: url('login-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -37,13 +37,20 @@ body {
     padding: 20px;
 }
 
+.login-logo {
+    width: 200px;
+    height: 60px;
+    
+}
+
 .container {
     background-color: var(--color-white);
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     padding: var(--card-padding);
     width: 100%;
-    max-width: 400px;
+    max-width: 700px;
+    display: inline !important;
 }
 
 form {

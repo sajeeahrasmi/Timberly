@@ -60,9 +60,10 @@ body, html {
 }
 
 .card .card-stats p {
-    font-size: 14px;
+    font-size: 20px !important;
     margin-top: 10px;
     width: 20px;
+    color: #ab785e;
 }
 
 .card .card-stats button {
