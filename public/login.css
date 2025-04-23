@@ -6,27 +6,24 @@
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-background: #f6f6f9;
-
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
-
-    --card-padding: 20px;
+    --card-padding: 40px;
     --padding: 10px;
-
     --box-shadow: 0 4px 8px var(--color-secondary);
-}
-
-* {
+  }
+  
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-}
-
-body {
-    background-image: url('images/login-background.jpg');
+  }
+  
+  body {
+    background-image: url('login-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -35,62 +32,86 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-}
-
-.container {
+  }
+  
+  .container {
     background-color: var(--color-white);
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     padding: var(--card-padding);
     width: 100%;
-    max-width: 400px;
-}
-
-form {
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .left-side {
+    flex: 1;
+    padding-right: 30px;
+  }
+  
+  .right-side {
+    flex: 1;
+    padding-left: 30px;
+    border-left: 1px solid #eee;
+  }
+  
+  .login-logo {
+    width: 200px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+  
+  .left-side p {
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+  }
+  
+  form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-h2 {
-    color: var(--color-primary);
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
+    gap: 14px;
+  }
+  
+  .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-label {
+  }
+  
+  label {
     color: var(--color-primary);
     font-weight: bold;
-}
-
-input {
+  }
+  
+  input {
     padding: 12px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: var(--border-radius-1);
     font-size: 16px;
     transition: border-color 0.3s ease;
-}
-
-input:focus {
+  }
+  
+  input:focus {
     outline: none;
     border-color: var(--color-primary);
-}
-
-.buttons {
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-}
-
-.button {
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+  }
+  
+  .button {
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 4px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -98,30 +119,79 @@ input:focus {
     transition: all 0.3s ease;
     text-decoration: none;
     text-align: center;
-}
-
-.button.outline {
+    margin-left: 5px;
+  }
+  
+  .button.outline {
     background-color: transparent;
     color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.button.outline:hover {
+    border-color: none;
+  }
+  
+  .button.outline:hover {
+    border-radius: 50px;
+    background-color:rgba(137, 93, 71, 0.12);
+  }
+  
+  .button.solid {
+    border-radius: 50px;
     background-color: var(--color-primary);
     color: white;
-}
-
-.button.solid {
-    background-color: var(--color-primary);
-    color: white;
     border-color: var(--color-primary);
-}
-
-.button.solid:hover {
+  }
+  
+  .button.solid:hover {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
-}
-
-.links-to {
+  }
+  
+  .links-to {
     font-size: 14px;
-}
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  .links-to a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .links-to a:hover {
+    text-decoration: underline;
+  }
+  
+  .guest-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #5f6368;
+  }
+  
+  .guest-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .guest-text a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .left-side {
+      padding-right: 0;
+      margin-bottom: 30px;
+    }
+    
+    .right-side {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid #eee;
+      padding-top: 30px;
+      width: 100%;
+    }
+  }
+  
