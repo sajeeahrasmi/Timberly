@@ -267,3 +267,23 @@
   margin-bottom: 40px;
 }
 
+.tab-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+.tab-btn.active {
+  background-color: #895D47;
+  color: white;
+}

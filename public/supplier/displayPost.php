@@ -60,20 +60,27 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
             <div style="color: green; margin-bottom: 10px;"><?php echo htmlspecialchars($_GET['message']); ?></div>
         <?php endif; ?>
 
+        <!-- Tab Headers -->
+<div class="tab-header">
+    <button class="tab-btn active" onclick="showTab('lumber')">Lumber</button>
+    <button class="tab-btn" onclick="showTab('timber')">Timber</button>
+</div>
+
         <div class="metric-grid">
             <?php
             // Function to display a post card
             function displayPostCard($row, $type) {
-                $image = $row['image'];
-                $imagePath = "/Supplier/uploads/" . $image;
+                $imagePath= $row['image'];
+                //$imagePath = "/Supplier/uploads/" . $image;
                 $fileExt = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
                 $allowedExts = ['jpg', 'jpeg', 'png'];
                 $category = $type; // 'lumber' or 'timber'
+                //echo $imagePath;
                 ?>
 
                 <div class="metric-card">
-                    <?php if (!empty($image) && in_array($fileExt, $allowedExts)): ?>
-                        <img src="<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
+                    <?php if (!empty($imagePath) && in_array($fileExt, $allowedExts)): ?>
+                        <img src="../<?php echo $imagePath; ?>" alt="Post Image" class="metric-img">
                     <?php else: ?>
                         <p>No image available or unsupported image format.</p>
                     <?php endif; ?>
@@ -113,17 +120,47 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
             <?php } ?>
 
             <!-- Display lumber posts -->
-            <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
-                displayPostCard($row, 'lumber');
-            } ?>
+           <!-- Tab Headers -->
 
-            <!-- Display timber posts -->
-            <?php while ($row = mysqli_fetch_assoc($timberResult)) {
-                displayPostCard($row, 'timber');
-            } ?>
+
+<!-- Lumber Tab Content -->
+<div id="lumber" class="tab-content" style="display: block;">
+    <div class="metric-grid">
+        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
+            displayPostCard($row, 'lumber');
+        } ?>
+    </div>
+</div>
+
+<!-- Timber Tab Content -->
+<div id="timber" class="tab-content" style="display: none;">
+    <div class="metric-grid">
+        <?php while ($row = mysqli_fetch_assoc($timberResult)) {
+            displayPostCard($row, 'timber');
+        } ?>
+    </div>
+</div>
+
         </div>
     </div>
 </div>
+<script>
+function showTab(tabId) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // Show the selected tab and mark the button active
+    document.getElementById(tabId).style.display = 'block';
+    document.querySelector(`.tab-btn[onclick="showTab('${tabId}')"]`).classList.add('active');
+}
+</script>
 
 </body>
 </html>
