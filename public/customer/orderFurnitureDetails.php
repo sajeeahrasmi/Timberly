@@ -256,7 +256,7 @@ while ($row4 = mysqli_fetch_assoc($result4)) {
                                         <td><?php echo htmlspecialchars($row['status']); ?></td>
                                         <td>
                                             <button class="button outline" id="view-button" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderFurniture.php?id=${<?php echo $id ?>}`">view</button>
-                                            <button class="button solid" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
+                                            <button class="delete-button" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>)">delete</button>                                            
                                         </td>
                                     </tr>
                                 <?php } ?>

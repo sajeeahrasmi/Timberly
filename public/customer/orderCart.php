@@ -35,7 +35,7 @@ $stmt2->execute();
 $result2 = $stmt2->get_result();
 $row2 = $result2->fetch_assoc();
 $selectedItemCount = $row2['selectedItemCount'] ?? '';
-$totalSelectedAmount = $row2['totalSelectedAmount'] ?? '';
+$totalSelectedAmount = $row2['totalSelectedAmount'] ?? 0;
 
 ?>
 

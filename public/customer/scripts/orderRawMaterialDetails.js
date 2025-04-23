@@ -4,33 +4,44 @@ let totalAmount = 0;
 let count = 0;
 let lumberQty = 0;
 
-    
-async function updateButton() {
+document.addEventListener('DOMContentLoaded', function() { 
     const buttonElement = document.getElementById('action-button');
     const buttonAddElement = document.getElementById('addItem');
     const statusElement = document.getElementById("status");
 
         if (statusElement.textContent === 'Pending') {
-            buttonElement.onclick = function() {
-                // buttonElement.onclick = cancelOrder();
-            };
-
+            buttonElement.disabled = 'false';
             buttonAddElement.onclick = function(){
                 showPopup();
             }
 
-        } else {    
-           buttonAddElement.disabled = true;
+        } else if (statusElement.textContent === 'Confirmed') {
+            buttonElement.disabled = false;
+            buttonAddElement.disabled = true;
+            buttonAddElement.style.display = 'none';
+
+        }else if (statusElement.textContent === 'Processing' || statusElement.textContent === 'Completed'){    
+           buttonElement.disabled = true;
+           buttonElement.style.display = 'none';
+           buttonAddElement.style.display = 'none';
+           document.querySelectorAll('.delete-button').forEach(btn => {
+            btn.style.display = 'none';
+        });
+        }else{
+            buttonAddElement.disabled = true;
            buttonElement.style.display = 'none';
         }
+});
+async function updateButton() {
+    
 }
 
        
-const popupMessage = document.getElementById('popup-message');
-const overlay = document.getElementById('popup-overlay');
-const closePopupButton = document.getElementById('close-popup');
+// const popupMessage = document.getElementById('popup-message');
+// const overlay = document.getElementById('popup-overlay');
+// const closePopupButton = document.getElementById('close-popup');
 
-closePopupButton.onclick = function(){
+document.getElementById('close-popup').onclick = function(){
     close();
 }
 

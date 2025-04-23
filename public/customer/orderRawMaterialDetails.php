@@ -188,7 +188,7 @@ $row3 = $result3->fetch_assoc();
                                         <td><?php echo htmlspecialchars($row['status']); ?></td>
                                         <td>
                                             <button class="button outline" id="view-button" style="margin-right: 10px; padding: 10px; border-radius: 10px;" onclick="window.location.href=`http://localhost/Timberly/public/customer/trackOrderMaterials.php?itemId=${<?php echo $id ?>}&orderId=${<?php echo $orderId ?>}`">view</button>
-                                            <button class="button solid" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>, <?php echo $userId ?>)">delete</button>                                            
+                                            <button class="delete-button" id="delete-button"  style=" padding: 10px; border-radius: 10px;" onclick="deleteItem(<?php echo $id ?>, <?php echo $orderId ?>, <?php echo $userId ?>)">delete</button>                                            
                                         </td>
                                     </tr>
                                 <?php } ?>
