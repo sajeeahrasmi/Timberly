@@ -1,5 +1,6 @@
 <?php
-include '../../config/db_connection.php';
+include '../config/db_connection.php';
+
 session_start();
 
 header('Content-Type: application/json');
@@ -11,8 +12,8 @@ if (!$userId || $_SESSION['role'] !== 'supplier') {
     exit();
 }
 
-$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '$userId' AND is_approved = '1'";
-$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '$userId' AND is_approved = '1'";
+$lumberQuery = "SELECT id FROM pendinglumber WHERE supplierId = '$userId' AND is_approved = '1'";
+$timberQuery = "SELECT id FROM pendingtimber WHERE supplierId = '$userId' AND is_approved = '1'";
 
 $lumberResult = mysqli_query($conn, $lumberQuery);
 $timberResult = mysqli_query($conn, $timberQuery);

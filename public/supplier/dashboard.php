@@ -1,4 +1,4 @@
-<?php include '../../config/db_connection.php'; // Include your DB connection 
+<?php 
 include '../../api/fetchDashboardData.php'; // Include the dashboard data fetching script
 
 ?>

@@ -12,8 +12,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Queries for both lumber and timber posts
-$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}'";
-$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}'";
+$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0'";
+$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0'";
 
 $lumberResult = mysqli_query($conn, $lumberQuery);
 $timberResult = mysqli_query($conn, $timberQuery);
@@ -62,8 +62,8 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
 
         <!-- Tab Headers -->
 <div class="tab-header">
-    <button class="tab-btn active" onclick="showTab('lumber')">Lumber</button>
-    <button class="tab-btn" onclick="showTab('timber')">Timber</button>
+    <button class="tab-btn active" onclick="showTab('timber')">Timber</button>
+    <button class="tab-btn" onclick="showTab('lumber')">Lumber</button>
 </div>
 
         <div class="metric-grid">
@@ -123,20 +123,22 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
            <!-- Tab Headers -->
 
 
-<!-- Lumber Tab Content -->
-<div id="lumber" class="tab-content" style="display: block;">
-    <div class="metric-grid">
-        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
-            displayPostCard($row, 'lumber');
-        } ?>
-    </div>
-</div>
 
 <!-- Timber Tab Content -->
 <div id="timber" class="tab-content" style="display: none;">
     <div class="metric-grid">
         <?php while ($row = mysqli_fetch_assoc($timberResult)) {
             displayPostCard($row, 'timber');
+        } ?>
+    </div>
+</div>
+
+
+<!-- Lumber Tab Content -->
+<div id="lumber" class="tab-content" style="display: block;">
+    <div class="metric-grid">
+        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
+            displayPostCard($row, 'lumber');
         } ?>
     </div>
 </div>
