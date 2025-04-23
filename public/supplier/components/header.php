@@ -47,7 +47,7 @@ if ($result && $result->num_rows === 1) {
     <header class="top-bar">
         <h1>Welcome,  <?php echo $_SESSION['name']; ?>!</h1>
         <div class="user-profile">
-            <span><i class="fa-regular fa-bell" style="transition: 0.3s;"></i></span>
+           <span><i class="fa-regular fa-bell" onclick="window.location.href=`http://localhost/Timberly/public/supplier/notification.php`" style="transition: 0.3s;"></i></span>
             <a href="./userProfile.php">
                 <span style="display: flex;">
                     <i class="fa-regular fa-user"></i>

@@ -143,6 +143,7 @@ function openMapWindow(orderId) {
                 const deliveryLocation = encodeURIComponent(data.deliveryLocation);
                 const startingLocation = encodeURIComponent("Colombo");
                 const mapUrl = `https://www.google.com/maps/dir/?api=1&origin=${startingLocation}&destination=${deliveryLocation}&travelmode=driving`;
+                //open the map in  the same 
                 window.open(mapUrl, "_blank", "width=800,height=600");
             } else {
                 alert("Failed to get delivery location: " + data.message);
@@ -197,8 +198,5 @@ function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-window.onclick = function (event) {
-    if (event.target.classList.contains('modal')) {
-        closeModal(event.target.id);
-    }
-};
+
+
