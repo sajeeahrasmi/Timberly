@@ -58,7 +58,6 @@ body, html {
     flex-direction: column;
     padding: 5px;
     margin: 0px;
-    background-color: #895D47;
     gap: 2px;
 }
 .dashboard-container .main-content .content {
@@ -83,7 +82,8 @@ body, html {
     align-items: center;
     text-align: center;
     height: fit-content;
-    border: 1px solid var(--color-primary);
+    border: none;
+    box-shadow: 0 2px 5px #B18068;
 
     img {
         width: 150px;
@@ -131,7 +131,9 @@ body, html {
 }
 
 
-
+.edit-profile {
+    padding: 35px !important;
+}
 
 
 .dashboard-container .main-content .content .edit-profile {
@@ -140,7 +142,8 @@ body, html {
     background-color: var(--color-white);
     border-radius: var(--border-radius-1);
     height: fit-content;
-    border: 1px solid var(--color-primary);
+    border: none;
+    box-shadow: 0 2px 5px #B18068;
 
     h3 {
         font-size: 20px;
