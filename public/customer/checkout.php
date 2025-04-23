@@ -31,6 +31,7 @@ $chargeAmount = max($amount * 100, $minAmount);
 
 require __DIR__ . "/vendor/autoload.php";
 
+
 $checkout_session = \Stripe\Checkout\Session::create([
     "mode" => "payment",
     "success_url" => "http://localhost/Timberly/public/customer/success.php?orderId=$orderId&amount=$amount",
