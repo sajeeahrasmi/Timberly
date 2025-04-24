@@ -1,4 +1,7 @@
-<?php include '../../api/createPost.php'; ?>
+<?php include '../../api/createPost.php'; 
+include './components/flashMessage.php';
+?>
+
 
 <!DOCTYPE html>
 <html>

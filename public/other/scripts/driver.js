@@ -156,7 +156,8 @@ function openMapWindow(orderId) {
 }
 
 function verifyOTP() {
-    const otp = document.getElementById('otp').value;
+    const otpInput = document.getElementById('otp');
+    const otp = otpInput.value.trim();
 
     if (otp.length === 6 && currentDeliveryId) {
         fetch('verifyOTP.php', {
@@ -169,8 +170,15 @@ function verifyOTP() {
                 otp: otp
             })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(async res => {
+            // If server returns HTML or empty response, this will catch it
+            const contentType = res.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Invalid JSON response from server');
+            }
+
+            const data = await res.json();
+
             if (data.success) {
                 alert("Delivery completed successfully!");
 
@@ -179,20 +187,21 @@ function verifyOTP() {
 
                 currentDeliveryId = null;
                 closeModal('otpModal');
-                document.getElementById('otp').value = '';
+                otpInput.value = '';
             } else {
                 alert("OTP verification failed: " + data.message);
             }
         })
         .catch(err => {
             console.error("OTP verify error:", err);
-            alert("Something went wrong during OTP verification.");
+            alert("Something went wrong during OTP verification. Please try again.");
         });
 
     } else {
         alert("Please enter a valid 6-digit OTP");
     }
 }
+
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';

@@ -88,6 +88,29 @@ $totalDeliveries = $stats['totalDeliveries'];
         </div>
     </div>
 
+    <h2>Delivery History</h2>
+<?php
+include 'getDeliveryHistory.php';
+$history = getDeliveryHistory($conn, $userId);
+
+if (empty($history)) {
+    echo "<p>No completed deliveries found.</p>";
+} else {
+    foreach ($history as $orderId => $items) {
+        echo '<div class="delivery-item">';
+        echo "<div class='delivery-info'>";
+        echo "<h4>Order ID: #$orderId</h4>";
+        echo "<p><strong>Items Delivered:</strong> " . count($items) . "</p>";
+        echo '<div class="items-list">';
+        foreach ($items as $item) {
+            echo "<p>- {$item['type']} (#{$item['itemId']}): {$item['description']} ({$item['qty']} pcs)</p>";
+        }
+        echo '</div></div></div>';
+    }
+}
+?>
+
+
     
 
     <!-- OTP Modal -->
