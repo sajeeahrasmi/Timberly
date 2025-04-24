@@ -53,12 +53,12 @@
                     </div>
                     <div class="work-panel">
                         <div class="delivery-table">
-                            <h3>Orders</h3>
+                            <h3 style="margin-bottom: 15px">Recent orders</h3>
                             <table>
                                 <tbody>
-                                <?php foreach($orderData as $index=> $order):?>
+                                    <?php foreach($orderData as $index=> $order):?>
                                     <tr>   
-                                        <?php if ($index <3):?>        
+                                        <?php if ($index < 3):?>        
                                         <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=<?php echo urlencode($order['orderId']);?>'"><?php echo $order['orderId']?></td>
                                         <td><?php echo $order['status']?></td>
                                         <td><?php echo date("F j, Y", strtotime($order['date'])) ?></td>
@@ -66,6 +66,11 @@
                                         <?php endif;?>
                                     </tr>
                                     <?php endforeach; ?>
+                                    <?php if (count($orderData) == 0): ?>
+                                        <tr>
+                                            <td colspan="4" style="text-align: left; color: #6e6e6e">No orders found</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

@@ -43,9 +43,8 @@
                                 id="email" 
                                 name="email" 
                                 pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$"
-                                placeholder="someone@mail.com"
                                 value="<?php echo htmlspecialchars($data['email']); ?>"
-                                required 
+                                readonly 
                                 class="input-field">
                         </div>
                         <div class="form-group">
@@ -68,8 +67,34 @@
                                 id="address" 
                                 name="address" 
                                 placeholder="Address"
-                                value="<?php echo htmlspecialchars($data['address']); ?>" 
+                                value="<?php echo htmlspecialchars($data['address']); ?>"
+                                pattern="^[A-Za-z0-9\s,.-]+$"
+                                title="Address can contain letters, numbers, spaces, commas, and periods."
                                 required 
+                                class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Password"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                required
+                                class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="re-password">Password</label>
+                            <input
+                                type="re-password"
+                                id="re-password"
+                                name="re-password"
+                                placeholder="Re-Password"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                required
                                 class="input-field">
                         </div>
                         <div class="form-buttons button-container">
@@ -80,22 +105,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            document.getElementById('uploadImage').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const preview = document.getElementById('previewImage');
-                const icon = document.getElementById('defaultIcon');
-
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                        icon.style.display = 'none';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        </script>
     </body>
 </html>
