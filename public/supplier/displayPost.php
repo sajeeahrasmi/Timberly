@@ -12,8 +12,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Queries for both lumber and timber posts
-$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0'";
-$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0'";
+$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0' AND category = 'Lumber'";
+$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0' AND category = 'Timber'";
 
 $lumberResult = mysqli_query($conn, $lumberQuery);
 $timberResult = mysqli_query($conn, $timberQuery);
@@ -62,8 +62,27 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
 
         <!-- Tab Headers -->
 <div class="tab-header">
-    <button class="tab-btn active" onclick="showTab('timber')">Timber</button>
-    <button class="tab-btn" onclick="showTab('lumber')">Lumber</button>
+    <button class="tab-btn" data-tab="timber" onclick="showTab('timber')">Timber</button>
+    <button class="tab-btn" data-tab="lumber" onclick="showTab('lumber')">Lumber</button>
+</div>
+
+            <!-- Timber Tab Content -->
+<div id="timber" class="tab-content" style="display: none;">
+    <div class="metric-grid">
+        <?php while ($row = mysqli_fetch_assoc($timberResult)) {
+            displayPostCard($row, 'timber');
+        } ?>
+    </div>
+</div>
+
+
+<!-- Lumber Tab Content -->
+<div id="lumber" class="tab-content" style="display: none;">
+    <div class="metric-grid">
+        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
+            displayPostCard($row, 'lumber');
+        } ?>
+    </div>
 </div>
 
         <div class="metric-grid">
@@ -87,6 +106,7 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
 
                     <div class="metric-details">
                         <h3>Post Id: <?php echo $row['id']; ?></h3>
+                        <!-- <h3>Post Id: <?php echo strtoupper(substr($category, 0, 1)) . $row['id']; ?></h3> -->
                         <h6>Category: <?php echo ucfirst($category); ?></h6>
                         <h6>Type: <?php echo $row['type']; ?></h6>
 
@@ -120,28 +140,13 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
             <?php } ?>
 
             <!-- Display lumber posts -->
+
+
            <!-- Tab Headers -->
 
 
 
-<!-- Timber Tab Content -->
-<div id="timber" class="tab-content" style="display: none;">
-    <div class="metric-grid">
-        <?php while ($row = mysqli_fetch_assoc($timberResult)) {
-            displayPostCard($row, 'timber');
-        } ?>
-    </div>
-</div>
 
-
-<!-- Lumber Tab Content -->
-<div id="lumber" class="tab-content" style="display: block;">
-    <div class="metric-grid">
-        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
-            displayPostCard($row, 'lumber');
-        } ?>
-    </div>
-</div>
 
         </div>
     </div>
@@ -159,10 +164,27 @@ function showTab(tabId) {
     });
 
     // Show the selected tab and mark the button active
-    document.getElementById(tabId).style.display = 'block';
-    document.querySelector(`.tab-btn[onclick="showTab('${tabId}')"]`).classList.add('active');
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+        document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+    }
 }
+
+// Handle button click and update hash without scrolling
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-tab');
+        history.replaceState(null, null, `#${tabId}`); // ✅ Prevents scrolling
+        showTab(tabId);
+    });
+});
+
+// On initial page load, show tab based on hash
+const initialTab = window.location.hash.substring(1);
+showTab(initialTab === 'timber' || initialTab === 'lumber' ? initialTab : 'lumber');
 </script>
+
 
 </body>
 </html>
