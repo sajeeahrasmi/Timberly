@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("isss", $sessionId, $senderType, $relativePath, $messageType);
             $stmt->execute();
             $stmt->close();
-
             $response = [
-                'success' => true,
+                'status' => 'success',
                 'imageUrl' => $relativePath
             ];
+            
         } else {
             $response = ['success' => false, 'error' => 'Failed to move file'];
         }

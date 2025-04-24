@@ -196,6 +196,8 @@ require_once '../../api/auth.php';
                 <thead>
                     <tr>
                         <th>Material Type</th>
+                        <th>Length</th>
+                        <th>Diameter</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Supplier Id</th>
@@ -206,6 +208,9 @@ require_once '../../api/auth.php';
                     <?php foreach ($timberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
+                            <td><?php echo $item['length']; ?></td>
+                            <td><?php echo $item['diameter']; ?></td>
+            
                             <td><?php echo $item['qty']; ?></td>
                             <td><?php echo $item['price']; ?></td>
                             <td><?php echo $item['supplierId']; ?></td>
@@ -229,7 +234,10 @@ require_once '../../api/auth.php';
                 <thead>
                     <tr>
                         <th>Material Type</th>
-                        <th>Logs</th>
+                        <th>Length</th>
+                        <th>Width</th>
+                        <th>Thickness</th>
+                        <th>Quantity</th>
                         <th>Price</th>
                         <th>Actions</th>
                     </tr>
@@ -238,8 +246,12 @@ require_once '../../api/auth.php';
                     <?php foreach ($lumberData as $item): ?>
                         <tr>
                             <td><?php echo $item['material_type']; ?></td>
-                            <td><?php echo $item['unitPrice']; ?></td>
+                            <td><?php echo $item['length']; ?></td>
+                            <td><?php echo $item['width']; ?></td>
+                            <td><?php echo $item['thickness']; ?></td>
                             <td><?php echo $item['qty']; ?></td>
+                            <td><?php echo $item['unitPrice']; ?></td>
+                            
                             
                             
                             <td class="inventory-actions">
@@ -465,6 +477,8 @@ async function deleteLumberItem(id) {
         timberTableBody.innerHTML += `
             <tr>
                 <td>${item.type}</td>
+                <td>${item.length}</td>
+                <td>${item.diameter}</td>
                 <td>${item.qty}</td>
                 <td>${item.price}</td>
                 <td>${item.supplierId}</td>
@@ -488,6 +502,9 @@ async function deleteLumberItem(id) {
         lumberTableBody.innerHTML += `
             <tr>
                 <td>${item.type}</td>
+                <td>${item.length}</td>
+                <td>${item.width}</td>
+                <td>${item.thickness}</td>
                 <td>${item.qty}</td>
                 <td>${item.unitPrice}</td>
                 

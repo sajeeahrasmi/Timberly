@@ -314,8 +314,11 @@ form button:hover {
     <?php foreach ($products as $product): ?>
         <?php if ($product['status'] === '0'): ?>
             <div class="list-item">
-                <span><?php echo $product['category']; ?></span>
-                <span><?php echo $product['name']; ?></span>
+            <span>Supplier Id: <?php echo $product['supplier_id']; ?></span>
+                   
+           <span> 
+                <?php echo $product['name']; ?>
+                (<?php echo $product['category']; ?>)</span>
                 <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
             </div>
         <?php endif; ?>

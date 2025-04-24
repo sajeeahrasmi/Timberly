@@ -1,6 +1,6 @@
 <?php
         include 'db.php';
-$timberDataQuery = "SELECT timberId, type, diameter, price, supplierId ,image_path , qty FROM timber";
+$timberDataQuery = "SELECT timberId, type, length , diameter, price, supplierId ,image_path , qty FROM timber";
 $timberDataResult = mysqli_query($conn, $timberDataQuery);
 if (!$timberDataResult) {
     die("Error fetching timber data: " . mysqli_error($conn));

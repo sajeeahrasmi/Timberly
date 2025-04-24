@@ -413,6 +413,14 @@ include '../../api/ViewOrderDetails.php';
                            
                         <div class="item-details">
     <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
+    
+<?php if($orderDetails['orderType'] == 'furniture'): ?>
+    <img src="<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Furniture Image">
+<?php elseif($orderDetails['orderType'] == 'lumber'): ?>
+    <img src="../../api/<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Lumber Image">
+<?php elseif($orderDetails['orderType'] == 'customized'): ?>
+    <img src="<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Customized Item Image">
+<?php endif; ?>
     <?php if($orderDetails['orderType'] == 'furniture' || $orderDetails['orderType'] == 'customized'): ?>
         <?php if(!empty($orderDetails['description'])): ?>
             <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description']); ?></p>

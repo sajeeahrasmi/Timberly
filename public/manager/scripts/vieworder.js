@@ -259,7 +259,7 @@ function rejectOrder(itemId, orderId) {
             return;
     }
 
-    if (confirm('Are you sure you want to reject this order? This action cannot be undone.')) {
+    if (confirm('Are you sure you want to reject this order? ')) {
         fetch(`${apiEndpoint}?itemId=${itemId}&orderId=${orderId}`)
             .then(response => response.json())
             .then(data => {

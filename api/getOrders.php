@@ -7,6 +7,8 @@ $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : 
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
 $status_filter = isset($_GET['status_filter']) ? $_GET['status_filter'] : '';
 $payment_status_filter = isset($_GET['payment_status_filter']) ? $_GET['payment_status_filter'] : '';
+$item_status_filter = isset($_GET['item_status_filter']) ? $_GET['item_status_filter'] : '';
+
 // Base query for lumber orders
 $sql_lumber = "SELECT 
     o.orderId AS main_order_id, 
@@ -101,17 +103,31 @@ if ($payment_status_filter) {
     $whereClauses[] = "o.paymentStatus = '" . $conn->real_escape_string($payment_status_filter) . "'";
 }
 
-
-// Only append additional WHERE conditions if necessary
+// Create the additional WHERE clauses (without the item status filter)
+$additional_where = "";
 if (count($whereClauses) > 0) {
     $additional_where = " AND " . implode(" AND ", $whereClauses);
+}
+
+// Apply item status filter separately to each query
+if ($item_status_filter) {
+    $item_status_condition = " AND ol.status = '" . $conn->real_escape_string($item_status_filter) . "'"; 
+    $sql_lumber .= $additional_where . $item_status_condition;
+    
+    $item_status_condition = " AND orf.status = '" . $conn->real_escape_string($item_status_filter) . "'";
+    $sql_furniture .= $additional_where . $item_status_condition;
+    
+    $item_status_condition = " AND ocf.status = '" . $conn->real_escape_string($item_status_filter) . "'";
+    $sql_customized .= $additional_where . $item_status_condition;
+} else {
+    // Just add the other filters
     $sql_lumber .= $additional_where;
     $sql_furniture .= $additional_where;
     $sql_customized .= $additional_where;
 }
 
 // Combine the results with UNION
-$sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized)  ORDER BY main_order_id";
+$sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized) ORDER BY main_order_id";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -120,17 +136,13 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Output the data for each order
     while ($order = $result->fetch_assoc()) {
-        // Calculate total amount (totalAmount = qty * unitPrice)
+       
         $totalAmount = $order['totalAmount']; 
         
         
-        // Set balance to 0 temporarily
-        
-
-        // Determine the view URL based on order type
         $viewUrl = "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type={$order['orderType']}";
         
-        // Prepare the display text for the type/description column
+        
         $itemDisplay = $order['typeQty'];
         if ($order['orderType'] == 'furniture' && !empty($order['description'])) {
             $itemDisplay .= " - " . $order['description'];
@@ -145,13 +157,12 @@ if ($result->num_rows > 0) {
         {
             $iStatus = $order['itemStatus'];
         }
-        // Output the order details
+        
         echo "<tr>
                 <td>{$order['customerId']}</td>
                 <td>{$order['customerName']}</td>
                 <td>{$order['main_order_id']}</td>
                 <td>{$itemDisplay}</td>
-                
                 <td>{$totalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
                 <td>{$iStatus}</td>
@@ -162,6 +173,5 @@ if ($result->num_rows > 0) {
     echo "<tr><td colspan='9'>No records found</td></tr>";
 }
 
-// Close the connection
 $conn->close();
 ?>

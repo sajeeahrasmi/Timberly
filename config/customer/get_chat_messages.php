@@ -20,7 +20,7 @@ if ($orderId && $itemId) {
     if (!empty($sessionIds)) {
         $placeholders = implode(',', array_fill(0, count($sessionIds), '?'));
         $types = str_repeat('i', count($sessionIds));
-
+        //decreasing order
         $query = "SELECT messageId, sessionId, senderType, messageType, message
                   FROM designerchatmessages 
                   WHERE sessionId IN ($placeholders) 
