@@ -191,6 +191,11 @@ $balance = $totalAmount - $paidAmount;
             return;
         }
 
+        if(inputAmount > balance){
+            alert("Please enter an amount less than balance.");
+            return;
+        }
+
         let finalAmount = inputAmount;
         const isFirstTimePayment = (paymentStatus === "Unpaid" || orderStatus === "Confirmed");
 
