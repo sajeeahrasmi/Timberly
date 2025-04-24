@@ -28,7 +28,9 @@
                         <th>Post ID</th>
                         <th>Category</th>
                         <th>Type</th>
-                        <th>No. of Items</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
                         <th>Date</th>
                         <th>Post Status</th>
                         <th>Action</th>
@@ -42,6 +44,8 @@
                                 <td><?= htmlspecialchars($order['category']) ?></td>
                                 <td><?= htmlspecialchars($order['type']) ?></td>
                                 <td><?= htmlspecialchars($order['quantity']) ?></td>
+                                <td><?= htmlspecialchars($order['unitprice']) ?></td>
+                                <td><?= htmlspecialchars($order['totalprice']) ?></td>
                                 <td><?= date("d/m/Y", strtotime($order['postdate'])) ?></td>
                                 <td class="po"><?= ($order['is_approved'] = '1') ? 'Approved' : 'Pending' ?></td>
                                 <td>
@@ -50,6 +54,8 @@
                                     data-category="<?= htmlspecialchars($order['category']) ?>"
                                     data-type="<?= htmlspecialchars($order['type']) ?>"
                                     data-quantity="<?= htmlspecialchars($order['quantity']) ?>"
+                                    data-unitprice="<?= htmlspecialchars($order['unitprice']) ?>"
+                                    data-totalprice="<?= htmlspecialchars($order['totalprice']) ?>"
                                     data-date="<?= date("d/m/Y", strtotime($order['postdate'])) ?>"
                                     data-status="<?= $order['is_approved'] == '1' ? 'Approved' : 'Pending' ?>"
                                     style="cursor:pointer">

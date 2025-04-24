@@ -20,7 +20,7 @@ $is_approved = '1'; // Approved orders (1 means approved)
 $orders = [];
 
 // For Timber table:
-$sql1 = "SELECT id, category, type, quantity, postdate FROM pendingtimber WHERE supplierId = ? AND is_approved = '1'";
+$sql1 = "SELECT id, category, type, quantity, unitprice, totalprice, postdate FROM pendingtimber WHERE supplierId = ? AND is_approved = '1'";
 $stmt1 = $conn->prepare($sql1);
 $stmt1->bind_param('i', $supplierId);
 $stmt1->execute();
@@ -32,13 +32,15 @@ if ($result1->num_rows > 0) {
             'category' => $row['category'],
             'type' => $row['type'],
             'quantity' => $row['quantity'],
+            'unitprice' => $row['unitprice'],
+            'totalprice' => $row['totalprice'],
             'postdate' => $row['postdate']
         ];
     }
 }
 
 // For Lumber table:
-$sql2 = "SELECT id, type, quantity, postdate FROM pendinglumber WHERE supplierId = ? AND is_approved = '1'";
+$sql2 = "SELECT id, type, quantity, unitprice, totalprice, postdate FROM pendinglumber WHERE supplierId = ? AND is_approved = '1'";
 $stmt2 = $conn->prepare($sql2);
 $stmt2->bind_param('i', $supplierId);
 $stmt2->execute();
@@ -50,6 +52,8 @@ if ($result2->num_rows > 0) {
             'category' => 'Lumber',
             'type' => $row['type'],
             'quantity' => $row['quantity'],
+            'unitprice' => $row['unitprice'],
+            'totalprice' => $row['totalprice'],
             'postdate' => $row['postdate']
         ];
     }

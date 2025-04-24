@@ -118,7 +118,9 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
                         <?php endif; ?>
 
                         <h6>Quantity: <?php echo $row['quantity']; ?></h6>
-                        <h6>Price per Unit: <?php echo $row['unitprice']; ?></h6>
+                        <h6>Price per Unit: <?php echo $row['unitprice']; ?> LKR</h6>
+                        <h6>Total Price: <?php echo $row['totalprice']; ?> LKR</h6>
+                        <h6>Post Date: <?php echo $row['postdate']; ?></h6>
                         <h6>Additional Information: <?php echo $row['info']; ?></h6>
 
                         <div class="buttons">

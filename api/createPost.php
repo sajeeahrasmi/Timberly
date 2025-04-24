@@ -20,6 +20,8 @@ if (isset($_POST['submit'])) {
     $price = $_POST['unitprice'];
     $info = $_POST['info'];
     $image = $_FILES['image'];
+    $totalPrice = $quantity * $price;
+    $totalPrice = number_format((float)$totalPrice, 2, '.', ''); // Format to 2 decimal places
 
     // Image Upload
     $targetDir = "../Supplier/uploads/";
@@ -37,10 +39,10 @@ if (isset($_POST['submit'])) {
         $diameter = isset($_POST['diameter']) ? $_POST['diameter'] : null;
 
         $stmt = $conn->prepare("INSERT INTO pendingtimber 
-            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("siiisssss", 
-            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, totalprice,is_approved) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("siiissssis", 
+            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $is_approved
         );
 
     } elseif ($category === "Lumber") {
@@ -51,11 +53,11 @@ if (isset($_POST['submit'])) {
         $thickness = isset($_POST['thickness']) ? $_POST['thickness'] : null;
     
         $stmt = $conn->prepare("INSERT INTO pendinglumber 
-            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, totalprice, is_approved) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
-        $stmt->bind_param("siiiiississ", 
-            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+        $stmt->bind_param("siiiiissisis", 
+            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $is_approved
         );
     
 
