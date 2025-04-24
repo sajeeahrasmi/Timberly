@@ -65,7 +65,14 @@ if (isset($_POST['submit'])) {
 
     // Execute & handle result
     if ($stmt->execute()) {
-        echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
+        // echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
+        //if category is timber, redirect timber tab when post is submitted
+        if ($category === "Timber") {
+            echo "<script>alert('Timber post submitted successfully!'); window.location.href = 'displayPost.php#timber';</script>";
+        } else {
+            echo "<script>alert('Lumber post submitted successfully!'); window.location.href = 'displayPost.php#lumber';</script>";
+        }
+
     } else {
         echo "Error: " . $stmt->error;
     }
