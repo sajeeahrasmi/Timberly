@@ -72,3 +72,82 @@
     color: var(--color-danger);
 }
 
+
+/* Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Modal Box */
+  .modal-content {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    animation: slideIn 0.4s ease;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Close Button */
+  .close-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    color: crimson;
+    transform: scale(1.2);
+  }
+  
+  /* Modal Title */
+  .modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #1a1a1a;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  /* Modal Body */
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #444;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .modal-body p strong {
+    color: #222;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+

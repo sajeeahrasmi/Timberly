@@ -1,5 +1,6 @@
 <?php 
 include '../../config/db_connection.php';
+include './components/flashMessage.php';
 session_start();
 
 if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
@@ -30,7 +31,8 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
     }
 
     if (isset($delete_sql) && mysqli_query($conn, $delete_sql)) {
-        header("Location: displayPost.php?message=Post deleted successfully");
+        header("Location: displayPost.php?message=Post deleted successfully#{$type}");
+
         exit();
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
@@ -56,9 +58,6 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
     </div>
 
     <div class="display-content">
-        <?php if (isset($_GET['message'])): ?>
-            <div style="color: green; margin-bottom: 10px;"><?php echo htmlspecialchars($_GET['message']); ?></div>
-        <?php endif; ?>
 
         <!-- Tab Headers -->
 <div class="tab-header">
@@ -123,30 +122,23 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
                         <h6>Additional Information: <?php echo $row['info']; ?></h6>
 
                         <div class="buttons">
-                            <a href="updatePost.php?id=<?php echo $row['id']; ?>&category=<?php echo $category; ?>">
+                            <a href="#" onclick="confirmUpdate(<?php echo $row['id']; ?>, '<?php echo $category; ?>'); return false;">
                                 <button title="Update">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                             </a>
-                            <a href="displayPost.php?delete=true&id=<?php echo $row['id']; ?>&type=<?php echo $category; ?>" onclick="return confirm('Are you sure you want to delete this post?');">
+
+                            <a href="#" onclick="confirmDelete(<?php echo $row['id']; ?>, '<?php echo $category; ?>'); return false;">
                                 <button title="Delete">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </a>
+
                         </div>
                     </div>
                 </div>
 
             <?php } ?>
-
-            <!-- Display lumber posts -->
-
-
-           <!-- Tab Headers -->
-
-
-
-
 
         </div>
     </div>
@@ -183,6 +175,24 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // On initial page load, show tab based on hash
 const initialTab = window.location.hash.substring(1);
 showTab(initialTab === 'timber' || initialTab === 'lumber' ? initialTab : 'lumber');
+
+
+function confirmDelete(id, type) {
+  showConfirmation("Are you sure you want to delete this post?", function(confirmed) {
+    if (confirmed) {
+      window.location.href = `displayPost.php?delete=true&id=${id}&type=${type}`;
+    }
+  });
+}
+
+
+function confirmUpdate(id, category) {
+  showConfirmation("Are you sure you want to update this post?", function(confirmed) {
+    if (confirmed) {
+      window.location.href = `updatePost.php?id=${id}&category=${category}`;
+    }
+  });
+}
 </script>
 
 

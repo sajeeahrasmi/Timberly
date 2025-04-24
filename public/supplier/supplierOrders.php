@@ -44,7 +44,18 @@
                                 <td><?= htmlspecialchars($order['quantity']) ?></td>
                                 <td><?= date("d/m/Y", strtotime($order['postdate'])) ?></td>
                                 <td class="po"><?= ($order['is_approved'] = '1') ? 'Approved' : 'Pending' ?></td>
-                                <td><span style="cursor:pointer"><i class="fa-solid fa-eye"></i></span></td>
+                                <td>
+                                <span class="view-btn"
+                                    data-id="<?= htmlspecialchars($order['id']) ?>"
+                                    data-category="<?= htmlspecialchars($order['category']) ?>"
+                                    data-type="<?= htmlspecialchars($order['type']) ?>"
+                                    data-quantity="<?= htmlspecialchars($order['quantity']) ?>"
+                                    data-date="<?= date("d/m/Y", strtotime($order['postdate'])) ?>"
+                                    data-status="<?= $order['is_approved'] == '1' ? 'Approved' : 'Pending' ?>"
+                                    style="cursor:pointer">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                            </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -57,4 +68,49 @@
 </div>
 
 </body>
+
+
+<!-- Modal Container -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h3>Order Details</h3>
+    <div id="modalDetails"></div>
+  </div>
+</div>
+
+
+</body>
+
+<script>
+document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const modal = document.getElementById('orderModal');
+        const details = document.getElementById('modalDetails');
+
+        // Populate modal details
+        details.innerHTML = `
+            <p><strong>Post ID:</strong> ${btn.dataset.id}</p>
+            <p><strong>Category:</strong> ${btn.dataset.category}</p>
+            <p><strong>Type:</strong> ${btn.dataset.type}</p>
+            <p><strong>No. of Items:</strong> ${btn.dataset.quantity}</p>
+            <p><strong>Date:</strong> ${btn.dataset.date}</p>
+            <p><strong>Status:</strong> ${btn.dataset.status}</p>
+        `;
+
+        modal.style.display = 'flex'; // Show modal
+    });
+});
+
+// Close button
+document.querySelector('.close-btn').addEventListener('click', () => {
+    document.getElementById('orderModal').style.display = 'none';
+});
+
+// Optional: Close modal when clicking outside content
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('orderModal');
+    if (e.target === modal) modal.style.display = 'none';
+});
+</script>
 </html>

@@ -29,3 +29,47 @@
 }
 
 
+.flash-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .flash-success {
+    background-color: #28a745;
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3);
+  }
+  
+  .flash-error {
+    background-color: #dc3545;
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+  }
+  
+  .flash-message.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    animation: slideIn 0.4s ease;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+

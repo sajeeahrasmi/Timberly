@@ -1,5 +1,6 @@
 <?php
 include '../../config/db_connection.php';
+include './components/flashMessage.php';
 session_start();
 
 // Check supplier session
@@ -67,11 +68,14 @@ if (isset($_POST['submit'])) {
     if ($stmt->execute()) {
         // echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
         //if category is timber, redirect timber tab when post is submitted
-        if ($category === "Timber") {
-            echo "<script>alert('Timber post submitted successfully!'); window.location.href = 'displayPost.php#timber';</script>";
-        } else {
-            echo "<script>alert('Lumber post submitted successfully!'); window.location.href = 'displayPost.php#lumber';</script>";
-        }
+        $_SESSION['flash_message'] = ($category === "Timber")
+        ? "Timber post submitted successfully!"
+        : "Lumber post submitted successfully!";
+    $_SESSION['flash_type'] = "success"; // or "error"
+    $_SESSION['flash_tab'] = strtolower($category); // timber or lumber
+    
+    header("Location: displayPost.php");
+    exit();
 
     } else {
         echo "Error: " . $stmt->error;
