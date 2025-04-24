@@ -23,7 +23,10 @@
   }
   
   body {
-    background-color: var(--color-background);
+    background-image: url('login-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
     align-items: center;

@@ -14,10 +14,10 @@
         </div>
         <h2>Create your Timberly Account</h2>
         
-        <form id="signupForm" action="../config/registration.php" method="POST" onsubmit="return validateForm()">
+        <form id="signupForm" action="../config/registration.php" method="POST">
             <div class="name-row">
                 <div class="form-group half">
-                    <input type="text" id="username" name="username" placeholder="Username" pattern="^[a-zA-Z0-9._-]{4,20}$"
+                    <input type="text" id="username" name="username" placeholder="Username" pattern="^[a-zA-Z0-9._\-]{4,20}$"
                     title="Username must be 4-20 characters long and can include letters, numbers, dots, underscores, or hyphens." required>
                 </div>
                 <div class="form-group half">
@@ -33,7 +33,7 @@
                   pattern="^[a-zA-Z0-9\s,.-]{5,100}$"
                   title="Address should be 5-100 characters long and can include letters, numbers, spaces, commas, dots, and hyphens."></textarea>
                   <input type="email" id="email" name="email" placeholder="Your email address"
-                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
                   title="Enter a valid email address (e.g., example@domain.com)" required>
                 <div class="email-hint">You'll need to confirm that this email belongs to you.</div>
             </div>
@@ -41,11 +41,9 @@
             <div class="password-row">
                 <div class="form-group half">
                     <input type="password" id="password" name="password" placeholder="Password" required>
-                    <span class="error" id="password-error"></span>
                 </div>
                 <div class="form-group half">
                     <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm" required>
-                    <span class="error" id="confirm-password-error"></span>
                 </div>
             </div>
             <div class="form-group">
@@ -65,7 +63,7 @@
     </div>
     
         <div class="image-container">
-            <img src="registration-image.jpg" alt="Account Image">
+            <img src="registration_image.svg" alt="Account Image">
             <div class="image-caption">
                 <p style="line-height: 25px;">Crafting Tomorrow's Heirlooms From Nature's Finest Treasures</p>
             </div>
