@@ -202,6 +202,44 @@ function verifyOTP() {
     }
 }
 
+function toggleAvailability() {
+    const statusInput = document.getElementById('driverAvailable');
+    const currentStatus = statusInput.value;
+
+    fetch('./updateAvailability.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentStatus: currentStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            statusInput.value = data.newStatus;
+            updateAvailabilityButton(data.newStatus);
+        } else {
+            alert("Failed to update availability");
+        }
+    })
+    .catch(err => {
+        console.error("Error updating availability:", err);
+    });
+}
+
+function updateAvailabilityButton(status) {
+    const btn = document.getElementById('availabilityBtn');
+    const hidden = document.getElementById('driverAvailable');
+    hidden.value = status;
+
+    if (status === 'YES') {
+        btn.innerText = "Available ✅";
+        btn.classList.remove("solid");
+        btn.classList.add("outline");
+    } else {
+        btn.innerText = "Not Available ❌";
+        btn.classList.remove("outline");
+        btn.classList.add("solid");
+    }
+}
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';

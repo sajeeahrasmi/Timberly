@@ -43,6 +43,12 @@ $totalDeliveries = $stats['totalDeliveries'];
             </div>
             <h1>Welcome <?php echo $name; ?>!</h1>
             <div class="header-buttons">
+
+                <input type="hidden" id="driverAvailable" value="NO">
+                <button id="availabilityBtn" class="button solid" onclick="toggleAvailability()">
+                Not Available ❌
+                </button>
+                <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/other/deliveryHistory.php'">Delivery History</button>
                 <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/other/driverProfile.php'">Profile</button>
                 <button class="button solid" onclick="window.location.href='http://localhost/Timberly/config/logout.php'">Logout</button>
             </div>
@@ -87,28 +93,6 @@ $totalDeliveries = $stats['totalDeliveries'];
             ?>
         </div>
     </div>
-
-    <h2>Delivery History</h2>
-<?php
-include 'getDeliveryHistory.php';
-$history = getDeliveryHistory($conn, $userId);
-
-if (empty($history)) {
-    echo "<p>No completed deliveries found.</p>";
-} else {
-    foreach ($history as $orderId => $items) {
-        echo '<div class="delivery-item">';
-        echo "<div class='delivery-info'>";
-        echo "<h4>Order ID: #$orderId</h4>";
-        echo "<p><strong>Items Delivered:</strong> " . count($items) . "</p>";
-        echo '<div class="items-list">';
-        foreach ($items as $item) {
-            echo "<p>- {$item['type']} (#{$item['itemId']}): {$item['description']} ({$item['qty']} pcs)</p>";
-        }
-        echo '</div></div></div>';
-    }
-}
-?>
 
 
     
