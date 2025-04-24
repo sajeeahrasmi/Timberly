@@ -23,71 +23,60 @@
                 <div class="main-content">
                     <div class="card">
                     <form id="edit-customer-form" class="edit-customer-form" method="POST" enctype="multipart/form-data" action="../../api/getEditCustomer.php?customer_id=<?php echo htmlspecialchars($user_id); ?>" onsubmit="return validateForm()">
-                        <div class="profile-picture">
-                            <label for="uploadImage">
-                                <img 
-                                    id="previewImage" 
-                                    src="../images/<?php echo isset($data['image']) ? htmlspecialchars($data['image']) : ''; ?>" 
-                                    alt="Profile Image" 
-                                    style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; display: <?php echo isset($data['image']) ? 'block' : 'none'; ?>;">
-                                <i id="defaultIcon" class="fa-solid fa-user-tie fa-2xl" style="display: <?php echo isset($data['image']) ? 'none' : 'block'; ?>;"></i>
-                            </label>
-                            <input type="file" id="uploadImage" name="profile_image" hidden accept="image/*">
+                        <h2 style="margin-left: 15px; margin-bottom: 30px">Edit Customer</h2>
+                        <div class="form-group">
+                            <label for="name">Customer name</label>
+                            <input type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Full name"
+                                value="<?php echo htmlspecialchars($data['name']); ?>"
+                                required 
+                                class="input-field" 
+                                pattern="^[A-Za-z\s]+$" 
+                                title="Name can only contain alphabets and spaces.">
                         </div>
-                            <div class="form-group">
-                                <label for="name">Customer name</label>
-                                <input type="text" 
-                                    id="name" 
-                                    name="name" 
-                                    placeholder="Full name"
-                                    value="<?php echo htmlspecialchars($data['name']); ?>"
-                                    required 
-                                    class="input-field" 
-                                    pattern="^[A-Za-z\s]+$" 
-                                    title="Name can only contain alphabets and spaces.">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    name="email" 
-                                    pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$"
-                                    placeholder="someone@mail.com"
-                                    value="<?php echo htmlspecialchars($data['email']); ?>"
-                                    required 
-                                    class="input-field">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone number</label>
-                                <input 
-                                    type="tel" 
-                                    id="phone" 
-                                    name="phone" 
-                                    placeholder="07XXXXXXXX"
-                                    value="<?php echo htmlspecialchars($data['phone']); ?>"
-                                    required 
-                                    class="input-field" 
-                                    pattern="^07\d{8}$" 
-                                    title="Phone number must start with '07' and contain exactly 10 digits.">
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input 
-                                    type="text" 
-                                    id="address" 
-                                    name="address" 
-                                    placeholder="Address"
-                                    value="<?php echo htmlspecialchars($data['address']); ?>" 
-                                    required 
-                                    class="input-field">
-                            </div>
-                            <div class="form-buttons button-container">
-                                <button onclick="window.location.href='./customers.php'" class="button outline">Cancel</button>
-                                <button type="submit" class="button solid">Submit</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$"
+                                placeholder="someone@mail.com"
+                                value="<?php echo htmlspecialchars($data['email']); ?>"
+                                required 
+                                class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone number</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                placeholder="07XXXXXXXX"
+                                value="<?php echo htmlspecialchars($data['phone']); ?>"
+                                required 
+                                class="input-field" 
+                                pattern="^07\d{8}$" 
+                                title="Phone number must start with '07' and contain exactly 10 digits.">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input 
+                                type="text" 
+                                id="address" 
+                                name="address" 
+                                placeholder="Address"
+                                value="<?php echo htmlspecialchars($data['address']); ?>" 
+                                required 
+                                class="input-field">
+                        </div>
+                        <div class="form-buttons button-container">
+                            <button onclick="window.location.href='./customers.php'" class="button outline">Cancel</button>
+                            <button type="submit" class="button solid">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
