@@ -11,7 +11,6 @@
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $name = $_POST['name'];
         $phone = $_POST['phone'];
-        $email = $_POST['email'];
         $address = $_POST['address'];
         $password = $_POST['password'];
         $repassword = $_POST['repassword'];
@@ -20,13 +19,15 @@
             echo json_encode(['success' => false, 'message' => 'Passwords do not match.']);
             exit;
         }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
     
         $query1 = "
             UPDATE user 
-            SET name = '$name', phone = '$phone', address = '$address', email = '$email'
+            SET name = '$name', phone = '$phone', address = '$address'
             WHERE userId = 5;
         ";
-    
+
         $query2 = "
             UPDATE login
             SET password = '$password'
@@ -105,9 +106,10 @@
                         type="email"
                         name="email"
                         pattern="[a-z0-9._%+-]+@[a-z09.-]+\.[a-z]{2,}$"
-                        title="Name can only contain alphabets and spaces."
+                        title="Please enter a valid email address."
                         value="<?php echo htmlspecialchars($userData['email']); ?>"
-                        required>
+                        style="pointer-events: none; color: #999"
+                        readonly>
             
                     <label>Phone Number</label>
                     <input
