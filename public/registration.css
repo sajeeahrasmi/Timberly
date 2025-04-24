@@ -6,125 +6,209 @@
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-background: #f6f6f9;
-
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
-
     --card-padding: 20px;
     --padding: 10px;
-
     --box-shadow: 0 4px 8px var(--color-secondary);
-}
-
-* {
+  }
+  
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: var(--color-background);
+  }
+  
+  body {
+    background-image: url('login-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-}
-
-.container {
+  }
+  
+  .container {
     background-color: var(--color-white);
-    border-radius: var(--card-border-radius);
+    border-radius: var(--border-radius-2);
     box-shadow: var(--box-shadow);
-    padding: var(--card-padding);
+    display: flex;
     width: 100%;
-    max-width: 600px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-h2 {
-    color: var(--color-primary);
-    text-align: center;
+    max-width: 840px;
+    overflow: hidden;
+  }
+  
+  .form-container {
+    flex: 1;
+    padding: 40px;
+  }
+  
+  .logo {
     margin-bottom: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-label {
+  }
+  
+  .logo img {
+    height: 30px;
+  }
+  
+  h2 {
     color: var(--color-primary);
-    font-weight: bold;
-}
-
-input, select, textarea {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: normal;
+  }
+  
+  .name-row, .password-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+    width: 100%;
+  }
+  
+  .form-group.half {
+    width: calc(50% - 8px);
+  }
+  
+  input, select, textarea {
+    width: 100%;
     padding: 12px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: var(--border-radius-1);
     font-size: 16px;
     transition: border-color 0.3s ease;
-}
-
-input:focus, select:focus, textarea:focus {
+  }
+  
+  input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-}
-
-textarea {
+  }
+  
+  textarea {
     resize: vertical;
     min-height: 100px;
-}
-
-.error {
+  }
+  
+  .error {
     color: var(--color-danger);
     font-size: 14px;
-    min-height: 20px;
-}
+    min-height: 16px;
+    display: block;
+  }
+  
+  .email-hint {
+    font-size: 14px;
+    color: #5f6368;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .create-gmail {
+    margin-top: 8px;
+  }
+  
+  .create-gmail a, .sign-in-link a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .create-gmail a:hover, .sign-in-link a:hover {
+    text-decoration: underline;
+  }
 
-.form-group:last-child {
-    flex-direction: row;
-    gap: 15px;
-    justify-content: center;
-}
-
-/* Including your button styles */
-.button {
+  
+  .hidden-fields {
+    /* This keeps your required fields in the HTML but visually hidden */
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  /* Including your button styles with some adjustments */
+  .button {
     padding: 10px 20px;
-    border-radius: 20px; 
+    border-radius: 50px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     border: 2px solid transparent;
     transition: all 0.3s ease;
-}
-
-.button.outline {
+    min-width: 80px;
+  }
+  
+  .button.outline {
     background-color: transparent;
     color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.button.outline:hover {
+    border-color: transparent;
+  }
+  
+  .button.outline:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .button.solid {
     background-color: var(--color-primary);
     color: white;
-}
-
-.button.solid {
-    background-color: var(--color-primary);
-    color: white;
     border-color: var(--color-primary);
-}
-
-.button.solid:hover {
+  }
+  
+  .button.solid:hover {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
-}
+  }
+  
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    width: 40%;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .image-caption {
+    color: #5f6368;
+    font-size: 16px;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    
+    .image-container {
+      width: 100%;
+      padding: 20px;
+    }
+    
+    .name-row, .password-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .form-group.half {
+      width: 100%;
+    }
+  }
