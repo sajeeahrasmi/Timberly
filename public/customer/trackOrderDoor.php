@@ -196,7 +196,7 @@ $orderStatus = $row3['status'] ?? '';
             <p><strong>Vehicle Number:</strong> <?php echo $vehicleNo ?></p>
             <p><strong>Expected Delivery:</strong> <?php echo $deliveryDate ?></p>
             <p><strong>Contact Number:</strong> <?php echo $phone ?></p>
-            <button class="button outline">View Location</button>
+            <!-- <button class="button outline">View Location</button> -->
         </div>
     </div>
 

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusElement = document.getElementById("status");
 
         if (statusElement.textContent === 'Pending') {
-            buttonElement.disabled = 'false';
+            buttonElement.disabled = false;
             buttonAddElement.onclick = function(){
                 showPopup();
             }
@@ -36,10 +36,7 @@ async function updateButton() {
     
 }
 
-       
-// const popupMessage = document.getElementById('popup-message');
-// const overlay = document.getElementById('popup-overlay');
-// const closePopupButton = document.getElementById('close-popup');
+
 
 document.getElementById('close-popup').onclick = function(){
     close();

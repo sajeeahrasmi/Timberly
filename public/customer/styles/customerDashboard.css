@@ -399,23 +399,25 @@ body, html {
 
 }
 
-.measurement-date {
-  background-color: #ffc107;
+li.measurement-date {
+  background-color: #e3b59d; 
   color: black;
-  border-radius: 50%;
+
 }
 
-.delivery-date {
-  background-color: #28a745;
+li.delivery-date {
+  background-color: #e3b59d; 
   color: white;
-  border-radius: 50%;
 }
 
-/* When both classes apply */
-.measurement-date.delivery-date {
-  background: linear-gradient(135deg, #ffc107 50%, #28a745 50%);
-  color: white;
+li.active.measurement-date {
+  box-shadow: 0 0 0 2px black;
 }
+
+li.active.delivery-date {
+  box-shadow: 0 0 0 2px black;
+}
+
 
 
 
