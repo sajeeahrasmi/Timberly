@@ -1,32 +1,56 @@
 <?php
-session_start(); // Start the session to access session variables
-// Database connection
+session_start(); 
 include '../../config/db_connection.php';
 
-// Check if supplier is logged in
 if (!isset($_SESSION['userId'])) {
     echo "Error: Supplier not logged in.";
     exit();
 }
 
-// Supplier ID and other parameters
 $supplierId = $_SESSION['userId'];
-$postdate = date("Y-m-d");
-$is_approved = '1'; // Approved orders (1 means approved)
-
-
-
-// Initialize an empty array to hold orders
 $orders = [];
+$timberRevenue = 0;
+$lumberRevenue = 0;
 
-// For Timber table:
-$sql1 = "SELECT id, category, type, quantity, unitprice, totalprice, postdate FROM pendingtimber WHERE supplierId = ? AND is_approved = '1'";
-$stmt1 = $conn->prepare($sql1);
-$stmt1->bind_param('i', $supplierId);
-$stmt1->execute();
-$result1 = $stmt1->get_result();
-if ($result1->num_rows > 0) {
-    while ($row = $result1->fetch_assoc()) {
+// Filters from GET
+$filterCategory = $_GET['category'] ?? '';
+$filterType = $_GET['type'] ?? '';
+$filterFrom = $_GET['from'] ?? '';
+$filterTo = $_GET['to'] ?? '';
+
+// ---- TIMBER ----
+if ($filterCategory === '' || $filterCategory === 'Timber') {
+    $query = "SELECT id, category, type, quantity, unitprice, totalprice, postdate 
+              FROM pendingtimber 
+              WHERE supplierId = ? AND status = 'Approved'";
+
+    $params = [$supplierId];
+    $types = "i";
+
+    if (!empty($filterType)) {
+        $query .= " AND type LIKE ?";
+        $params[] = "%$filterType%";
+        $types .= "s";
+    }
+
+    if (!empty($filterFrom)) {
+        $query .= " AND postdate >= ?";
+        $params[] = $filterFrom;
+        $types .= "s";
+    }
+
+    if (!empty($filterTo)) {
+        $query .= " AND postdate <= ?";
+        $params[] = $filterTo;
+        $types .= "s";
+    }
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
         $orders[] = [
             'id' => $row['id'],
             'category' => $row['category'],
@@ -34,19 +58,46 @@ if ($result1->num_rows > 0) {
             'quantity' => $row['quantity'],
             'unitprice' => $row['unitprice'],
             'totalprice' => $row['totalprice'],
-            'postdate' => $row['postdate']
+            'postdate' => $row['postdate'],
+            'is_approved' => '1'
         ];
+        $timberRevenue += $row['totalprice'];
     }
 }
 
-// For Lumber table:
-$sql2 = "SELECT id, type, quantity, unitprice, totalprice, postdate FROM pendinglumber WHERE supplierId = ? AND is_approved = '1'";
-$stmt2 = $conn->prepare($sql2);
-$stmt2->bind_param('i', $supplierId);
-$stmt2->execute();
-$result2 = $stmt2->get_result();
-if ($result2->num_rows > 0) {
-    while ($row = $result2->fetch_assoc()) {
+// ---- LUMBER ----
+if ($filterCategory === '' || $filterCategory === 'Lumber') {
+    $query = "SELECT id, type, quantity, unitprice, totalprice, postdate 
+              FROM pendinglumber 
+              WHERE supplierId = ? AND status = 'Approved'";
+
+    $params = [$supplierId];
+    $types = "i";
+
+    if (!empty($filterType)) {
+        $query .= " AND type LIKE ?";
+        $params[] = "%$filterType%";
+        $types .= "s";
+    }
+
+    if (!empty($filterFrom)) {
+        $query .= " AND postdate >= ?";
+        $params[] = $filterFrom;
+        $types .= "s";
+    }
+
+    if (!empty($filterTo)) {
+        $query .= " AND postdate <= ?";
+        $params[] = $filterTo;
+        $types .= "s";
+    }
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
         $orders[] = [
             'id' => $row['id'],
             'category' => 'Lumber',
@@ -54,11 +105,16 @@ if ($result2->num_rows > 0) {
             'quantity' => $row['quantity'],
             'unitprice' => $row['unitprice'],
             'totalprice' => $row['totalprice'],
-            'postdate' => $row['postdate']
+            'postdate' => $row['postdate'],
+            'is_approved' => '1'
         ];
+        $lumberRevenue += $row['totalprice'];
     }
 }
 
+// Sort orders by postdate descending
+usort($orders, fn($a, $b) => strtotime($b['postdate']) - strtotime($a['postdate']));
 
-
+// Optional total revenue
+$totalRevenue = $timberRevenue + $lumberRevenue;
 ?>
