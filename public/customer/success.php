@@ -20,7 +20,7 @@ $sessionKey = $orderId . '_' . $amount;
 
 if (isset($_SESSION['paid_once'][$sessionKey])) {
     $lastTime = $_SESSION['paid_once'][$sessionKey];
-    if ($now - $lastTime < 120) { 
+    if ($now - $lastTime < 60) { 
         header("Location: orderHistory.php");
         exit();
     }
@@ -90,6 +90,18 @@ try {
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
     }
+
+    // if($category === 'Lumber'){
+    //     $query = "UPDATE lumber l
+    //         JOIN orderlumber ol ON l.lumberId = ol.itemId
+    //         SET l.qty = l.qty - ol.qty
+    //         WHERE ol.orderId = ?
+    //         AND ol.status = 'Approved'";
+
+    //     $stmt = $conn->prepare($query);
+    //     $stmt->bind_param("i", $orderId);
+    //     $stmt->execute();
+    // }
 
     $conn->commit();
 
