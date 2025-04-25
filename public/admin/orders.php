@@ -30,6 +30,8 @@
                         <input type="text" id="searchCustomer" placeholder="Filter by Customers" class="filters">
                         <input type="text" id="searchCategory" placeholder="Filter by Category" class="filters">
                         <input type="text" id="searchStatus" placeholder="Filter by Status" class="filters">
+                        <input type="number" id="searchAmount" placeholder="Min Amount" class="filters">
+                        <button onclick="filterByAmount()">Filter</button>
                     </div>
                     <table class="product-table">
                         <thead>
@@ -112,5 +114,9 @@
             row.style.display = status.includes(filter) ? '' : 'none';
         });
     });
+    function filterByAmount() {
+        const amount = document.getElementById('searchAmount').value;
+        window.location.href = `?minAmount=${amount}`;
+    }
 </script>
 </html>
