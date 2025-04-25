@@ -17,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $token = bin2hex(random_bytes(50));
     $expires = date("Y-m-d H:i:s", strtotime('+4 hour')); // I put 4h because of however it has made the expiry time lesser than NOW time
     
-    if (empty($name) || empty($email)) {
+    if (empty($name) || empty($email) || empty($phone) || empty($address)) {
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
         exit;
     }
     
-    $checkQuery = "SELECT * FROM user WHERE email = '$email'";
+    $checkQuery = "SELECT * FROM user WHERE email = '$email' OR phone = '$phone'";
     $checkResult = mysqli_query($conn, $checkQuery);
     
     if (mysqli_num_rows($checkResult) > 0) {
-        echo json_encode(['success' => false, 'message' => 'Email already exists.']);
+        echo json_encode(['success' => false, 'message' => 'Email or phone already exists.']);
         exit;
     }
     
