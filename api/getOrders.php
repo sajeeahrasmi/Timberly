@@ -2,6 +2,8 @@
 // Include the database connection (assuming it's in the same directory)
 require_once 'db.php';
 
+$balance = $newTotalAmount ?? 0; // Use the new total amount from the updatepayment.php script
+//$balance = $_SESSION['newTotalAmount'] ?? 0;
 // Get the filter values from the query parameters
 $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : '';
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
@@ -28,6 +30,7 @@ $sql_lumber = "SELECT
     CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
     '' AS description,
     'lumber' AS orderType
+    
 FROM orderlumber ol
 LEFT JOIN orders o ON ol.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
@@ -56,11 +59,14 @@ $sql_furniture = "SELECT
     CONCAT(orf.type, ' - ', orf.size, ' (', orf.qty, ')') AS typeQty,
     orf.description,
     'furniture' AS orderType
+       
 FROM orderfurniture orf
 LEFT JOIN orders o ON orf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 
+
 WHERE orf.status != 'Pending'";
+
 
 $sql_customized = "SELECT 
     o.orderId AS main_order_id, 
@@ -82,6 +88,7 @@ $sql_customized = "SELECT
     CONCAT(ocf.type, ' ', ocf.length, 'x', ocf.width, 'x', ocf.thickness, ' ' , ocf.category ,' (', ocf.qty, ')' ) AS typeQty,
     ocf.details AS description,
     'customized' AS orderType
+     
 FROM ordercustomizedfurniture ocf
 LEFT JOIN orders o ON ocf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
@@ -137,9 +144,22 @@ if ($result->num_rows > 0) {
     // Output the data for each order
     while ($order = $result->fetch_assoc()) {
        
+        $order_id = $order['main_order_id'];
+        
+        // Query to get total payments for this order
+        $payment_query = "SELECT SUM(amount) AS totalPaymentAmount FROM payment WHERE orderId = '$order_id'";
+        $payment_result = $conn->query($payment_query);
+        $payment_row = $payment_result->fetch_assoc();
+        $totalPaymentAmount = $payment_row['totalPaymentAmount'] ?? 0;
+        
+        // Calculate total amount and remaining balance
         $totalAmount = $order['totalAmount']; 
+        $newTotalAmount = $totalAmount - $totalPaymentAmount;
         
-        
+        // Ensure balance doesn't go negative
+        if ($newTotalAmount < 0) {
+            $newTotalAmount = 0;
+        }
         $viewUrl = "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type={$order['orderType']}";
         
         
@@ -164,6 +184,7 @@ if ($result->num_rows > 0) {
                 <td>{$order['main_order_id']}</td>
                 <td>{$itemDisplay}</td>
                 <td>{$totalAmount}</td>
+                <td>{$newTotalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
                 <td>{$iStatus}</td>
                 <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>

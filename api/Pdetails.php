@@ -6,7 +6,7 @@ include 'db.php';
 $orderId = $_GET['orderId']; // Get orderId from the query parameter
 
 // Query to get the payment details from the payment table
-$query = "SELECT sum(amount) AS amountPaid FROM payment WHERE orderId = ? AND viewed = '0'";
+$query = "SELECT sum(amount) AS amountPaid FROM payment WHERE orderId = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $orderId); // bind orderId to the query
 $stmt->execute();

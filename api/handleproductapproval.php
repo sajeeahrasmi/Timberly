@@ -53,7 +53,7 @@ try {
     
     if ($action === 'approve') {
         // Update is_approved to 1
-        $stmt = mysqli_prepare($conn, "UPDATE $pendingTable SET is_approved = '1' WHERE id = ?");
+        $stmt = mysqli_prepare($conn, "UPDATE $pendingTable SET status = 'Approved' WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "i", $productId);
         $success = mysqli_stmt_execute($stmt);
         
@@ -62,7 +62,7 @@ try {
         }
   
         // Update is_approved to 1
-$stmt = mysqli_prepare($conn, "UPDATE $pendingTable SET is_approved = '1' WHERE id = ?");
+$stmt = mysqli_prepare($conn, "UPDATE $pendingTable SET status = 'Approved' WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "i", $productId);
 $success = mysqli_stmt_execute($stmt);
 
@@ -157,7 +157,7 @@ if (!empty($product['image'])) {
     } 
     elseif ($action === 'reject') {
         // For rejection, delete the product from the pending table
-        $stmt = mysqli_prepare($conn, "DELETE FROM $pendingTable WHERE id = ?");
+        $stmt = mysqli_prepare($conn, "UPDATE $pendingTable SET status = 'Rejected' WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "i", $productId);
         $success = mysqli_stmt_execute($stmt);
         

@@ -26,6 +26,7 @@ if ($type === 'lumber') {
             ol.status AS itemStatus, 
             CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
             l.type,
+            l.unitPrice,
             l.image_path AS imagePath,
             NULL AS description,
             NULL AS size,

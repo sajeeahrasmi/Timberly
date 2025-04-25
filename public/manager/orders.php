@@ -2,6 +2,8 @@
 // Authentication check MUST be the first thing in the file
 require_once '../../api/auth.php';
 
+
+//$balance = $_SESSION['newTotalAmount'] ?? 0;
 // Rest of your existing PHP code follows...
 ?>
 <!DOCTYPE html>
@@ -126,7 +128,7 @@ require_once '../../api/auth.php';
                         <th>Customer Name</th>
                         <th>Order ID</th>
                         <th>Order Details</th>
-                        
+                        <th>Total Amount</th>
                         <th>Amount To Pay</th>
                         <th>Payment Status</th>
                         <th>Status</th>
@@ -170,6 +172,7 @@ require_once '../../api/auth.php';
                 })
                 .catch(error => console.error('Error:', error));
         }
+        
     </script>
 </body>
 </html>

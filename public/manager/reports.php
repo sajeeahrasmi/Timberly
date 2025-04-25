@@ -31,7 +31,7 @@ require_once '../../api/auth.php';
               <i class="fas fa-dollar-sign"></i>
             </div>
             <button onclick="generateRevenueReport()">
-              
+            <i class="fas fa-file-invoice"></i>
               Generate Revenue Report
             </button>
           </div>
@@ -47,6 +47,20 @@ require_once '../../api/auth.php';
               Generate Order Report
             </button>
           </div>
+
+          <div class="metric-card">
+  <h3>Summary Report</h3>
+  <div class="metric-content">
+  <i class="fas fa-file-invoice"></i>
+  </div>
+  <button onclick="window.location.href='salesReport.php'">
+  
+  <i class="fas fa-file-invoice"></i>
+    Generate Summary Report
+  </button>
+</div> 
+
+          
           
           
         </div>

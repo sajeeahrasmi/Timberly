@@ -312,7 +312,7 @@ form button:hover {
 
 <div class="list-container">
     <?php foreach ($products as $product): ?>
-        <?php if ($product['status'] === '0'): ?>
+        <?php if ($product['status'] === 'Pending'): ?>
             <div class="list-item">
             <span>Supplier Id: <?php echo $product['supplier_id']; ?></span>
                    

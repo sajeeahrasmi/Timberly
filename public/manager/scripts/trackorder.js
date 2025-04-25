@@ -687,6 +687,9 @@ function updatenew() {
         console.log(data); // Response from the server
         if (data.success) {
             alert("Payment updated successfully!");
+            //display the fetching newTotaleamount
+            const newTotal = data.newTotalAmount; // Assuming the server returns the new total amount
+            console.log(newTotal)
         } else {
             alert("Error updating payment.");
         }
