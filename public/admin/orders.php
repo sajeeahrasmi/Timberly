@@ -27,7 +27,9 @@
                     <h2>Customer Orders</h2>
                     <div class="filter-division">
                         <input type="text" id="searchOrderID" placeholder="Filter by Order ID" class="filters">
-                        <input type="text" id="searchOrderID" placeholder="Filter by Customers" class="filters">
+                        <input type="text" id="searchCustomer" placeholder="Filter by Customers" class="filters">
+                        <input type="text" id="searchCategory" placeholder="Filter by Category" class="filters">
+                        <input type="text" id="searchStatus" placeholder="Filter by Status" class="filters">
                     </div>
                     <table class="product-table">
                         <thead>
@@ -81,6 +83,33 @@
         rows.forEach(row => {
             const orderId = row.children[0].textContent.toLowerCase();
             row.style.display = orderId.includes(filter) ? '' : 'none';
+        });
+    });
+    document.getElementById('searchCustomer').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const customerName = row.children[2].textContent.toLowerCase();
+            row.style.display = customerName.includes(filter) ? '' : 'none';
+        });
+    });
+    document.getElementById('searchCategory').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const category = row.children[4].textContent.toLowerCase();
+            row.style.display = category.includes(filter) ? '' : 'none';
+        });
+    });
+    document.getElementById('searchStatus').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const status = row.children[5].textContent.toLowerCase();
+            row.style.display = status.includes(filter) ? '' : 'none';
         });
     });
 </script>
