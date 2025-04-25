@@ -22,7 +22,7 @@ $filterTo = $_GET['to'] ?? '';
 if ($filterCategory === '' || $filterCategory === 'Timber') {
     $query = "SELECT id, category, type, quantity, unitprice, totalprice, postdate 
               FROM pendingtimber 
-              WHERE supplierId = ? AND is_approved = '1'";
+              WHERE supplierId = ? AND status = 'Approved'";
 
     $params = [$supplierId];
     $types = "i";
@@ -69,7 +69,7 @@ if ($filterCategory === '' || $filterCategory === 'Timber') {
 if ($filterCategory === '' || $filterCategory === 'Lumber') {
     $query = "SELECT id, type, quantity, unitprice, totalprice, postdate 
               FROM pendinglumber 
-              WHERE supplierId = ? AND is_approved = '1'";
+              WHERE supplierId = ? AND status = 'Approved'";
 
     $params = [$supplierId];
     $types = "i";

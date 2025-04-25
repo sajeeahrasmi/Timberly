@@ -47,7 +47,7 @@
                                 <td><?= htmlspecialchars($order['unitprice']) ?></td>
                                 <td><?= htmlspecialchars($order['totalprice']) ?></td>
                                 <td><?= date("d/m/Y", strtotime($order['postdate'])) ?></td>
-                                <td class="po"><?= ($order['is_approved'] = '1') ? 'Approved' : 'Pending' ?></td>
+                                <td class="po"><?= ($order['status'] = 'Approved') ? 'Approved' : 'Pending' ?></td>
                                 <td>
                                 <span class="view-btn"
                                     data-id="<?= htmlspecialchars($order['id']) ?>"
@@ -57,7 +57,7 @@
                                     data-unitprice="<?= htmlspecialchars($order['unitprice']) ?>"
                                     data-totalprice="<?= htmlspecialchars($order['totalprice']) ?>"
                                     data-date="<?= date("d/m/Y", strtotime($order['postdate'])) ?>"
-                                    data-status="<?= $order['is_approved'] == '1' ? 'Approved' : 'Pending' ?>"
+                                    data-status="<?= $order['status'] == 'Approved' ? 'Approved' : 'Pending' ?>"
                                     style="cursor:pointer">
                                     <i class="fa-solid fa-eye"></i>
                                 </span>

@@ -11,7 +11,7 @@ if (!isset($_SESSION['userId'])) {
 
 $supplierId = $_SESSION['userId'];
 $postdate = date("Y-m-d");
-$is_approved = '0'; // Default pending state
+$status = 'Pending'; // Default pending state
 
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
@@ -39,10 +39,10 @@ if (isset($_POST['submit'])) {
         $diameter = isset($_POST['diameter']) ? $_POST['diameter'] : null;
 
         $stmt = $conn->prepare("INSERT INTO pendingtimber 
-            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, totalprice,is_approved) 
+            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, totalprice,status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("siiissssis", 
-            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $is_approved
+            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $status
         );
 
     } elseif ($category === "Lumber") {
@@ -53,11 +53,11 @@ if (isset($_POST['submit'])) {
         $thickness = isset($_POST['thickness']) ? $_POST['thickness'] : null;
     
         $stmt = $conn->prepare("INSERT INTO pendinglumber 
-            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, totalprice, is_approved) 
+            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, totalprice,status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         $stmt->bind_param("siiiiissisis", 
-            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $is_approved
+            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $status
         );
     
 
