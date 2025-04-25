@@ -104,7 +104,7 @@ function uploadImage(event) {
         })
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
+            if (data.status == 'success') {
                 const imagePath = data.imageUrl; // Full URL or relative path
                 chatContent.innerHTML += `<p><strong>You:</strong> <img src="${imagePath}" alt="Uploaded Image" style="width:150px; border-radius: 8px;"></p>`;
                 chatContent.scrollTop = chatContent.scrollHeight;

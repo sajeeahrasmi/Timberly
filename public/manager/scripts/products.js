@@ -493,8 +493,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let fieldsHtml = '';
         if (category === 'rtimber') {
             fieldsHtml += `
+               
+            <label for="length">Length:</label>
+            <input type="number" id="length" name="length" placeholder="Enter in meters" step="0.01" min="1.8"  max ="6" required>
+
                 <label for="diameter">Diameter (mm):</label>
-                <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" step="0.01" min="100" max="800" required>
+                <input type="number" id="diameter" name="diameter" value="${details.diameter || ''}" step="0.01" min="150" max="450" required>
                 <label for="price">Price (Rs.):</label>
                 <input type="number" id="price" name="price" value="${details.price || ''}" min="1" required>
                 <label for="quantity">Quantity:</label>
@@ -505,9 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (category === 'rlumber') {
             fieldsHtml += `
                 <label for="length">Length (m):</label>
-                <input type="number" id="length" name="length" value="${details.length || ''}" step="0.01" min="2.4"  max ="4.8" required>
+                <input type="number" id="length" name="length" value="${details.length || ''}" step="0.01" min="1.8"  max ="3.6" required>
                 <label for="width">Width (mm):</label>
-                <input type="number" id="width" name="width" value="${details.width || ''}" step="0.01" min='50' max="300" required>
+                <input type="number" id="width" name="width" value="${details.width || ''}" step="0.01" min='50' max="150" required>
                 <label for="thickness">Thickness (mm):</label>
                 <input type="number" id="thickness" name="thickness" value="${details.thickness || ''}" step="0.01" min='12' max="50" required>
                 <label for="quantity">Quantity:</label>

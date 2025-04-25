@@ -39,7 +39,7 @@ if (($message || $imagePath) && $orderId && $itemId && $userId && $sessionId) {
     
 
     // I    nsert into designerchatmessages
-    $query = "INSERT INTO designerchatmessages (sessionId, message, messageType) VALUES (?, ?, ?)";
+    $query = "INSERT INTO designerchatmessages (sessionId, message, messageType , senderType) VALUES (?, ?, ? , 'Designer')";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iss", $sessionId, $finalMessage, $messageType);
     $stmt->execute();

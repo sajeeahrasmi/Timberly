@@ -8,7 +8,7 @@ $itemId = isset($_POST['itemId']) ? $_POST['itemId'] : '';
 $status = isset($_POST['status']) ? $_POST['status'] : '';
 $orderType = isset($_POST['orderType']) ? $_POST['orderType'] : '';
 //if status in not_deiverd chang ot to finished or ele keep same
-if($status == 'Not_Delivered' && $orderType != 'lumber'){
+if($status == 'Not_Delivered' ){
     $status = 'Finished';
 }
 else if($status == 'Completed')

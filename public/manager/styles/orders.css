@@ -46,9 +46,7 @@
     color: white;
 }
 
-.orders-table tr:hover {
-    background-color: #f1f1f1;
-}
+
 
 /* Style for the "View Order" button */
 .view-btn {
@@ -56,18 +54,18 @@
     color: white;
     padding: 12px 24px;
     text-decoration: none;
-    border: none;
+    border: 2px solid #895D47; /* Add border from the start with same color as background */
     font-size: 14px;
-    margin: 8px 4px; /* Increase margin for more space */
+    margin: 8px 4px;
     cursor: pointer;
     text-align: center;
-    display: inline-block; /* Make sure the button stays block-level */
-    border-radius: 50px; /* Makes the button oval */
-    transition: background-color 0.3s, transform 0.1s;
+    display: inline-block;
+    border-radius: 50px;
+    transition: background-color 0.3s, color 0.3s; /* Specify exactly what transitions */
 }
 
 .view-btn:hover {
-    background-color: #faf7f5; /* Keep the button color same */
-    color: #895D47; /* Keep the text color white */
-    border: 2px solid #895D47; /* Border color to #895D47 */
+    background-color: #faf7f5;
+    color: #895D47;
+    border: 2px solid #895D47; /* Same border width as non-hover state */
 }

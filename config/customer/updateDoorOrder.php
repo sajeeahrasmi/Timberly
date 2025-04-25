@@ -147,7 +147,7 @@ function deleteItem(){
             throw new Exception('Failed to delete item.');
         }
 
-        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ?";
+        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ? AND status != 'Not_Approved'";
         $sumStmt = $conn->prepare($sumQuery);
         $sumStmt->bind_param("i", $orderId);
         $sumStmt->execute();
@@ -202,7 +202,7 @@ function updateItem(){
             throw new Exception('Failed to update into order customized furniture table');
         }
 
-        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ?";
+        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ? AND status != 'Not_Approved'";
         $sumStmt = $conn->prepare($sumQuery);
         $sumStmt->bind_param("i", $orderId);
         $sumStmt->execute();

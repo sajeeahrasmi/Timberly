@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/updatePost.css">
 </head>
 <body>
@@ -70,7 +70,7 @@
                     <label>Upload Image:</label>
                     <input type="file" name="image">
                     <?php if (!empty($image)): ?>
-                        <img src="<?php echo htmlspecialchars($image); ?>" alt="Post Image" style="width: 100px;">
+                        <img src="../<?php echo htmlspecialchars($image); ?>" alt="Post Image" style="width: 100px;">
                     <?php endif; ?>
                 </div>
 

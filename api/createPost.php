@@ -1,5 +1,6 @@
 <?php
 include '../../config/db_connection.php';
+include './components/flashMessage.php';
 session_start();
 
 // Check supplier session
@@ -10,7 +11,7 @@ if (!isset($_SESSION['userId'])) {
 
 $supplierId = $_SESSION['userId'];
 $postdate = date("Y-m-d");
-$is_approved = '0'; // Default pending state
+$status = 'Pending'; // Default pending state
 
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
@@ -19,6 +20,8 @@ if (isset($_POST['submit'])) {
     $price = $_POST['unitprice'];
     $info = $_POST['info'];
     $image = $_FILES['image'];
+    $totalPrice = $quantity * $price;
+    $totalPrice = number_format((float)$totalPrice, 2, '.', ''); // Format to 2 decimal places
 
     // Image Upload
     $targetDir = "../Supplier/uploads/";
@@ -36,10 +39,10 @@ if (isset($_POST['submit'])) {
         $diameter = isset($_POST['diameter']) ? $_POST['diameter'] : null;
 
         $stmt = $conn->prepare("INSERT INTO pendingtimber 
-            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("siiisssss", 
-            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+            (type, diameter, quantity, unitprice, info, image, supplierId, postdate, totalprice,status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("siiissssis", 
+            $type, $diameter, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $status
         );
 
     } elseif ($category === "Lumber") {
@@ -50,11 +53,11 @@ if (isset($_POST['submit'])) {
         $thickness = isset($_POST['thickness']) ? $_POST['thickness'] : null;
     
         $stmt = $conn->prepare("INSERT INTO pendinglumber 
-            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, is_approved) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            (type, length, width, thickness, quantity, unitprice, info, image, supplierId, postdate, totalprice,status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
-        $stmt->bind_param("siiiiississ", 
-            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $is_approved
+        $stmt->bind_param("siiiiissisis", 
+            $type, $length, $width, $thickness, $quantity, $price, $info, $imagePath, $supplierId, $postdate, $totalPrice, $status
         );
     
 
@@ -65,7 +68,17 @@ if (isset($_POST['submit'])) {
 
     // Execute & handle result
     if ($stmt->execute()) {
-        echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
+        // echo "<script>alert('Post submitted successfully!'); window.location.href = 'displayPost.php';</script>";
+        //if category is timber, redirect timber tab when post is submitted
+        $_SESSION['flash_message'] = ($category === "Timber")
+        ? "Timber post submitted successfully!"
+        : "Lumber post submitted successfully!";
+    $_SESSION['flash_type'] = "success"; // or "error"
+    $_SESSION['flash_tab'] = strtolower($category); // timber or lumber
+    
+    header("Location: displayPost.php");
+    exit();
+
     } else {
         echo "Error: " . $stmt->error;
     }

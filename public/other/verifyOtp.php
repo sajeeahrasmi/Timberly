@@ -1,67 +1,120 @@
 <?php
 header('Content-Type: application/json');
-require '../db/dbConnection.php';
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
 
-$data = json_decode(file_get_contents('php://input'), true);
+require '../../config/db_connection.php';
 
-if (!isset($data['orderId'])) {
-    echo json_encode(['success' => false, 'message' => 'Missing orderId']);
-    exit;
-}
+try {
+    $data = json_decode(file_get_contents('php://input'), true);
 
-$orderId = intval($data['orderId']);
-$customerId = null;
+    if (!isset($data['orderId']) || !isset($data['otp'])) {
+        throw new Exception("Missing orderId or OTP");
+    }
 
-// Search in multiple order tables
-$tables = ['orders', 'orderfurniture', 'ordercustomizedfurniture', 'orderlumber'];
-foreach ($tables as $table) {
-    $stmt = $conn->prepare("SELECT userId FROM `$table` WHERE orderId = ?");
-    if (!$stmt) continue;
+    $orderId = intval($data['orderId']);
+    $enteredOtp = trim($data['otp']);
 
+    // Step 1: Get customerId
+    $stmt = $conn->prepare("SELECT userId FROM orders WHERE orderId = ?");
+    if (!$stmt) throw new Exception("Prepare failed: " . $conn->error);
     $stmt->bind_param('i', $orderId);
     $stmt->execute();
-    $stmt->bind_result($uid);
-
-    if ($stmt->fetch()) {
-        $check = $conn->prepare("SELECT id FROM user WHERE id = ? AND role = 'customer'");
-        $check->bind_param("i", $uid);
-        $check->execute();
-        $check->store_result();
-
-        if ($check->num_rows > 0) {
-            $customerId = $uid;
-            $check->close();
-            $stmt->close();
-            break;
-        }
-
-        $check->close();
+    $stmt->bind_result($customerId);
+    if (!$stmt->fetch()) {
+        $stmt->close();
+        throw new Exception("Customer not found for orderId: $orderId");
     }
-
     $stmt->close();
-}
 
-if (!$customerId) {
-    echo json_encode(['success' => false, 'message' => 'Customer not found']);
-    exit;
-}
-
-// Generate random 6-digit OTP
-$otp = random_int(100000, 999999);
-$message = "Your delivery OTP is: $otp";
-
-// Insert into customerNotification table
-$insert = $conn->prepare("INSERT INTO customerNotification (customerId, sender, message, orderId) VALUES (?, 'driver', ?, ?)");
-if ($insert) {
-    $insert->bind_param("isi", $customerId, $message, $orderId);
-    if ($insert->execute()) {
-        echo json_encode(['success' => true, 'otp' => $otp]); // Just for debug; remove `otp` later
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to send notification']);
+    // Step 2: Get latest OTP notification
+    $stmt = $conn->prepare("
+        SELECT message 
+        FROM customerNotification 
+        WHERE userId = ? AND fromWhom = 'Driver'
+        ORDER BY notificationId DESC 
+        LIMIT 1
+    ");
+    $stmt->bind_param('i', $customerId);
+    $stmt->execute();
+    $stmt->bind_result($message);
+    if (!$stmt->fetch()) {
+        $stmt->close();
+        throw new Exception("No OTP notification found for this customer");
     }
-    $insert->close();
-} else {
-    echo json_encode(['success' => false, 'message' => 'DB Insert failed']);
+    $stmt->close();
+
+    // Step 3: Extract and compare OTP
+    preg_match('/\d{6}/', $message, $matches);
+    if (empty($matches)) {
+        throw new Exception("OTP not found in message");
+    }
+
+    $storedOtp = $matches[0];
+    if ($enteredOtp !== $storedOtp) {
+        throw new Exception("Incorrect OTP");
+    }
+
+    // Step 4: Update item status to 'delivered'
+    $tables = ['orderfurniture', 'ordercustomizedfurniture', 'orderlumber'];
+    foreach ($tables as $table) {
+        $update = $conn->prepare("UPDATE $table SET status = 'delivered' WHERE orderId = ? AND status = 'finished'");
+        $update->bind_param('i', $orderId);
+        $update->execute();
+        $update->close();
+    }
+
+    // Step 5: Check if all items are delivered, then update orders table
+    
+   $queryCat = "SELECT category, itemQty FROM orders WHERE orderId = ?";
+   $stmtCat = $conn->prepare($queryCat);
+   $stmtCat->bind_param("i", $orderId);
+   $stmtCat->execute();
+   $resultCat = $stmtCat->get_result();
+   $rowCat = $resultCat->fetch_assoc();
+   $category = $rowCat['category'];
+$itemQty = $rowCat['itemQty'];
+
+$count = 0;
+if($category === 'Furniture'){
+       $query = "SELECT COUNT(*) as count FROM orderfurniture WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
+}else if($category === 'CustomisedFurniture'){
+   $query = "SELECT COUNT(*) as count FROM ordercustomizedfurniture WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
+}else if($category === 'Lumber'){
+   $query = "SELECT COUNT(*) as count FROM orderlumber WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
 }
 
-$conn->close();
+if($count == $itemQty){
+   $stmt3 = $conn->prepare("UPDATE orders SET status = 'Completed' WHERE orderId = ?");
+       $stmt3->bind_param("i", $orderId);
+       $stmt3->execute();
+}
+
+
+
+    echo json_encode(['success' => true, 'message' => 'OTP verified and delivery completed']);
+    exit;
+
+} catch (Exception $e) {
+    error_log("OTP verification error: " . $e->getMessage());
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}

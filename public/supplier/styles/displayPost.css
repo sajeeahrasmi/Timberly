@@ -2,7 +2,7 @@
 
 .metric-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 20px;
   }
@@ -12,44 +12,23 @@
     color: var(--color-primary);
   }
 
-  .popup .popup-content{
-    border: 1px solid var(--color-secondary);
-    background-color: var(--color-white);
-    border-radius: 20px;
-    
+  .tab-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
 
-  }
 
-  .popup .popup-content .pop1{
-    box-shadow: var(--box-shadow);
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 10px;
-    font-size: 16px;
-    margin-bottom: 10px ;
-  }
+.display-content {
+  height: calc(100vh - 120px); /* Adjust depending on header/sidebar height */
+  overflow-y: auto;
+  margin: 0px;
+}
 
-  .popup .popup-content .pop2{
-    box-shadow: var(--box-shadow);
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 10px;
-    font-size: 16px;
-    margin-bottom: 10px ;
-  }
 
-  .popup .popup-content .pop3{
-    box-shadow: var(--box-shadow);
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 10px;
-    font-size: 16px;
-
-  }
-
-  .popup-content .notification-timestamp{
-    font-size: 12px;
-  }
 
 
   .metric-card {
@@ -267,3 +246,23 @@
   margin-bottom: 40px;
 }
 
+.tab-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+.tab-btn.active {
+  background-color: #895D47;
+  color: white;
+}

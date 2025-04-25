@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             leaveReviewBtn.disabled = true;
             designerButton.disabled = true;          
         } else if (status === "Approved" && orderstatus === "Processing") {
-            editBtn.disabled = false;  
+            editBtn.disabled = true;  
             viewLocationBtn.disabled = true;
             leaveReviewBtn.disabled = true;
             designerButton.disabled = false;

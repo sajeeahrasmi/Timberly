@@ -26,7 +26,7 @@ if (!$success) {
 $query = "SELECT dm.messageId, dm.senderType, dm.message, dm.messageType
           FROM designerchatmessages dm
           JOIN designerchat dc ON dm.sessionId = dc.sessionId
-          WHERE dc.orderId = ? AND dc.itemId = ? ORDER BY dm.messageId ASC";
+          WHERE dc.orderId = ? AND dc.itemId = ? ";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ii", $orderId, $itemId);

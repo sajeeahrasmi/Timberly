@@ -24,19 +24,20 @@ function getPendingProductsFromDatabase() {
     $products = [];
 
     // Fetch from pendingtimber
-    $sqlTimber = "SELECT * FROM pendingtimber WHERE is_approved = '0'";
+    $sqlTimber = "SELECT * FROM pendingtimber WHERE status= 'Pending'";
     $resultTimber = $conn->query($sqlTimber);
 
     while ($row = $resultTimber->fetch_assoc()) {
         $products[] = [
-            'id' => $row['timberId'],
+            'id' => $row['id'],
             'name' => $row['type'],
             'category' => 'timber',
             'supplier_id' => $row['supplierId'],
             'unit_price' => $row['unitprice'], // Timber has no unit price
-            'status' => $row['is_approved'],
+            'status' => $row['status'],
             'details' => $row['info'],
             'type' => 'timber',
+            'supplier_id' => $row['supplierId'],
             'image' => $row['image'],
             'postdate' => $row['postdate'],
             'quantity' => $row['quantity'],
@@ -47,18 +48,19 @@ function getPendingProductsFromDatabase() {
     }
 
     // Fetch from pendinglumber
-    $sqlLumber = "SELECT * FROM pendinglumber WHERE is_approved = '0'";
+    $sqlLumber = "SELECT * FROM pendinglumber WHERE status = 'Pending'";
     $resultLumber = $conn->query($sqlLumber);
 
     while ($row = $resultLumber->fetch_assoc()) {
         $products[] = [
-            'id' => $row['lumberId'],
+            'id' => $row['id'],
             'name' => $row['type'],
             'supplier_id' => $row['supplierId'],
             'unit_price' => $row['unitprice'],
-            'status' =>  $row['is_approved'],
+            'status' =>  $row['status'],
             'details' => $row['info'],
             'category' => 'lumber',
+            'supplier_id' => $row['supplierId'],
             //'type' => $row['type'],
             'image' => $row['image'],
             'postdate' => $row['postdate'],

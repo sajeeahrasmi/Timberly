@@ -18,8 +18,8 @@ body {
     position: absolute;
     top: 5px;
     right: 75px;
-    background: red;
-    color: white;
+    background: rgb(255, 255, 255);
+    color: #895D47;
     font-size: 12px;
     width: 15px;
     height: 15px;
@@ -741,7 +741,7 @@ body {
 }
 
 /* CSS for the glow */
-.notif-badge glow {
+.notificationIcon glow {
   animation: glowEffect 1.5s ease-in-out infinite alternate;
   color: #de5f4d;}
 
@@ -753,3 +753,16 @@ body {
     text-shadow: 0 0 15px #de5f4d, 0 0 20px #de5f4d;
   }
 }
+
+.glow {
+  box-shadow: 0 0 10px 4px #ff0000;
+  animation: pulse-glow 1.5s infinite;
+  border-radius: 50%;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px #ff0000; }
+  50% { box-shadow: 0 0 15px #ff0000; }
+  100% { box-shadow: 0 0 5px #ff0000; }
+}
+

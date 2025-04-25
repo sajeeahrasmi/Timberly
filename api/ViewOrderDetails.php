@@ -26,6 +26,8 @@ if ($type === 'lumber') {
             ol.status AS itemStatus, 
             CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
             l.type,
+            l.unitPrice,
+            l.image_path AS imagePath,
             NULL AS description,
             NULL AS size,
             NULL AS additionalDetails,
@@ -51,6 +53,7 @@ if ($type === 'lumber') {
             orf.qty, 
             orf.status AS itemStatus, 
             CONCAT(orf.type, ' (', orf.qty, ')') AS typeQty,
+            f.image AS imagePath,
             orf.type,
             orf.unitPrice,
             orf.description,
@@ -60,6 +63,7 @@ if ($type === 'lumber') {
         FROM orderfurniture orf
         LEFT JOIN orders o ON orf.orderId = o.orderId
         LEFT JOIN user u ON o.userId = u.userId
+        LEFT JOIN furnitures f ON orf.itemId = f.furnitureId
         WHERE o.orderId = ? AND orf.itemId = ?";
 }
 else{
@@ -80,7 +84,7 @@ else{
             ocf.type,
             ocf.unitPrice,
             ocf.frame,
-            
+            ocf.image AS imagePath,
             ocf.details AS description,
             CONCAT(ocf.length, 'x', ocf.width, 'x', ocf.thickness) AS size,
             NULL AS additionalDetails,

@@ -413,6 +413,14 @@ include '../../api/ViewOrderDetails.php';
                            
                         <div class="item-details">
     <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
+    
+<?php if($orderDetails['orderType'] == 'furniture'): ?>
+    <img src="<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Furniture Image">
+<?php elseif($orderDetails['orderType'] == 'lumber'): ?>
+    <img src="../../api/<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Lumber Image">
+<?php elseif($orderDetails['orderType'] == 'customized'): ?>
+    <img src="<?php echo htmlspecialchars($orderDetails['imagePath']); ?>" alt="Customized Item Image">
+<?php endif; ?>
     <?php if($orderDetails['orderType'] == 'furniture' || $orderDetails['orderType'] == 'customized'): ?>
         <?php if(!empty($orderDetails['description'])): ?>
             <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description']); ?></p>
@@ -440,7 +448,10 @@ include '../../api/ViewOrderDetails.php';
             <p><strong>Frame:</strong> <?php echo htmlspecialchars($orderDetails['frame']); ?></p>
         <?php endif; ?>
     <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
-    <p><strong>Price:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'],2); ?></p>
+    <?php
+        $Amount = $orderDetails['unitPrice'] * $orderDetails['qty'];
+        ?>
+    <p><strong>Price:</strong> Rs.<?php echo number_format($Amount); ?></p>
     <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
     <div class="item-buttons">
         <!-- Existing buttons -->
