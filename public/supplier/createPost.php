@@ -8,44 +8,6 @@ include './components/flashMessage.php';
 <head>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/createPost.css">
-    <style>
-        .card-selection {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            flex: 1;
-            padding: 40px;
-            background-color: #f1f1f1;
-            text-align: center;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .card:hover {
-            background-color: #e1e1e1;
-            border-color: #999;
-        }
-
-        .card.active {
-            border-color: #007BFF;
-            background-color: #d8eaff;
-        }
-
-        .category-form {
-            display: none;
-        }
-
-        .category-form.active {
-            display: block;
-        }
-    </style>
 </head>
 <body>
 

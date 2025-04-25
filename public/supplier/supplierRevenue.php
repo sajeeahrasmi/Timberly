@@ -133,13 +133,16 @@ include '../../api/fetchApprovedOrders.php'; // Include the dashboard data fetch
 </div>
 
 </body>
+
+<script src="scripts/supplierRevenue.js"></script>
+
 </html>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function () {
     const filterForm = document.getElementById('filterForm');
     const resetBtn = document.getElementById('resetBtn');
@@ -358,4 +361,4 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-
+ -->
