@@ -16,7 +16,7 @@ function getCurrentDeliveries($conn, $userId) {
         SELECT orderId, itemId, '' AS description, 'Lumber' AS type, qty,
             '' AS size, '' AS additionalDetails, 0 AS unitPrice, date
         FROM orderlumber
-        WHERE status = 'finished' AND driverId = ?
+        WHERE status = 'Finished' AND driverId = ?
     ";
 
     $stmt = $conn->prepare($sql);
