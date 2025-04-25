@@ -13,8 +13,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Queries for both lumber and timber posts
-$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0' AND category = 'Lumber'";
-$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}' AND is_approved = '0' AND category = 'Timber'";
+$lumberQuery = "SELECT * FROM pendinglumber WHERE supplierId = '{$_SESSION['userId']}' AND status = 'Pending' AND category = 'Lumber'";
+$timberQuery = "SELECT * FROM pendingtimber WHERE supplierId = '{$_SESSION['userId']}' AND status = 'Pending' AND category = 'Timber'";
 
 $lumberResult = mysqli_query($conn, $lumberQuery);
 $timberResult = mysqli_query($conn, $timberQuery);
@@ -43,7 +43,7 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/displayPost.css">
 </head>
 <body>

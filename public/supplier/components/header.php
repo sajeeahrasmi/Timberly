@@ -39,7 +39,7 @@ if ($result && $result->num_rows === 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timberly - Supplier</title>
 
-    <link rel="stylesheet" href="/Supplier/styles/components/header.css">
+    <link rel="stylesheet" href="styles/components/header.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
     <script src="../scripts/components/header.js" defer></script>
 </head>

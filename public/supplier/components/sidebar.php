@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timberly-Admin</title>
 
-    <link rel="stylesheet" href="/Supplier/styles/components/sidebar.css">
-    <link rel="stylesheet" href="/Supplier/styles/components/logout-popup.css">
+    <link rel="stylesheet" href="styles/components/sidebar.css">
+    <link rel="stylesheet" href="styles/components/logout-popup.css">
     <script src="https://kit.fontawesome.com/3c744f908a.js" crossorigin="anonymous"></script>
 
 </head>

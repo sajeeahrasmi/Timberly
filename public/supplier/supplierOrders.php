@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Supplier Orders</title>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/supplierOrders.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>

@@ -6,7 +6,7 @@ include '../../api/fetchApprovedOrders.php'; // Include the dashboard data fetch
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles/index.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="styles/dashboard.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="styles/supplierRevenue.css"> <!-- Link to your CSS file -->
 </head>

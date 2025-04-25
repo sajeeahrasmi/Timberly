@@ -6,8 +6,8 @@ include './components/flashMessage.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
-    <link rel="stylesheet" href="/Supplier/styles/createPost.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/createPost.css">
     <style>
         .card-selection {
             display: flex;

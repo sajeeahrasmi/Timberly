@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/updatePost.css">
 </head>
 <body>

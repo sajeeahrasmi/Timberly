@@ -6,7 +6,7 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/dashboard.css"> <!-- Link to your CSS file -->
 </head>
 <body>
@@ -82,7 +82,7 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                             <td><?= htmlspecialchars($order['type']) ?></td>
                             <td><?= htmlspecialchars($order['quantity']) ?></td>
                             <td><?= date("d/m/Y", strtotime($order['postdate'])) ?></td>
-                            <td class="po"><?= ($order['is_approved'] = '1') ? 'Approved' : 'Pending' ?></td>
+                            <td class="po"><?= ($order['status'] = 'Approved') ? 'Approved' : 'Pending' ?></td>
                             <td>
                                 <span class="view-btn"
                                     data-id="<?= htmlspecialchars($order['id']) ?>"
@@ -90,7 +90,7 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                                     data-type="<?= htmlspecialchars($order['type']) ?>"
                                     data-quantity="<?= htmlspecialchars($order['quantity']) ?>"
                                     data-date="<?= date("d/m/Y", strtotime($order['postdate'])) ?>"
-                                    data-status="<?= $order['is_approved'] == '1' ? 'Approved' : 'Pending' ?>"
+                                    data-status="<?= $order['status'] == 'Approved' ? 'Approved' : 'Pending' ?>"
                                     style="cursor:pointer">
                                     <i class="fa-solid fa-eye"></i>
                                 </span>
