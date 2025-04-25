@@ -53,7 +53,7 @@
                     </div>
                     <div class="work-panel">
                         <div class="delivery-table">
-                            <h3>Deliveries</h3>
+                            <h3 style="margin-bottom: 15px">Recent posts</h3>
                             <table>
                                 <tbody>
                                 <?php foreach($postData as $index => $post): ?>
@@ -62,7 +62,7 @@
                                     <td class="order-no"><?php echo $post['id']; ?></td>
                                     <td style="text-align: left;"><?php echo $post['is_approved'] ? "Approved" : "Not approved"; ?></td>
                                     <td><?php echo date("F j, Y", strtotime($post['postdate'])); ?></td>
-                                    <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['unitprice'], 2); ?></td>
+                                    <!-- <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['unitPrice'], 2); ?></td> -->
                                     <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
