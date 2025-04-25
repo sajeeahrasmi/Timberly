@@ -26,7 +26,7 @@ try {
         $stmt->close();
         throw new Exception("Customer not found for orderId: $orderId");
     }
-    $stmt->close(); // ✅ CLOSE before next query
+    $stmt->close();
 
     // Step 2: Get latest OTP notification
     $stmt = $conn->prepare("
@@ -43,7 +43,7 @@ try {
         $stmt->close();
         throw new Exception("No OTP notification found for this customer");
     }
-    $stmt->close(); // ✅ CLOSE before using new statements
+    $stmt->close();
 
     // Step 3: Extract and compare OTP
     preg_match('/\d{6}/', $message, $matches);
@@ -56,7 +56,7 @@ try {
         throw new Exception("Incorrect OTP");
     }
 
-    // Step 4: Update order status to 'delivered' for all related tables
+    // Step 4: Update item status to 'delivered'
     $tables = ['orderfurniture', 'ordercustomizedfurniture', 'orderlumber'];
     foreach ($tables as $table) {
         $update = $conn->prepare("UPDATE $table SET status = 'delivered' WHERE orderId = ? AND status = 'finished'");
@@ -64,6 +64,52 @@ try {
         $update->execute();
         $update->close();
     }
+
+    // Step 5: Check if all items are delivered, then update orders table
+    
+   $queryCat = "SELECT category, itemQty FROM orders WHERE orderId = ?";
+   $stmtCat = $conn->prepare($queryCat);
+   $stmtCat->bind_param("i", $orderId);
+   $stmtCat->execute();
+   $resultCat = $stmtCat->get_result();
+   $rowCat = $resultCat->fetch_assoc();
+   $category = $rowCat['category'];
+$itemQty = $rowCat['itemQty'];
+
+$count = 0;
+if($category === 'Furniture'){
+       $query = "SELECT COUNT(*) as count FROM orderfurniture WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
+}else if($category === 'CustomisedFurniture'){
+   $query = "SELECT COUNT(*) as count FROM ordercustomizedfurniture WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
+}else if($category === 'Lumber'){
+   $query = "SELECT COUNT(*) as count FROM orderlumber WHERE status = 'Delivered' AND orderId = ?";
+       $stmt = $conn->prepare($query);
+       $stmt->bind_param("i", $orderId);
+       $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $count = $row['count'];
+}
+
+if($count == $itemQty){
+   $stmt3 = $conn->prepare("UPDATE orders SET status = 'Completed' WHERE orderId = ?");
+       $stmt3->bind_param("i", $orderId);
+       $stmt3->execute();
+}
+
+
 
     echo json_encode(['success' => true, 'message' => 'OTP verified and delivery completed']);
     exit;
