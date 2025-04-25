@@ -56,18 +56,16 @@
                             <h3>Deliveries</h3>
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RT0923'">#RT0923</td>
-                                        <td style="color: red">To be delivered before</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 170.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RD1243'">#RD1243</td>
-                                        <td style="color: green">Delivered on</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 540.00</td>
-                                    </tr>
+                                <?php foreach($postData as $index => $post): ?>
+                                <tr>
+                                    <?php if ($index < 3): ?>  
+                                    <td class="order-no"><?php echo $post['id']; ?></td>
+                                    <td style="text-align: left;"><?php echo $post['is_approved'] ? "Approved" : "Not approved"; ?></td>
+                                    <td><?php echo date("F j, Y", strtotime($post['postdate'])); ?></td>
+                                    <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['unitprice'], 2); ?></td>
+                                    <?php endif; ?>
+                                </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

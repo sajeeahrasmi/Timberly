@@ -147,6 +147,10 @@ body, html {
     text-align: justify;
 }
 
+table {
+    width: 100%;
+}
+
 .delivery-table {
     width: 150%;
     padding: 15px 20px;
