@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
             // Send the email
             $mail->send();
-            echo "<script>alert('Email sent to the customer successfully!');
+            echo "<script>alert('Email sent to the supplier successfully!');
                 window.history.back();</script>";
         } catch (Exception $e) {
             echo "<script>alert('Mailer Error: {$mail->ErrorInfo}'); window.history.back();</script>";
