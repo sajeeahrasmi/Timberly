@@ -30,7 +30,7 @@
                         <input type="text" id="searchCategory" placeholder="Filter by Category" class="filters">
                         <input type="text" id="searchType" placeholder="Filter by Status" class="filters">
                         <input type="number" id="searchAmount" placeholder="Min Amount" class="filters">
-                        <button onclick="filterByAmount()">Filter</button>
+                        <button class="filters-button" onclick="filterByAmount()">Filter</button>
                     </div>
                     <table class="product-table">
                         <thead>

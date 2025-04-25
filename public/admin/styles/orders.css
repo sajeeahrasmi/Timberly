@@ -61,6 +61,23 @@ body,html {
     transition: 300ms;
 }
 
+.filters-button {
+    background-color: #895D47;
+    color: white;
+    font-weight: bold;
+    padding: 6px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.filters-button:hover {
+    background-color: #B18068;
+    border-color: #B18068;
+    color: white;
+}
+
 .orders-display-box h2 {
     margin-bottom: 30px;
 }
