@@ -66,6 +66,11 @@
                                     <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>
+                                <?php if (count($postData) == 0): ?>
+                                    <tr>
+                                        <td colspan="4" style="text-align: left; color: #6e6e6e">No orders found</td>
+                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
