@@ -31,7 +31,7 @@ include '../../config/login.php';
     <h1>Welcome Manager!</h1>
       <div class="user-actions">
       <button  id="notificationIcon" class="notification-btn"  onclick="window.location.href='supplierNotification.php';"><i  class="fas fa-bell" id="notificationIcon" ></i> <span id="notif-badge">0</span></button>
-        <button class="profile-btn"  onclick="openProfileModal()" ><i class="fas fa-user"></i></button>
+       
       </div>
     </div>
 
@@ -139,7 +139,10 @@ include '../../config/login.php';
             
      
 </div>
-<div id="profile-modal" class="profile-modal-overlay">
+
+
+
+<!-- <div id="profile-modal" class="profile-modal-overlay">
         <div class="profile-modal-content">
             <button class="profile-close-btn" onclick="closeProfileModal()"><span class="profile-close-modal">&times;</span></button>
             <h3>Manager Profile</h3>
@@ -151,7 +154,7 @@ include '../../config/login.php';
                 <button type="submit">Save Changes</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
 
 </body>

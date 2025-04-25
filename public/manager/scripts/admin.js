@@ -215,7 +215,7 @@ window.onload = fetchOrders;
 // Open and close modal functionality
 // Open modal when profile button is clicked
 // Function to toggle the profile popup visibility
-
+/*
 
 function openProfileModal() {
   document.getElementById('profile-modal').style.display = 'flex';
@@ -231,8 +231,8 @@ window.onclick = function(event) {
   if (event.target === modal) {
       closeProfileModal();
   }
-};
-
+};*/
+/*
 document.getElementById('profile-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -271,7 +271,7 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
     }
   })
   .catch(error => console.error('Error updating profile:', error));
-});
+});*/
 
 function checkPaymentStatus() {
   fetch('../../api/check_new_payments.php')
