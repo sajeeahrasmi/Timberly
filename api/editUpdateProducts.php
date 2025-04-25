@@ -18,9 +18,9 @@ try {
 
     switch ($category) {
         case 'rtimber':
-            $sql = "UPDATE timber SET diameter = ?, price = ?, qty = ? WHERE timberId = ?";
-            $bindParams = [$_POST['diameter'], $_POST['price'], $_POST['quantity'], $productName];
-            $paramTypes = "ddii";
+            $sql = "UPDATE timber SET length = ?, diameter = ?, price = ?, qty = ? WHERE timberId = ?";
+            $bindParams = [$_POST['length'],$_POST['diameter'], $_POST['price'], $_POST['quantity'], $productName];
+            $paramTypes = "dddii";
             break;
 
         case 'rlumber':

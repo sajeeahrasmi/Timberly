@@ -1,0 +1,314 @@
+:root {
+    --color-primary: #895D47;
+    --color-secondary: #B18068;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-background: #f6f6f9;
+    --color-boxbg: rgb(200, 196, 196);
+
+    --card-border-radius: 1rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 20px;
+    --padding: 10px;
+
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.dashboard-content {
+    padding: 20px;
+    background: var(--color-white);
+    min-height: 100vh;
+}
+
+.dashboard-content .top h1{
+    font-size: 24px;
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.metric-card {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--color-primary);
+}
+
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+
+.metric-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.metric-card i {
+    font-size: 24px;
+    color: var(--color-secondary);
+}
+
+.button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: var(--border-radius-1);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--color-secondary);
+    color: black;
+    cursor: pointer;
+}
+
+/* ======= TABLE STYLING ======= */
+.table-container {
+    margin-top: 20px;
+    background: var(--color-white);
+    padding: var(--padding);
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.styled-table th {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.styled-table tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.styled-table td i {
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.styled-table td i:hover {
+    color: var(--color-danger);
+}
+
+
+/* Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Modal Box */
+  .modal-content {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    animation: slideIn 0.4s ease;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Close Button */
+  .close-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    color: crimson;
+    transform: scale(1.2);
+  }
+  
+  /* Modal Title */
+  .modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #1a1a1a;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  /* Modal Body */
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #444;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .modal-body p strong {
+    color: #222;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  
+/* ======= RESPONSIVE DESIGN ======= */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .logoname {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding-top: 100px;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+
+
+
+.filter-container {
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    /* background-color: #f9f9f9; */
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    height: fit-content;
+    margin-top: 10px;
+
+}
+
+.filter-container label {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 180px;
+}
+
+.filter-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0px 0px 4px var(--color-secondary);
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border-radius: var(--border-radius-2);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--color-secondary);
+}

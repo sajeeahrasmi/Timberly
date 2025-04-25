@@ -127,8 +127,7 @@ function deleteItem(){
         $sumQuery = "SELECT SUM(ol.qty * l.unitPrice) AS newTotal
             FROM orderLumber ol
             JOIN lumber l ON ol.itemId = l.lumberId
-            WHERE ol.orderId = ?
-        ";
+            WHERE ol.orderId = ? AND ol.status != 'Not_Approved'";
         $sumStmt = $conn->prepare($sumQuery);
         $sumStmt->bind_param("i", $orderId);
         $sumStmt->execute();

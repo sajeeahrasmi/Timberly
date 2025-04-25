@@ -2,6 +2,8 @@
 // Authentication check MUST be the first thing in the file
 require_once '../../api/auth.php';
 
+
+//$balance = $_SESSION['newTotalAmount'] ?? 0;
 // Rest of your existing PHP code follows...
 ?>
 <!DOCTYPE html>
@@ -96,7 +98,15 @@ require_once '../../api/auth.php';
             <option value="Confirmed">Confirmed</option>
             <option value="Completed">Completed</option>
         </select>
-
+        <!-- Item Status Filter -->
+<select name="item_status_filter" id="item_status_filter">
+    <option value="">By Item Status</option>
+    <option value="Not_Approved">Not_Approved</option>
+    <option value="Approved">Approved</option>
+    <option value="Processing">Processing</option>
+    <option value="Finished">Finished</option>
+    <option value="Delivered">Delivered</option>
+</select>
         <!-- Payment Status Filter -->
         <select name="payment_status_filter" id="payment_status_filter">
         <option value="">By Payment Status</option>
@@ -119,6 +129,7 @@ require_once '../../api/auth.php';
                         <th>Order ID</th>
                         <th>Order Details</th>
                         <th>Total Amount</th>
+                        <th>Amount To Pay</th>
                         <th>Payment Status</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -141,6 +152,7 @@ require_once '../../api/auth.php';
             document.getElementById('customer_filter').value = '';
             document.getElementById('order_filter').value = '';
             document.getElementById('status_filter').value = '';
+            document.getElementById('item_status_filter').value = '';
             document.getElementById('payment_status_filter').value = '';
             updateTable();
         });
@@ -149,16 +161,18 @@ require_once '../../api/auth.php';
             const customerFilter = document.getElementById('customer_filter').value;
             const orderFilter = document.getElementById('order_filter').value;
             const statusFilter = document.getElementById('status_filter').value;
+            const itemStatusFilter = document.getElementById('item_status_filter').value
             const paymentStatusFilter = document.getElementById('payment_status_filter').value;
             console.log(statusFilter);
             console.log(paymentStatusFilter);
-            fetch(`../../api/getOrders.php?customer_filter=${encodeURIComponent(customerFilter)}&order_filter=${encodeURIComponent(orderFilter)}&status_filter=${encodeURIComponent(statusFilter)}&payment_status_filter=${encodeURIComponent(paymentStatusFilter)}`)
+            fetch(`../../api/getOrders.php?customer_filter=${encodeURIComponent(customerFilter)}&order_filter=${encodeURIComponent(orderFilter)}&status_filter=${encodeURIComponent(statusFilter)}&item_status_filter=${encodeURIComponent(itemStatusFilter)}&payment_status_filter=${encodeURIComponent(paymentStatusFilter)}`)
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('ordersTableBody').innerHTML = html;
                 })
                 .catch(error => console.error('Error:', error));
         }
+        
     </script>
 </body>
 </html>

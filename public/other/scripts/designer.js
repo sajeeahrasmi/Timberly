@@ -10,20 +10,23 @@ async function loadChatMessages(orderId, itemId) {
             headers: { 'Content-Type': 'application/json' }
         });
         const messages = await response.json();
-
+        //console.log(sender)
         // Populate the chat UI with existing messages
         const chatMessages = document.getElementById('chatMessages');
+       
         chatMessages.innerHTML = messages.map(message => {
+            const sender = message.senderType === 'designer' ? 'You' : 'Customer';
+            console.log(sender)
             if (message.messageType === 'image') {
                 return `
-                    <div class="message ${message.senderType}">
-                        <img src="${message.messageContent}" alt="Sent image" style="max-width: 200px; border-radius: 8px;" />
+                    <div class="message ${sender}">
+                        <p><strong>${sender}:</strong><img src="${message.messageContent}" alt="Sent image" style="width:150px; border-radius: 8px;" />
                     </div>
                 `;
             } else {
                 return `
-                    <div class="message ${message.senderType}">
-                        <p>${message.messageContent}</p>
+                    <div class="message ${sender}">
+                       <p><strong>${sender}:</strong>  ${message.messageContent}
                     </div>
                 `;
             }
@@ -170,9 +173,27 @@ function handleFileUpload(event) {
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             
-            // TODO: Send the image to the server
-            // You would need to implement this part to send the image
-            // to your backend and associate it with the current order and item
+            // Send the image to the server
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('orderId', currentOrder.orderId);
+            formData.append('itemId', currentItem.itemId);
+            
+            try {
+                const response = await fetch('../../config/customer/uploadImage.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                if (result.status === 'success') {
+                    console.log('Image uploaded successfully');
+                } else {
+                    console.error('Failed to upload image:', result.message);
+                }
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
         };
         reader.readAsDataURL(file);
     }

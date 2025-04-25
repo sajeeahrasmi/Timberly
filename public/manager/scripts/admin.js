@@ -215,7 +215,7 @@ window.onload = fetchOrders;
 // Open and close modal functionality
 // Open modal when profile button is clicked
 // Function to toggle the profile popup visibility
-
+/*
 
 function openProfileModal() {
   document.getElementById('profile-modal').style.display = 'flex';
@@ -231,8 +231,8 @@ window.onclick = function(event) {
   if (event.target === modal) {
       closeProfileModal();
   }
-};
-
+};*/
+/*
 document.getElementById('profile-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -271,7 +271,7 @@ document.getElementById('profile-form').addEventListener('submit', function (e) 
     }
   })
   .catch(error => console.error('Error updating profile:', error));
-});
+});*/
 
 function checkPaymentStatus() {
   fetch('../../api/check_new_payments.php')
@@ -363,3 +363,20 @@ checkNotifications();
 
 // Optional: run every 30 seconds
 setInterval(checkNotifications, 2000);
+
+
+function checkDateChanged() {
+  // Using AJAX to call the PHP endpoint
+  fetch('../../api/checkDateChanged.php')  // Replace with your actual PHP file URL
+      .then(response => response.json())
+      .then(data => {
+          if (data.dateChanged === 'yes') {
+              // Alert when the date is updated
+              alert('The date has been updated for orderId: ' + data.orderId);
+          }
+      })
+      .catch(error => console.error('Error:', error));
+}
+
+// Check for changes every 5 seconds
+setInterval(checkDateChanged, 5000);

@@ -88,7 +88,7 @@ function handleDelivery(orderId) {
                 // Add View Route button
                 const viewRouteBtn = document.createElement('button');
                 viewRouteBtn.textContent = 'View Route';
-                viewRouteBtn.classList.add('view-route-btn');
+                viewRouteBtn.classList.add('button', 'outline', 'view-route-btn');
                 viewRouteBtn.onclick = function () {
                     openMapWindow(orderId);
                 };
@@ -143,6 +143,7 @@ function openMapWindow(orderId) {
                 const deliveryLocation = encodeURIComponent(data.deliveryLocation);
                 const startingLocation = encodeURIComponent("Colombo");
                 const mapUrl = `https://www.google.com/maps/dir/?api=1&origin=${startingLocation}&destination=${deliveryLocation}&travelmode=driving`;
+                //open the map in  the same 
                 window.open(mapUrl, "_blank", "width=800,height=600");
             } else {
                 alert("Failed to get delivery location: " + data.message);
@@ -155,7 +156,8 @@ function openMapWindow(orderId) {
 }
 
 function verifyOTP() {
-    const otp = document.getElementById('otp').value;
+    const otpInput = document.getElementById('otp');
+    const otp = otpInput.value.trim();
 
     if (otp.length === 6 && currentDeliveryId) {
         fetch('verifyOTP.php', {
@@ -168,8 +170,15 @@ function verifyOTP() {
                 otp: otp
             })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(async res => {
+            // If server returns HTML or empty response, this will catch it
+            const contentType = res.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Invalid JSON response from server');
+            }
+
+            const data = await res.json();
+
             if (data.success) {
                 alert("Delivery completed successfully!");
 
@@ -178,14 +187,14 @@ function verifyOTP() {
 
                 currentDeliveryId = null;
                 closeModal('otpModal');
-                document.getElementById('otp').value = '';
+                otpInput.value = '';
             } else {
                 alert("OTP verification failed: " + data.message);
             }
         })
         .catch(err => {
             console.error("OTP verify error:", err);
-            alert("Something went wrong during OTP verification.");
+            alert("Something went wrong during OTP verification. Please try again.");
         });
 
     } else {
@@ -193,12 +202,48 @@ function verifyOTP() {
     }
 }
 
+function toggleAvailability() {
+    const statusInput = document.getElementById('driverAvailable');
+    const currentStatus = statusInput.value;
+
+    fetch('./updateAvailability.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentStatus: currentStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            statusInput.value = data.newStatus;
+            updateAvailabilityButton(data.newStatus);
+        } else {
+            alert("Failed to update availability");
+        }
+    })
+    .catch(err => {
+        console.error("Error updating availability:", err);
+    });
+}
+
+function updateAvailabilityButton(status) {
+    const btn = document.getElementById('availabilityBtn');
+    const hidden = document.getElementById('driverAvailable');
+    hidden.value = status;
+
+    if (status === 'YES') {
+        btn.innerText = "Available ✅";
+        btn.classList.remove("solid");
+        btn.classList.add("outline");
+    } else {
+        btn.innerText = "Not Available ❌";
+        btn.classList.remove("outline");
+        btn.classList.add("solid");
+    }
+}
+
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-window.onclick = function (event) {
-    if (event.target.classList.contains('modal')) {
-        closeModal(event.target.id);
-    }
-};
+
+

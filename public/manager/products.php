@@ -53,7 +53,7 @@ require_once '../../api/auth.php';
 
                 
                     <h3><?php echo htmlspecialchars($item['type']); ?></h3>
-                        
+                        <p>Length : <?php echo htmlspecialchars($item['length']); ?> m</p>
                         <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> mm</p>
                         <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
                         <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
@@ -237,9 +237,11 @@ require_once '../../api/auth.php';
                 <option value="Sooriyamaara">Sooriyamaara </option>
             </select>
 
+            <label for="length">Length:</label>
+            <input type="number" id="length" name="length" placeholder="Enter in meters" step="0.01" min="1.8"  max ="6" required>
 
             <label for="diameter">Diameter:</label>
-            <input type="number" id="diameter" name="diameter" placeholder="Enter in milimeters" step="0.01" min="100" max="800" required>
+            <input type="number" id="diameter" name="diameter" placeholder="Enter in milimeters" step="0.01" min="150" max="450" required>
 
             <label for="unit_price">Unit Price:</label>
             <input type="number" id="unit_price" name="unit_price" min="1" required>
@@ -274,10 +276,10 @@ require_once '../../api/auth.php';
 
 
             <label for="length">Length:</label>
-            <input type="number" id="length" name="length" placeholder="Enter in meters" step="0.01" min="2.4"  max ="4.8" required>
+            <input type="number" id="length" name="length" placeholder="Enter in meters" step="0.01" min="1.8"  max ="3.6" required>
 
             <label for="length">Width:</label>
-            <input type="number" id="width" name="width"  placeholder="Enter in milimeters" step="0.01" min='50' max="300" required>
+            <input type="number" id="width" name="width"  placeholder="Enter in milimeters" step="0.01" min='50' max="150" required>
 
             <label for="length">Thickness:</label>
             <input type="number" id="thickness" name="thickness"  placeholder="Enter in milimeters" step="0.01" min='12' max="50" required>

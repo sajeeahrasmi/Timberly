@@ -2,11 +2,15 @@
 // Include the database connection (assuming it's in the same directory)
 require_once 'db.php';
 
+$balance = $newTotalAmount ?? 0; // Use the new total amount from the updatepayment.php script
+//$balance = $_SESSION['newTotalAmount'] ?? 0;
 // Get the filter values from the query parameters
 $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : '';
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
 $status_filter = isset($_GET['status_filter']) ? $_GET['status_filter'] : '';
 $payment_status_filter = isset($_GET['payment_status_filter']) ? $_GET['payment_status_filter'] : '';
+$item_status_filter = isset($_GET['item_status_filter']) ? $_GET['item_status_filter'] : '';
+
 // Base query for lumber orders
 $sql_lumber = "SELECT 
     o.orderId AS main_order_id, 
@@ -26,6 +30,7 @@ $sql_lumber = "SELECT
     CONCAT(l.type, ' (', ol.qty, ')') AS typeQty,
     '' AS description,
     'lumber' AS orderType
+    
 FROM orderlumber ol
 LEFT JOIN orders o ON ol.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
@@ -54,11 +59,14 @@ $sql_furniture = "SELECT
     CONCAT(orf.type, ' - ', orf.size, ' (', orf.qty, ')') AS typeQty,
     orf.description,
     'furniture' AS orderType
+       
 FROM orderfurniture orf
 LEFT JOIN orders o ON orf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
 
+
 WHERE orf.status != 'Pending'";
+
 
 $sql_customized = "SELECT 
     o.orderId AS main_order_id, 
@@ -80,6 +88,7 @@ $sql_customized = "SELECT
     CONCAT(ocf.type, ' ', ocf.length, 'x', ocf.width, 'x', ocf.thickness, ' ' , ocf.category ,' (', ocf.qty, ')' ) AS typeQty,
     ocf.details AS description,
     'customized' AS orderType
+     
 FROM ordercustomizedfurniture ocf
 LEFT JOIN orders o ON ocf.orderId = o.orderId  
 LEFT JOIN user u ON o.userId = u.userId
@@ -101,17 +110,31 @@ if ($payment_status_filter) {
     $whereClauses[] = "o.paymentStatus = '" . $conn->real_escape_string($payment_status_filter) . "'";
 }
 
-
-// Only append additional WHERE conditions if necessary
+// Create the additional WHERE clauses (without the item status filter)
+$additional_where = "";
 if (count($whereClauses) > 0) {
     $additional_where = " AND " . implode(" AND ", $whereClauses);
+}
+
+// Apply item status filter separately to each query
+if ($item_status_filter) {
+    $item_status_condition = " AND ol.status = '" . $conn->real_escape_string($item_status_filter) . "'"; 
+    $sql_lumber .= $additional_where . $item_status_condition;
+    
+    $item_status_condition = " AND orf.status = '" . $conn->real_escape_string($item_status_filter) . "'";
+    $sql_furniture .= $additional_where . $item_status_condition;
+    
+    $item_status_condition = " AND ocf.status = '" . $conn->real_escape_string($item_status_filter) . "'";
+    $sql_customized .= $additional_where . $item_status_condition;
+} else {
+    // Just add the other filters
     $sql_lumber .= $additional_where;
     $sql_furniture .= $additional_where;
     $sql_customized .= $additional_where;
 }
 
 // Combine the results with UNION
-$sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized)  ORDER BY main_order_id";
+$sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized) ORDER BY main_order_id";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -120,16 +143,26 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Output the data for each order
     while ($order = $result->fetch_assoc()) {
-        // Calculate total amount (totalAmount = qty * unitPrice)
-        $totalAmount = $order['totalAmount']; 
+       
+        $order_id = $order['main_order_id'];
         
-        // Set balance to 0 temporarily
-        $balance = 0;
-
-        // Determine the view URL based on order type
+        // Query to get total payments for this order
+        $payment_query = "SELECT SUM(amount) AS totalPaymentAmount FROM payment WHERE orderId = '$order_id'";
+        $payment_result = $conn->query($payment_query);
+        $payment_row = $payment_result->fetch_assoc();
+        $totalPaymentAmount = $payment_row['totalPaymentAmount'] ?? 0;
+        
+        // Calculate total amount and remaining balance
+        $totalAmount = $order['totalAmount']; 
+        $newTotalAmount = $totalAmount - $totalPaymentAmount;
+        
+        // Ensure balance doesn't go negative
+        if ($newTotalAmount < 0) {
+            $newTotalAmount = 0;
+        }
         $viewUrl = "vieworder.php?orderId={$order['orderId']}&itemId={$order['itemId']}&type={$order['orderType']}";
         
-        // Prepare the display text for the type/description column
+        
         $itemDisplay = $order['typeQty'];
         if ($order['orderType'] == 'furniture' && !empty($order['description'])) {
             $itemDisplay .= " - " . $order['description'];
@@ -144,13 +177,14 @@ if ($result->num_rows > 0) {
         {
             $iStatus = $order['itemStatus'];
         }
-        // Output the order details
+        
         echo "<tr>
                 <td>{$order['customerId']}</td>
                 <td>{$order['customerName']}</td>
                 <td>{$order['main_order_id']}</td>
                 <td>{$itemDisplay}</td>
                 <td>{$totalAmount}</td>
+                <td>{$newTotalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
                 <td>{$iStatus}</td>
                 <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>
@@ -160,6 +194,5 @@ if ($result->num_rows > 0) {
     echo "<tr><td colspan='9'>No records found</td></tr>";
 }
 
-// Close the connection
 $conn->close();
 ?>

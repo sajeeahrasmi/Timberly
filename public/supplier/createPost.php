@@ -1,10 +1,13 @@
-<?php include '../../api/createPost.php'; ?>
+<?php include '../../api/createPost.php'; 
+include './components/flashMessage.php';
+?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/Supplier/styles/index.css">
-    <link rel="stylesheet" href="/Supplier/styles/createPost.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/createPost.css">
     <style>
         .card-selection {
             display: flex;
@@ -73,6 +76,9 @@
                     <select name="type" required>
                         <option value="Jak">Jak</option>
                         <option value="Teak">Teak</option>
+                        <option value="Mahogani">Mahogani</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
                     </select>
                 </div>
 
@@ -109,8 +115,11 @@
                 <div class="form-group">
                     <label for="type">Select Type:</label>
                     <select name="type" required>
+                    <option value="Jak">Jak</option>
+                        <option value="Teak">Teak</option>
                         <option value="Mahogani">Mahogani</option>
-                        <option value="Cinamond">Cinamond</option>
+                        <option value="Nedum">Nedum</option>
+                        <option value="Sooriyamaara">Sooriyamaara</option>
                     </select>
                 </div>
 

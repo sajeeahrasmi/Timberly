@@ -43,6 +43,12 @@ $totalDeliveries = $stats['totalDeliveries'];
             </div>
             <h1>Welcome <?php echo $name; ?>!</h1>
             <div class="header-buttons">
+
+                <input type="hidden" id="driverAvailable" value="NO">
+                <button id="availabilityBtn" class="button solid" onclick="toggleAvailability()">
+                Not Available ❌
+                </button>
+                <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/other/deliveryHistory.php'">Delivery History</button>
                 <button class="button outline" onclick="window.location.href='http://localhost/Timberly/public/other/driverProfile.php'">Profile</button>
                 <button class="button solid" onclick="window.location.href='http://localhost/Timberly/config/logout.php'">Logout</button>
             </div>
@@ -87,6 +93,7 @@ $totalDeliveries = $stats['totalDeliveries'];
             ?>
         </div>
     </div>
+
 
     
 

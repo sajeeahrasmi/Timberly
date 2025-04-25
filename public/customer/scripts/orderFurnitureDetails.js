@@ -10,12 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (statusElement.textContent === 'Confirmed') {
             buttonPay.disabled = false;
             buttonAddItem.disabled = true;
-            // buttonElement.style.display = 'none';
+            buttonAddItem.style.display = 'none';
 
-        } else if (statusElement.textContent === 'Processing') {
+        } else if (statusElement.textContent === 'Processing' || statusElement.textContent === 'Completed') {
             buttonElement.style.display = 'none';
             buttonAddItem.style.display = 'none';
             buttonAddItem.disabled = true;
+            document.querySelectorAll('.delete-button').forEach(btn => {
+                btn.style.display = 'none';
+            });
 
         } else {
             buttonPay.disabled = false;

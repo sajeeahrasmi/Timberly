@@ -193,7 +193,6 @@ $row4 = $result4->fetch_assoc();
                     <div class="card">
                         <h4>Delivery Person</h4>
                         <p>Name : <span><?php echo  $row3['name'] ?? '' ?></p>
-                        <!-- <p>Date : <span><?php echo  $row3['date'] ?? '' ?><input type="date" /></p> -->
                         <p>
                             Date : <span id="currentDateDriver"><?php echo  $row3['date'] ?? '' ?></span>
                             <input type="date" id="newDateInputDriver" />
