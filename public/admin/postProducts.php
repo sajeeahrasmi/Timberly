@@ -27,8 +27,13 @@
             <div class="product-display-box">
                 <p>posts</p>
                 <div class="content-header">
-                    <h2>Products</h2>
+                    <h2 style="margin-bottom: 0px">Products</h2>
                 </div>
+                <div class="filter-division">
+                        <input type="text" id="searchProductID" placeholder="Filter by ProductID" class="filters">
+                        <input type="text" id="searchCategory" placeholder="Filter by Category" class="filters">
+                        <input type="text" id="searchType" placeholder="Filter by Type" class="filters">
+                    </div>
                 <table class="product-table">
                     <thead>
                         <tr>
@@ -72,4 +77,33 @@
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('searchProductID').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const productId = row.children[0].textContent.toLowerCase();
+            row.style.display = productId.includes(filter) ? '' : 'none';
+        });
+    });
+    document.getElementById('searchCategory').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const category = row.children[2].textContent.toLowerCase();
+            row.style.display = category.includes(filter) ? '' : 'none';
+        });
+    });
+    document.getElementById('searchType').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const type = row.children[3].textContent.toLowerCase();
+            row.style.display = type.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
 </html>

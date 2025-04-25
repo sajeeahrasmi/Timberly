@@ -27,9 +27,8 @@
                     <h2>Customer Orders</h2>
                     <div class="filter-division">
                         <input type="text" id="searchOrderID" placeholder="Filter by Order ID" class="filters">
-                        <input type="text" id="searchCustomer" placeholder="Filter by Customers" class="filters">
                         <input type="text" id="searchCategory" placeholder="Filter by Category" class="filters">
-                        <input type="text" id="searchStatus" placeholder="Filter by Status" class="filters">
+                        <input type="text" id="searchType" placeholder="Filter by Status" class="filters">
                         <input type="number" id="searchAmount" placeholder="Min Amount" class="filters">
                         <button onclick="filterByAmount()">Filter</button>
                     </div>
