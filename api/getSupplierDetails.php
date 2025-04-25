@@ -9,6 +9,19 @@ $query = "SELECT *, TIMESTAMPDIFF(SECOND, created_at, NOW()) AS seconds_elapsed
 $result = mysqli_query($conn, $query);
 $supplier = mysqli_fetch_assoc($result);
 
+$query1 = "(SELECT * FROM pendingtimber WHERE supplierId = '$supplier_id' ORDER BY postdate DESC)";
+$result1 = mysqli_query($conn, $query1);
+
+if (!$result1) {
+    die("Error fetching order data: " . mysqli_error($conn));
+}
+$postData = [];
+$count = 0;
+while ($row = mysqli_fetch_assoc($result1)) {
+    $postData[] = $row;
+    $count++;
+}
+
 // Get elapsed time
 $seconds_elapsed = $supplier['seconds_elapsed'];
 

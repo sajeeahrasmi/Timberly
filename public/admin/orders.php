@@ -25,6 +25,7 @@
                 <?php include "./components/header.php" ?>
                 <div class="orders-display-box">
                     <h2>Customer Orders</h2>
+                    <input type="text" id="searchOrderID" placeholder="Filter by Order ID" style="margin-bottom: 10px; padding: 5px;">
                     <table class="product-table">
                         <thead>
                             <tr>
@@ -69,5 +70,15 @@
             </div>
         </div>
     </body>
-    <script src="./scripts/orders.js"></script>
+    <script>
+    document.getElementById('searchOrderID').addEventListener('input', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.product-table tbody tr');
+
+        rows.forEach(row => {
+            const orderId = row.children[0].textContent.toLowerCase();
+            row.style.display = orderId.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
 </html>

@@ -53,21 +53,24 @@
                     </div>
                     <div class="work-panel">
                         <div class="delivery-table">
-                            <h3>Deliveries</h3>
+                            <h3 style="margin-bottom: 15px">Recent posts</h3>
                             <table>
                                 <tbody>
+                                <?php foreach($postData as $index => $post): ?>
+                                <tr>
+                                    <?php if ($index < 3): ?>  
+                                    <td class="order-no"><?php echo $post['id']; ?></td>
+                                    <td style="text-align: left;"><?php echo $post['is_approved'] ? "Approved" : "Not approved"; ?></td>
+                                    <td><?php echo date("F j, Y", strtotime($post['postdate'])); ?></td>
+                                    <!-- <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['unitPrice'], 2); ?></td> -->
+                                    <?php endif; ?>
+                                </tr>
+                                <?php endforeach; ?>
+                                <?php if (count($postData) == 0): ?>
                                     <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RT0923'">#RT0923</td>
-                                        <td style="color: red">To be delivered before</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 170.00</td>
+                                        <td colspan="4" style="text-align: left; color: #6e6e6e">No orders found</td>
                                     </tr>
-                                    <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RD1243'">#RD1243</td>
-                                        <td style="color: green">Delivered on</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 540.00</td>
-                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
