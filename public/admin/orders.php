@@ -25,7 +25,10 @@
                 <?php include "./components/header.php" ?>
                 <div class="orders-display-box">
                     <h2>Customer Orders</h2>
-                    <input type="text" id="searchOrderID" placeholder="Filter by Order ID" style="margin-bottom: 10px; padding: 5px;">
+                    <div class="filter-division">
+                        <input type="text" id="searchOrderID" placeholder="Filter by Order ID" class="filters">
+                        <input type="text" id="searchOrderID" placeholder="Filter by Customers" class="filters">
+                    </div>
                     <table class="product-table">
                         <thead>
                             <tr>
