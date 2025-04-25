@@ -8,7 +8,7 @@ include '../../api/fetchApprovedOrders.php'; // Include the dashboard data fetch
 <head>
     <link rel="stylesheet" href="/Supplier/styles/index.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="styles/dashboard.css"> <!-- Link to your CSS file -->
-
+    <link rel="stylesheet" href="styles/supplierRevenue.css"> <!-- Link to your CSS file -->
 </head>
 <body>
 
@@ -61,46 +61,36 @@ include '../../api/fetchApprovedOrders.php'; // Include the dashboard data fetch
             </div>
         </div>
 
-        <!-- <form method="GET" class="filter-form">
-        <label>Select Month: <input type="date" name="from_date" value="<?= $_GET['from_date'] ?? '' ?>"></label>
-            <label>Category:
-                <select name="category">
-                    <option value="">All</option>
-                    <option value="Timber" <?= ($_GET['category'] ?? '') == 'Timber' ? 'selected' : '' ?>>Timber</option>
-                    <option value="Lumber" <?= ($_GET['category'] ?? '') == 'Lumber' ? 'selected' : '' ?>>Lumber</option>
-                </select>
-            </label>
-            <label>Type: <input type="text" name="type" value="<?= $_GET['type'] ?? '' ?>"></label>
-            <button type="submit">Filter</button>
-            <a href="your_page.php"><button type="button">Reset</button></a>
-
-        </form> -->
-
+        <div class="filter-container">
         <form id="filterForm" class="filter-form">
-            <!-- <label>Select Month: <input type="date" name="from" value="<?= $_GET['from'] ?? '' ?>"></label> -->
             <label>Select Month:
-                <input type="month" name="from" value="<?= $_GET['from'] ?? '' ?>">
+                <input type="month" name="from" value="<?= $_GET['from'] ?? '' ?>" class='filter-select'>
             </label>
 
             <label>Category:
-                <select name="category">
+                <select name="category" class='filter-select'>
                     <option value="">All</option>
                     <option value="Timber">Timber</option>
                     <option value="Lumber">Lumber</option>
                 </select>
             </label>
-            <label>Type: <input type="text" name="type" value="<?= $_GET['type'] ?? '' ?>"></label>
-            <button type="submit">Filter</button>
-            <button type="button" id="resetBtn">Reset</button>
+            <label>Type: <input type="text" name="type" value="<?= $_GET['type'] ?? '' ?>" class='filter-select'
+            ></label>
+            <button type="submit" class='filter-btn'>Filter</button>
+            <button type="button" id="resetBtn" class='filter-btn' >Reset</button>
         </form>
 
-<form method="GET" action="exportPdf.php">
-    <input type="hidden" name="from_date" value="<?= $_GET['from_date'] ?? '' ?>">
-    <input type="hidden" name="to_date" value="<?= $_GET['to_date'] ?? '' ?>">
-    <input type="hidden" name="category" value="<?= $_GET['category'] ?? '' ?>">
-    <input type="hidden" name="type" value="<?= $_GET['type'] ?? '' ?>">
-    <button type="submit">Export to PDF</button>
-</form>
+        <!-- <form method="GET" action="exportPdf.php">
+            <input type="hidden" name="from_date" value="<?= $_GET['from_date'] ?? '' ?>">
+            <input type="hidden" name="to_date" value="<?= $_GET['to_date'] ?? '' ?>">
+            <input type="hidden" name="category" value="<?= $_GET['category'] ?? '' ?>">
+            <input type="hidden" name="type" value="<?= $_GET['type'] ?? '' ?>">
+            <button type="submit" class='filter-btn'>Export to PDF</button>
+        </form> -->
+        <button type="button" id="exportPdfBtn" class="filter-btn">Export to PDF</button>
+
+
+        </div>
 
 
 
@@ -145,6 +135,8 @@ include '../../api/fetchApprovedOrders.php'; // Include the dashboard data fetch
 </body>
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 
 <script>
@@ -199,5 +191,171 @@ document.addEventListener('DOMContentLoaded', function () {
         rows.forEach(row => row.style.display = '');
     });
 });
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     const exportBtn = document.getElementById('exportPdfBtn');
+//     const table = document.querySelector('.styled-table');
+
+//     exportBtn.addEventListener('click', function () {
+//         const { jsPDF } = window.jspdf;
+//         const pdf = new jsPDF('l', 'pt', 'a4'); // landscape, points, A4
+//         const visibleRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => row.style.display !== 'none');
+
+//         if (visibleRows.length === 0) {
+//             alert("No data to export.");
+//             return;
+//         }
+
+//         // Clone table and remove hidden rows
+//         const tableClone = table.cloneNode(true);
+//         const cloneRows = tableClone.querySelectorAll('tbody tr');
+//         cloneRows.forEach((row, index) => {
+//             if (visibleRows.indexOf(table.querySelectorAll('tbody tr')[index]) === -1) {
+//                 row.remove(); // remove hidden rows
+//             }
+//         });
+
+//         // Temporarily add clone to DOM for rendering
+//         tableClone.style.width = '100%';
+//         tableClone.style.border = '1px solid #ccc';
+//         tableClone.style.fontSize = '10px';
+//         tableClone.style.margin = '20px 0';
+//         tableClone.id = 'pdfTableClone';
+//         document.body.appendChild(tableClone);
+
+//         html2canvas(tableClone).then(canvas => {
+//             const imgData = canvas.toDataURL('image/png');
+//             const imgProps = pdf.getImageProperties(imgData);
+//             const pdfWidth = pdf.internal.pageSize.getWidth();
+//             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+//             pdf.addImage(imgData, 'PNG', 20, 20, pdfWidth - 40, pdfHeight);
+//             pdf.save('Filtered_Orders.pdf');
+
+//             // Clean up
+//             document.body.removeChild(tableClone);
+//         });
+//     });
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const exportBtn = document.getElementById('exportPdfBtn');
+    const table = document.querySelector('.styled-table');
+
+    exportBtn.addEventListener('click', function () {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('l', 'pt', 'a4'); // landscape, points, A4
+        const visibleRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => row.style.display !== 'none');
+
+        if (visibleRows.length === 0) {
+            alert("No data to export.");
+            return;
+        }
+
+        // Clone table and remove hidden rows
+        const tableClone = table.cloneNode(true);
+        const cloneRows = tableClone.querySelectorAll('tbody tr');
+        cloneRows.forEach((row, index) => {
+            if (visibleRows.indexOf(table.querySelectorAll('tbody tr')[index]) === -1) {
+                row.remove(); // remove hidden rows
+            }
+        });
+
+        // Style the table clone for better PDF appearance
+        tableClone.style.width = '100%';
+        tableClone.style.borderCollapse = 'collapse';
+        tableClone.style.fontSize = '10px';
+        tableClone.style.margin = '20px 0';
+        tableClone.id = 'pdfTableClone';
+        
+        // Style table headers
+        const headers = tableClone.querySelectorAll('thead th');
+        headers.forEach(header => {
+            header.style.backgroundColor = '#B18068';
+            header.style.color = 'white';
+            header.style.padding = '8px';
+            header.style.border = '1px solid #ddd';
+            header.style.textAlign = 'center';
+        });
+        
+        // Style table cells
+        const cells = tableClone.querySelectorAll('tbody td');
+        cells.forEach((cell, index) => {
+            cell.style.padding = '6px';
+            cell.style.border = '1px solid #ddd';
+            
+            // Apply zebra striping
+            const rowIndex = Math.floor(index / 8); // 8 columns per row
+            if (rowIndex % 2 === 0) {
+                cell.style.backgroundColor = '#f9f9f9';
+            } else {
+                cell.style.backgroundColor = 'white';
+            }
+            
+            // Right-align numeric columns (quantity, unit price, total price)
+            if ([3, 4, 5].includes(index % 8)) {
+                cell.style.textAlign = 'right';
+            }
+        });
+
+        // Create a container for the report with a title
+        const container = document.createElement('div');
+        container.style.padding = '20px';
+        container.style.backgroundColor = 'white';
+        
+        // Add title
+        const titleDiv = document.createElement('div');
+        titleDiv.innerHTML = `<h2 style="color: #B18068; margin-bottom: 5px;">Orders Report</h2>
+                             <p style="color:rgb(195, 160, 143); margin-top: 0;">Generated on: ${new Date().toLocaleDateString()}</p>
+                             <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">`;
+        container.appendChild(titleDiv);
+        container.appendChild(tableClone);
+        
+        // Add to DOM temporarily
+        document.body.appendChild(container);
+        container.style.position = 'absolute';
+        container.style.left = '-9999px';
+
+        html2canvas(container, {
+            scale: 2, // Higher scale for better quality
+            useCORS: true,
+            logging: false
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            
+            // Add title to PDF
+            pdf.setFontSize(16);
+            pdf.setTextColor(44, 62, 80);
+            pdf.text("Orders Report", 40, 30);
+            
+            // Add date
+            pdf.setFontSize(10);
+            pdf.setTextColor(100, 100, 100);
+            pdf.text(`Generated: ${new Date().toLocaleDateString()}`, pdf.internal.pageSize.width - 150, 30);
+            
+            // Add image with margins
+            pdf.addImage(imgData, 'PNG', 20, 40, pdfWidth - 40, pdfHeight - 10);
+            
+            // Add page number
+            pdf.setFontSize(8);
+            pdf.text(`Page 1`, 20, pdf.internal.pageSize.height - 20);
+            
+            // Add footer
+            pdf.setTextColor(150, 150, 150);
+            pdf.text("Confidential - For internal use only", pdf.internal.pageSize.width / 2, pdf.internal.pageSize.height - 20, { align: 'center' });
+            
+            pdf.save('Orders_Report.pdf');
+
+            // Clean up
+            document.body.removeChild(container);
+        });
+    });
+});
 </script>
+
+
 
