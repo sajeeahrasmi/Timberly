@@ -9,6 +9,8 @@ if (!isset($_SESSION['userId'])) {
 
 $supplierId = $_SESSION['userId'];
 $orders = [];
+$timberRevenue = 0;
+$lumberRevenue = 0;
 
 // Filters from GET
 $filterCategory = $_GET['category'] ?? '';
@@ -59,6 +61,7 @@ if ($filterCategory === '' || $filterCategory === 'Timber') {
             'postdate' => $row['postdate'],
             'is_approved' => '1'
         ];
+        $timberRevenue += $row['totalprice'];
     }
 }
 
@@ -105,9 +108,13 @@ if ($filterCategory === '' || $filterCategory === 'Lumber') {
             'postdate' => $row['postdate'],
             'is_approved' => '1'
         ];
+        $lumberRevenue += $row['totalprice'];
     }
 }
 
-// Optional: Sort by date descending
+// Sort orders by postdate descending
 usort($orders, fn($a, $b) => strtotime($b['postdate']) - strtotime($a['postdate']));
+
+// Optional total revenue
+$totalRevenue = $timberRevenue + $lumberRevenue;
 ?>
