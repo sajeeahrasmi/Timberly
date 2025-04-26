@@ -391,17 +391,17 @@ include '../../api/ViewOrderDetails.php';
             <div class="order-details">
                 <div class="info-card">
                     <h2>Order Information</h2>
-                    <p><strong>Date:</strong> <?php echo htmlspecialchars($orderDetails['date']); ?></p>
-                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['orderStatus']); ?></span></p>
+                    <p><strong>Date:</strong> <?php echo htmlspecialchars($orderDetails['date'] ?? 'N/A'); ?></p>
+                    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['orderStatus'] ?? 'N/A'); ?></span></p>
                     <p><strong>Total:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'], 2); ?></p>
                 </div>
                 
                 <div class="info-card">
                     <h2>Customer Information</h2>
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($orderDetails['customerName']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($orderDetails['email']); ?></p>
-                    <p><strong>Phone:</strong> <?php echo htmlspecialchars($orderDetails['phone']); ?></p>
-                    <p><strong>Address:</strong> <?php echo htmlspecialchars($orderDetails['address']); ?></p>
+                    <p><strong>Name:</strong> <?php echo htmlspecialchars($orderDetails['customerName'] ?? 'N/A'); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($orderDetails['email'] ?? 'N/A'); ?></p>
+                    <p><strong>Phone:</strong> <?php echo htmlspecialchars($orderDetails['phone'] ?? 'N/A'); ?></p>
+                    <p><strong>Address:</strong> <?php echo htmlspecialchars($orderDetails['address'] ?? 'N/A'); ?></p>
                 </div>
             </div>
             
@@ -409,7 +409,7 @@ include '../../api/ViewOrderDetails.php';
                 <h2>Order Items</h2>
                 <div class="order-items">
                    
-                        <div class="item" data-order-type="<?php echo htmlspecialchars($orderDetails['orderType']); ?>">
+                        <div class="item" data-order-type="<?php echo htmlspecialchars($orderDetails['orderType'] ?? 'N/A'); ?>">
                            
                         <div class="item-details">
     <p><strong>Item:</strong> <?php echo $orderDetails['typeQty']; ?></p>
@@ -423,13 +423,13 @@ include '../../api/ViewOrderDetails.php';
 <?php endif; ?>
     <?php if($orderDetails['orderType'] == 'furniture' || $orderDetails['orderType'] == 'customized'): ?>
         <?php if(!empty($orderDetails['description'])): ?>
-            <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description']); ?></p>
+            <p><strong>Description:</strong> <?php echo htmlspecialchars($orderDetails['description'] ?? 'N/A'); ?></p>
         <?php endif; ?>
         <?php if(!empty($orderDetails['size'])): ?>
-            <p><strong>Size:</strong> <?php echo htmlspecialchars($orderDetails['size']); ?></p>
+            <p><strong>Size:</strong> <?php echo htmlspecialchars($orderDetails['size'] ?? 'N/A'); ?></p>
         <?php endif; ?>
         <?php if(!empty($orderDetails['additionalDetails'])): ?>
-            <p><strong>Additional Details:</strong> <?php echo htmlspecialchars($orderDetails['additionalDetails']); ?></p>
+            <p><strong>Additional Details:</strong> <?php echo htmlspecialchars($orderDetails['additionalDetails'] ?? 'N/A'); ?></p>
         <?php endif; ?>
         
         <!-- Add unit price information and button if price is null -->
@@ -438,21 +438,21 @@ include '../../api/ViewOrderDetails.php';
                 <span class="price-not-set">Price not set</span>
                 <button class="action-btn set-price-btn" onclick="showSetPriceModal(<?php echo $orderDetails['itemId']; ?> , <?php echo $orderDetails['orderId']; ?>)">Set Price</button>
             <?php else: ?>
-                Rs.<?php echo number_format($orderDetails['unitPrice'], 2); ?>
+                Rs.<?php echo number_format($orderDetails['unitPrice'] ?? 0, 2); ?>
             
                 
             <?php endif; ?>
         </p>
     <?php endif; ?>
     <?php if(($orderDetails['orderType'] == 'customized')): ?>
-            <p><strong>Frame:</strong> <?php echo htmlspecialchars($orderDetails['frame']); ?></p>
+            <p><strong>Frame:</strong> <?php echo htmlspecialchars($orderDetails['frame'] ?? 'N/A'); ?></p>
         <?php endif; ?>
-    <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty']); ?></p>
+    <p><strong>Quantity:</strong> <?php echo htmlspecialchars($orderDetails['qty'] ?? 'N/A'); ?></p>
     <?php
         $Amount = $orderDetails['unitPrice'] * $orderDetails['qty'];
         ?>
     <p><strong>Price:</strong> Rs.<?php echo number_format($Amount); ?></p>
-    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus']); ?></span></p>
+    <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['itemStatus'] ?? 'N/A'); ?></span></p>
     <div class="item-buttons">
         <!-- Existing buttons -->
         <button class="action-btn" id="checkStockBtn" onclick="checkStock(<?php echo $orderDetails['itemId']; ?>)">Check Stock</button>

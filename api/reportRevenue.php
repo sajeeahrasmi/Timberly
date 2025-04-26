@@ -1,14 +1,14 @@
 <?php
-// Authentication check (if any)
 
-// Database connection
+
+
 require_once 'db.php';
 
-// Initialize response array
+
 $response = array();
 
 try {
-    // SQL query
+    
     $sql = "
     SELECT 
         CASE 
@@ -26,7 +26,7 @@ try {
     ORDER BY sales DESC
     ";
 
-    // Run the query
+   
     $result = $conn->query($sql);
 
     if ($result) {
@@ -34,7 +34,7 @@ try {
             $response[] = $row;
         }
 
-        // Output as JSON
+        
         header('Content-Type: application/json');
         echo json_encode($response);
     } else {
@@ -42,7 +42,7 @@ try {
     }
 
 } catch (Exception $e) {
-    // Return error
+    
     http_response_code(500);
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
 }

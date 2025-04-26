@@ -33,7 +33,7 @@ $stmt->bind_param("ii", $itemId, $orderId);
 $stmt->execute();
 
 
-// Step 3: Update totalAmount in orders table
+
 $sql = "UPDATE orders SET totalAmount = GREATEST(totalAmount - ?, 0) WHERE orderId = ? ";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("di", $itemTotal, $orderId);

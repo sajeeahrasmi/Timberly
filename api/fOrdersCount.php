@@ -1,5 +1,5 @@
 <?php
-require 'db.php'; // make sure this connects using mysqli
+require 'db.php'; 
 
 header('Content-Type: application/json');
 

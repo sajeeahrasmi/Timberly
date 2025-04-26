@@ -1,11 +1,10 @@
 <?php
-// Database connection
+
 include 'db.php';
-// Fetch payment data
-$sql = "SELECT orderId, amount , viewed FROM payment WHERE viewed = '0' ";  // Adjust your query if necessary
+
+$sql = "SELECT orderId, amount , viewed FROM payment WHERE viewed = '0' ";  
 $result = $conn->query($sql);
 
-// Fetch rows and populate the table
 $tableRows = '';
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

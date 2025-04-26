@@ -57,7 +57,7 @@ $sql = "SELECT
     ocf.date AS customOrderDate,
     ocf.image AS customImage,
 
-    /* Helper field to identify the type of product in this row */
+    
     CASE 
         WHEN ol.orderId IS NOT NULL THEN 'Lumber'
         WHEN ofr.orderId IS NOT NULL THEN 'Furniture'
@@ -79,7 +79,7 @@ LEFT JOIN furnitures f ON ofr.itemId = f.furnitureId
 /* Customized furniture related join */
 LEFT JOIN ordercustomizedfurniture ocf ON o.orderId = ocf.orderId
 
-/* We want at least one product related to the order */
+
 WHERE ol.orderId IS NOT NULL OR ofr.orderId IS NOT NULL OR ocf.orderId IS NOT NULL;
 ";
 
@@ -89,15 +89,15 @@ $orders = [];
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Directly push the row into the $orders array
+        
         $orders[] = $row;
     }
 }
 
-// REMOVE THIS LINE - it outputs text before the JSON
+
 // echo $orders[0]["furnitureId"];
 
-// Send JSON response
+
 echo json_encode($orders);
 
 $conn->close();

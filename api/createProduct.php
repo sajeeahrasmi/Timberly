@@ -16,20 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $size = $_POST['size'];
     $additionalDetails = $_POST['additional_details'];
     
-   // Handle image upload
+   
 $image = '';
 
 if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
     $imageTmpName = $_FILES['product_image']['tmp_name'];
     $imageName = basename($_FILES['product_image']['name']);
 
-    // Path where the image will be moved (relative to this script)
-    $destinationPath = '../public/images/' . $imageName; // adjust if needed
+    
+    $destinationPath = '../public/images/' . $imageName; 
 
-    // Path that will be stored in DB
+  
     $image = '../images/' . $imageName;
 
-    // Move uploaded file
+    
     if (!move_uploaded_file($imageTmpName, $destinationPath)) {
         echo json_encode(['success' => false, 'message' => 'Error uploading image.']);
         exit;

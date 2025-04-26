@@ -1,5 +1,5 @@
 <?php
-    include '../..api/auth.php';
+    include '../../api/auth.php';
     include '../../api/getPostRawTimber.php';
 ?>
 

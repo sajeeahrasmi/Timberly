@@ -367,11 +367,11 @@ setInterval(checkNotifications, 2000);
 
 function checkDateChanged() {
   // Using AJAX to call the PHP endpoint
-  fetch('../../api/checkDateChanged.php')  // Replace with your actual PHP file URL
+  fetch('../../api/checkDateChanged.php') 
       .then(response => response.json())
       .then(data => {
           if (data.dateChanged === 'yes') {
-              // Alert when the date is updated
+             
               alert('The date has been updated for orderId: ' + data.orderId);
           }
       })

@@ -23,13 +23,10 @@ while ($row = mysqli_fetch_assoc($result1)) {
 }
 
 
-// Get elapsed time
 $seconds_elapsed = $customer['seconds_elapsed'];
 
-// Convert seconds into human-readable format
 $time_ago = formatTimeAgo($seconds_elapsed);
 
-// Function to convert seconds to a human-readable time ago format
 function formatTimeAgo($seconds) {
     if ($seconds < 60) {
         if ($seconds == 1) {
@@ -54,7 +51,7 @@ function formatTimeAgo($seconds) {
         else {
             return "$hours hours ago";
         }
-    } elseif ($seconds < 2592000) { // Less than 30 days
+    } elseif ($seconds < 2592000) {
         $days = floor($seconds / 86400);
         if ($days == 1) {
             return "1 day ago";
@@ -62,8 +59,8 @@ function formatTimeAgo($seconds) {
         else {
             return "$days days ago";
         }
-    } elseif ($seconds < 31536000) { // Less than a year
-        $months = floor($seconds / 2592000); // Approx. 30 days per month
+    } elseif ($seconds < 31536000) {
+        $months = floor($seconds / 2592000);
         if ($months == 1) {
             return "1 month ago";
         }
@@ -71,7 +68,7 @@ function formatTimeAgo($seconds) {
             return "$months months ago";
         }
     } else {
-        $years = floor($seconds / 31536000); // Approx. 365 days per year
+        $years = floor($seconds / 31536000); // 
         if ($years == 1) {
             return "1 year ago";
         }

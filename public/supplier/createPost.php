@@ -8,6 +8,44 @@ include './components/flashMessage.php';
 <head>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/createPost.css">
+    <style>
+        .card-selection {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            flex: 1;
+            padding: 40px;
+            background-color: #f1f1f1;
+            text-align: center;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card:hover {
+            background-color: #e1e1e1;
+            border-color: #999;
+        }
+
+        .card.active {
+            border-color: #007BFF;
+            background-color: #d8eaff;
+        }
+
+        .category-form {
+            display: none;
+        }
+
+        .category-form.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -46,7 +84,7 @@ include './components/flashMessage.php';
 
                 <div class="form-group">
                     <label>Diameter(mm):</label>
-                    <input type="number" name="diameter" min="0" required>
+                    <input type="number" name="diameter" min="150" max="450" required>  
                 </div>
 
                 <div class="form-group">
@@ -87,11 +125,11 @@ include './components/flashMessage.php';
 
                 <div class="form-group">
                     <label>Length(m):</label>
-                    <input type="number" name="length" min="0" required>
+                    <input type="number" name="length" step="0.01" min="1" max="5" required>  
                     <label>Width(mm):</label>
-                    <input type="number" name="width" min="0" required>
+                    <input type="number" name="width" min="50" max="150" required>
                     <label>Thickness(mm):</label>
-                    <input type="number" name="thickness" min="0" required>
+                    <input type="number" name="thickness" min="12" max="50" required>
                 </div>
 
                 <div class="form-group">
@@ -119,26 +157,7 @@ include './components/flashMessage.php';
     </div>
 </div>
 
-<script>
-function showForm(category) {
-    const timberCard = document.getElementById('timber-card');
-    const lumberCard = document.getElementById('lumber-card');
-    const timberForm = document.getElementById('timber-form');
-    const lumberForm = document.getElementById('lumber-form');
-
-    if (category === 'timber') {
-        timberCard.classList.add('active');
-        lumberCard.classList.remove('active');
-        timberForm.classList.add('active');
-        lumberForm.classList.remove('active');
-    } else if (category === 'lumber') {
-        lumberCard.classList.add('active');
-        timberCard.classList.remove('active');
-        lumberForm.classList.add('active');
-        timberForm.classList.remove('active');
-    }
-}
-</script>
+<script src="scripts/createPost.js"></script>
 
 </body>
 </html>

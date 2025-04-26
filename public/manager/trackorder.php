@@ -1,5 +1,5 @@
 <?php
-// Authentication check
+
 require_once '../../api/auth.php';
 
 
@@ -57,24 +57,26 @@ include '../../api/trackorderdetails.php';
                 </tr>
                 <?php foreach ($orderDetails as $item): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['typeQty']); ?></td>
-                        <td><?php echo htmlspecialchars($item['itemStatus']); ?></td>
+                        <td><?php echo htmlspecialchars($item['typeQty'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($item['itemStatus'] ?? 'N/A'); ?></td>
                         <td>
                             <input type="number" id = 'qty' value="<?php echo $item['qty']; ?>" min="1" >
                         </td>
                         <td>Rs.<?php echo number_format($item['unitPrice'] * $item['qty'], 2); ?></td>
-                        <td>Rs.<?php echo number_format($item['unitPrice']); ?></td>
+                        <td>Rs.<?php echo number_format($item['unitPrice'] ?? 0); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
             <div class="order-summary">
                 <h3>Order Summary</h3>
                 
-                <p><strong>Delivery Fee:</strong> <input type="number" id="deliveryFee" value="<?php echo $item['deliveryFee']; ?>" min="0" step="0.1" onchange="updateTotal()"></p>
+                <p><strong>Delivery Fee:</strong> <input type="number" id="deliveryFee" value="<?php echo $item['deliveryFee'] ?? 0; ?>" min="0" step="0.1" onchange="updateTotal()"></p>
                 <p><strong>Total:</strong> Rs.<span id="total">0.00</span></p>
             </div>
                 <button class="update-total" onclick="updateTotal()">Update Total</button>
+                
             </div>
+            
             <div class="card-container">
                 <div class="card">
                 <h3>Measurement Person Details</h3>
@@ -110,8 +112,11 @@ include '../../api/trackorderdetails.php';
     <p><strong>Amount Paid:</strong> <span id="amountPaid">Rs. 0.00</span></p>
     <button onclick="updatenew()">Update Payment</button>
 </div> 
+
             </div>
+    
         </div>
+    
     </div>
     
     <div id="measurementPopup" class="popup" >

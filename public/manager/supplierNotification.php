@@ -297,7 +297,7 @@ form button:hover {
         <?php foreach ($suppliers as $supplier): ?>
             <?php if ($supplier['status'] === 'Not Approved'): ?>
                 <div class="list-item">
-                    <span><?php echo $supplier['name']; ?></span>
+                    <span><?php echo $supplier['name'] ?? 'N/A'; ?></span>
                     
                     <button onclick="showSupplierDetails(<?php echo $supplier['userId']; ?>)">View Supplier</button>
                 </div>
@@ -317,9 +317,9 @@ form button:hover {
             <span>Supplier Id: <?php echo $product['supplier_id']; ?></span>
                    
            <span> 
-                <?php echo $product['name']; ?>
-                (<?php echo $product['category']; ?>)</span>
-                <button onclick="showProductDetails(<?php echo $product['id']; ?>)">View Product</button>
+                <?php echo $product['name'] ?? 'N/A'; ?>
+                (<?php echo $product['category'] ?? 'N/A'; ?>)</span>
+                <button onclick="showProductDetails(<?php echo $product['id'] ?? 'N/A'; ?>)">View Product</button>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>

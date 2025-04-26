@@ -9,10 +9,8 @@ $query = "SELECT *, TIMESTAMPDIFF(SECOND, created_at, NOW()) AS seconds_elapsed
 $result = mysqli_query($conn, $query);
 $designer = mysqli_fetch_assoc($result);
 
-// Get elapsed time
 $seconds_elapsed = $designer['seconds_elapsed'];
 
-// Convert seconds into human-readable format
 $time_ago = formatTimeAgo($seconds_elapsed);
 
 // Function to convert seconds to a human-readable time ago format
@@ -48,8 +46,8 @@ function formatTimeAgo($seconds) {
         else {
             return "$days days ago";
         }
-    } elseif ($seconds < 31536000) { // Less than a year
-        $months = floor($seconds / 2592000); // Approx. 30 days per month
+    } elseif ($seconds < 31536000) { 
+        $months = floor($seconds / 2592000); 
         if ($months == 1) {
             return "1 month ago";
         }
@@ -57,7 +55,7 @@ function formatTimeAgo($seconds) {
             return "$months months ago";
         }
     } else {
-        $years = floor($seconds / 31536000); // Approx. 365 days per year
+        $years = floor($seconds / 31536000); 
         if ($years == 1) {
             return "1 year ago";
         }

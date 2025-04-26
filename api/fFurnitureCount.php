@@ -1,5 +1,5 @@
 <?php
-require 'db.php'; // your existing MySQLi connection
+require 'db.php'; 
 
 header('Content-Type: application/json');
 

@@ -8,10 +8,10 @@ try {
     $productName = $_POST['productName'] ?? '';
     $quantity = $_POST['quantity'] ?? null;
 
-    // Default response
+    
     $response = ['success' => false, 'message' => 'Product update failed!'];
 
-    // SQL template for common case
+    
     $sql = "";
     $bindParams = [];
     $paramTypes = "";
@@ -40,7 +40,7 @@ try {
             throw new Exception('Invalid category');
     }
 
-    // Prepare and bind
+    
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
         throw new Exception('Prepare failed: ' . $conn->error);
@@ -49,7 +49,7 @@ try {
     $stmt->bind_param($paramTypes, ...$bindParams);
     $stmt->execute();
 
-    // Check result
+   
     if ($stmt->affected_rows > 0) {
         $response['success'] = true;
         $response['message'] = 'Product updated successfully!';

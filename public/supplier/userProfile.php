@@ -1,5 +1,5 @@
 <?php
-include '../../api/userProfile.php'; // Include the PHP file for user profile handling
+include '../../api/userProfile.php';
 ?>
 
 <!DOCTYPE html>

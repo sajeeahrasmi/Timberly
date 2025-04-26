@@ -1,5 +1,5 @@
 <?php
-require '../config/db_connection.php'; // adjust path as needed
+require '../config/db_connection.php'; 
 
 $year = $_POST['year'] ?? date('Y');
 $month = $_POST['month'] ?? null;
@@ -7,21 +7,21 @@ $month = $_POST['month'] ?? null;
 $filter = $month ? "$year-$month%" : "$year%";
 $period = $month ? date("F Y", strtotime("$year-$month-01")) : $year;
 
-// Total orders
+
 $totalOrdersSql = "SELECT COUNT(*) AS totalOrders FROM orders WHERE date LIKE ?";
 $stmt1 = $conn->prepare($totalOrdersSql);
 $stmt1->bind_param("s", $filter);
 $stmt1->execute();
 $totalOrders = $stmt1->get_result()->fetch_assoc()['totalOrders'] ?? 0;
 
-// Total sales amount
+
 $totalSalesSql = "SELECT SUM(totalAmount) AS totalSales FROM orders WHERE date LIKE ?";
 $stmtSales = $conn->prepare($totalSalesSql);
 $stmtSales->bind_param("s", $filter);
 $stmtSales->execute();
 $totalSales = $stmtSales->get_result()->fetch_assoc()['totalSales'] ?? 0;
 
-// Category-wise orders
+
 $categorySql = "SELECT category, COUNT(*) AS count FROM orders WHERE date LIKE ? GROUP BY category";
 $stmt2 = $conn->prepare($categorySql);
 $stmt2->bind_param("s", $filter);
@@ -32,7 +32,7 @@ while ($row = $categoryData->fetch_assoc()) {
     $categories[] = $row;
 }
 
-// Total sales per category
+
 $salesSql = "SELECT category, SUM(totalAmount) AS total FROM orders WHERE date LIKE ? GROUP BY category";
 $stmt3 = $conn->prepare($salesSql);
 $stmt3->bind_param("s", $filter);
@@ -43,14 +43,14 @@ while ($row = $salesData->fetch_assoc()) {
     $salesByCategory[] = $row;
 }
 
-// Total payments received
+
 $paymentSql = "SELECT SUM(amount) AS totalReceived FROM payment WHERE orderId IN (SELECT orderId FROM orders WHERE date LIKE ?)";
 $stmt4 = $conn->prepare($paymentSql);
 $stmt4->bind_param("s", $filter);
 $stmt4->execute();
 $totalReceived = $stmt4->get_result()->fetch_assoc()['totalReceived'] ?? 0;
 
-// Order count by status
+
 $statusSql = "SELECT status, COUNT(*) AS count FROM orders WHERE date LIKE ? GROUP BY status";
 $stmt5 = $conn->prepare($statusSql);
 $stmt5->bind_param("s", $filter);
@@ -61,7 +61,7 @@ while ($row = $statusData->fetch_assoc()) {
     $statuses[] = $row;
 }
 
-// Calculate balance (not yet received)
+
 $balance = $totalSales - $totalReceived;
 ?>
 

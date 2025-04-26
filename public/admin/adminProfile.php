@@ -1,5 +1,5 @@
 <?php
-    include '../..api/auth.php';
+    include '../../api/auth.php';
     include '../../api/db.php';
     $query = "SELECT * FROM user WHERE userId = 5";
     $result = mysqli_query($conn, $query);

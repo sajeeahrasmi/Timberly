@@ -53,11 +53,11 @@ require_once '../../api/auth.php';
 
                 
                     <h3><?php echo htmlspecialchars($item['type']); ?></h3>
-                        <p>Length : <?php echo htmlspecialchars($item['length']); ?> m</p>
-                        <p>Diameter: <?php echo htmlspecialchars($item['diameter']); ?> mm</p>
-                        <p>Price: Rs.<?php echo htmlspecialchars($item['price']); ?></p>
-                        <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId']); ?></p>
-                        <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
+                        <p>Length : <?php echo htmlspecialchars($item['length'] ?? 'N/A'); ?> m</p>
+                        <p>Diameter: <?php echo htmlspecialchars($item['diameter'] ?? 'N/A'); ?> mm</p>
+                        <p>Price: Rs.<?php echo htmlspecialchars($item['price'] ?? 'N/A'); ?></p>
+                        <p>Supplier ID: <?php echo htmlspecialchars($item['supplierId'] ?? 'N/A'); ?></p>
+                        <p>Quantity: <?php echo htmlspecialchars($item['qty'] ?? 'N/A'); ?></p>
                         <div class="card-actions">
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
@@ -81,12 +81,12 @@ require_once '../../api/auth.php';
                      ? 'http://localhost/Timberly/api/' . $item['image_path'] 
                      : 'uploads/log.jpeg'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
-                        <h3><?php echo htmlspecialchars($item['type']); ?></h3>
-                        <p>Length: <?php echo htmlspecialchars($item['length']); ?> m</p>
-                        <p>Width: <?php echo htmlspecialchars($item['width']); ?> mm</p>
-                        <p>Thickness: <?php echo htmlspecialchars($item['thickness']); ?> mm</p>
-                        <p>Quantity: <?php echo htmlspecialchars($item['qty']); ?></p>
-                        <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
+                        <h3><?php echo htmlspecialchars($item['type'] ?? 'N/A'); ?></h3>
+                        <p>Length: <?php echo htmlspecialchars($item['length'] ?? 'N/A') ; ?> m</p>
+                        <p>Width: <?php echo htmlspecialchars($item['width'] ?? 'N/A'); ?> mm</p>
+                        <p>Thickness: <?php echo htmlspecialchars($item['thickness'] ?? 'N/A'); ?> mm</p>
+                        <p>Quantity: <?php echo htmlspecialchars($item['qty'] ?? 'N/A'); ?></p>
+                        <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']?? 'N/A'); ?></p>
                         <div class="card-actions">
                         <button class="edit-btn" >
         <i class="fas fa-edit"></i>
@@ -111,13 +111,13 @@ require_once '../../api/auth.php';
                      : 'uploads/chair.jpg'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
 
-                <h3><?php echo htmlspecialchars($item['description']); ?></h3>
-                <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
+                <h3><?php echo htmlspecialchars($item['description'] ?? 'N/A'); ?></h3>
+                <p>Type: <?php echo htmlspecialchars($item['type'] ?? 'N/A'); ?></p>
                 
-                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
-                <p>Category: <?php echo htmlspecialchars($item['category']); ?></p>
-                <p>Size: <?php echo htmlspecialchars($item['size']); ?></p>
-                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']); ?></p>
+                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']?? 'N/A'); ?></p>
+                <p>Category: <?php echo htmlspecialchars($item['category']?? 'N/A'); ?></p>
+                <p>Size: <?php echo htmlspecialchars($item['size']?? 'N/A'); ?></p>
+                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']?? 'N/A'); ?></p>
                 <div class="card-actions">
                 <button class="edit-btn">
         <i class="fas fa-edit"></i>
@@ -141,13 +141,13 @@ require_once '../../api/auth.php';
                      : 'uploads/decorated-front-door-with-plant_23-2150562176.avif'; ?>" 
           alt="<?php echo htmlspecialchars($item['type']); ?>" />
 
-                <h3><?php echo htmlspecialchars($item['description']); ?></h3>
-                <p>Type: <?php echo htmlspecialchars($item['type']); ?></p>
+                <h3><?php echo htmlspecialchars($item['description'] ?? 'N/A'); ?></h3>
+                <p>Type: <?php echo htmlspecialchars($item['type']?? 'N/A'); ?></p>
                 
-                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']); ?></p>
-                <p>Category: <?php echo htmlspecialchars($item['category']); ?></p>
-                <p>Size: <?php echo htmlspecialchars($item['size']); ?></p>
-                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']); ?></p>
+                <p>Unit Price: Rs.<?php echo htmlspecialchars($item['unitPrice']?? 'N/A'); ?></p>
+                <p>Category: <?php echo htmlspecialchars($item['category']?? 'N/A'); ?></p>
+                <p>Size: <?php echo htmlspecialchars($item['size']?? 'N/A'); ?></p>
+                <p>Additional Details: <?php echo htmlspecialchars($item['additionalDetails']?? 'N/A'); ?></p>
                 <div class="card-actions">
                 <button class="edit-btn" >
         <i class="fas fa-edit"></i>

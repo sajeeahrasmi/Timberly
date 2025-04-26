@@ -131,7 +131,8 @@ require_once '../../api/auth.php';
                         <th>Total Amount</th>
                         <th>Amount To Pay</th>
                         <th>Payment Status</th>
-                        <th>Status</th>
+                       <!-- <th>Order Status</th> -->
+                        <th>Item Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -172,7 +173,88 @@ require_once '../../api/auth.php';
                 })
                 .catch(error => console.error('Error:', error));
         }
+        // Add this script to your orders.php file before the closing </body> tag
+
+// Add simple CSS styles 
+// Add this script to your orders.php file before the closing </body> tag
+
+// Add simple CSS styles 
+const styles = document.createElement('style');
+styles.innerHTML = `
+    /* Highlight for delivered orders */
+    tr.new-delivered {
+        background-color: #ffe6d5 !important;
+    }
+    
+    /* Simple badge */
+    .new-badge {
+        background-color: #895D47;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+    
+    /* Sidebar link glow effect */
+    .orders-glow {
+        animation: sidebar-glow 1.5s infinite alternate;
+    }
+    
+    @keyframes sidebar-glow {
+        0% { box-shadow: 0 0 5px   #de5f4d; }
+        100% { box-shadow: 0 0 15px  #de5f4d; }
+    }
+`;
+document.head.appendChild(styles);
+
+// Function to highlight delivered orders and update sidebar
+function highlightDeliveredOrders() {
+    // Get all table rows
+    const tableRows = document.querySelectorAll('#ordersTableBody tr');
+    let hasDeliveredOrders = false;
+    
+    tableRows.forEach(row => {
+        // Get the status cell (8th column)
+        const statusCell = row.cells[7];
         
+        if (statusCell && statusCell.textContent.trim() === 'Delivered') {
+            // Add highlighting class
+            row.classList.add('new-delivered');
+            hasDeliveredOrders = true;
+            
+            // Add a "NEW" badge to the status cell if it doesn't have one
+            if (!statusCell.querySelector('.new-badge')) {
+                const badge = document.createElement('span');
+                badge.className = 'new-badge';
+                badge.textContent = 'NEW';
+                statusCell.appendChild(badge);
+            }
+        }
+    });
+    
+    // Add glow effect to sidebar link if there are delivered orders
+    if (hasDeliveredOrders) {
+        // Target the specific sidebar link based on your HTML structure
+        const sidebarLink = document.querySelector('li a[onclick="showSection(\'orders-section\')"]');
+        if (sidebarLink) {
+            sidebarLink.classList.add('orders-glow');
+        }
+    }
+}
+
+// Run once when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    highlightDeliveredOrders();
+    
+    // Re-run after filter updates
+    const originalUpdateTable = window.updateTable;
+    window.updateTable = function() {
+        originalUpdateTable();
+        // Wait for AJAX to complete
+        setTimeout(highlightDeliveredOrders, 500);
+    };
+});
     </script>
 </body>
 </html>

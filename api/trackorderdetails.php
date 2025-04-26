@@ -6,7 +6,7 @@ $itemId = isset($_GET['itemId']) ? $_GET['itemId'] : '';
 
 $orderDetails = [];
 
-// Fetch from orderlumber
+
 $sqlLumber = "
     SELECT 
         o.orderId, 
@@ -15,6 +15,7 @@ $sqlLumber = "
         o.totalAmount, 
         o.status AS orderStatus,
         ol.itemId, 
+       
         u.name AS customerName, 
         u.email,
         u.address,
@@ -45,7 +46,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// Fetch from orderfurniture
+
 $sqlFurniture = "
     SELECT 
         o.orderId, 
@@ -63,6 +64,7 @@ $sqlFurniture = "
         mf.date AS measurementDate,
         mf.time AS measurementTime,
         `of`.qty, 
+       
         `of`.status AS itemStatus, 
         `of`.unitPrice,
         `of`.driverId,
@@ -101,6 +103,7 @@ $sqlCustomized = "
         mc.time AS measurementTime,
         oc.qty, 
         oc.driverId,
+       
         oc.status AS itemStatus, 
         oc.unitPrice,
         CONCAT(oc.type, ' - ', oc.category,' - ', oc.length, ' x ', oc.width, ' x ', oc.thickness) AS typeQty,
@@ -124,10 +127,11 @@ $stmt->close();
 
 $conn->close();
 
-// Check if there's any data
+
 if (empty($orderDetails)) {
     die("No order details found for the given order and item.");
 }
 
-// Continue using $orderDetails...
+
+
 ?>

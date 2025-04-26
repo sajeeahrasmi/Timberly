@@ -1,17 +1,17 @@
 <?php
-// Include database connection
+
 require_once 'db.php';
 
-// Get both IDs from the request
+
 if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
     $itemId = $_GET['itemId'];
     $orderId = $_GET['orderId'];
     
-    // Start a transaction
+    
     $conn->begin_transaction();
 
     try {
-        // First, verify if the order exists and get its details
+        
         $fetchOrderQuery = "SELECT ol.*, l.qty as available_quantity 
                            FROM orderlumber ol
                            JOIN lumber l ON ol.itemId = l.lumberId 
@@ -27,12 +27,12 @@ if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
         
         $orderDetails = $result->fetch_assoc();
         
-        // Check if there's enough quantity available
+        
         if ($orderDetails['available_quantity'] < $orderDetails['qty']) {
             throw new Exception('Not enough stock available.');
         }
         
-        // Update order status using both IDs
+        
         $updateOrderQuery = "UPDATE orderlumber SET status = 'Approved' 
                            WHERE itemId = ? AND orderId = ?";
         $stmt = $conn->prepare($updateOrderQuery);
@@ -43,7 +43,7 @@ if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
             throw new Exception('Order status update failed.');
         }
         
-        // Update lumber quantity
+        
         $updateLumberQuery = "UPDATE lumber 
                              SET qty = qty - ? 
                              WHERE lumberId = ?";
@@ -55,7 +55,7 @@ if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
             throw new Exception('Lumber quantity update failed.');
         }
         
-        // Commit the transaction
+       
         $conn->commit();
         
         echo json_encode([
@@ -64,7 +64,7 @@ if (isset($_GET['itemId']) && isset($_GET['orderId'])) {
         ]);
         
     } catch (Exception $e) {
-        // Rollback the transaction if there's an error
+        
         $conn->rollback();
         echo json_encode([
             'status' => 'error',

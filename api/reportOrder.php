@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-// Database connection
+
 include 'db.php';
 
-// Query to get completed orders with user info
+
 $sql = "SELECT 
             o.orderId, 
             u.name AS customer, 
@@ -13,7 +13,8 @@ $sql = "SELECT
             o.date AS date 
         FROM orders o
         INNER JOIN user u ON o.userId = u.userId
-        WHERE o.status = 'Completed'";
+        WHERE o.status = 'Completed'
+        ORDER BY o.date DESC";
 
 $result = $conn->query($sql);
 
