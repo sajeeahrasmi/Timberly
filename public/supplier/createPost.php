@@ -84,7 +84,7 @@ include './components/flashMessage.php';
 
                 <div class="form-group">
                     <label>Diameter(mm):</label>
-                    <input type="number" name="diameter" min="0" required>
+                    <input type="number" name="diameter" min="150" max="450" required>  
                 </div>
 
                 <div class="form-group">
@@ -125,11 +125,11 @@ include './components/flashMessage.php';
 
                 <div class="form-group">
                     <label>Length(m):</label>
-                    <input type="number" name="length" min="0" required>
+                    <input type="number" name="length" step="0.01" min="1" max="5" required>  
                     <label>Width(mm):</label>
-                    <input type="number" name="width" min="0" required>
+                    <input type="number" name="width" min="50" max="150" required>
                     <label>Thickness(mm):</label>
-                    <input type="number" name="thickness" min="0" required>
+                    <input type="number" name="thickness" min="12" max="50" required>
                 </div>
 
                 <div class="form-group">
