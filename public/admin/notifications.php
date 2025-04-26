@@ -1,7 +1,7 @@
 <?php
-include '../../api/auth.php'; // adjust the path if needed
-include '../../api/db.php'; // adjust the path if needed
-// Fetch completed orders
+include '../../api/auth.php';
+include '../../api/db.php';
+
 $query = "SELECT * FROM orders WHERE status = 'completed'";
 $result = mysqli_query($conn, $query);
 

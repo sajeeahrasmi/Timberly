@@ -105,7 +105,7 @@
         if ($timestamp !== false) {
             // Format the date and time as "Month day, Year, hh:mm AM/PM"
             $formattedDate = date('F d, Y', $timestamp);
-            $payments[$index]['date'] = $formattedDate; // Assign formatted date to the 'date' field
+            $payments[$index]['date'] = $formattedDate;
         } else {
             // In case of invalid date format
             $payments[$index]['date'] = 'Invalid Date';

@@ -1,5 +1,5 @@
 <?php
-    include '../..api/auth.php';
+    include '../../api/auth.php';
     include '../../api/getLumberDetails.php';
     $message = isset($_GET['message']) ? urldecode($_GET['message']) : '';
 ?>

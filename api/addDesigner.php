@@ -68,15 +68,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'mra802086@gmail.com';         // your Gmail
-            $mail->Password   = 'jplrhlkqfacsnhkh';           // Gmail App Password
+            $mail->Username   = 'mra802086@gmail.com';   
+            $mail->Password   = 'jplrhlkqfacsnhkh';     
             $mail->SMTPSecure = 'tls';
             $mail->Port       = 587;
     
             // Set From and To
             $mail->setFrom('mra802086@gmail.com', 'Timberly Customer Service');
-            $mail->addAddress($email);           // Your receiving email
-            $mail->addReplyTo($email, $name);                 // User reply-to
+            $mail->addAddress($email);         
+            $mail->addReplyTo($email, $name);               
     
             // Email content
             $mail->Subject = "New Contact Message from $name";
