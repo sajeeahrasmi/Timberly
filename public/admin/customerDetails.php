@@ -62,7 +62,7 @@
                                         <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=<?php echo urlencode($order['orderId']);?>'"><?php echo $order['orderId']?></td>
                                         <td><?php echo $order['status']?></td>
                                         <td><?php echo date("F j, Y", strtotime($order['date'])) ?></td>
-                                        <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($order['unitprice'], 2); ?></td>
+                                        <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($order['totalAmount'], 2); ?></td>
                                         <?php endif;?>
                                     </tr>
                                     <?php endforeach; ?>

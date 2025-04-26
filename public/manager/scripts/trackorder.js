@@ -801,3 +801,58 @@ function assignDriver() {
         driverStatusDiv.style.color = '#f44336';
     });
 }
+
+
+function saveDimensions() {
+    const width = document.getElementById('widthInput').value;
+    const length = document.getElementById('lengthInput').value;
+    const thickness = document.getElementById('thicknessInput').value;
+    const orderId = document.getElementById('orderId').value;
+    const itemId = document.getElementById('itemId').value;
+    //const orderType = document.getElementById('orderType').value;
+
+    if (!width || !length || !thickness) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    if (width < 50 || width > 500) {
+        alert('Width must be between 50mm and 500mm.');
+        return;
+    }
+
+    if (length < 1 || length > 5) {
+        alert('Length must be between 1m and 5m.');
+        return;
+    }
+
+    if (thickness < 10 || thickness > 50) {
+        alert('Thickness must be between 10mm and 50mm.');
+        return;
+    }
+    console.log(width)
+    console.log(length)
+    console.log(thickness)
+    console.log(orderId)
+    console.log(itemId)
+
+
+    $.ajax({
+        url: '../../api/updateDimensions.php',
+        method: 'POST',
+        data: {
+            orderId: orderId,
+            itemId: itemId,
+            width: width,
+            length: length,
+            thickness: thickness,
+            //orderType: orderType
+        },
+        success: function(response) {
+            alert('Dimensions updated successfully!');
+        },
+        error: function() {
+            alert('Failed to update dimensions.');
+        }
+    });
+}

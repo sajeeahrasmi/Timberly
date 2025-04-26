@@ -46,10 +46,6 @@
                         <div class="driver-stats">
                             <p class="stat-title">Registered</p>
                             <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
-                            <p class="stat-title">Last delivery</p>
-                            <p class="stat-value">1 hour ago</p>
-                            <p class="stat-title">Total deliveries</p>
-                            <p class="stat-value">32</p>
                         </div>
                     </div>
                     <div class="work-panel">

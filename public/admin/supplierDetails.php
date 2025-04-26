@@ -45,10 +45,8 @@
                         <div class="supplier-stats">
                             <p class="stat-title">Registered</p>
                             <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
-                            <p class="stat-title">Last delivery</p>
-                            <p class="stat-value">1 hour ago</p>
-                            <p class="stat-title">Total deliveries</p>
-                            <p class="stat-value">32</p>
+                            <p class="stat-title">Total posts</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($count)?></p>
                         </div>
                     </div>
                     <div class="work-panel">
@@ -60,9 +58,9 @@
                                 <tr>
                                     <?php if ($index < 3): ?>  
                                     <td class="order-no"><?php echo $post['id']; ?></td>
-                                    <td style="text-align: left;"><?php echo $post['is_approved'] ? "Approved" : "Not approved"; ?></td>
+                                    <td style="text-align: left;"><?php echo $post['status']; ?></td>
                                     <td><?php echo date("F j, Y", strtotime($post['postdate'])); ?></td>
-                                    <!-- <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['unitPrice'], 2); ?></td> -->
+                                    <td style="text-align: right;"><span style="float: left;">Rs.</span><?php echo number_format($post['totalprice'], 2); ?></td>
                                     <?php endif; ?>
                                 </tr>
                                 <?php endforeach; ?>

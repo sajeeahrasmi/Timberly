@@ -22,11 +22,7 @@
                 <div class="main-content">
                     <div class="card">
                         <form id="edit-driver-form" class="edit-driver-form" method="POST" action="../../api/getEditDriver.php?driver_id=<?php echo htmlspecialchars($driver_id); ?>" onsubmit="return validateForm()">
-                            <div class="profile-picture">
-                                <i class="fa-solid fa-user-tie fa-2xl"></i>
-                                <input type="file" id="uploadImage" hidden>
-                                <label for="uploadImage" class="button solid">+</label>
-                            </div>
+                            <h2 style="margin-left: 15px; margin-bottom: 30px">Edit Driver</h2>
                             <div class="form-group">
                                 <label for="name">Driver name</label>
                                 <input type="text" 
@@ -86,6 +82,30 @@
                                     placeholder="Address"
                                     value="<?php echo htmlspecialchars($data['address']); ?>" 
                                     required 
+                                    class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                    title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                    required
+                                    class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label for="re-password">Password</label>
+                                <input
+                                    type="password"
+                                    id="re-password"
+                                    name="re-password"
+                                    placeholder="Re-Password"
+                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                    title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                    required
                                     class="input-field">
                             </div>
                             <div class="form-buttons button-container">

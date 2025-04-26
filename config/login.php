@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: ../public/other/driver.php");
                     break;
                 case 'designer':
-                    header("Location: ../public/other/designer.html");
+                    header("Location: ../public/other/designer.php");
                     break;
                 default:
                     echo "<script>
