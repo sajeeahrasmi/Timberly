@@ -214,3 +214,152 @@ body {
     box-shadow: var(--box-shadow);
 
 }
+
+@media screen and (max-width: 992px) {
+    .header {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 22px;
+    }
+    
+    .button {
+        padding: 9px 18px;
+        font-size: 15px;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .card {
+        margin-left: 20px;
+        width: auto;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .container .header .logo {
+        max-height: 40px;
+    }
+    
+    .header-buttons {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .button {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    
+    .delivery-list {
+        margin: 15px;
+    }
+    
+    .card {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .header {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .header h1 {
+        font-size: 18px;
+    }
+    
+    .container .header .logo {
+        max-height: 35px;
+        gap: 0.5rem;
+    }
+    
+    .button {
+        padding: 7px 14px;
+        font-size: 13px;
+        border-radius: 14px;
+        border-width: 1px;
+    }
+    
+    .delivery-item {
+        padding: 15px;
+    }
+    
+    .delivery-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .delivery-actions .button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 25% auto;
+        padding: 15px;
+    }
+    
+    .card {
+        height: auto;
+        min-height: 100px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header {
+        padding: 8px;
+    }
+    
+    .header h1 {
+        font-size: 16px;
+    }
+    
+    .container .header .logo {
+        max-height: 30px;
+    }
+    
+    .header-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .header-buttons .button {
+        width: 100%;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .delivery-info h4 {
+        font-size: 16px;
+    }
+    
+    .items-list {
+        padding-left: 10px;
+    }
+}
