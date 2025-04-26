@@ -1,12 +1,13 @@
 const statusElement = document.getElementById('status');
 const buttonAddItem = document.getElementById('addItem');
 const cancelbutton = document.getElementById('action-button');
+const payButton = document.getElementById('pay');
 // const deletebutton = document.getElementById('delete-button');
 
 document.addEventListener('DOMContentLoaded', function() {   
     function updateButton() {
         if (statusElement.textContent === 'Confirmed') {
-            buttonPay.disabled = false;
+            payButton.disabled = false;
             buttonAddItem.disabled = true;
 
         } else if (statusElement.textContent === 'Processing') {
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
         } else {
-            buttonPay.disabled = false;
+            buttonPay.disabled = true;
         }
     }
 

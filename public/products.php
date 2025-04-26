@@ -36,9 +36,6 @@
       <button class="filter-btn" data-category="Wardrobe">Wardrobe</button>
       <button class="filter-btn" data-category="Bookshelf">Bookshelf</button>
       <button class="filter-btn" data-category="Stool">Stool</button>
-      <button class="filter-btn" data-category="dining">Dining</button>
-      <button class="filter-btn" data-category="seating">Seating</button>
-      <button class="filter-btn" data-category="storage">Storage</button>
     </div>
 
     <div class="products-grid" id="productsGrid"></div>

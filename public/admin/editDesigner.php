@@ -23,11 +23,7 @@
                 <div class="main-content">
                     <div class="card">
                         <form id="edit-designer-form" class="edit-designer-form" method="POST" action="../../api/getEditDesigner.php?designer_id=<?php echo htmlspecialchars($user_id); ?>" onsubmit="return validateForm()">
-                            <div class="profile-picture">
-                                <i class="fa-solid fa-user-tie fa-2xl"></i>
-                                <input type="file" id="uploadImage" hidden>
-                                <label for="uploadImage" class="button solid">+</label>
-                            </div>
+                            <h2 style="margin-left: 15px; margin-bottom: 30px">Edit Designer</h2>
                             <div class="form-group">
                                 <label for="name">Designer name</label>
                                 <input type="text" 
@@ -74,6 +70,30 @@
                                     placeholder="Address"
                                     value="<?php echo htmlspecialchars($data['address']); ?>" 
                                     required 
+                                    class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                    title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                    required
+                                    class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label for="re-password">Password</label>
+                                <input
+                                    type="password"
+                                    id="re-password"
+                                    name="re-password"
+                                    placeholder="Re-Password"
+                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                    title="Password must be at least 8 characters long and contain at least one letter and one number."
+                                    required
                                     class="input-field">
                             </div>
                             <div class="form-buttons button-container">

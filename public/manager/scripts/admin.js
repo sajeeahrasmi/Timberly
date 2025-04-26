@@ -366,17 +366,23 @@ setInterval(checkNotifications, 2000);
 
 
 function checkDateChanged() {
-  // Using AJAX to call the PHP endpoint
+ 
+  if (localStorage.getItem('dateChangedAlerted')) {
+      return; 
+  }
+
   fetch('../../api/checkDateChanged.php') 
       .then(response => response.json())
       .then(data => {
           if (data.dateChanged === 'yes') {
-             
               alert('The date has been updated for orderId: ' + data.orderId);
+              
+              localStorage.setItem('dateChangedAlerted', 'true');
           }
       })
       .catch(error => console.error('Error:', error));
 }
+checkDateChanged();
 
-// Check for changes every 5 seconds
-setInterval(checkDateChanged, 5000);
+// Check for changes every 1 seconds
+//setInterval(checkDateChanged, 1000);

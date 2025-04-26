@@ -74,7 +74,22 @@ include '../../api/trackorderdetails.php';
                 <p><strong>Total:</strong> Rs.<span id="total">0.00</span></p>
             </div>
                 <button class="update-total" onclick="updateTotal()">Update Total</button>
-                
+                <!-- New card for Width, Length, Thickness -->
+<div class="cards" style="margin-top: 20px; margin-right:20px">
+    <h3>Customize Dimensions</h3>
+
+    <label for="widthInput">Width (50-500 mm):</label>
+    <input type="number" id="widthInput" min="50" max="500" placeholder="mm">
+
+    <label for="lengthInput">Length (1-5 m):</label>
+    <input type="number" id="lengthInput" min="1" max="5" placeholder="m" step="0.1">
+
+    <label for="thicknessInput">Thickness (10-50 mm):</label>
+    <input type="number" id="thicknessInput" min="10" max="50" placeholder="mm">
+
+    <button onclick="saveDimensions()">Save Dimensions</button>
+</div>
+
             </div>
             
             <div class="card-container">
