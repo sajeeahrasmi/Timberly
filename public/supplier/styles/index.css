@@ -15,7 +15,7 @@
 
 .body-container {
     display: grid;
-    grid-template-columns: 250px auto; /* Sidebar fixed, content fills remaining */
+    grid-template-columns: 250px auto; 
     height: 90vh;
     width: 100%;
     background-color: var(--color-white);

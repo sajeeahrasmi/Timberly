@@ -21,13 +21,11 @@ include '../../api/displayPost.php'; // Include the PHP file that handles the lo
 
     <div class="display-content">
 
-        <!-- Tab Headers -->
         <div class="tab-header">
             <button class="tab-btn" data-tab="timber" onclick="showTab('timber')">Timber</button>
             <button class="tab-btn" data-tab="lumber" onclick="showTab('lumber')">Lumber</button>
         </div>
 
-        <!-- Timber Tab Content -->
         <div id="timber" class="tab-content" style="display: none;">
             <div class="metric-grid">
                 <?php while ($row = mysqli_fetch_assoc($timberResult)) {
@@ -36,7 +34,6 @@ include '../../api/displayPost.php'; // Include the PHP file that handles the lo
             </div>
         </div>
 
-        <!-- Lumber Tab Content -->
         <div id="lumber" class="tab-content" style="display: none;">
             <div class="metric-grid">
                 <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
@@ -47,7 +44,6 @@ include '../../api/displayPost.php'; // Include the PHP file that handles the lo
 
         <div class="metric-grid">
             <?php
-            // Function to display a post card
             function displayPostCard($row, $type) {
                 $imagePath = $row['image'];
                 $fileExt = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
@@ -100,7 +96,6 @@ include '../../api/displayPost.php'; // Include the PHP file that handles the lo
     </div>
 </div>
 
-<!--add displayPost.js file-->
 <script src="scripts/displayPost.js"></script>
 
 </body>
