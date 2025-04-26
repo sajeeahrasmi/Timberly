@@ -1,5 +1,5 @@
 <?php
-    include '../..api/auth.php';
+    include '../../api/auth.php';
     include '../../api/getDriverDetails.php';
     include '../../api/deleteDriver.php';
 ?>
@@ -53,25 +53,6 @@
                         </div>
                     </div>
                     <div class="work-panel">
-                        <div class="delivery-table">
-                            <h3>Deliveries</h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RT0923'">#RT0923</td>
-                                        <td style="color: red">To be delivered before</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 170.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="order-no" onclick="window.location.href='orderDetails.php?order_id=%23RD1243'">#RD1243</td>
-                                        <td style="color: green">Delivered on</td>
-                                        <td>February 21, 2025</td>
-                                        <td>$ 540.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                         <div class="contact-details">
                             <h3>Contact details</h3>
                             <p class="detail-title">Address</p>
