@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="container" style="max-width: 320px">
+    <div class="container">
         <form action="../config/sendResetLink.php" method="POST" style="padding: 20px">
             <h2 style="text-align: left">Reset Password</h2>
             <div class="form-group">

@@ -4,17 +4,9 @@ require 'db_connection.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $token = $_POST['token'];
     $newPassword = $_POST['new_password'];
-    $reNewPassword = $_POST['re_new_password'];
 
-    if (empty($token) || empty($newPassword) || empty($reNewPassword)) {
+    if (empty($token) || empty($newPassword)) {
         die("Missing token or password");
-    }
-    if ($newPassword !== $reNewPassword) {
-        echo "<script>
-                alert('Passwords do not match.');
-                window.location.href='../public/resetPassword.php?token=$token';
-            </script>";
-        exit();
     }
 
     $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);

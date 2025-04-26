@@ -169,26 +169,6 @@ tbody tr {
     font-weight: bold;
 }
 
-.filter-division {
-    display: inline-block;
-}
-
-.filters {
-    display: inline;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    padding: 5px;
-    border: #895D47 solid 1px;
-    border-radius: 6px;
-}
-
-.filters:focus {
-    outline: none;
-    border: #895D47 solid 1px;
-    background-color: #895d4718;
-    transition: 300ms;
-}
-
 .pagination {
     margin-top: 20px;
     text-align: center;

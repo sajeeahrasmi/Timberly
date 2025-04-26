@@ -23,7 +23,7 @@
         </div>
         <div class="main-content" style="margin-left: 300px">
             <?php include "./components/header.php" ?>
-            <div class="customers-display-box" style="margin-top: 20px">
+            <div class="customers-display-box">
                 <div style="display: flex;
                             justify-content: space-between;
                             align-items: center;"

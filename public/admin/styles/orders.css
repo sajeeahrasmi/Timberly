@@ -33,7 +33,7 @@ body,html {
 }
 
 .orders-display-box {
-    margin-top: 20px;
+    margin-top: 50px;
     width: 90%;
     padding: 30px;
     padding-bottom: 18px !important;
@@ -41,45 +41,8 @@ body,html {
     box-shadow: 0 2px 5px #B18068;
 }
 
-.filter-division {
-    display: inline-block;
-}
-
-.filters {
-    display: inline;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    padding: 5px;
-    border: #895D47 solid 1px;
-    border-radius: 6px;
-}
-
-.filters:focus {
-    outline: none;
-    border: #895D47 solid 1px;
-    background-color: #895d4718;
-    transition: 300ms;
-}
-
-.filters-button {
-    background-color: #895D47;
-    color: white;
-    font-weight: bold;
-    padding: 6px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.filters-button:hover {
-    background-color: #B18068;
-    border-color: #B18068;
-    color: white;
-}
-
 .orders-display-box h2 {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 table {

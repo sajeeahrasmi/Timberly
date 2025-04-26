@@ -18,7 +18,7 @@
             <div class="name-row">
                 <div class="form-group half">
                     <input type="text" id="username" name="username" placeholder="Username" pattern="^[a-zA-Z0-9._\-]{4,20}$"
-                    title="Username must be 4-20 characters long and can only include letters, numbers, dots, underscores, or hyphens." required>
+                    title="Username must be 4-20 characters long and can include letters, numbers, dots, underscores, or hyphens." required>
                 </div>
                 <div class="form-group half">
                     <input type="tel" id="phone" name="phone" placeholder="Phone number" pattern="^07\d{8}$"
@@ -40,14 +40,10 @@
             
             <div class="password-row">
                 <div class="form-group half">
-                    <input type="password" id="password" name="password" placeholder="Password"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                    title="Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character (e.g., !@#$%^&*)" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group half">
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm" 
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                    title="Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character (e.g., !@#$%^&*)" required>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm" required>
                 </div>
             </div>
             <div class="form-group">

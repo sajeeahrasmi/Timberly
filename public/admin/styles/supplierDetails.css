@@ -147,10 +147,6 @@ body, html {
     text-align: justify;
 }
 
-table {
-    width: 100%;
-}
-
 .delivery-table {
     width: 150%;
     padding: 15px 20px;
@@ -173,6 +169,10 @@ table td {
 .order-no {
     color: #895D47;
     cursor: pointer;
+}
+
+.order-no:hover {
+    text-decoration: underline;
 }
 
 .contact-details {
