@@ -59,34 +59,29 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
 
     <div class="display-content">
 
-        <!-- Tab Headers -->
-<div class="tab-header">
-    <button class="tab-btn" data-tab="timber" onclick="showTab('timber')">Timber</button>
-    <button class="tab-btn" data-tab="lumber" onclick="showTab('lumber')">Lumber</button>
-</div>
+        <div class="tab-header">
+            <button class="tab-btn" data-tab="timber" onclick="showTab('timber')">Timber</button>
+            <button class="tab-btn" data-tab="lumber" onclick="showTab('lumber')">Lumber</button>
+        </div>
 
-            <!-- Timber Tab Content -->
-<div id="timber" class="tab-content" style="display: none;">
-    <div class="metric-grid">
-        <?php while ($row = mysqli_fetch_assoc($timberResult)) {
-            displayPostCard($row, 'timber');
-        } ?>
-    </div>
-</div>
+        <div id="timber" class="tab-content" style="display: none;">
+            <div class="metric-grid">
+                <?php while ($row = mysqli_fetch_assoc($timberResult)) {
+                    displayPostCard($row, 'timber');
+                } ?>
+            </div>
+        </div>
 
-
-<!-- Lumber Tab Content -->
-<div id="lumber" class="tab-content" style="display: none;">
-    <div class="metric-grid">
-        <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
-            displayPostCard($row, 'lumber');
-        } ?>
-    </div>
-</div>
+        <div id="lumber" class="tab-content" style="display: none;">
+            <div class="metric-grid">
+                <?php while ($row = mysqli_fetch_assoc($lumberResult)) {
+                    displayPostCard($row, 'lumber');
+                } ?>
+            </div>
+        </div>
 
         <div class="metric-grid">
             <?php
-            // Function to display a post card
             function displayPostCard($row, $type) {
                 $imagePath= $row['image'];
                 //$imagePath = "/Supplier/uploads/" . $image;
@@ -145,58 +140,8 @@ if (isset($_GET['delete']) && isset($_GET['id']) && isset($_GET['type'])) {
         </div>
     </div>
 </div>
-<script>
-function showTab(tabId) {
-    // Hide all tab contents
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = 'none';
-    });
 
-    // Remove active class from all buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    // Show the selected tab and mark the button active
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.style.display = 'block';
-        document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-    }
-}
-
-// Handle button click and update hash without scrolling
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const tabId = btn.getAttribute('data-tab');
-        history.replaceState(null, null, `#${tabId}`); // ✅ Prevents scrolling
-        showTab(tabId);
-    });
-});
-
-// On initial page load, show tab based on hash
-const initialTab = window.location.hash.substring(1);
-showTab(initialTab === 'timber' || initialTab === 'lumber' ? initialTab : 'lumber');
-
-
-function confirmDelete(id, type) {
-  showConfirmation("Are you sure you want to delete this post?", function(confirmed) {
-    if (confirmed) {
-      window.location.href = `displayPost.php?delete=true&id=${id}&type=${type}`;
-    }
-  });
-}
-
-
-function confirmUpdate(id, category) {
-  showConfirmation("Are you sure you want to update this post?", function(confirmed) {
-    if (confirmed) {
-      window.location.href = `updatePost.php?id=${id}&category=${category}`;
-    }
-  });
-}
-</script>
-
+<script src="scripts/displayPost.js"></script>
 
 </body>
 </html>

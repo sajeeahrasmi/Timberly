@@ -15,21 +15,18 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
     <?php include 'components/header.php'; ?>
 </div>
 
-<!-- Wrap Sidebar and Body in .body-container -->
+
 <div class="body-container">
-    <!-- Sidebar -->
     <div class="sidebar-content">
         <?php include 'components/sidebar.php'; ?>
     </div>
 
-    <!-- Main Content Area -->
     <div class="dashboard-content">
         <div class="top">
             <h1>Dashboard</h1>
         </div>
         
         <div class="metric-grid">
-            <!-- Total Orders Card -->
             <div class="metric-card">
                 <h3>Total Orders</h3>
                 <div class="metric-content">
@@ -38,7 +35,6 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                 </div>
             </div>
 
-            <!-- Approved Orders Card -->
             <div class="metric-card">
                 <h3>Approved Orders</h3>
                 <div class="metric-content">
@@ -47,7 +43,6 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                 </div>
             </div>
 
-            <!-- Pending Orders Card -->
             <div class="metric-card">
                 <h3>Pending Orders</h3>
                 <div class="metric-content">
@@ -105,7 +100,6 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
     </div>
 </div>
 
-<!-- Modal Container -->
 <div id="orderModal" class="modal">
   <div class="modal-content">
     <span class="close-btn">&times;</span>
@@ -117,36 +111,6 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
 
 </body>
 
-<script>
-document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const modal = document.getElementById('orderModal');
-        const details = document.getElementById('modalDetails');
-
-        // Populate modal details
-        details.innerHTML = `
-            <p><strong>Post ID:</strong> ${btn.dataset.id}</p>
-            <p><strong>Category:</strong> ${btn.dataset.category}</p>
-            <p><strong>Type:</strong> ${btn.dataset.type}</p>
-            <p><strong>No. of Items:</strong> ${btn.dataset.quantity}</p>
-            <p><strong>Date:</strong> ${btn.dataset.date}</p>
-            <p><strong>Status:</strong> ${btn.dataset.status}</p>
-        `;
-
-        modal.style.display = 'flex'; // Show modal
-    });
-});
-
-// Close button
-document.querySelector('.close-btn').addEventListener('click', () => {
-    document.getElementById('orderModal').style.display = 'none';
-});
-
-// Optional: Close modal when clicking outside content
-window.addEventListener('click', (e) => {
-    const modal = document.getElementById('orderModal');
-    if (e.target === modal) modal.style.display = 'none';
-});
-</script>
+<script src="scripts/dashboard.js"></script>
 
 </html>
