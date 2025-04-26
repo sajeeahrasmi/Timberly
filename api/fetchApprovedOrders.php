@@ -15,8 +15,16 @@ $lumberRevenue = 0;
 // Filters from GET
 $filterCategory = $_GET['category'] ?? '';
 $filterType = $_GET['type'] ?? '';
-$filterFrom = $_GET['from'] ?? '';
-$filterTo = $_GET['to'] ?? '';
+$filterMonth = $_GET['from'] ?? '';
+$filterFrom = '';
+$filterTo = '';
+
+// Convert selected month (YYYY-MM) to full date range
+if (!empty($filterMonth)) {
+    $startDate = new DateTime($filterMonth . '-01');
+    $filterFrom = $startDate->format('Y-m-d');
+    $filterTo = $startDate->format('Y-m-t'); // Last day of the selected month
+}
 
 // ---- TIMBER ----
 if ($filterCategory === '' || $filterCategory === 'Timber') {
@@ -25,7 +33,7 @@ if ($filterCategory === '' || $filterCategory === 'Timber') {
               WHERE supplierId = ? AND status = 'Approved'";
 
     $params = [$supplierId];
-    $types = "i";
+    $types = "i"; 
 
     if (!empty($filterType)) {
         $query .= " AND type LIKE ?";
@@ -53,7 +61,7 @@ if ($filterCategory === '' || $filterCategory === 'Timber') {
     while ($row = $result->fetch_assoc()) {
         $orders[] = [
             'id' => $row['id'],
-            'category' => $row['category'],
+            'category' => 'Timber',
             'type' => $row['type'],
             'quantity' => $row['quantity'],
             'unitprice' => $row['unitprice'],
