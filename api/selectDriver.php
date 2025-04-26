@@ -16,7 +16,7 @@ if (isset($_POST['driverId'])) {
     }
     
 
-    // Double check availability before assigning
+    
     $stmt = $conn->prepare("SELECT available FROM driver WHERE driverId = ?");
     $stmt->bind_param("i", $driverId);
     $stmt->execute();
@@ -26,12 +26,12 @@ if (isset($_POST['driverId'])) {
     if (!$driver || $driver['available'] !== 'YES') {
         echo json_encode(['status' => 'error', 'message' => 'Driver not available']);
     } else {
-        // Update driver availability
+       
         $update = $conn->prepare("UPDATE driver SET available = 'NO' WHERE driverId = ?");
         $update->bind_param("i", $driverId);
         $update->execute();
       
-        // Determine the appropriate table based on type
+        
         if ($type === 'lumber') {
             $updateOrder = $conn->prepare("UPDATE orderlumber SET driverId = ?  , date = ? WHERE orderId = ? AND itemId = ?");
         } elseif ($type === 'furniture') {

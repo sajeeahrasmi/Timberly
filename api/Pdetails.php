@@ -1,18 +1,18 @@
 
 <?php
-// Include database connection
+
 include 'db.php';
 
-$orderId = $_GET['orderId']; // Get orderId from the query parameter
+$orderId = $_GET['orderId']; 
 
-// Query to get the payment details from the payment table
+
 $query = "SELECT sum(amount) AS amountPaid FROM payment WHERE orderId = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $orderId); // bind orderId to the query
+$stmt->bind_param("i", $orderId); 
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Check if there's a result
+
 if ($result->num_rows > 0) {
     $paymentDetails = $result->fetch_assoc();
     echo json_encode(['status' => 'success', 'amountPaid' => $paymentDetails['amountPaid']]);

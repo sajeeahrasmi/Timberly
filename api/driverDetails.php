@@ -1,9 +1,9 @@
 <?php
-// File: api/driverDetails.php
+
 header('Content-Type: application/json');
 require_once 'db.php';
 
-// Check for driver ID
+
 if (empty($_GET['driverId'])) {
     echo json_encode(['status' => 'error', 'message' => 'Driver ID required']);
     exit;
@@ -14,7 +14,7 @@ $orderId = isset($_GET['orderId']) ? intval($_GET['orderId']) : 0;
 $itemId = isset($_GET['itemId']) ? intval($_GET['itemId']) : 0;
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 
-// Get driver details with a join to the user table
+
 $sql = "SELECT d.driverId, d.vehicleNo, u.name, u.phone 
         FROM driver d 
         LEFT JOIN user u ON d.driverId = u.userId 
@@ -29,7 +29,7 @@ try {
     if ($result->num_rows > 0) {
         $driver = $result->fetch_assoc();
         
-        // Get the assigned date if order information is provided
+        
         $date = null;
         if ($orderId && $itemId && $type) {
             $tableName = '';

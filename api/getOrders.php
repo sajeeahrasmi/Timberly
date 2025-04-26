@@ -1,17 +1,16 @@
 <?php
-// Include the database connection (assuming it's in the same directory)
+
 require_once 'db.php';
 
-$balance = $newTotalAmount ?? 0; // Use the new total amount from the updatepayment.php script
-//$balance = $_SESSION['newTotalAmount'] ?? 0;
-// Get the filter values from the query parameters
+$balance = $newTotalAmount ?? 0; 
+
 $customer_filter = isset($_GET['customer_filter']) ? $_GET['customer_filter'] : '';
 $order_filter = isset($_GET['order_filter']) ? $_GET['order_filter'] : '';
 $status_filter = isset($_GET['status_filter']) ? $_GET['status_filter'] : '';
 $payment_status_filter = isset($_GET['payment_status_filter']) ? $_GET['payment_status_filter'] : '';
 $item_status_filter = isset($_GET['item_status_filter']) ? $_GET['item_status_filter'] : '';
 
-// Base query for lumber orders
+
 $sql_lumber = "SELECT 
     o.orderId AS main_order_id, 
     o.date, 
@@ -38,7 +37,7 @@ LEFT JOIN lumber l ON ol.itemId = l.lumberId
 
 WHERE ol.status != 'Pending'";
 
-// Base query for furniture orders - using 'orf' instead of 'of' as alias
+
 $sql_furniture = "SELECT 
     o.orderId AS main_order_id, 
     o.date, 
@@ -95,7 +94,7 @@ LEFT JOIN user u ON o.userId = u.userId
 
 WHERE ocf.status != 'Pending'";
 
-// Add filters to the SQL queries if necessary
+
 $whereClauses = [];
 if ($customer_filter) {
     $whereClauses[] = "u.userId LIKE '%" . $conn->real_escape_string($customer_filter) . "%'";
@@ -110,13 +109,13 @@ if ($payment_status_filter) {
     $whereClauses[] = "o.paymentStatus = '" . $conn->real_escape_string($payment_status_filter) . "'";
 }
 
-// Create the additional WHERE clauses (without the item status filter)
+
 $additional_where = "";
 if (count($whereClauses) > 0) {
     $additional_where = " AND " . implode(" AND ", $whereClauses);
 }
 
-// Apply item status filter separately to each query
+
 if ($item_status_filter) {
     $item_status_condition = " AND ol.status = '" . $conn->real_escape_string($item_status_filter) . "'"; 
     $sql_lumber .= $additional_where . $item_status_condition;
@@ -127,36 +126,36 @@ if ($item_status_filter) {
     $item_status_condition = " AND ocf.status = '" . $conn->real_escape_string($item_status_filter) . "'";
     $sql_customized .= $additional_where . $item_status_condition;
 } else {
-    // Just add the other filters
+    
     $sql_lumber .= $additional_where;
     $sql_furniture .= $additional_where;
     $sql_customized .= $additional_where;
 }
 
-// Combine the results with UNION
+
 $sql = "($sql_lumber) UNION ($sql_furniture) UNION ($sql_customized) ORDER BY main_order_id";
 
-// Execute the query
+
 $result = $conn->query($sql);
 
-// Check if there are any results
+
 if ($result->num_rows > 0) {
-    // Output the data for each order
+    
     while ($order = $result->fetch_assoc()) {
        
         $order_id = $order['main_order_id'];
         
-        // Query to get total payments for this order
+        
         $payment_query = "SELECT SUM(amount) AS totalPaymentAmount FROM payment WHERE orderId = '$order_id'";
         $payment_result = $conn->query($payment_query);
         $payment_row = $payment_result->fetch_assoc();
         $totalPaymentAmount = $payment_row['totalPaymentAmount'] ?? 0;
         
-        // Calculate total amount and remaining balance
+        
         $totalAmount = $order['totalAmount']; 
         $newTotalAmount = $totalAmount - $totalPaymentAmount;
         
-        // Ensure balance doesn't go negative
+        
         if ($newTotalAmount < 0) {
             $newTotalAmount = 0;
         }
@@ -169,7 +168,7 @@ if ($result->num_rows > 0) {
         }
 
         $iStatus = $order['itemStatus'];
-        if ($totalAmount == 0 && $order['itemStatus'] =='Delivered')
+        if ($newTotalAmount == 0 && $order['itemStatus'] =='Delivered')
         {
             $iStatus = 'Completed';
         }
@@ -186,6 +185,7 @@ if ($result->num_rows > 0) {
                 <td>{$totalAmount}</td>
                 <td>{$newTotalAmount}</td>
                 <td>{$order['paymentStatus']}</td>
+
                 <td>{$iStatus}</td>
                 <td><a href='{$viewUrl}' class='view-btn'>View Order</a></td>
               </tr>";

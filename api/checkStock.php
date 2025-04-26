@@ -1,8 +1,8 @@
 <?php
 
 include 'db.php';
-// Include the database connection and authentication (assuming they're in the same directory)
-// Correct variable to $itemId
+
+
 $itemId = isset($_GET['itemId']) ? $_GET['itemId'] : null;
 
 if (!$itemId) {
@@ -10,7 +10,7 @@ if (!$itemId) {
     exit;
 }
 
-// Prepare the SQL query to check stock
+
 $sql = "SELECT 
             ol.qty AS orderedQuantity,
             l.qty AS availableStock,
@@ -21,7 +21,7 @@ $sql = "SELECT
         WHERE ol.itemId = ? ";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $itemId); // Changed to use $itemId
+$stmt->bind_param('i', $itemId); 
 $stmt->execute();
 $result = $stmt->get_result();
 

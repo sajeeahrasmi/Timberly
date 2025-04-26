@@ -9,7 +9,7 @@ $timberData = [];
 while ($row = mysqli_fetch_assoc($timberDataResult)) {
     $timberData[] = $row;
 }
-// Fetch Lumber Data
+// Fetching Lumber Data
 $lumberDataQuery = "SELECT lumberId, type, length, width, thickness, qty, unitPrice ,image_path FROM lumber WHERE is_deleted = '0'";
 $lumberDataResult = mysqli_query($conn, $lumberDataQuery);
 if (!$lumberDataResult) {
@@ -21,7 +21,7 @@ while ($row = mysqli_fetch_assoc($lumberDataResult)) {
 }
    
      
- // Fetch Furniture Data
+ // Fetching Furniture Data
  $furnitureDataQuery = "SELECT furnitureId, description,category, type,size,additionalDetails, unitPrice , image FROM furnitures WHERE category in ('Chair','Table','Wardrobe','Bookshelf','Stool')";
 $furnitureDataResult = mysqli_query($conn, $furnitureDataQuery); 
 if (!$furnitureDataResult) {
@@ -31,7 +31,7 @@ $furnitureData = [];
 while ($row = mysqli_fetch_assoc($furnitureDataResult)) {
     $furnitureData[] = $row;
 }
-// Fetch Doors and Windows Data
+// Fetching Doors and Windows Data
 $doorsAndwindowsDataQuery = "SELECT furnitureId, description,category, type,size,additionalDetails, unitPrice , image FROM furnitures WHERE category in ('Door','Window' , 'Transom')";
 $doorsAndwindowsDataResult = mysqli_query($conn, $doorsAndwindowsDataQuery);
 if (!$doorsAndwindowsDataResult) {

@@ -1,9 +1,9 @@
 <?php
-require_once 'db.php'; // your DB connection
+require_once 'db.php'; 
 
 header('Content-Type: application/json');
 
-// Calculate total revenue from completed orders
+
 $query = "SELECT SUM(totalAmount) AS revenue FROM orders WHERE status = 'Completed'";
 $result = mysqli_query($conn, $query);
 

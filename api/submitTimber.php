@@ -1,5 +1,5 @@
 <?php
-include 'db.php';  // Assuming you have a database connection
+include 'db.php';  
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $material_type = $_POST['material_type'];
@@ -9,29 +9,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = $_POST['quantity'];
     $length = $_POST['length'];
 
-    // Check if fields are filled
+    
     if (empty($material_type) || empty($diameter) || empty($unit_price) || empty($supplierId)) {
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
         exit;
     }
 
-    // Handle file upload
+    
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/';  // Directory to save the image
+        $uploadDir = 'uploads/';  
         $fileName = basename($_FILES['image']['name']);
         $fileTmpName = $_FILES['image']['tmp_name'];
-        $filePath = $uploadDir . $fileName;  // Unique file path
+        $filePath = $uploadDir . $fileName;  
 
-        // Validate file type (only allow images)
+        
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($_FILES['image']['type'], $allowedTypes)) {
             echo json_encode(['success' => false, 'message' => 'Invalid file type. Only JPG, PNG, and GIF are allowed.']);
             exit;
         }
 
-        // Move file to the uploads folder
+        
         if (move_uploaded_file($fileTmpName, $filePath)) {
-            // Save product data to the database
+           
             $query = "INSERT INTO timber (type, price, length ,diameter, supplierId, image_path , qty) 
                       VALUES ('$material_type', '$unit_price', '$length','$diameter', '$supplierId', '$filePath' , '$quantity')";
             

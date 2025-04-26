@@ -1,8 +1,8 @@
 <?php
-// Database connection
-include 'db.php'; // Ensure you have a file for database connection
 
-// Get JSON input
+include 'db.php'; 
+
+
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 

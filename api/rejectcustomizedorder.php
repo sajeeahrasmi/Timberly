@@ -10,7 +10,7 @@ if ($itemId <= 0 || $orderId <= 0) {
     exit;
 }
 
-// Step 1: Get qty and unitPrice
+
 $sql = "SELECT qty, unitPrice FROM ordercustomizedfurniture WHERE itemId = ? AND orderId = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $itemId, $orderId);
@@ -27,14 +27,14 @@ if (!$item) {
 
 $itemTotal = $item['qty'] * $item['unitPrice'];
 
-// Step 2: Update ordercustomizedfurniture status
+
 $sql = "UPDATE ordercustomizedfurniture SET status = 'Not_Approved' WHERE itemId = ? AND orderId = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $itemId, $orderId);
 $stmt->execute();
 $stmt->close();
 
-// Step 3: Update totalAmount in orders table
+
 $sql = "UPDATE orders SET totalAmount = GREATEST(totalAmount - ?, 0) WHERE orderId = ? ";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("di", $itemTotal, $orderId);

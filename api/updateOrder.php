@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
-include 'db.php'; // Ensure this correctly connects to your database
+include 'db.php'; 
 
-// Get JSON input
+
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data['orderId']) || !isset($data['newStatus'])) {
@@ -14,7 +14,7 @@ $orderId = $data['orderId'];
 $newStatus = $data['newStatus'];
 
 if ($newStatus === 'Pending') {
-    // Delete from both orderlumber and orderfurniture
+    
     $sqlLumber = "DELETE FROM orderlumber WHERE orderId = ?";
     $sqlFurniture = "DELETE FROM orderfurniture WHERE orderId = ?";
     $sqlcFurniture = "DELETE FROM ordercustomizedfurniture WHERE orderId = ?";
@@ -41,7 +41,7 @@ if ($newStatus === 'Pending') {
     $stmtFurniture->close();
     $stmtcFurniture->close();
 } else {
-    // Update status in both orderlumber and orderfurniture
+    
     $sqlLumber = "UPDATE orderlumber SET status = ? WHERE orderId = ?";
     $sqlFurniture = "UPDATE orderfurniture SET status = ? WHERE orderId = ?";
     $sqlcFurniture = "UPDATE ordercustomizedfurniture SET status = ? WHERE orderId = ?";

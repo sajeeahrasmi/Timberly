@@ -1,17 +1,17 @@
 <?php
-// At the very top of deleteLumberInventory.php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'db.php';
 header('Content-Type: application/json');
 
 try {
-    // Log the incoming data
+    
     file_put_contents('debug.log', "Incoming data: " . file_get_contents('php://input') . "\n", FILE_APPEND);
     
     $data = json_decode(file_get_contents('php://input'), true);
     
-    // Log the decoded data
+    
     file_put_contents('debug.log', "Decoded data: " . print_r($data, true) . "\n", FILE_APPEND);
     
     if (!isset($data['id'])) {
@@ -20,7 +20,7 @@ try {
     
     $itemId = intval($data['id']);
     
-    // Log the query we're about to execute
+   
     file_put_contents('debug.log', "Attempting to delete lumber with ID: $itemId\n", FILE_APPEND);
     
     $query = "UPDATE  lumber SET is_deleted = '1' WHERE lumberid = ?";
@@ -49,7 +49,7 @@ try {
     $conn->close();
     
 } catch (Exception $e) {
-    // Log the error
+    
     file_put_contents('debug.log', "Error: " . $e->getMessage() . "\n", FILE_APPEND);
     
     http_response_code(500);
