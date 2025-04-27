@@ -9,42 +9,7 @@ include './components/flashMessage.php';
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/createPost.css">
     <style>
-        .card-selection {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            flex: 1;
-            padding: 40px;
-            background-color: #f1f1f1;
-            text-align: center;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .card:hover {
-            background-color: #e1e1e1;
-            border-color: #999;
-        }
-
-        .card.active {
-            border-color: #007BFF;
-            background-color: #d8eaff;
-        }
-
-        .category-form {
-            display: none;
-        }
-
-        .category-form.active {
-            display: block;
-        }
+       
     </style>
 </head>
 <body>
@@ -83,14 +48,15 @@ include './components/flashMessage.php';
                 </div>
 
                 <div class="form-group">
-                    <label>Diameter(mm):</label>
+                    <label>Diameter:</label>
+                    <label >(150mm - 450 mm)</label>
                     <input type="number" name="diameter" min="150" max="450" required>  
                 </div>
 
                 <div class="form-group">
                     <label>Quantity:</label>
                     <input type="number" name="quantity" min="1" required>
-                    <label>Price per Unit:</label>
+                    <label>Price per Unit(LKR):</label>
                     <input type="number" name="unitprice" min="1" required>
                 </div>
 
@@ -124,11 +90,11 @@ include './components/flashMessage.php';
                 </div>
 
                 <div class="form-group">
-                    <label>Length(m):</label>
+                    <label>Length(1m-5m):</label>
                     <input type="number" name="length" step="0.01" min="1" max="5" required>  
-                    <label>Width(mm):</label>
+                    <label>Width(50mm-150mm):</label>
                     <input type="number" name="width" min="50" max="150" required>
-                    <label>Thickness(mm):</label>
+                    <label>Thickness(12mm-50mm): </label>
                     <input type="number" name="thickness" min="12" max="50" required>
                 </div>
 

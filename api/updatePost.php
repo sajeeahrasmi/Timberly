@@ -3,9 +3,15 @@ include '../../config/db_connection.php';
 session_start();
 
 // Validate ID
-if (!isset($_GET['id']) || !isset($_GET['category'])) {
-    echo "Invalid request.";
-    exit;
+if (isset($_GET['id']) && isset($_GET['category'])) {
+    $postId = $_GET['id'];
+    $category = $_GET['category'];
+
+    // database එකෙන් $postId එකට අදාළ post එක ගන්න
+    // form එක auto-fill කරන්න
+} else {
+    echo "Invalid Request.";
+    exit();
 }
 
 $id = intval($_GET['id']);
