@@ -25,15 +25,14 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
         <div class="top">
             <h1>Dashboard</h1>
         </div>
-        
         <div class="metric-grid">
-            <div class="metric-card">
+             <div class="metric-card">
                 <h3>Total Orders</h3>
                 <div class="metric-content">
                     <span class="metric-value"><?= $totalOrders ?></span>
                     <i class="fas fa-shopping-bag"></i>
                 </div>
-            </div>
+            </div> 
 
             <div class="metric-card">
                 <h3>Approved Orders</h3>
@@ -50,7 +49,15 @@ include '../../api/fetchDashboardData.php'; // Include the dashboard data fetchi
                     <i class="fas fa-shopping-bag"></i>
                 </div>
             </div>
+            <div class="metric-card">
+                <h3>Rejeceted Orders</h3>
+                <div class="metric-content">
+                    <span class="metric-value"><?= $rejectedOrders ?></span>
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
         </div>
+
 
         <div class="top">
             <h2>Recent Orders</h2>

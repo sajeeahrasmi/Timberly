@@ -15,6 +15,7 @@ $supplierId = $_SESSION['userId'];
 $totalOrders = 0;
 $approvedOrders = 0;
 $pendingOrders = 0;
+$rejectedOrders = 0;
 
 // Fetch total orders (both approved and pending) from both pendingtimber and pendinglumber
 $sqlTotal = "SELECT COUNT(*) AS total_orders 
@@ -60,6 +61,24 @@ $resultPending = $stmtPending->get_result();
 if ($resultPending->num_rows > 0) {
     $pendingOrders = $resultPending->fetch_assoc()['pending_orders'];
 }
+
+//Fetch Rejected orders (status = 'Rejected') from both pendingtimber and pendinglumber
+$sqlRejected = "SELECT COUNT(*) AS rejected_orders 
+                 FROM (
+                     SELECT id FROM pendingtimber WHERE supplierId = ? AND status = 'Rejected'
+                     UNION ALL
+                     SELECT id FROM pendinglumber WHERE supplierId = ? AND status = 'Rejected'
+                 ) AS rejected_combined";
+$stmtRejected = $conn->prepare($sqlRejected);
+$stmtRejected->bind_param('ii', $supplierId, $supplierId);
+$stmtRejected->execute();
+$resultRejected = $stmtRejected->get_result();
+if ($resultRejected->num_rows > 0) {
+    $rejectedOrders = $resultRejected->fetch_assoc()['rejected_orders'];
+} else {
+    $rejectedOrders = 0; // Default to 0 if no rejected orders found
+}
+
 
 // Fetch recent approved orders from both tables (limit to 6 for dashboard view)
 $sqlRecentApproved = "SELECT id, category, type, quantity, postdate 
