@@ -502,7 +502,7 @@ function initializeProgressBar() {
     }
 }
 
-// Add this script at the bottom of your page or in a separate JS file
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get all unit price input elements
     const unitPriceInputs = document.querySelectorAll('.unitPrice-input');
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Inside your existing script block
+
 window.onload = function() {
     const orderId = document.getElementById('orderId').value;
     //const paymentDetailsDiv = document.querySelector('.payment-details'); // Add an element with this class in your HTML
@@ -652,7 +652,7 @@ window.onload = function() {
                     .catch(error => {
                         console.error('Error fetching driver details:', error);
                         driverStatusDiv.textContent = `Driver #${assignedDriverId} is assigned, but details couldn't be loaded.`;
-                        driverStatusDiv.style.color = '#FFA500'; // Orange warning color
+                        driverStatusDiv.style.color = '#FFA500';
                     });
             }
         })
@@ -671,7 +671,7 @@ function updatenew() {
     const orderId = document.getElementById('orderId').value;
     console.log(orderId); // For debugging
 
-    // Send AJAX request to the server
+    
     fetch('../../api/updatepayment.php', {
         method: 'POST',
         headers: {
@@ -684,11 +684,11 @@ function updatenew() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Response from the server
+        console.log(data); 
         if (data.success) {
             alert("Payment updated successfully!");
-            //display the fetching newTotaleamount
-            const newTotal = data.newTotalAmount; // Assuming the server returns the new total amount
+            
+            const newTotal = data.newTotalAmount; 
             console.log(newTotal)
         } else {
             alert("Error updating payment.");
@@ -784,7 +784,7 @@ function assignDriver() {
                 .catch(error => {
                     console.error('Error fetching driver details:', error);
                     driverStatusDiv.textContent = `Driver #${selectedDriverId} assigned, but details couldn't be loaded.`;
-                    driverStatusDiv.style.color = '#FFA500'; // Orange warning color
+                    driverStatusDiv.style.color = '#FFA500'; 
                 });
                 
             // Disable the dropdown and button

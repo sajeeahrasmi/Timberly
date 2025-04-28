@@ -1,5 +1,5 @@
 <?php
-// Include the database connection (assuming it's in the same directory)
+
 require_once 'db.php';
 
 // Get the orderId, itemId, and type from the URL

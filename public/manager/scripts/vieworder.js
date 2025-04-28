@@ -81,8 +81,6 @@ function goToOrders() {
     window.location.href = 'orders.php';
 }
 
-// Existing functions for your other buttons...
-// (checkStock, approveOrder, rejectOrder)
 
 // Function to show modal for setting price
 function showSetPriceModal(itemId, orderId) {

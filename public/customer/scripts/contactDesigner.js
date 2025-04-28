@@ -17,6 +17,7 @@ function openChat(productName, productId) {
     .then(data => {
         if (data.success) {
             console.log('Chat loaded successfully!');
+            
             // Display existing messages in the chat content
             if (data.messages && data.messages.length > 0) {
                 data.messages.forEach(msg => {
@@ -91,11 +92,13 @@ function uploadImage(event) {
     const file = event.target.files[0];
     const itemId = fileInput.dataset.itemId;
     const orderId = fileInput.dataset.orderId;
+    const senderType = 'customer';
     if (file && file.type.startsWith('image/')) {
         const formData = new FormData();
         formData.append('image', file);
         formData.append('itemId', itemId);
         formData.append('orderId', orderId);
+        formData.append('senderType', senderType);
 
 
         fetch('../../config/customer/uploadImage.php', {

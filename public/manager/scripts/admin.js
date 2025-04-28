@@ -49,14 +49,14 @@ function fetchAlerts() {
   xhr.send();
 }
 
-// Fetch alerts immediately when the page loads
+// Fetch alerts  when the page loads
 fetchAlerts();
 
-// Optionally, fetch alerts every 10 seconds
+//fetch alerts every 10 seconds
 setInterval(fetchAlerts, 10000); 
 
 function fetchOrders() {
-  fetch('../../api/mockOrders.php') // Adjust path if necessary
+  fetch('../../api/mockOrders.php') 
     .then(response => response.json())
     .then(data => {
       const tbody = document.getElementById('orders-tbody');
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Order count data:", data);
 
       const orderCount = data.order_count || 0;
-      const orderCountElement = document.querySelectorAll(".metric-card")[1] // or a more specific selector
+      const orderCountElement = document.querySelectorAll(".metric-card")[1] 
         .querySelector(".metric-value");
 
       if (orderCountElement) {
@@ -361,7 +361,7 @@ function checkNotifications() {
 // Run on load
 checkNotifications();
 
-// Optional: run every 30 seconds
+// run every 2 seconds
 setInterval(checkNotifications, 2000);
 
 

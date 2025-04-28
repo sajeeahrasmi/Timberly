@@ -527,7 +527,7 @@ function createDOMChart(container, data) {
   container.innerHTML = '';
   container.appendChild(chartContainer);
 }
-// Add this function to your existing script
+
 
     async function generateOrderReport() {
   try {

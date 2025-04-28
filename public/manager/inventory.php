@@ -20,7 +20,7 @@ require_once '../../api/auth.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* General reset */
+        
         * {
             margin: 0;
             padding: 0;
@@ -277,10 +277,7 @@ require_once '../../api/auth.php';
         const timberData = <?php echo json_encode($timberData); ?>;
         const lumberData = <?php echo json_encode($lumberData); ?>;
         let currentFilter = '';
-  // Modify the delete function to handle type and id
-// Delete Timber Item
-// Add these functions to your existing JavaScript code
-
+  
 function makeEditable(cell) {
     const currentValue = cell.textContent;
     cell.innerHTML = `<input type="number" class="edit-input" value="${currentValue}" style="width: 80px;">`;
@@ -311,13 +308,13 @@ function saveEdit(row, type) {
     };
     
     if (type === 'timber') {
-        const qtyInput = cells[1].querySelector('input');
+        const qtyInput = cells[3].querySelector('input');
         data.qty = qtyInput.value;
-        cells[1].textContent = qtyInput.value;
+        cells[3].textContent = qtyInput.value;
     } else if (type === 'lumber') {
-        const logsInput = cells[1].querySelector('input');
+        const logsInput = cells[4].querySelector('input');
         data.qty = logsInput.value;
-        cells[1].textContent = logsInput.value;
+        cells[4].textContent = logsInput.value;
     }
     
     updateInventory(type, data);
@@ -357,7 +354,7 @@ function handleEdit(button, type) {
         button.innerHTML = '<i class="fas fa-edit"></i> Edit';
     } else {
         
-        const editableCell = type === 'timber' ? row.cells[1] : row.cells[1]; 
+        const editableCell = type === 'timber' ? row.cells[3] : row.cells[4]; 
         makeEditable(editableCell);
         button.innerHTML = '<i class="fas fa-save"></i> Save';
     }
@@ -383,7 +380,7 @@ async function deleteTimberItem(id) {
 
         console.log('Response status:', response.status); // Debug log
         
-        const result = await response.text(); // Get raw response text first
+        const result = await response.text(); 
         console.log('Raw response:', result); // Debug log
         
         try {
@@ -427,7 +424,7 @@ async function deleteLumberItem(id) {
 
         console.log('Response status:', response.status); // Debug log
         
-        const result = await response.text(); // Get raw response text first
+        const result = await response.text(); 
         console.log('Raw response:', result); // Debug log
         
         try {

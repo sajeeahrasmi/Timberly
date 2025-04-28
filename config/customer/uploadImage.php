@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $itemId = $_POST['itemId'];
     $orderId = $_POST['orderId'];
-    $senderType = 'customer';
+    $senderType = isset($_POST['senderType']) ? $_POST['senderType'] : null;
     $messageType = 'image';
 
     // Get sessionId from designerchat table

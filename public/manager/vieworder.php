@@ -1,5 +1,5 @@
 <?php
-// Authentication check MUST be the first thing in the file
+
 require_once '../../api/auth.php';
 
 include '../../api/ViewOrderDetails.php';

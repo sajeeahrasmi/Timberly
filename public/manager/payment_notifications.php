@@ -163,8 +163,8 @@ function markAsRead(orderId) {
     .then(response => response.text())
     .then(data => {
         console.log(data);
-        // Optionally remove or disable the button
-        location.reload(); // Refresh to reflect the change
+        
+        location.reload(); 
     })
     .catch(error => {
         console.error('Error:', error);

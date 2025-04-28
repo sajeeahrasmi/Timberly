@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editModal = document.getElementById('edit-product-modal');
     const closeModalBtn = editModal.querySelector('.close-modal');
     const dynamicFields = document.getElementById('dynamic-fields');
-    const productContainer = document.getElementById('product-section'); // Replace with the parent container of your product cards.
+    const productContainer = document.getElementById('product-section');
 
     let currentCategory = null;
     let currentProductName = null;

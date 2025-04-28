@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-// Database connection
+
 require_once 'db.php';
 
 $response = ['success' => false, 'message' => 'Product deletion failed!'];

@@ -165,6 +165,7 @@ function handleFileUpload(event) {
             // Display the image in chat
             const chatMessages = document.getElementById('chatMessages');
             const messageElement = document.createElement('div');
+            const senderType = 'designer'; 
             messageElement.className = 'message sent';
             const img = document.createElement('img');
             img.src = e.target.result;
@@ -178,6 +179,7 @@ function handleFileUpload(event) {
             formData.append('image', file);
             formData.append('orderId', currentOrder.orderId);
             formData.append('itemId', currentItem.itemId);
+            formData.append('senderType', senderType);
             
             try {
                 const response = await fetch('../../config/customer/uploadImage.php', {

@@ -6,9 +6,9 @@
     <title>Sales Report</title>
 
     <style>
-        /* General Styles */
+        
 :root {
-    /* CSS Variables */
+    
     --color-primary: #895D47;
     --color-secondary: #D2B48C;
     --color-white: #fff;
@@ -403,7 +403,7 @@ body {
         </form>
       
         <div id="reportResults">
-            <!-- AJAX report results will appear here -->
+           
         </div>
         <div class="download-pdf-container">
             <button id="download-pdf-btn" type="button" class="pdf-button">

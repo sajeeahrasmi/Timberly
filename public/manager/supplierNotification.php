@@ -19,9 +19,7 @@ require_once '../../api/auth.php';
     <title>Supplier Notification</title>
    
     <style>
-    /* General Styles */
-   /* General Styles */
- /* General Styles */
+   
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f2f5;
@@ -354,9 +352,9 @@ form button:hover {
     </div>
 
     <script>
-        //showProductDetails function
+        
         function showProductDetails(id) {
-            //get product details from database
+            
             const products = <?php echo json_encode($products); ?>;
             const product = products.find(p => p.id == id);
             if (product) {
@@ -377,15 +375,15 @@ form button:hover {
                 alert('Product not found');
             }
         }
-        //showProductDetails function
+        
 
       const suppliers = <?php echo json_encode($suppliers); ?>;
         
         function showSupplierDetails(supplierId) {
-    console.log(supplierId); // Log supplierId for debugging
+    console.log(supplierId); 
     const suppliers = <?php echo json_encode($suppliers); ?>;
 
-    // Find the supplier
+    
     const supplier = suppliers.find(s => s.userId == supplierId);
     if (supplier) {
         document.getElementById('supplierDetails').innerHTML = `
@@ -398,7 +396,7 @@ form button:hover {
                 </div>
             </div>
         `;
-        // Use userId instead of id
+       
         document.getElementById('supplier_id').value = supplier.userId;
         document.getElementById('supplierModal').classList.add('active');
     } else {
@@ -412,7 +410,7 @@ function approveSupplier(event) {
     const userId = document.getElementById('supplier_id').value;
     console.log("Approving supplier with ID:", userId);
     
-    // Make sure userId is sent as a number if that's what your database expects
+    
     const userIdNum = parseInt(userId, 10);
     
     fetch('../../api/approvesupllieruser.php', {
@@ -446,19 +444,18 @@ function approveSupplier(event) {
     });
 }
 function rejectSupplier(event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); 
     
     const userId = document.getElementById('supplier_id').value;
     console.log("Rejecting supplier with ID:", userId);
     
-    // Create FormData object instead of JSON
     const formData = new FormData();
     formData.append('userId', userId);
     
     
     fetch('../../api/rejectsupplieruser.php', {
         method: 'POST',
-        body: formData // Send as form data instead of JSON
+        body: formData 
     })
     .then(response => response.json())  
     .then(data => {
@@ -466,7 +463,7 @@ function rejectSupplier(event) {
         if (data.success) {
             alert('Supplier Rejected');
             closeModal('supplierModal');
-            // Reload page to show updated list
+            
             location.reload();
         } else {
             alert('Error: ' + data.message);
@@ -531,7 +528,7 @@ function approveProduct() {
     
     console.log("Approving product with ID:", productId, "Category:", product.category);
     
-    // Create FormData object
+    
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('category', product.category);

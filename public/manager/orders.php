@@ -1,10 +1,10 @@
 <?php
-// Authentication check MUST be the first thing in the file
+
 require_once '../../api/auth.php';
 
 
 //$balance = $_SESSION['newTotalAmount'] ?? 0;
-// Rest of your existing PHP code follows...
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -173,12 +173,7 @@ require_once '../../api/auth.php';
                 })
                 .catch(error => console.error('Error:', error));
         }
-        // Add this script to your orders.php file before the closing </body> tag
-
-// Add simple CSS styles 
-// Add this script to your orders.php file before the closing </body> tag
-
-// Add simple CSS styles 
+         
 const styles = document.createElement('style');
 styles.innerHTML = `
     /* Highlight for delivered orders */
@@ -208,22 +203,22 @@ styles.innerHTML = `
 `;
 document.head.appendChild(styles);
 
-// Function to highlight delivered orders and update sidebar
+
 function highlightDeliveredOrders() {
-    // Get all table rows
+    
     const tableRows = document.querySelectorAll('#ordersTableBody tr');
     let hasDeliveredOrders = false;
     
     tableRows.forEach(row => {
-        // Get the status cell (8th column)
+        
         const statusCell = row.cells[7];
         
         if (statusCell && statusCell.textContent.trim() === 'Delivered') {
-            // Add highlighting class
+            
             row.classList.add('new-delivered');
             hasDeliveredOrders = true;
             
-            // Add a "NEW" badge to the status cell if it doesn't have one
+            
             if (!statusCell.querySelector('.new-badge')) {
                 const badge = document.createElement('span');
                 badge.className = 'new-badge';
@@ -233,9 +228,9 @@ function highlightDeliveredOrders() {
         }
     });
     
-    // Add glow effect to sidebar link if there are delivered orders
+    
     if (hasDeliveredOrders) {
-        // Target the specific sidebar link based on your HTML structure
+        
         const sidebarLink = document.querySelector('li a[onclick="showSection(\'orders-section\')"]');
         if (sidebarLink) {
             sidebarLink.classList.add('orders-glow');
@@ -243,15 +238,14 @@ function highlightDeliveredOrders() {
     }
 }
 
-// Run once when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     highlightDeliveredOrders();
     
-    // Re-run after filter updates
+    
     const originalUpdateTable = window.updateTable;
     window.updateTable = function() {
         originalUpdateTable();
-        // Wait for AJAX to complete
+        
         setTimeout(highlightDeliveredOrders, 500);
     };
 });

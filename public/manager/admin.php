@@ -3,10 +3,7 @@
 include '../../config/login.php';
 
 
-// Authentication check MUST be the first thing in the file
 
-
-// Rest of your existing PHP code follows...
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,8 +1,7 @@
 <?php
-// Authentication check MUST be the first thing in the file
 require_once '../../api/auth.php';
 
-// Rest of your existing PHP code follows...
+
 ?>
 <?php include '../../api/Allproducts.php'; ?>
 <?php
