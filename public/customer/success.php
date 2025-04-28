@@ -86,7 +86,7 @@ try {
 
     if($category === 'Furniture'){
         $query = "UPDATE orderfurniture SET status = 'Approved' WHERE orderId = ? AND status = 'Pending'";
-        $stmt = $conn->prepare($update);
+        $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
     }
@@ -118,12 +118,32 @@ try {
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../customer/styles/payment-success.css">
     <style>
+
+        :root {
+        --color-primary: #895D47;
+        --color-secondary: #B18068;
+        --color-danger: #ff7782;
+        --color-success: #41f1b6;
+        --color-warning: #ffbb55;
+        --color-white: #fff;
+        --color-background: #f6f6f9;
+
+        --card-border-radius: 2rem;
+        --border-radius-1: 0.4rem;
+        --border-radius-2: 0.8rem;
+        --border-radius-3: 1.2rem;
+
+        --card-padding: 20px;
+        --padding: 10px;
+
+        --box-shadow: 0 4px 8px var(--color-secondary);
+        }
         .success-container {
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
             border-radius: 10px;
-            background: #f8fff8;
+            background: var(--color-background);
             text-align: center;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
@@ -131,9 +151,9 @@ try {
             text-align: left;
             margin: 20px 0;
             padding: 15px;
-            background: #e8f5e9;
+            background:rgb(229, 187, 166);
             border-radius: 5px;
-            border: 1px solid #c8e6c9;
+            border: 1px solid var(--color-primary);
         }
         .button {
             padding: 10px 20px;

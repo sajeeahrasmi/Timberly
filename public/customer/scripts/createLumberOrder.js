@@ -135,8 +135,8 @@ async function addCard() {
         return;
     }
 
-    if (qty > lumberQty) {
-        alert(`Please select quantity less than ${lumberQty} .`);
+    if (qty > lumberQty || qty <1) {
+        alert(`Please select quantity greater than 0 and less than ${lumberQty}.`);
         return;
     }
 
@@ -223,7 +223,8 @@ async function placeOrder() {
             window.location.href = `http://localhost/Timberly/public/customer/orderHistory.php`;
             
         } else {
-            alert("Failed to place the order. Please try again.");
+            alert("Order placement failed. Please try again and make sure identical items are grouped together instead of adding them separately.");
+            location.reload();
         }
     } catch (error) {
         console.error("Error placing order:", error);

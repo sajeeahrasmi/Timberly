@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (statusElement.textContent === 'Confirmed') {
             payButton.disabled = false;
             buttonAddItem.disabled = true;
+            buttonAddItem.style.display = 'none';
 
-        } else if (statusElement.textContent === 'Processing') {
+        } else if (statusElement.textContent === 'Processing' || statusElement.textContent === 'Completed') {
             buttonAddItem.style.display = 'none';
             buttonAddItem.disabled = true;
             cancelbutton.style.display = 'none';
@@ -66,6 +67,7 @@ async function deleteItem(id, orderId) {
 
         if (data.success) {
             alert("Item deleted successfully");
+            location.reload();
             
         } else {
             alert("Failed to delete the item: " + data.error);
@@ -118,7 +120,6 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
-a
 
  document.getElementById("customDesign").addEventListener("change", function () {
     const file = this.files[0];
@@ -226,6 +227,7 @@ async function addItem(orderId) {
 
         if (result.success) {
             alert("Item added successfully!");
+            location.reload();
             
         } else {
             alert("Failed to place the order: " + (result.error || "Unknown error"));
@@ -241,6 +243,11 @@ async function addItem(orderId) {
 async function changeDateM(orderId) {
     const currentDateStr = document.getElementById("currentDate").textContent.trim();
     const newDateStr = document.getElementById("newDateInput").value;
+
+    if (!currentDateStr) {
+        alert("Current date is missing. Cannot update.");
+        return;
+    }
 
     if (!newDateStr) {
         alert("Please select a date.");
@@ -277,6 +284,11 @@ async function changeDateM(orderId) {
 async function changeDate(orderId) {
     const currentDateStr = document.getElementById("currentDateDriver").textContent.trim();
     const newDateStr = document.getElementById("newDateInputDriver").value;
+
+    if (!currentDateStr) {
+        alert("Current date is missing. Cannot update.");
+        return;
+    }
 
     if (!newDateStr) {
         alert("Please select a date.");

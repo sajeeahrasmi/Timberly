@@ -1,5 +1,5 @@
 <?php
-    include "../config/db_connection.php"; // Assumes $conn = new mysqli(...)
+    include "../config/db_connection.php";
 
     // Get user ID from URL
     $userId = $_GET['userId'] ?? '';
@@ -14,7 +14,7 @@
 
     // Prepare statement to check if user exists
     $stmt = $conn->prepare("SELECT * FROM user WHERE userId = ?");
-    $stmt->bind_param("i", $userId);  // "i" = integer
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -85,11 +85,11 @@
                 <div class="form-group">
                     <input type="text" name="username" id="username" placeholder="Username" required>
                     <input type="password" name="new_password" placeholder="New password"
-                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                        title="Password must be at least 8 characters long and contain at least one letter and one number." required>
+                        pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
+                        title="Password must be at least 8 characters long, contain at least one letter and one number. Special characters are allowed." required>
                     <input type="password" name="re_new_password" placeholder="Re-enter password"
-                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                        title="Password must be at least 8 characters long and contain at least one letter and one number." required>
+                        pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
+                        title="Password must be at least 8 characters long, contain at least one letter and one number. Special characters are allowed." required>
                 </div>
                 <button type="submit" class="button solid">Reset Password</button>
             </form>

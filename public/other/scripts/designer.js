@@ -173,6 +173,7 @@ function handleFileUpload(event) {
             messageElement.appendChild(img);
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+           
             
             // Send the image to the server
             const formData = new FormData();

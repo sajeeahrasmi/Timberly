@@ -138,9 +138,9 @@ $vehicleNo = $row2['vehicleNo'] ?? '';
                 <div class="form-group">
                     <label for="size">Wood Size: </label>
                     <select id="edit-size">
-                        <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
                     </select>
                 </div>
                 <script>
