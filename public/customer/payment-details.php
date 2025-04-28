@@ -156,7 +156,7 @@ $balance = $totalAmount - $paidAmount;
             <p>Note:</p>
             <ul>
                 <li>Minimum first-time payment is <strong>25% of total amount.</strong></li>
-                <li>Minimum subsequent payment is <strong>Rs 10,000</strong>.</li>
+                <li>Minimum subsequent payment is <strong>Rs 5,000</strong>.</li>
             </ul>
         </div>
 
@@ -197,7 +197,7 @@ $balance = $totalAmount - $paidAmount;
         }
 
         let finalAmount = inputAmount;
-        const isFirstTimePayment = (paymentStatus === "Unpaid" || orderStatus === "Confirmed");
+        const isFirstTimePayment = (paymentStatus === "Unpaid" && orderStatus === "Confirmed");
 
         if (isFirstTimePayment) {
             const minFirstPayment = totalAmount * 0.25;
@@ -210,9 +210,9 @@ $balance = $totalAmount - $paidAmount;
                 finalAmount = minFirstPayment;
             }
         } else {
-            if (inputAmount < 10000) {
+            if (inputAmount < 5000) {
                 // alert("Minimum subsequent payment is Rs 10,000.\nProceeding with minimum amount.");
-                const proceed = confirm(`Minimum subsequent payment is Rs 10,000.\nProceeding with minimum amount.`);
+                const proceed = confirm(`Minimum subsequent payment is Rs 5,000.\nProceeding with minimum amount.`);
                 if (!proceed) {
                     return;
                 }

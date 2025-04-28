@@ -43,6 +43,7 @@ async function updateItemQuantity(input) {
 
         if(data.success){
             // alert('Quantity updated!');
+            location.reload();
 
         }else{
             alert('Failed to update selection: ' + data.message);
@@ -73,6 +74,7 @@ async function removeCartItem(button) {
 
         if(data.success){
             alert('Removed item!');
+            location.reload();
 
         }else{
             alert('Failed to remove item: ' + data.message);
@@ -99,6 +101,7 @@ async function updateSelectToOrder(checkbox) {
 
         if(data.success){
             // alert('Checked to order!');
+            location.reload();
 
         }else{
             alert('Failed to update selection: ' + data.message);
@@ -124,6 +127,7 @@ async  function clearCart(userId) {
 
         if(data.success){
             alert('Cart cleared!');
+            location.reload();
 
         }else{
             alert('Failed to clear cart: ' + data.message);

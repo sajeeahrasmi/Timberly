@@ -142,11 +142,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class="form-group">
                                 <h5>Size</h5>
                                 <label>Length (m) </label>
-                                <input type="number" id="length" min = 1 max = 5>
+                                <input type="number" id="length" min = 1 max = 5 step="any">
                                 <label>Width (mm) </label>
-                                <input type="number" id="width" min = 1 max = 1500>
+                                <input type="number" id="width" min = 50 max = 1500 step="any">
                                 <label>Thickness (mm) </label>
-                                <input type="number" id="thickness" min = 1 max = 50>
+                                <input type="number" id="thickness" min = 10 max = 50 step="any">
                             </div>
 
 

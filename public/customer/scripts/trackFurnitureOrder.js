@@ -12,15 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
     function updateButtonsBasedOnStatus(status) {
-       
+    //    status = 'Delivered'
         editBtn.disabled = true;
         viewLocationBtn.disabled = true;
         leaveReviewBtn.disabled = true;
 
-        if (status === "Pending" || status === "Approved") {
-            editBtn.disabled = false;
-            
-        } else if (status === "Finished") {
+        if (status === "Pending") {
+            editBtn.disabled = false;         
+        } else if (status === "Approved") {
+            editBtn.disabled = true;
+        }else if (status === "Finished") {
             viewLocationBtn.disabled = false;
         } else if (status === "Delivered") {
             leaveReviewBtn.disabled = false;
@@ -57,10 +58,16 @@ async function updateItem(Id, orderId){
     const size = document.getElementById("edit-size").value; 
     const qty = document.getElementById("edit-qty").value; 
     const details = document.getElementById("edit-details").value; 
+
+    if(!qty || !size || !type){
+        alert("Please fill out the columns");
+        return;
+    }
    
 
     if(qty < 0 || qty > 20){
-        alert("Quantity should be between 0 and 20");
+        alert("Quantity should be between 1 and 20");
+        return;
         
     }
 
@@ -72,6 +79,7 @@ async function updateItem(Id, orderId){
 
         if(data.success){
             alert("Successfully updated the item");
+            location.reload();
             
         }else{
             alert("Couldnt update.");
