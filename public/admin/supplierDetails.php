@@ -45,6 +45,8 @@
                         <div class="supplier-stats">
                             <p class="stat-title">Registered</p>
                             <p class="stat-value"><?php echo htmlspecialchars($time_ago)?></p>
+                            <p class="stat-title">Last order</p>
+                            <p class="stat-value"><?php echo htmlspecialchars($lastPostTimeAgo) ?></p>
                             <p class="stat-title">Total posts</p>
                             <p class="stat-value"><?php echo htmlspecialchars($count)?></p>
                         </div>
