@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../config/db_connection.php';
+include_once '../db_connection.php';
 header('Content-Type: application/json');
 
 if (isset($_GET['action'])) {
@@ -140,12 +140,18 @@ function deleteItem(){
         }
 
         
-        $query2 = "DELETE FROM ordercustomizedfurniture WHERE itemId = $id AND orderId = $orderId";
-        $result2 = mysqli_query($conn, $query2);
-
-        if (!$result2) {
+        // $query2 = "DELETE FROM ordercustomizedfurniture WHERE itemId = $id AND orderId = $orderId";
+        // $result2 = mysqli_query($conn, $query2);
+        $query2 = "DELETE FROM ordercustomizedfurniture WHERE itemId = ? AND orderId = ?";
+        $stmt2 = $conn->prepare($query2);
+        $stmt2->bind_param("ii", $id, $orderId);
+        if (!$stmt2->execute() || $stmt2->affected_rows === 0) {
             throw new Exception('Failed to delete item.');
         }
+
+        // if (!$result2) {
+        //     throw new Exception('Failed to delete item.');
+        // }
 
         $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ? AND status != 'Not_Approved'";
         $sumStmt = $conn->prepare($sumQuery);
@@ -202,25 +208,25 @@ function updateItem(){
             throw new Exception('Failed to update into order customized furniture table');
         }
 
-        $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ? AND status != 'Not_Approved'";
-        $sumStmt = $conn->prepare($sumQuery);
-        $sumStmt->bind_param("i", $orderId);
-        $sumStmt->execute();
-        $sumResult = $sumStmt->get_result();
-        $row = $sumResult->fetch_assoc();
-        $newTotal = $row['newTotal'];
+        // $sumQuery = "SELECT SUM(qty * unitPrice) AS newTotal FROM ordercustomizedfurniture WHERE orderId = ? AND status != 'Not_Approved'";
+        // $sumStmt = $conn->prepare($sumQuery);
+        // $sumStmt->bind_param("i", $orderId);
+        // $sumStmt->execute();
+        // $sumResult = $sumStmt->get_result();
+        // $row = $sumResult->fetch_assoc();
+        // $newTotal = $row['newTotal'];
 
-        if ($newTotal === null) {
-            throw new Exception("Could not calculate new total");
-        }
+        // if ($newTotal === null) {
+        //     throw new Exception("Could not calculate new total");
+        // }
 
-        $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
-        $updateStmt = $conn->prepare($updateOrderQuery);
-        $updateStmt->bind_param("di", $newTotal, $orderId);
+        // $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
+        // $updateStmt = $conn->prepare($updateOrderQuery);
+        // $updateStmt->bind_param("di", $newTotal, $orderId);
 
-        if (!$updateStmt->execute()) {
-            throw new Exception("Failed to update total amount");
-        }
+        // if (!$updateStmt->execute()) {
+        //     throw new Exception("Failed to update total amount");
+        // }
         
 
         mysqli_commit($conn);

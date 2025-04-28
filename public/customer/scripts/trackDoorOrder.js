@@ -88,16 +88,20 @@ async function updateItem(itemId, orderId){
    
 
     if(qty < 0 || qty > 20){
-        alert("Quantity should be between 0 and 20");   
+        alert("Quantity should be between 1 and 20");  
+        return; 
     }
     if(length < 0 || length > 5){
-        alert("Incorrect length");   
+        alert("Length should be between 1 and 5 m");
+        return;   
     }
     if(width < 0 || width > 1500){
-        alert("Incorrect width");   
+        alert("Width should be between 1 and 1500 mm"); 
+        return;  
     }
     if(thickness < 0 || thickness > 50){
-        alert("Incorrect thickness");   
+        alert("Thickness should be between 1 and 50 mm"); 
+        return;  
     }
 
     
@@ -108,6 +112,8 @@ async function updateItem(itemId, orderId){
 
         if(data.success){
             alert("Successfully updated the item");
+            // closePopup('edit-popup');
+            location.reload();
             
         }else{
             alert("Couldnt update.");
@@ -135,6 +141,7 @@ async function submitReview(orderId, Id){
             if(data.success){
                 alert('Thank you for your review!');
                 closePopup('review-popup');
+                location.reload();
 
             }else{
                 alert("Couldnt update review.");
@@ -146,5 +153,6 @@ async function submitReview(orderId, Id){
    
     } else {
         alert('Please write a review before submitting');
+        return;
     }
 }

@@ -26,7 +26,7 @@ $status = $orderData['status'] ?? 'Unknown';
 $totalAmount = $orderData['totalAmount'] ?? 0;
 $itemQty = $orderData['itemQty'] ?? 0;
 
-$minAmount = 1000000;
+$minAmount = 500000;
 $chargeAmount = max($amount * 100, $minAmount);
 
 require __DIR__ . "/vendor/autoload.php";

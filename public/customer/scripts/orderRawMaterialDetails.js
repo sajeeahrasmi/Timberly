@@ -8,12 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById('action-button');
     const buttonAddElement = document.getElementById('addItem');
     const statusElement = document.getElementById("status");
+    const payButton = document.getElementById('pay');
 
         if (statusElement.textContent === 'Pending') {
             buttonElement.disabled = false;
             buttonAddElement.onclick = function(){
                 showPopup();
             }
+            payButton.disabled = 'true';
+            payButton.style.backgroundColor = '#cccccc';
 
         } else if (statusElement.textContent === 'Confirmed') {
             buttonElement.disabled = false;
@@ -73,6 +76,7 @@ async function closePopup(userId, orderId) {
 
         if (data.success) {
             alert(`Lumber added successfully!`);
+            location.reload();
         } else {
             alert(`Error: ${data.error}`);
         }
@@ -122,6 +126,7 @@ async function deleteItem(itemId, orderId, userId) {
 
         if (data.success) {
             alert("Item deleted successfully");
+            location.reload();
         } else {
             alert("Failed to delete the item: " + data.error);
         }
@@ -284,6 +289,11 @@ async function updateQty() {
 async function changeDate(orderId) {
     const currentDateStr = document.getElementById("currentDateDriver").textContent.trim();
     const newDateStr = document.getElementById("newDateInputDriver").value;
+
+    if (!currentDateStr) {
+        alert("Current date is missing. Cannot update.");
+        return;
+    }
 
     if (!newDateStr) {
         alert("Please select a date.");
