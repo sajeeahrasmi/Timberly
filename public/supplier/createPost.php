@@ -2,7 +2,7 @@
 include './components/flashMessage.php';
 ?>
 
-///////finall
+
 <!DOCTYPE html>
 <html>
 <head>
