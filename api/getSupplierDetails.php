@@ -22,6 +22,15 @@ while ($row = mysqli_fetch_assoc($result1)) {
     $count++;
 }
 
+$lastPostTimeAgo = "No orders"; // default value
+
+if (!empty($postData)) {
+    $lastPostDate = strtotime($postData[0]['postdate']);
+    $currentTime = time();
+    $seconds_since_last_post = $currentTime - $lastPostDate;
+    $lastPostTimeAgo = formatTimeAgo($seconds_since_last_post);
+}
+
 // Get elapsed time
 $seconds_elapsed = $supplier['seconds_elapsed'];
 

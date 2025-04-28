@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderId = $_POST['orderId'];
     $senderType = 'customer';
     $messageType = 'image';
+    $senderType = isset($_POST['senderType']) ? $_POST['senderType'] : 'null';
 
     // Get sessionId from designerchat table
     $stmt = $conn->prepare("SELECT sessionId FROM designerchat WHERE itemId = ? AND orderId = ? LIMIT 1");

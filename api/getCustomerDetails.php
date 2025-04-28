@@ -22,6 +22,14 @@ while ($row = mysqli_fetch_assoc($result1)) {
     $count++;
 }
 
+$lastOrderTimeAgo = "No orders"; // default value
+
+if (!empty($orderData)) {
+    $lastOrderDate = strtotime($orderData[0]['date']);
+    $currentTime = time();
+    $seconds_since_last_order = $currentTime - $lastOrderDate;
+    $lastOrderTimeAgo = formatTimeAgo($seconds_since_last_order);
+}
 
 $seconds_elapsed = $customer['seconds_elapsed'];
 

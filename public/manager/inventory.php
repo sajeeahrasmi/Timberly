@@ -311,13 +311,13 @@ function saveEdit(row, type) {
     };
     
     if (type === 'timber') {
-        const qtyInput = cells[1].querySelector('input');
+        const qtyInput = cells[3].querySelector('input');
         data.qty = qtyInput.value;
-        cells[1].textContent = qtyInput.value;
+        cells[3].textContent = qtyInput.value;
     } else if (type === 'lumber') {
-        const logsInput = cells[1].querySelector('input');
+        const logsInput = cells[4].querySelector('input');
         data.qty = logsInput.value;
-        cells[1].textContent = logsInput.value;
+        cells[4].textContent = logsInput.value;
     }
     
     updateInventory(type, data);
@@ -357,7 +357,7 @@ function handleEdit(button, type) {
         button.innerHTML = '<i class="fas fa-edit"></i> Edit';
     } else {
         
-        const editableCell = type === 'timber' ? row.cells[1] : row.cells[1]; 
+        const editableCell = type === 'timber' ? row.cells[3] : row.cells[4]; 
         makeEditable(editableCell);
         button.innerHTML = '<i class="fas fa-save"></i> Save';
     }

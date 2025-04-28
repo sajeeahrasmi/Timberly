@@ -78,7 +78,6 @@
                         <div class="customer-section">
                             <h3 style="display: inline-block; margin-top: 0px">Customer</h3>
                             <div class="customer-info">
-                                <img src="./images/user-pic.jpg" alt="custmr-img">
                                 <div>
                                     <p style="margin-bottom: 5px"><?php echo htmlspecialchars($order['customerName']); ?></p>
                                     <a href="mailto:<?php echo htmlspecialchars($order['email']); ?>"><?php echo htmlspecialchars($order['email']); ?></a>
@@ -96,7 +95,7 @@
                 <div class="transactions-section">
                     <h3 style="display: inline-block; margin-top: 10px">Transactions</h3>
                     <table class="transaction-table">
-                        <?php $paymentsTotal = 0; ?>
+                        <?php $paymentTotal = 0; ?>
                         <?php foreach ($payments as $payment): ?>
                             <tr>
                                 <td>

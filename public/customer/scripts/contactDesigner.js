@@ -91,11 +91,13 @@ function uploadImage(event) {
     const file = event.target.files[0];
     const itemId = fileInput.dataset.itemId;
     const orderId = fileInput.dataset.orderId;
+    const senderType = 'customer'; 
     if (file && file.type.startsWith('image/')) {
         const formData = new FormData();
         formData.append('image', file);
         formData.append('itemId', itemId);
         formData.append('orderId', orderId);
+        formData.append('senderType', senderType);
 
 
         fetch('../../config/customer/uploadImage.php', {

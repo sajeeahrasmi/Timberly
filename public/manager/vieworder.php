@@ -393,7 +393,7 @@ include '../../api/ViewOrderDetails.php';
                     <h2>Order Information</h2>
                     <p><strong>Date:</strong> <?php echo htmlspecialchars($orderDetails['date'] ?? 'N/A'); ?></p>
                     <p><strong>Status:</strong> <span class="status-badge"><?php echo htmlspecialchars($orderDetails['orderStatus'] ?? 'N/A'); ?></span></p>
-                    <p><strong>Total:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'], 2); ?></p>
+                    <p><strong>Total:</strong> Rs.<?php echo number_format($orderDetails['totalAmount'] ?? 0, 2); ?></p>
                 </div>
                 
                 <div class="info-card">

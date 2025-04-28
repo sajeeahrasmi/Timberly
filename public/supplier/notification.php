@@ -28,7 +28,7 @@ if (!isset($_SESSION['userId']) || $_SESSION['role'] !== 'supplier') {
     <div class="body-content" id="main-content">
         <div id="notification-overlay" class="notification-overlay hidden">
             <div class="notification-card">
-                <h2>🔔 Notifications</h2>
+                <h2> Notifications</h2>
                 <ul id="notification-list"></ul>
                 <button onclick="closeNotification()">Close</button>
             </div>

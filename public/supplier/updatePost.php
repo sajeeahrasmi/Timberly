@@ -37,28 +37,28 @@
 
                 <?php if ($category === 'Lumber'): ?>
                     <div class="form-group">
-                        <label>Length (m):</label>
-                        <input type="number" name="length" value="<?php echo htmlspecialchars($length); ?>" required>
+                        <label>Length (1m-5m):</label>
+                        <input type="number" name="length" step="0.01" min="1" max="5" value="<?php echo htmlspecialchars($length); ?>" required>
 
-                        <label>Width (mm):</label>
-                        <input type="number" name="width" value="<?php echo htmlspecialchars($width); ?>" required>
+                        <label>Width (50mm-150mm):</label>
+                        <input type="number" name="width" min="50" max="150" value="<?php echo htmlspecialchars($width); ?>" required>
 
-                        <label>Height (mm):</label>
-                        <input type="number" name="height" value="<?php echo htmlspecialchars($height); ?>" required>
+                        <label>Thickness (12mm-50mm):</label>
+                        <input type="number" name="thickness" min="12" max="50" value="<?php echo htmlspecialchars($height); ?>" required>
                     </div>
                 <?php else: ?>
                     <div class="form-group">
-                        <label>Diameter (inches):</label>
-                        <input type="number" name="diameter" value="<?php echo htmlspecialchars($diameter); ?>" required>
+                        <label>Diameter (150mm-450mm):</label>
+                        <input type="number" name="diameter" min="150" max="450" value="<?php echo htmlspecialchars($diameter); ?>" required>
                     </div>
                 <?php endif; ?>
 
                 <div class="form-group">
                     <label>Quantity:</label>
-                    <input type="number" name="quantity" value="<?php echo htmlspecialchars($quantity); ?>" required>
+                    <input type="number" name="quantity" min="1" value="<?php echo htmlspecialchars($quantity); ?>" required>
 
                     <label>Price per Unit (LKR):</label>
-                    <input type="number" name="price" value="<?php echo htmlspecialchars($price); ?>" required>
+                    <input type="number" name="price" min="1" value="<?php echo htmlspecialchars($price); ?>" required>
                 </div>
 
                 <div class="form-group">
@@ -83,4 +83,6 @@
 </div>
 
 </body>
+
+<script src="scripts/updatePost.js"></script>
 </html>
