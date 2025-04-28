@@ -40,6 +40,16 @@ document.getElementById("add-item").addEventListener("click", function (e) {
     let imagePath = "";
     let description = "";
 
+    if (!category || !type || !qty || !length || !width || !thickness) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    if(!isSelectDesign || !isInputDesign){
+        alert("Please input or select a design");
+        return;
+    }
+
     if (isSelectDesign) {
         const selectedImg = document.getElementById("selected-design");
         imagePath = selectedImg.src;
@@ -56,6 +66,8 @@ document.getElementById("add-item").addEventListener("click", function (e) {
         }
     }
 
+
+
     if (!category || !type || !qty || !length || !width || !thickness) {
         alert("Please fill out all fields.");
         return;
@@ -67,19 +79,21 @@ document.getElementById("add-item").addEventListener("click", function (e) {
     }
 
     if (length < 1 || length > 5) {
-        alert("Length should be between 1 and 5.");
+        alert("Length should be between 1 and 5 m.");
         return;
     }
 
-    if (width < 1 || width > 1500) {
-        alert("Width should be between 1 and 1500.");
+    if (width < 10 || width > 1500) {
+        alert("Width should be between 10 and 1500 mm.");
         return;
     }
 
-    if (thickness < 1 || thickness > 50) {
-        alert("Thickness should be between 1 and 50.");
+    if (thickness < 10 || thickness > 50) {
+        alert("Thickness should be between 10 and 50 mm.");
         return;
     }
+
+    
 
     // Create and append the card
     const cardGrid = document.querySelector(".order-list");

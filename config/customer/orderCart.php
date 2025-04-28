@@ -195,7 +195,7 @@ function placeOrder() {
 
         while ($row = $result->fetch_assoc()) {
             $insertStmt->bind_param(
-                "iisiisd",
+                "iisissd",
                 $orderId,
                 $row['productId'],
                 $row['type'],

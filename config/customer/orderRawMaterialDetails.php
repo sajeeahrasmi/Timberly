@@ -63,6 +63,30 @@ function addItem() {
             throw new Exception('Failed to insert into orderlumber table');
         }
 
+        $sumQuery = "SELECT SUM(ol.qty * l.unitPrice) AS newTotal
+            FROM orderLumber ol
+            JOIN lumber l ON ol.itemId = l.lumberId
+            WHERE ol.orderId = ? AND ol.status != 'Not_Approved'
+        ";
+        $sumStmt = $conn->prepare($sumQuery);
+        $sumStmt->bind_param("i", $orderId);
+        $sumStmt->execute();
+        $sumResult = $sumStmt->get_result();
+        $row = $sumResult->fetch_assoc();
+        $newTotal = $row['newTotal'];
+
+        if ($newTotal === null) {
+            throw new Exception("Could not calculate new total");
+        }
+
+        $updateOrderQuery = "UPDATE orders SET totalAmount = ? WHERE orderId = ?";
+        $updateStmt = $conn->prepare($updateOrderQuery);
+        $updateStmt->bind_param("di", $newTotal, $orderId);
+
+        if (!$updateStmt->execute()) {
+            throw new Exception("Failed to update total amount");
+        }
+
         mysqli_commit($conn);
 
         echo json_encode(['success' => true]);

@@ -24,14 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
     function updateButtonsBasedOnStatus(status) {
-       
+    //    status = 'Delivered'
         editBtn.disabled = true;
         viewLocationBtn.disabled = true;
         leaveReviewBtn.disabled = true;
 
-        if (status === "Pending" || status === "Approved") {
-            editBtn.disabled = false;
-            
+        if (status === "Pending" ) {
+            editBtn.disabled = false;           
+        }else if (status === "Approved") {
+            editBtn.disabled = true;
         } else if (status === "Finished") {
             viewLocationBtn.disabled = false;
         } else if (status === "Delivered") {
@@ -68,8 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
 async function updateQuantity(orderId, itemId, maxQty){
     const newQty = document.getElementById('edit-qty').value;
 
+    if(newQty < 1){
+        alert("Quantity should be greater than 0");
+        return;
+    }
+
     if (newQty > maxQty) {
         alert(`Quantity should be less than ${maxQty}`);
+        return;
     }else{
         try{
             const response = await fetch(`../../config/customer/fetchRawMaterialDetails.php?action=updateQty&orderId=${orderId}&itemId=${itemId}&qty=${newQty}`);
@@ -77,6 +84,7 @@ async function updateQuantity(orderId, itemId, maxQty){
 
             if(data.success){
                 alert("Successfully updated the quantity");
+                location.reload();
             }else{
                 alert("Couldnt update quantity");
             }

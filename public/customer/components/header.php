@@ -41,7 +41,7 @@ $name = $row['name'] ?? '';
         <div class="user-profile">
             <span><i class="fa-solid fa-cart-shopping" onclick="window.location.href=`http://localhost/Timberly/public/customer/orderCart.php`"></i></span>
             <span><i class="fa-regular fa-bell" onclick="window.location.href=`http://localhost/Timberly/public/customer/notification.php`"></i></span>
-            <span style="display: flex;" onclick="window.location.href=`http://localhost/Timberly/public/customer/customerProfile.html`"><i class="fa-regular fa-user" ></i><h5>Profile</h5></span>
+            <span style="display: flex;" onclick="window.location.href=`http://localhost/Timberly/public/customer/customerProfile.php`"><i class="fa-regular fa-user" ></i><h5>Profile</h5></span>
         </div>
     </header>
     

@@ -88,6 +88,11 @@ async function addItem(productId, orderId) {
         return;
     }
 
+    if(qty < 1 || qty > 20){
+        alert("Quantity should be between 1 and 20")
+        return
+    }
+
     try {
         
         const response = await fetch(`../../config/customer/updateFurnitureOrder.php?action=addItem&furnitureId=${productId}&orderId=${orderId}&type=${type}&qty=${qty}&size=${size}&details=${details}`);
@@ -95,6 +100,7 @@ async function addItem(productId, orderId) {
 
         if (data.success) {
             alert(`Item added successfully!`);
+            location.reload();
         } else {
             alert(`Error: ${data.error}`);
         }
@@ -121,6 +127,7 @@ async function deleteItem(id, orderId) {
 
         if (data.success) {
             alert("Item deleted successfully");
+            location.reload();
             
         } else {
             alert("Failed to delete the item: " + data.error);
@@ -159,6 +166,11 @@ async function filterItems(params) {
 async function changeDate(orderId) {
     const currentDateStr = document.getElementById("currentDateDriver").textContent.trim();
     const newDateStr = document.getElementById("newDateInputDriver").value;
+
+    if (!currentDateStr) {
+        alert("Current date is missing. Cannot update.");
+        return;
+    }
 
     if (!newDateStr) {
         alert("Please select a date.");
